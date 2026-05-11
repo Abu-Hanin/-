@@ -7,33 +7,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* جميع الأنماط (CSS) كما هي، لم يتغير أي شيء */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAECEF; line-height: 1.5; overflow-x: hidden; position: relative; }
         ::-webkit-scrollbar { width: 6px; height: 4px; }
         ::-webkit-scrollbar-track { background: #1E2329; }
         ::-webkit-scrollbar-thumb { background: #F0B90B; border-radius: 10px; }
         
-        .menu-button { position: absolute; top: 25px; right: 25px; z-index: 1000; background: #1E2329; border: 1px solid rgba(240, 185, 11, 0.3); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.5rem; color: #F0B90B; }
-        .menu-button:hover { background: #2EBD85; color: #0B0E11; transform: scale(1.05); }
-        .dropdown-menu { position: absolute; top: 80px; right: 25px; background: #1E2329; border-radius: 20px; padding: 0.5rem 0; width: 200px; z-index: 1001; display: none; flex-direction: column; border: 1px solid rgba(240, 185, 11, 0.3); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        .dropdown-menu a { padding: 10px 20px; color: #EAECEF; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-        .dropdown-menu a i { width: 24px; color: #F0B90B; }
-        .dropdown-menu a:hover { background: rgba(46, 189, 133, 0.2); color: #2EBD85; }
-        .show-dropdown { display: flex; }
+        /* زر القائمة - ثابت في أعلى الصفحة */
+        .menu-button {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: #1E2329;
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.5rem;
+            color: #F0B90B;
+        }
+        .menu-button:hover {
+            background: #2EBD85;
+            color: #0B0E11;
+            transform: scale(1.05);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 80px;
+            right: 25px;
+            background: #1E2329;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            width: 200px;
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .dropdown-menu a {
+            padding: 10px 20px;
+            color: #EAECEF;
+            text-decoration: none;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        .dropdown-menu a i {
+            width: 24px;
+            color: #F0B90B;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(46, 189, 133, 0.2);
+            color: #2EBD85;
+        }
+        .show-dropdown {
+            display: flex;
+        }
         
-        .payment-method-btn { background: #2EBD85; border: none; padding: 8px 20px; font-size: 0.85rem; font-weight: 700; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; margin-top: 0.5rem; }
-        .payment-method-btn:hover { background: #22a06f; transform: scale(0.98); }
+        .payment-method-btn {
+            background: #2EBD85;
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+        .payment-method-btn:hover {
+            background: #22a06f;
+            transform: scale(0.98);
+        }
         
-        .overlay-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0B0E11; z-index: 1100; overflow-y: auto; padding: 2rem; display: none; }
-        .overlay-container { max-width: 1000px; margin: 0 auto; background: #1E2329; border-radius: 32px; padding: 2rem; border: 1px solid rgba(240, 185, 11, 0.2); }
-        .overlay-container h1 { color: #F0B90B; margin-bottom: 1rem; font-size: 2rem; }
-        .overlay-container h2 { color: #2EBD85; margin: 1.5rem 0 0.8rem; font-size: 1.4rem; border-right: 4px solid #F0B90B; padding-right: 15px; }
-        .overlay-container p, .overlay-container li { line-height: 1.8; color: #ddd; margin-bottom: 0.8rem; }
-        .overlay-container ul { list-style: none; padding-right: 1rem; }
-        .overlay-container ul li { margin-bottom: 0.5rem; position: relative; padding-right: 1.5rem; }
-        .overlay-container ul li::before { content: "•"; color: #F0B90B; font-weight: bold; position: absolute; right: 0; }
+        /* صفحات الشروط وطرق الدفع (overlay) */
+        .overlay-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0B0E11;
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 2rem;
+            display: none;
+        }
+        .overlay-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1E2329;
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid rgba(240, 185, 11, 0.2);
+        }
+        .overlay-container h1 {
+            color: #F0B90B;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .overlay-container h2 {
+            color: #2EBD85;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.4rem;
+            border-right: 4px solid #F0B90B;
+            padding-right: 15px;
+        }
+        .overlay-container p, .overlay-container li {
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+        }
+        .overlay-container ul {
+            list-style: none;
+            padding-right: 1rem;
+        }
+        .overlay-container ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        .overlay-container ul li::before {
+            content: "•";
+            color: #F0B90B;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
         
+        /* تنسيق صفحة طرق الدفع */
         .payment-categories { display: flex; flex-direction: column; gap: 2rem; margin-top: 1rem; }
         .payment-category { background: #0B0E11; border-radius: 28px; padding: 1.2rem; border: 1px solid rgba(240, 185, 11, 0.2); transition: 0.2s; }
         .payment-category h3 { color: #F0B90B; font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px dashed rgba(240, 185, 11, 0.3); padding-bottom: 0.5rem; }
@@ -47,13 +161,44 @@
         .step-number { background: #F0B90B; color: #0B0E11; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; margin-bottom: 0.5rem; }
         .note-box { background: rgba(46, 189, 133, 0.1); border-right: 4px solid #2EBD85; padding: 0.8rem; border-radius: 20px; margin: 1rem 0; }
         
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 14, 17, 0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); transition: opacity 0.5s ease; opacity: 1; }
-        .welcome-card { background: linear-gradient(135deg, #1E2329, #0B0E11); padding: 2rem 3rem; border-radius: 60px; text-align: center; border: 2px solid #F0B90B; box-shadow: 0 0 30px rgba(240, 185, 11, 0.3); animation: pulse 1.5s infinite; }
+        /* شعار الترحيب المؤقت */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 14, 17, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            transition: opacity 0.5s ease;
+            opacity: 1;
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, #1E2329, #0B0E11);
+            padding: 2rem 3rem;
+            border-radius: 60px;
+            text-align: center;
+            border: 2px solid #F0B90B;
+            box-shadow: 0 0 30px rgba(240, 185, 11, 0.3);
+            animation: pulse 1.5s infinite;
+        }
         .welcome-card h2 { font-size: 2.5rem; font-weight: 800; color: #F0B90B; margin-bottom: 0.5rem; }
         .welcome-card p { font-size: 1rem; color: #2EBD85; }
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(240, 185, 11, 0.4); } 70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(240, 185, 11, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(240, 185, 11, 0); } }
-        @media (max-width: 600px) { .welcome-card h2 { font-size: 1.5rem; } .welcome-card { padding: 1.2rem 1.5rem; } }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(240, 185, 11, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(240, 185, 11, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(240, 185, 11, 0); }
+        }
+        @media (max-width: 600px) {
+            .welcome-card h2 { font-size: 1.5rem; }
+            .welcome-card { padding: 1.2rem 1.5rem; }
+        }
         
+        /* باقي الكود الأصلي مع تعديل حجم الأيقونات */
         .container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem 2rem; position: relative; }
         @media (max-width: 768px) { .container { padding: 1.2rem 1rem 2rem; } }
         .header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(240, 185, 11, 0.2); padding-bottom: 1rem; }
@@ -69,6 +214,7 @@
         .promo-text { font-size: 1rem; font-weight: 600; line-height: 1.6; margin-bottom: 1rem; }
         .promo-text span { color: #F0B90B; }
         .platform-icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
+        /* تعديل حجم الأيقونات حسب الطلب */
         .icon-circle { background: #1E2329; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #F0B90B; transition: all 0.2s ease; border: 1px solid rgba(240, 185, 11, 0.3); cursor: pointer; }
         .icon-circle:hover { transform: translateY(-3px); background: #2EBD85; color: #0B0E11; border-color: #2EBD85; }
         .platform-section { margin-bottom: 2.8rem; scroll-margin-top: 80px; }
@@ -115,6 +261,7 @@
             .payment-methods-grid { grid-template-columns: 1fr; }
             .logo-text { font-size: 2.2rem; }
             .main-title { font-size: 1.3rem; }
+            .icon-circle { width: 44px; height: 44px; font-size: 1.3rem; } /* تصغير بسيط للهواتف */
         }
     </style>
 </head>
@@ -192,22 +339,19 @@
 </div>
 
 <script>
-    // ================= نظام العدادات المحسّن (localStorage) =================
-    // يعمل فوراً ويزيد عند كل جلسة جديدة وعند كل ضغط شراء.
+    // -------------------- نظام العدادات المحلي (localStorage) كما كان سابقاً --------------------
+    const STORAGE_USERS = 'smcole_total_users';
+    const STORAGE_ORDERS = 'smcole_total_orders';
+    const SESSION_COUNTED_KEY = 'smcole_session_counted';
 
-    const STORAGE_USERS = 'smcole_total_users_final';
-    const STORAGE_ORDERS = 'smcole_total_orders_final';
-    const SESSION_COUNTED_KEY = 'smcole_session_counted_final';
+    function getStoredNumber(key, defaultValue) {
+        let val = localStorage.getItem(key);
+        if (val !== null && !isNaN(parseInt(val))) return parseInt(val);
+        return defaultValue;
+    }
 
-    // جلب القيمة المخزنة أو تعيين قيمة ابتدائية 1248 و 3567
-    let totalUsers = localStorage.getItem(STORAGE_USERS);
-    if (totalUsers === null || isNaN(parseInt(totalUsers))) totalUsers = 1248;
-    else totalUsers = parseInt(totalUsers);
-
-    let totalOrders = localStorage.getItem(STORAGE_ORDERS);
-    if (totalOrders === null || isNaN(parseInt(totalOrders))) totalOrders = 3567;
-    else totalOrders = parseInt(totalOrders);
-
+    let totalUsers = getStoredNumber(STORAGE_USERS, 1248);
+    let totalOrders = getStoredNumber(STORAGE_ORDERS, 3567);
     const usersSpan = document.getElementById('usersCount');
     const ordersSpan = document.getElementById('ordersCount');
 
@@ -215,31 +359,29 @@
     function updateUI() {
         usersSpan.innerText = formatNumber(totalUsers);
         ordersSpan.innerText = formatNumber(totalOrders);
-        // حفظ القيم في localStorage بشكل مستمر
         localStorage.setItem(STORAGE_USERS, totalUsers);
         localStorage.setItem(STORAGE_ORDERS, totalOrders);
     }
 
-    // تسجيل مستخدم جديد: يزيد العدد فقط إذا كانت هذه الجلسة لم تُحتسب من قبل
     function registerNewUser() {
+        // التحقق من الجلسة الحالية: إذا تم عد هذه الجلسة من قبل نخرج
         if (sessionStorage.getItem(SESSION_COUNTED_KEY) === 'true') return;
         totalUsers += 1;
         sessionStorage.setItem(SESSION_COUNTED_KEY, 'true');
         updateUI();
     }
 
-    // تسجيل طلب مكتمل: يزيد العدد فوراً عند الضغط على شراء الآن
     function registerNewOrder() {
         totalOrders += 1;
         updateUI();
     }
 
-    // تحديث الواجهة عند تحميل الصفحة وتسجيل الزائر الجديد
-    updateUI();
+    // تسجيل الزائر الجديد
     registerNewUser();
+    updateUI();
 
-    // -------------------- باقي الكود (لم يتغير) --------------------
-    // إخفاء شعار الترحيب بعد 2000 مللي ثانية (ثانيتين بالضبط)
+    // -------------------- باقي الكود (شاشة الترحيب، القوائم، الخدمات، إلخ) --------------------
+    // تقليل مدة ظهور شعار الترحيب إلى ثانيتين بالضبط
     setTimeout(() => {
         const overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
@@ -247,7 +389,7 @@
             overlay.style.opacity = '0';
             setTimeout(() => { overlay.style.display = 'none'; }, 600);
         }
-    }, 2000);  // تم التعديل من 3000 إلى 2000
+    }, 2000); // 2000 مللي ثانية = ثانيتين
 
     const menuBtn = document.getElementById('menuButton');
     const dropdown = document.getElementById('dropdownMenu');
@@ -305,7 +447,7 @@
     const BASE_WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
     function encodeMsg(msg) { return encodeURIComponent(msg); }
 
-    // بيانات المنصات (كما هي مع ترتيب المتابعين من الأقل للأعلى)
+    // دالة ترتيب خدمات المتابعين (لا تتغير)
     function sortFollowers(services) {
         const followers = services.filter(s => (s.name.includes("متابع") || s.name.includes("مشترك")) && !s.name.includes("مشاهدات") && !s.name.includes("لايك") && !s.name.includes("تعليق") && !s.name.includes("اعضاء"));
         const others = services.filter(s => !followers.includes(s));
@@ -313,7 +455,7 @@
         return [...followers, ...others];
     }
 
-    const platformData = {
+    const platformData = { /* نفس البيانات السابقة تماماً - لم تتغير */ 
         facebook: { id: 'facebook', title: '<i class="fab fa-facebook-f"></i> فيسبوك - خدمات الزيادة', services: sortFollowers([
             { name: "تزويد متابعين فيسبوك اجانب (بدون ضمان)", unit: "متابع", pricePerThousand: 35, guarantee: "بدون ضمان", icon: "fab fa-facebook-f" },
             { name: "تزويد متابعين فيسبوك عرب", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-facebook-f" },
@@ -449,7 +591,7 @@
             const res = updateTotal();
             if (!res) { alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit} ${service.unit}`); return; }
             let message = `📋 طلب شراء خدمة : ${service.name}\n📊 الكمية المطلوبة : ${res.quantity.toLocaleString()} ${service.unit}\n💰 السعر الإجمالي : ${res.totalPrice} جنيه مصري\n🔗 رابط الهدف : ${link}\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
-            registerNewOrder();   // زيادة الطلبات فوراً
+            registerNewOrder();
             window.open(BASE_WA_URL + encodeMsg(message), '_blank');
         });
         card.appendChild(calcDiv);
