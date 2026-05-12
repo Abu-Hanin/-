@@ -7,33 +7,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* جميع الأنماط (CSS) كما هي - لم نغير أي شيء */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAECEF; line-height: 1.5; overflow-x: hidden; position: relative; }
         ::-webkit-scrollbar { width: 6px; height: 4px; }
         ::-webkit-scrollbar-track { background: #1E2329; }
         ::-webkit-scrollbar-thumb { background: #F0B90B; border-radius: 10px; }
         
-        .menu-button { position: absolute; top: 25px; right: 25px; z-index: 1000; background: #1E2329; border: 1px solid rgba(240, 185, 11, 0.3); border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; font-size: 1.5rem; color: #F0B90B; }
-        .menu-button:hover { background: #2EBD85; color: #0B0E11; transform: scale(1.05); }
-        .dropdown-menu { position: absolute; top: 80px; right: 25px; background: #1E2329; border-radius: 20px; padding: 0.5rem 0; width: 200px; z-index: 1001; display: none; flex-direction: column; border: 1px solid rgba(240, 185, 11, 0.3); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        .dropdown-menu a { padding: 10px 20px; color: #EAECEF; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-        .dropdown-menu a i { width: 24px; color: #F0B90B; }
-        .dropdown-menu a:hover { background: rgba(46, 189, 133, 0.2); color: #2EBD85; }
-        .show-dropdown { display: flex; }
+        /* زر القائمة - ثابت في أعلى الصفحة */
+        .menu-button {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+            background: #1E2329;
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1.5rem;
+            color: #F0B90B;
+        }
+        .menu-button:hover {
+            background: #2EBD85;
+            color: #0B0E11;
+            transform: scale(1.05);
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 80px;
+            right: 25px;
+            background: #1E2329;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            width: 200px;
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+        .dropdown-menu a {
+            padding: 10px 20px;
+            color: #EAECEF;
+            text-decoration: none;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        .dropdown-menu a i {
+            width: 24px;
+            color: #F0B90B;
+        }
+        .dropdown-menu a:hover {
+            background: rgba(46, 189, 133, 0.2);
+            color: #2EBD85;
+        }
+        .show-dropdown {
+            display: flex;
+        }
         
-        .payment-method-btn { background: #2EBD85; border: none; padding: 8px 20px; font-size: 0.85rem; font-weight: 700; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; margin-top: 0.5rem; }
-        .payment-method-btn:hover { background: #22a06f; transform: scale(0.98); }
+        .payment-method-btn {
+            background: #2EBD85;
+            border: none;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+        }
+        .payment-method-btn:hover {
+            background: #22a06f;
+            transform: scale(0.98);
+        }
         
-        .overlay-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0B0E11; z-index: 1100; overflow-y: auto; padding: 2rem; display: none; }
-        .overlay-container { max-width: 1000px; margin: 0 auto; background: #1E2329; border-radius: 32px; padding: 2rem; border: 1px solid rgba(240, 185, 11, 0.2); }
-        .overlay-container h1 { color: #F0B90B; margin-bottom: 1rem; font-size: 2rem; }
-        .overlay-container h2 { color: #2EBD85; margin: 1.5rem 0 0.8rem; font-size: 1.4rem; border-right: 4px solid #F0B90B; padding-right: 15px; }
-        .overlay-container p, .overlay-container li { line-height: 1.8; color: #ddd; margin-bottom: 0.8rem; }
-        .overlay-container ul { list-style: none; padding-right: 1rem; }
-        .overlay-container ul li { margin-bottom: 0.5rem; position: relative; padding-right: 1.5rem; }
-        .overlay-container ul li::before { content: "•"; color: #F0B90B; font-weight: bold; position: absolute; right: 0; }
+        /* صفحات الشروط وطرق الدفع (overlay) */
+        .overlay-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0B0E11;
+            z-index: 1100;
+            overflow-y: auto;
+            padding: 2rem;
+            display: none;
+        }
+        .overlay-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1E2329;
+            border-radius: 32px;
+            padding: 2rem;
+            border: 1px solid rgba(240, 185, 11, 0.2);
+        }
+        .overlay-container h1 {
+            color: #F0B90B;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        .overlay-container h2 {
+            color: #2EBD85;
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.4rem;
+            border-right: 4px solid #F0B90B;
+            padding-right: 15px;
+        }
+        .overlay-container p, .overlay-container li {
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+        }
+        .overlay-container ul {
+            list-style: none;
+            padding-right: 1rem;
+        }
+        .overlay-container ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+        .overlay-container ul li::before {
+            content: "•";
+            color: #F0B90B;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+        }
         
+        /* تنسيق صفحة طرق الدفع */
         .payment-categories { display: flex; flex-direction: column; gap: 2rem; margin-top: 1rem; }
         .payment-category { background: #0B0E11; border-radius: 28px; padding: 1.2rem; border: 1px solid rgba(240, 185, 11, 0.2); transition: 0.2s; }
         .payment-category h3 { color: #F0B90B; font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px dashed rgba(240, 185, 11, 0.3); padding-bottom: 0.5rem; }
@@ -47,19 +161,20 @@
         .step-number { background: #F0B90B; color: #0B0E11; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; margin-bottom: 0.5rem; }
         .note-box { background: rgba(46, 189, 133, 0.1); border-right: 4px solid #2EBD85; padding: 0.8rem; border-radius: 20px; margin: 1rem 0; }
         
+        /* شعار الترحيب المؤقت */
         .welcome-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 14, 17, 0.96);
+            background: rgba(11, 14, 17, 0.95);
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(8px);
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
             opacity: 1;
         }
         .welcome-card {
@@ -83,6 +198,7 @@
             .welcome-card { padding: 1.2rem 1.5rem; }
         }
         
+        /* باقي الكود الأصلي مع التعديلات */
         .container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem 2rem; position: relative; }
         @media (max-width: 768px) { .container { padding: 1.2rem 1rem 2rem; } }
         .header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(240, 185, 11, 0.2); padding-bottom: 1rem; }
@@ -100,10 +216,13 @@
         .platform-icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
         .icon-circle { background: #1E2329; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #F0B90B; transition: all 0.2s ease; border: 1px solid rgba(240, 185, 11, 0.3); cursor: pointer; }
         .icon-circle:hover { transform: translateY(-3px); background: #2EBD85; color: #0B0E11; border-color: #2EBD85; }
+        .icon-circle:active { transform: scale(0.95); background: #1a734a; color: white; }
+        @media (max-width: 600px) { .icon-circle { width: 44px; height: 44px; font-size: 1.3rem; } }
         .platform-section { margin-bottom: 2.8rem; scroll-margin-top: 80px; }
         .platform-header { display: flex; justify-content: space-between; align-items: center; margin: 1rem 0 1rem; flex-wrap: wrap; }
         .platform-title { font-size: 1.2rem; font-weight: 700; padding-right: 0.8rem; border-right: 5px solid #F0B90B; display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, rgba(240,185,11,0.1), transparent); padding: 0.2rem 1rem 0.2rem 1.5rem; border-radius: 30px; }
         @media (max-width: 600px) { .platform-title { font-size: 1rem; } }
+        .platform-title i { font-size: 1.2rem; color: #F0B90B; }
         .slider-nav { display: flex; gap: 10px; }
         .slider-btn { background: #1E2329; border: 1px solid #2EBD85; color: #2EBD85; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .slider-btn:hover { background: #2EBD85; color: #0B0E11; transform: scale(1.05); }
@@ -144,13 +263,11 @@
             .payment-methods-grid { grid-template-columns: 1fr; }
             .logo-text { font-size: 2.2rem; }
             .main-title { font-size: 1.3rem; }
-            .icon-circle { width: 44px; height: 44px; font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- شعار الترحيب المؤقت (يختفي بعد ثانيتين بالضبط) -->
 <div id="welcomeOverlay" class="welcome-overlay">
     <div class="welcome-card">
         <h2>ﷺ</h2>
@@ -158,19 +275,22 @@
     </div>
 </div>
 
-<div class="menu-button" id="menuButton"><i class="fas fa-bars"></i></div>
+<div class="menu-button" id="menuButton">
+    <i class="fas fa-bars"></i>
+</div>
 <div class="dropdown-menu" id="dropdownMenu">
     <a href="#" id="paymentLink"><i class="fas fa-credit-card"></i> طرق الدفع</a>
     <a href="#" id="termsLink"><i class="fas fa-file-alt"></i> شروط الخدمة</a>
 </div>
 
-<!-- بقية الصفحات (شروط الخدمة وطرق الدفع) - محتواها الكامل موجود -->
 <div id="termsPage" class="overlay-page">
     <div class="overlay-container">
         <h1>شروط الخدمة</h1>
         <p>أهلاً بك في SMCole! يسعدنا أن نقدّم لك شروط الخدمة الخاصة بمنصّتنا. يُرجى قراءتها بعناية قبل استخدام أيٍّ من خدماتنا، إذ تمثّل هذه الشروط العقد القانوني بينك وبيننا.</p>
-        <h2>الخدمات</h2><ul><li>يجب استخدام الموقع وفقًا لشروط وأحكام منصات التواصل الاجتماعي.</li><li>نحتفظ بحق إلغاء أي طلب يخالف القوانين أو الآداب العامة.</li><li>لا نضمن تسليمًا فوريًا، وقد تتأخر بعض الطلبات بناءً على حجم الطلب أو ضغط التنفيذ أو ظروف خارجية.</li><li>لا نتحمّل أي مسؤولية عن المشاكل الناتجة عن تحديثات أو تغييرات منصات التواصل الاجتماعي.</li><li>الأسعار قابلة للتغيير في أي وقت دون إشعار مسبق.</li><li>نحتفظ بحق تعديل أو إيقاف أي خدمة أو بند في الشروط دون إشعار مسبق.</li><li>يُمنع إساءة استخدام الموقع، وسنتخذ الإجراءات المناسبة ضد أي مخالفة.</li><li>في حال إنشاء طلبات متعددة لنفس الرابط، تتحمّل أنت المسؤولية الكاملة عن أي مشكلة قد تنتج.</li><li>نحن غير مسؤولين عن أي خسائر أو أضرار ناتجة عن تأخير في تنفيذ الطلبات.</li><li>لن يتم إعادة تعبئة الطلب إذا كان رقم البداية غير مطابق عند بدء التنفيذ.</li><li>يتحمّل العميل مسؤولية التأكد من صحة الرابط أو اسم المستخدم قبل إرسال الطلب.</li></ul>
-        <h2>آلية الطلب والدفع</h2><ul><li>يعتمد موقع SMCole على نظام عرض الخدمات وإنشاء الطلبات بشكل مباشر عبر الموقع، ثم التواصل مع مسؤول الطلبات أو فريق المبيعات عبر واتساب لإتمام عملية الدفع وتأكيد الطلب.</li><li>يبدأ تنفيذ الطلب فقط بعد تأكيد عملية الدفع بشكل كامل.</li><li>بمجرد تأكيد الدفع وبدء تجهيز الطلب، لا يمكن إلغاء الطلب أو تعديل البيانات الخاصة به.</li><li>يتحمّل العميل مسؤولية أي خطأ في البيانات أو الروابط التي تم إرسالها أثناء إنشاء الطلب.</li></ul>
+        <h2>الخدمات</h2>
+        <ul><li>يجب استخدام الموقع وفقًا لشروط وأحكام منصات التواصل الاجتماعي.</li><li>نحتفظ بحق إلغاء أي طلب يخالف القوانين أو الآداب العامة.</li><li>لا نضمن تسليمًا فوريًا، وقد تتأخر بعض الطلبات بناءً على حجم الطلب أو ضغط التنفيذ أو ظروف خارجية.</li><li>لا نتحمّل أي مسؤولية عن المشاكل الناتجة عن تحديثات أو تغييرات منصات التواصل الاجتماعي.</li><li>الأسعار قابلة للتغيير في أي وقت دون إشعار مسبق.</li><li>نحتفظ بحق تعديل أو إيقاف أي خدمة أو بند في الشروط دون إشعار مسبق.</li><li>يُمنع إساءة استخدام الموقع، وسنتخذ الإجراءات المناسبة ضد أي مخالفة.</li><li>في حال إنشاء طلبات متعددة لنفس الرابط، تتحمّل أنت المسؤولية الكاملة عن أي مشكلة قد تنتج.</li><li>نحن غير مسؤولين عن أي خسائر أو أضرار ناتجة عن تأخير في تنفيذ الطلبات.</li><li>لن يتم إعادة تعبئة الطلب إذا كان رقم البداية غير مطابق عند بدء التنفيذ.</li><li>يتحمّل العميل مسؤولية التأكد من صحة الرابط أو اسم المستخدم قبل إرسال الطلب.</li></ul>
+        <h2>آلية الطلب والدفع</h2>
+        <ul><li>يعتمد موقع SMCole على نظام عرض الخدمات وإنشاء الطلبات بشكل مباشر عبر الموقع، ثم التواصل مع مسؤول الطلبات أو فريق المبيعات عبر واتساب لإتمام عملية الدفع وتأكيد الطلب.</li><li>يبدأ تنفيذ الطلب فقط بعد تأكيد عملية الدفع بشكل كامل.</li><li>بمجرد تأكيد الدفع وبدء تجهيز الطلب، لا يمكن إلغاء الطلب أو تعديل البيانات الخاصة به.</li><li>يتحمّل العميل مسؤولية أي خطأ في البيانات أو الروابط التي تم إرسالها أثناء إنشاء الطلب.</li></ul>
         <h2>التزامات المستخدم</h2><ul><li>يجب استخدام الموقع فقط للأغراض المخصصة له، وعدم استغلاله في أي أنشطة غير مشروعة أو مخالفة للقوانين.</li><li>يُمنع استخدام الموقع للإضرار بالغير أو انتهاك سياسات منصات التواصل الاجتماعي.</li><li>يتحمّل المستخدم المسؤولية الكاملة عن جميع الطلبات والروابط والبيانات التي يقوم بإرسالها عبر الموقع.</li></ul>
         <h2>سياسة الاسترجاع</h2><ul><li>جميع المدفوعات التي تتم بعد التواصل مع مسؤول الطلبات عبر واتساب تعتبر نهائية وغير قابلة للاسترداد.</li><li>بمجرد تأكيد الدفع وتحويل الطلب للتنفيذ، لا يمكن استرجاع المبلغ المدفوع لأي سبب.</li><li>في حال حدوث تأخير بسبب ضغط الطلبات أو تحديثات المنصات، سيتم متابعة الطلب حتى اكتماله دون استرداد مالي.</li><li>لا يتحمّل موقع SMCole مسؤولية أي خسائر ناتجة عن الاستخدام الخاطئ للخدمات أو سوء إدخال البيانات.</li></ul>
         <h2>النشاط الاحتيالي</h2><ul><li>نأخذ مكافحة الاحتيال على محمل الجد. سيتم رفض أي طلب أو حظر أي مستخدم يشتبه في استخدامه وسائل دفع احتيالية أو بيانات غير صحيحة دون إشعار مسبق.</li><li>كما نؤكد أننا غير مسؤولين عن أي عمليات دفع تتم من خلال وسائل أو أرقام لا تعود ملكيتها للعميل، وأي مسؤولية قانونية تقع على عاتق المستخدم بالكامل.</li></ul>
@@ -198,16 +318,20 @@
     </div>
 </div>
 
-<!-- الصفحة الرئيسية -->
 <div class="container" id="mainContent">
-    <div class="header"><div class="logo-text">SMCOLE</div><h1 class="main-title">افضل وارخص موقع تزويد متابعين ومشاهدات</h1></div>
+    <div class="header">
+        <div class="logo-text">SMCOLE</div>
+        <h1 class="main-title">افضل وارخص موقع تزويد متابعين ومشاهدات</h1>
+    </div>
+    
     <div style="display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;">
         <div class="stats-row">
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><div class="stat-label">مستخدمين نشطين</div><div class="stat-number" id="usersCount">0</div></div></div>
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><div class="stat-label">طلبات مكتملة</div><div class="stat-number" id="ordersCount">0</div></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><div class="stat-label">مستخدمين نشطين</div><div class="stat-number" id="usersCount">---</div></div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div><div class="stat-info"><div class="stat-label">طلبات مكتملة</div><div class="stat-number" id="ordersCount">---</div></div></div>
         </div>
         <button class="payment-method-btn" id="paymentMethodBtn"><i class="fas fa-credit-card"></i> طرق الدفع</button>
     </div>
+    
     <div class="promo-section">
         <div class="promo-text">عايز تكبر على السوشيال ميديا وتوصل للشهرة؟<br>خدماتنا تساعدك على تحقيق نمو حقيقي وزيادة التفاعل بطريقة <span>احترافية وآمنة!</span></div>
         <div class="platform-icons">
@@ -229,121 +353,115 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // بيانات Supabase الخاصة بك
-    const SUPABASE_URL = "https://bqiryyoanqleobzlztbl.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA";
+    // إخفاء شعار الترحيب بعد ثانيتين
+    setTimeout(() => {
+        const overlay = document.getElementById('welcomeOverlay');
+        if (overlay) {
+            overlay.style.transition = 'opacity 0.6s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 600);
+        }
+    }, 2000);
 
-    let supabase;
+    // ---------- إعداد عدادات Supabase الحقيقية ----------
+    const supabaseUrl = 'https://bqiryyoanqleobzlztbl.supabase.co';
+    const supabaseKey = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
     const usersSpan = document.getElementById('usersCount');
     const ordersSpan = document.getElementById('ordersCount');
-    const welcomeOverlay = document.getElementById('welcomeOverlay');
 
-    // إخفاء شعار الترحيب بعد ثانيتين بالضبط
-    setTimeout(() => {
-        if (welcomeOverlay) {
-            welcomeOverlay.style.opacity = '0';
-            setTimeout(() => {
-                welcomeOverlay.style.display = 'none';
-            }, 600);
-        }
-    }, 2000); // 2000 مللي ثانية = ثانيتين
+    function formatNumber(num) { return num.toLocaleString('en-US'); }
 
-    // باقي الكود المتعلق بـ Supabase والعدادات
-    async function fetchAndUpdateCounters() {
-        try {
-            const { data: usersData } = await supabase
-                .from('active_users_counter')
-                .select('count')
-                .eq('id', 1)
-                .single();
-            const { data: ordersData } = await supabase
-                .from('orders_counter')
-                .select('count')
-                .eq('id', 1)
-                .single();
-            if (usersData) usersSpan.innerText = usersData.count.toLocaleString('en-US');
-            if (ordersData) ordersSpan.innerText = ordersData.count.toLocaleString('en-US');
-        } catch (error) {
-            console.error("Error fetching counters:", error);
-        }
+    function updateUI(users, orders) {
+        if (users !== undefined) usersSpan.innerText = formatNumber(users);
+        if (orders !== undefined) ordersSpan.innerText = formatNumber(orders);
     }
 
-    async function incrementUserCounter() {
-        if (sessionStorage.getItem('smcole_global_user_counted') === 'true') return;
-        try {
+    // دالة زيادة الطلبات (تعمل عند الضغط على زر شراء الآن)
+    function registerNewOrder() {
+        supabase.rpc('increment_orders');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        // جلب الأرقام من قاعدة البيانات فوراً عند تحميل الصفحة
+        const { data: usersData } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
+        const { data: ordersData } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
+        
+        updateUI(usersData?.count, ordersData?.count);
+
+        // احتساب الزائر لمرة واحدة فقط
+        if (!sessionStorage.getItem('smcole_visited_real')) {
             await supabase.rpc('increment_active_users');
-            sessionStorage.setItem('smcole_global_user_counted', 'true');
-            await fetchAndUpdateCounters();
-        } catch (error) {
-            console.error("Error incrementing user counter:", error);
+            sessionStorage.setItem('smcole_visited_real', 'true');
         }
-    }
 
-    async function incrementOrderCounter() {
-        try {
-            await supabase.rpc('increment_orders');
-            await fetchAndUpdateCounters();
-        } catch (error) {
-            console.error("Error incrementing order counter:", error);
-        }
-    }
-
-    window.registerNewOrder = incrementOrderCounter;
-    function registerNewOrder() { incrementOrderCounter(); }
-
-    async function initSupabaseAndSubscribe() {
-        if (!window.supabaseJs) {
-            setTimeout(initSupabaseAndSubscribe, 300);
-            return;
-        }
-        const { createClient } = window.supabaseJs;
-        supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        await fetchAndUpdateCounters();
-        
-        supabase
-            .channel('active_users_realtime')
-            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, () => fetchAndUpdateCounters())
+        // تفعيل Realtime للمزامنة المباشرة للأرقام أمام الجميع
+        supabase.channel('realtime-counters')
+            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => {
+                updateUI(payload.new.count, undefined);
+            })
+            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, (payload) => {
+                updateUI(undefined, payload.new.count);
+            })
             .subscribe();
-        
-        supabase
-            .channel('orders_realtime')
-            .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, () => fetchAndUpdateCounters())
-            .subscribe();
-        
-        await incrementUserCounter();
-    }
+    });
 
-    initSupabaseAndSubscribe();
-
-    // جميع الوظائف الأخرى (القوائم، البطاقات، السلايدر) كما هي دون تغيير
+    // ---------- التنقل بين الصفحات ----------
     const menuBtn = document.getElementById('menuButton');
     const dropdown = document.getElementById('dropdownMenu');
-    const termsPageDiv = document.getElementById('termsPage');
-    const paymentPageDiv = document.getElementById('paymentPage');
-    const mainContentDiv = document.getElementById('mainContent');
+    const termsPage = document.getElementById('termsPage');
+    const paymentPage = document.getElementById('paymentPage');
+    const mainContent = document.getElementById('mainContent');
+    
     const termsLink = document.getElementById('termsLink');
     const paymentLink = document.getElementById('paymentLink');
     const paymentMethodBtn = document.getElementById('paymentMethodBtn');
+
     let currentState = 'home';
+
     function showPage(pageToShow) {
-        mainContentDiv.style.display = 'none';
-        termsPageDiv.style.display = 'none';
-        paymentPageDiv.style.display = 'none';
+        mainContent.style.display = 'none';
+        termsPage.style.display = 'none';
+        paymentPage.style.display = 'none';
         pageToShow.style.display = 'block';
         dropdown.classList.remove('show-dropdown');
-        if (pageToShow === termsPageDiv) { history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms'); currentState = 'terms'; }
-        else if (pageToShow === paymentPageDiv) { history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment'); currentState = 'payment'; }
-        else { if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' '); currentState = 'home'; }
+        
+        if (pageToShow === termsPage) {
+            history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms');
+            currentState = 'terms';
+        } else if (pageToShow === paymentPage) {
+            history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment');
+            currentState = 'payment';
+        } else {
+            if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
+            currentState = 'home';
+        }
     }
-    function showHomePage() { if (currentState === 'home') return; mainContentDiv.style.display = 'block'; termsPageDiv.style.display = 'none'; paymentPageDiv.style.display = 'none'; if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' '); currentState = 'home'; }
-    window.addEventListener('popstate', function(event) { if (event.state && event.state.page === 'terms') showPage(termsPageDiv); else if (event.state && event.state.page === 'payment') showPage(paymentPageDiv); else showHomePage(); });
+    
+    function showHomePage() {
+        if (currentState === 'home') return;
+        mainContent.style.display = 'block';
+        termsPage.style.display = 'none';
+        paymentPage.style.display = 'none';
+        if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
+        currentState = 'home';
+    }
+
+    window.addEventListener('popstate', function(event) {
+        if (event.state && event.state.page === 'terms') showPage(termsPage);
+        else if (event.state && event.state.page === 'payment') showPage(paymentPage);
+        else showHomePage();
+    });
+
     menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
     document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
-    paymentLink.addEventListener('click', (e) => { e.preventDefault(); showPage(paymentPageDiv); });
-    termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPageDiv); });
-    paymentMethodBtn.addEventListener('click', () => { showPage(paymentPageDiv); });
-    
+
+    paymentLink.addEventListener('click', (e) => { e.preventDefault(); showPage(paymentPage); });
+    termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPage); });
+    paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage); });
+
+    // ربط الأيقونات بالأقسام
     const iconCircles = document.querySelectorAll('.icon-circle');
     iconCircles.forEach(icon => {
         icon.addEventListener('click', function(e) {
@@ -352,16 +470,20 @@
             this.style.color = '#0B0E11';
             setTimeout(() => { this.style.backgroundColor = ''; this.style.color = ''; }, 200);
             const targetId = this.getAttribute('data-target');
-            if (targetId) { const targetSection = document.getElementById(`section-${targetId}`); if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            if (targetId) {
+                const targetSection = document.getElementById(`section-${targetId}`);
+                if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
             showHomePage();
         });
     });
 
+    // ---------- خدمات الواتساب ----------
     const WHATSAPP_NUMBER = "201154846407";
     const BASE_WA_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
     function encodeMsg(msg) { return encodeURIComponent(msg); }
-
-    // دالة ترتيب خدمات المتابعين
+    
+    // ---------- بيانات المنصات مع ترتيب خدمات المتابعين من الأقل للأعلى ----------
     function sortFollowers(services) {
         const followers = services.filter(s => (s.name.includes("متابع") || s.name.includes("مشترك")) && !s.name.includes("مشاهدات") && !s.name.includes("لايك") && !s.name.includes("تعليق") && !s.name.includes("اعضاء"));
         const others = services.filter(s => !followers.includes(s));
@@ -370,111 +492,164 @@
     }
 
     const platformData = {
-        facebook: { id: 'facebook', title: '<i class="fab fa-facebook-f"></i> فيسبوك - خدمات الزيادة', services: sortFollowers([
-            { name: "تزويد متابعين فيسبوك اجانب (بدون ضمان)", unit: "متابع", pricePerThousand: 35, guarantee: "بدون ضمان", icon: "fab fa-facebook-f" },
-            { name: "تزويد متابعين فيسبوك عرب", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-facebook-f" },
-            { name: "تزويد متابعين فيسبوك مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-facebook-f" },
-            { name: "تزويد متابعين فيسبوك مصريين (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-facebook-f" },
-            { name: "تزويد متابعين فيسبوك ميكس عرب وأجانب", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-facebook-f" },
-            { name: "تزويد متابعين فيسبوك رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-facebook-f" },
-            { name: "تزويد مشاهدات فيسبوك (فيديو/ريلز)", unit: "مشاهدة", pricePerThousand: 60, guarantee: null, icon: "fas fa-play-circle" },
-            { name: "تزويد لايكات فيسبوك (صور/فيديو)", unit: "لايك", pricePerThousand: 60, guarantee: null, icon: "fas fa-thumbs-up" },
-            { name: "تزويد لايكات فيسبوك مصريين ميكس", unit: "لايك", pricePerThousand: 120, guarantee: null, icon: "fas fa-thumbs-up" },
-            { name: "تزويد لايكات فيسبوك أجانب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" },
-            { name: "تزويد تعليقات فيسبوك مصريين", unit: "تعليق", pricePerThousand: 1000, guarantee: null, icon: "fas fa-comments", isComment: true },
-            { name: "تزويد تعليقات فيسبوك مصريين وعرب", unit: "تعليق", pricePerThousand: 650, guarantee: null, icon: "fas fa-comments", isComment: true },
-            { name: "تزويد مشاهدات فيسبوك مصريين وعرب", unit: "مشاهدة", pricePerThousand: 65, guarantee: null, icon: "fas fa-eye" },
-            { name: "تزويد لايك لتعليق فيسبوك", unit: "لايك", pricePerThousand: 120, guarantee: null, icon: "fas fa-thumbs-up" },
-            { name: "تزويد مشاهدات بث مباشر فيسبوك", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" }
-        ]) },
-        instagram: { id: 'instagram', title: '<i class="fab fa-instagram"></i> انستقرام - تفاعل ومتابعين', services: sortFollowers([
-            { name: "تزويد متابع انستقرام رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-instagram" },
-            { name: "تزويد متابعين انستقرام مصريين (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-instagram" },
-            { name: "تزويد متابعين انستقرام مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-instagram" },
-            { name: "تزويد متابعين انستقرام عرب (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-instagram" },
-            { name: "تزويد مشاهدات انستقرام (ستوري/ريلز)", unit: "مشاهدة", pricePerThousand: 60, guarantee: null, icon: "fas fa-eye" },
-            { name: "تزويد لايكات انستقرام مصريين", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-heart" },
-            { name: "تزويد لايكات انستقرام عرب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-heart" },
-            { name: "تزويد تعليقات انستقرام مصريين وعرب", unit: "تعليق", pricePerThousand: 99, guarantee: null, icon: "fas fa-comment", isComment: true },
-            { name: "تزويد مشاهدات انستقرام مصريين وعرب", unit: "مشاهدة", pricePerThousand: 15, guarantee: null, icon: "fas fa-eye" }
-        ]) },
-        tiktok: { id: 'tiktok', title: '<i class="fab fa-tiktok"></i> تيك توك - نمو سريع', services: sortFollowers([
-            { name: "تزويد متابع تيك توك رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 75, guarantee: "بدون ضمان", icon: "fab fa-tiktok" },
-            { name: "تزويد متابعين تيك توك مصريين (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-tiktok" },
-            { name: "تزويد متابعين تيك توك أجانب", unit: "متابع", pricePerThousand: 110, guarantee: null, icon: "fab fa-tiktok" },
-            { name: "تزويد متابعين تيك توك مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-tiktok" },
-            { name: "تزويد متابعين تيك توك عرب (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-tiktok" },
-            { name: "تزويد مشاهدات تيك توك مصريين", unit: "مشاهدة", pricePerThousand: 20, guarantee: null, icon: "fas fa-fire" },
-            { name: "تزويد لايكات تيك توك مصريين", unit: "لايك", pricePerThousand: 20, guarantee: null, icon: "fas fa-heart" },
-            { name: "تزويد لايكات تيك توك أجانب", unit: "لايك", pricePerThousand: 60, guarantee: null, icon: "fas fa-heart" },
-            { name: "تزويد تعليقات تيك توك مصريين وعرب", unit: "تعليق", pricePerThousand: 60, guarantee: null, icon: "fas fa-comment", isComment: true },
-            { name: "تزويد تعليقات مصريين وعرب (ضمان 365 يوم)", unit: "تعليق", pricePerThousand: 110, guarantee: "ضمان 365 يوم", icon: "fas fa-comment-dots", isComment: true }
-        ]) },
-        youtube: { id: 'youtube', title: '<i class="fab fa-youtube"></i> يوتيوب - مشاهدات ومشتركين', services: sortFollowers([
-            { name: "تزويد متابع يوتيوب رخيص (بدون ضمان)", unit: "مشترك", pricePerThousand: 250, guarantee: "بدون ضمان", icon: "fab fa-youtube" },
-            { name: "تزويد مشتركين يوتيوب مصريين (عادي)", unit: "مشترك", pricePerThousand: 600, guarantee: null, icon: "fab fa-youtube" },
-            { name: "تزويد مشتركين يوتيوب مصريين (ضمان 30 يوم)", unit: "مشترك", pricePerThousand: 680, guarantee: "ضمان 30 يوم", icon: "fab fa-youtube" },
-            { name: "تزويد مشاهدات يوتيوب مصريين", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" },
-            { name: "تزويد لايكات يوتيوب مصريين", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" },
-            { name: "تزويد تعليقات يوتيوب مصريين وعرب", unit: "تعليق", pricePerThousand: 500, guarantee: null, icon: "fas fa-comment", isComment: true }
-        ]) },
-        telegram: { id: 'telegram', title: '<i class="fab fa-telegram"></i> تليجرام - قنوات ومتابعين', services: sortFollowers([
-            { name: "تزويد قناه تليجرام مصريين وعرب (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-telegram" },
-            { name: "تزويد قناه التليجرام مصريين وعرب (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-telegram" },
-            { name: "تزويد قناه التليجرام مصريين (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-telegram" },
-            { name: "تزويد لايكات تليجرام مصريين وعرب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" }
-        ]) },
-        twitter: { id: 'twitter', title: '<i class="fab fa-twitter"></i> تويتر (X) - خدمات تفاعل', services: sortFollowers([
-            { name: "تزويد متابعين تويتر (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-twitter" },
-            { name: "تزويد متابعين تويتر (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 120, guarantee: "ضمان 30 يوم", icon: "fab fa-twitter" },
-            { name: "تزويد متابعين تويتر (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 180, guarantee: "ضمان 365 يوم", icon: "fab fa-twitter" },
-            { name: "تزويد لايك منشور تويتر", unit: "لايك", pricePerThousand: 65, guarantee: null, icon: "fas fa-heart" },
-            { name: "تزويد مشاهدات تغريده تويتر (1000 بـ20)", unit: "مشاهدة", pricePerThousand: 20, guarantee: null, icon: "fas fa-eye" },
-            { name: "تزويد مشاهدات تغريده تويتر (1000 بـ10)", unit: "مشاهدة", pricePerThousand: 10, guarantee: null, icon: "fas fa-chart-line" }
-        ]) },
-        snapchat: { id: 'snapchat', title: '<i class="fab fa-snapchat"></i> سناب شات - متابعين ولايكات', services: sortFollowers([
-            { name: "تزويد متابعين سناب شات عرب (بدون ضمان)", unit: "متابع", pricePerThousand: 850, guarantee: "بدون ضمان", icon: "fab fa-snapchat" },
-            { name: "تزويد متابعين سناب شات عرب (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 1100, guarantee: "ضمان 30 يوم", icon: "fab fa-snapchat" },
-            { name: "تزويد لايكات سناب شات", unit: "لايك", pricePerThousand: 900, guarantee: null, icon: "fas fa-heart" }
-        ]) },
-        whatsapp: { id: 'whatsapp', title: '<i class="fab fa-whatsapp"></i> واتساب - قنوات ومتابعين', services: sortFollowers([
-            { name: "تزويد اعضاء قناه واتساب (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-whatsapp" },
-            { name: "تزويد اعضاء قناه واتساب (ضمان 60 يوم)", unit: "متابع", pricePerThousand: 120, guarantee: "ضمان 60 يوم", icon: "fab fa-whatsapp" },
-            { name: "تزويد لايكات منشور واتساب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" }
-        ]) },
-        twitch: { id: 'twitch', title: '<i class="fab fa-twitch"></i> تويتش - متابعين ومشاهدات', services: sortFollowers([
-            { name: "تزويد متابعين تويتش (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-twitch" },
-            { name: "تزويد متابعين تويتش (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 65, guarantee: "ضمان 30 يوم", icon: "fab fa-twitch" },
-            { name: "تزويد متابعين تويتش (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 99, guarantee: "ضمان 365 يوم", icon: "fab fa-twitch" },
-            { name: "تزويد مشاهدات فيديو تويتش", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" },
-            { name: "تزويد مشاهدات بث مباشر تويتش", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-tv" }
-        ]) }
+        facebook: { id: 'facebook', title: '<i class="fab fa-facebook-f"></i> فيسبوك - خدمات الزيادة',
+            services: sortFollowers([
+                { name: "تزويد متابعين فيسبوك اجانب (بدون ضمان)", unit: "متابع", pricePerThousand: 35, guarantee: "بدون ضمان", icon: "fab fa-facebook-f" },
+                { name: "تزويد متابعين فيسبوك عرب", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-facebook-f" },
+                { name: "تزويد متابعين فيسبوك مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-facebook-f" },
+                { name: "تزويد متابعين فيسبوك مصريين (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-facebook-f" },
+                { name: "تزويد متابعين فيسبوك ميكس عرب وأجانب", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-facebook-f" },
+                { name: "تزويد متابعين فيسبوك رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-facebook-f" },
+                { name: "تزويد مشاهدات فيسبوك (فيديو/ريلز)", unit: "مشاهدة", pricePerThousand: 60, guarantee: null, icon: "fas fa-play-circle" },
+                { name: "تزويد لايكات فيسبوك (صور/فيديو)", unit: "لايك", pricePerThousand: 60, guarantee: null, icon: "fas fa-thumbs-up" },
+                { name: "تزويد لايكات فيسبوك مصريين ميكس", unit: "لايك", pricePerThousand: 120, guarantee: null, icon: "fas fa-thumbs-up" },
+                { name: "تزويد لايكات فيسبوك أجانب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" },
+                { name: "تزويد تعليقات فيسبوك مصريين", unit: "تعليق", pricePerThousand: 1000, guarantee: null, icon: "fas fa-comments", isComment: true },
+                { name: "تزويد تعليقات فيسبوك مصريين وعرب", unit: "تعليق", pricePerThousand: 650, guarantee: null, icon: "fas fa-comments", isComment: true },
+                { name: "تزويد مشاهدات فيسبوك مصريين وعرب", unit: "مشاهدة", pricePerThousand: 65, guarantee: null, icon: "fas fa-eye" },
+                { name: "تزويد لايك لتعليق فيسبوك", unit: "لايك", pricePerThousand: 120, guarantee: null, icon: "fas fa-thumbs-up" },
+                { name: "تزويد مشاهدات بث مباشر فيسبوك", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" }
+            ])
+        },
+        instagram: { id: 'instagram', title: '<i class="fab fa-instagram"></i> انستقرام - تفاعل ومتابعين',
+            services: sortFollowers([
+                { name: "تزويد متابع انستقرام رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-instagram" },
+                { name: "تزويد متابعين انستقرام مصريين (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-instagram" },
+                { name: "تزويد متابعين انستقرام مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-instagram" },
+                { name: "تزويد متابعين انستقرام عرب (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-instagram" },
+                { name: "تزويد مشاهدات انستقرام (ستوري/ريلز)", unit: "مشاهدة", pricePerThousand: 60, guarantee: null, icon: "fas fa-eye" },
+                { name: "تزويد لايكات انستقرام مصريين", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-heart" },
+                { name: "تزويد لايكات انستقرام عرب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-heart" },
+                { name: "تزويد تعليقات انستقرام مصريين وعرب", unit: "تعليق", pricePerThousand: 99, guarantee: null, icon: "fas fa-comment", isComment: true },
+                { name: "تزويد مشاهدات انستقرام مصريين وعرب", unit: "مشاهدة", pricePerThousand: 15, guarantee: null, icon: "fas fa-eye" }
+            ])
+        },
+        tiktok: { id: 'tiktok', title: '<i class="fab fa-tiktok"></i> تيك توك - نمو سريع',
+            services: sortFollowers([
+                { name: "تزويد متابع تيك توك رخيص (بدون ضمان)", unit: "متابع", pricePerThousand: 75, guarantee: "بدون ضمان", icon: "fab fa-tiktok" },
+                { name: "تزويد متابعين تيك توك مصريين (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-tiktok" },
+                { name: "تزويد متابعين تيك توك أجانب", unit: "متابع", pricePerThousand: 110, guarantee: null, icon: "fab fa-tiktok" },
+                { name: "تزويد متابعين تيك توك مصريين (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-tiktok" },
+                { name: "تزويد متابعين تيك توك عرب (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-tiktok" },
+                { name: "تزويد مشاهدات تيك توك مصريين", unit: "مشاهدة", pricePerThousand: 20, guarantee: null, icon: "fas fa-fire" },
+                { name: "تزويد لايكات تيك توك مصريين", unit: "لايك", pricePerThousand: 20, guarantee: null, icon: "fas fa-heart" },
+                { name: "تزويد لايكات تيك توك أجانب", unit: "لايك", pricePerThousand: 60, guarantee: null, icon: "fas fa-heart" },
+                { name: "تزويد تعليقات تيك توك مصريين وعرب", unit: "تعليق", pricePerThousand: 60, guarantee: null, icon: "fas fa-comment", isComment: true },
+                { name: "تزويد تعليقات مصريين وعرب (ضمان 365 يوم)", unit: "تعليق", pricePerThousand: 110, guarantee: "ضمان 365 يوم", icon: "fas fa-comment-dots", isComment: true }
+            ])
+        },
+        youtube: { id: 'youtube', title: '<i class="fab fa-youtube"></i> يوتيوب - مشاهدات ومشتركين',
+            services: sortFollowers([
+                { name: "تزويد متابع يوتيوب رخيص (بدون ضمان)", unit: "مشترك", pricePerThousand: 250, guarantee: "بدون ضمان", icon: "fab fa-youtube" },
+                { name: "تزويد مشتركين يوتيوب مصريين (عادي)", unit: "مشترك", pricePerThousand: 600, guarantee: null, icon: "fab fa-youtube" },
+                { name: "تزويد مشتركين يوتيوب مصريين (ضمان 30 يوم)", unit: "مشترك", pricePerThousand: 680, guarantee: "ضمان 30 يوم", icon: "fab fa-youtube" },
+                { name: "تزويد مشاهدات يوتيوب مصريين", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" },
+                { name: "تزويد لايكات يوتيوب مصريين", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" },
+                { name: "تزويد تعليقات يوتيوب مصريين وعرب", unit: "تعليق", pricePerThousand: 500, guarantee: null, icon: "fas fa-comment", isComment: true }
+            ])
+        },
+        telegram: { id: 'telegram', title: '<i class="fab fa-telegram"></i> تليجرام - قنوات ومتابعين',
+            services: sortFollowers([
+                { name: "تزويد قناه تليجرام مصريين وعرب (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-telegram" },
+                { name: "تزويد قناه التليجرام مصريين وعرب (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 110, guarantee: "ضمان 30 يوم", icon: "fab fa-telegram" },
+                { name: "تزويد قناه التليجرام مصريين (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 150, guarantee: "ضمان 365 يوم", icon: "fab fa-telegram" },
+                { name: "تزويد لايكات تليجرام مصريين وعرب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" }
+            ])
+        },
+        twitter: { id: 'twitter', title: '<i class="fab fa-twitter"></i> تويتر (X) - خدمات تفاعل',
+            services: sortFollowers([
+                { name: "تزويد متابعين تويتر (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-twitter" },
+                { name: "تزويد متابعين تويتر (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 120, guarantee: "ضمان 30 يوم", icon: "fab fa-twitter" },
+                { name: "تزويد متابعين تويتر (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 180, guarantee: "ضمان 365 يوم", icon: "fab fa-twitter" },
+                { name: "تزويد لايك منشور تويتر", unit: "لايك", pricePerThousand: 65, guarantee: null, icon: "fas fa-heart" },
+                { name: "تزويد مشاهدات تغريده تويتر (1000 بـ20)", unit: "مشاهدة", pricePerThousand: 20, guarantee: null, icon: "fas fa-eye" },
+                { name: "تزويد مشاهدات تغريده تويتر (1000 بـ10)", unit: "مشاهدة", pricePerThousand: 10, guarantee: null, icon: "fas fa-chart-line" }
+            ])
+        },
+        snapchat: { id: 'snapchat', title: '<i class="fab fa-snapchat"></i> سناب شات - متابعين ولايكات',
+            services: sortFollowers([
+                { name: "تزويد متابعين سناب شات عرب (بدون ضمان)", unit: "متابع", pricePerThousand: 850, guarantee: "بدون ضمان", icon: "fab fa-snapchat" },
+                { name: "تزويد متابعين سناب شات عرب (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 1100, guarantee: "ضمان 30 يوم", icon: "fab fa-snapchat" },
+                { name: "تزويد لايكات سناب شات", unit: "لايك", pricePerThousand: 900, guarantee: null, icon: "fas fa-heart" }
+            ])
+        },
+        whatsapp: { id: 'whatsapp', title: '<i class="fab fa-whatsapp"></i> واتساب - قنوات ومتابعين',
+            services: sortFollowers([
+                { name: "تزويد اعضاء قناه واتساب (عادي)", unit: "متابع", pricePerThousand: 99, guarantee: null, icon: "fab fa-whatsapp" },
+                { name: "تزويد اعضاء قناه واتساب (ضمان 60 يوم)", unit: "متابع", pricePerThousand: 120, guarantee: "ضمان 60 يوم", icon: "fab fa-whatsapp" },
+                { name: "تزويد لايكات منشور واتساب", unit: "لايك", pricePerThousand: 99, guarantee: null, icon: "fas fa-thumbs-up" }
+            ])
+        },
+        twitch: { id: 'twitch', title: '<i class="fab fa-twitch"></i> تويتش - متابعين ومشاهدات',
+            services: sortFollowers([
+                { name: "تزويد متابعين تويتش (بدون ضمان)", unit: "متابع", pricePerThousand: 55, guarantee: "بدون ضمان", icon: "fab fa-twitch" },
+                { name: "تزويد متابعين تويتش (ضمان 30 يوم)", unit: "متابع", pricePerThousand: 65, guarantee: "ضمان 30 يوم", icon: "fab fa-twitch" },
+                { name: "تزويد متابعين تويتش (ضمان 365 يوم)", unit: "متابع", pricePerThousand: 99, guarantee: "ضمان 365 يوم", icon: "fab fa-twitch" },
+                { name: "تزويد مشاهدات فيديو تويتش", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-video" },
+                { name: "تزويد مشاهدات بث مباشر تويتش", unit: "مشاهدة", pricePerThousand: 99, guarantee: null, icon: "fas fa-tv" }
+            ])
+        }
     };
-
+    
     function createServiceCard(service) {
         const card = document.createElement('div'); card.className = 'service-card';
         const iconDiv = document.createElement('div'); iconDiv.className = 'card-icon'; iconDiv.innerHTML = `<i class="${service.icon}"></i>`;
         const nameEl = document.createElement('h3'); nameEl.className = 'service-name'; nameEl.innerText = service.name;
         card.append(iconDiv, nameEl);
-        if (service.guarantee) { const guarSpan = document.createElement('div'); guarSpan.className = 'badge-guarantee'; guarSpan.innerHTML = `<i class="fas fa-shield-alt"></i> ${service.guarantee}`; card.appendChild(guarSpan); }
-        const detailEl = document.createElement('div'); detailEl.className = 'service-detail'; detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل 1000 ${service.unit}`; card.appendChild(detailEl);
-        const priceContainer = document.createElement('div'); priceContainer.className = 'price-container'; priceContainer.innerHTML = `<span class="price-value">${service.pricePerThousand}</span> <span class="price-currency">جنيه</span> <span class="small-unit">لكل 1000 ${service.unit}</span>`; card.appendChild(priceContainer);
+        if (service.guarantee) {
+            const guarSpan = document.createElement('div'); guarSpan.className = 'badge-guarantee'; guarSpan.innerHTML = `<i class="fas fa-shield-alt"></i> ${service.guarantee}`;
+            card.appendChild(guarSpan);
+        }
+        const detailEl = document.createElement('div'); detailEl.className = 'service-detail';
+        detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل 1000 ${service.unit}`;
+        card.appendChild(detailEl);
+        const priceContainer = document.createElement('div'); priceContainer.className = 'price-container';
+        priceContainer.innerHTML = `<span class="price-value">${service.pricePerThousand}</span> <span class="price-currency">جنيه</span> <span class="small-unit">لكل 1000 ${service.unit}</span>`;
+        card.appendChild(priceContainer);
+        
         let minLimit = 1000, stepValue = 500;
-        if (service.isComment === true) { minLimit = 50; stepValue = 10; } else if (service.name.includes("لايك") || service.unit === "لايك") { minLimit = 250; stepValue = 50; }
+        if (service.isComment === true) { minLimit = 50; stepValue = 10; }
+        else if (service.name.includes("لايك") || service.unit === "لايك") { minLimit = 250; stepValue = 50; }
+        
         const calcDiv = document.createElement('div'); calcDiv.className = 'quantity-calc';
-        const label = document.createElement('span'); label.className = 'quantity-label'; label.innerText = `📦 الكمية المطلوبة (الحد الأدنى ${minLimit} ${service.unit})`;
-        const input = document.createElement('input'); input.type = 'number'; input.placeholder = `مثال: ${minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')} ${service.unit}`; input.className = 'quantity-input'; input.value = ''; input.min = minLimit; input.step = stepValue;
-        const urlLabel = document.createElement('span'); urlLabel.className = 'quantity-label'; urlLabel.style.marginTop = '8px'; urlLabel.innerHTML = '<i class="fas fa-link"></i> الرابط المطلوب';
-        const urlInput = document.createElement('input'); urlInput.type = 'url'; urlInput.placeholder = 'https://example.com/page'; urlInput.className = 'url-input'; urlInput.value = '';
+        const label = document.createElement('span'); label.className = 'quantity-label'; 
+        label.innerText = `📦 الكمية المطلوبة (الحد الأدنى ${minLimit} ${service.unit})`;
+        const input = document.createElement('input'); input.type = 'number'; input.placeholder = `مثال: ${minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')} ${service.unit}`;
+        input.className = 'quantity-input'; input.value = ''; input.min = minLimit; input.step = stepValue;
+        
+        const urlLabel = document.createElement('span'); urlLabel.className = 'quantity-label'; urlLabel.style.marginTop = '8px';
+        urlLabel.innerHTML = '<i class="fas fa-link"></i> الرابط المطلوب';
+        const urlInput = document.createElement('input'); urlInput.type = 'url'; urlInput.placeholder = 'https://example.com/page'; urlInput.className = 'url-input';
+        urlInput.value = '';
+        
         const totalRow = document.createElement('div'); totalRow.className = 'total-price-row';
         const totalLabelSpan = document.createElement('span'); totalLabelSpan.className = 'total-label'; totalLabelSpan.innerText = 'السعر الإجمالي:';
         const totalAmountSpan = document.createElement('span'); totalAmountSpan.className = 'total-amount'; totalAmountSpan.innerText = '---';
         totalRow.appendChild(totalLabelSpan); totalRow.appendChild(totalAmountSpan);
         const errorSpan = document.createElement('div'); errorSpan.className = 'error-msg'; errorSpan.style.display = 'none';
         calcDiv.append(label, input, urlLabel, urlInput, totalRow, errorSpan);
-        function updateTotal() { let raw = input.value.trim(); if (raw === "") { totalAmountSpan.innerText = '---'; errorSpan.style.display = 'none'; return null; } let qty = parseInt(raw, 10); if (isNaN(qty) || qty < minLimit) { totalAmountSpan.innerText = '---'; errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit} ${service.unit}`; errorSpan.style.display = 'block'; return null; } errorSpan.style.display = 'none'; const total = (qty / 1000) * service.pricePerThousand; totalAmountSpan.innerText = `${Math.round(total)} جنيه`; return { quantity: qty, totalPrice: Math.round(total) }; }
+        
+        function updateTotal() {
+            let raw = input.value.trim();
+            if (raw === "") { totalAmountSpan.innerText = '---'; errorSpan.style.display = 'none'; return null; }
+            let qty = parseInt(raw, 10);
+            if (isNaN(qty) || qty < minLimit) {
+                totalAmountSpan.innerText = '---';
+                errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit} ${service.unit}`;
+                errorSpan.style.display = 'block';
+                return null;
+            }
+            errorSpan.style.display = 'none';
+            const total = (qty / 1000) * service.pricePerThousand;
+            totalAmountSpan.innerText = `${Math.round(total)} جنيه`;
+            return { quantity: qty, totalPrice: Math.round(total) };
+        }
         input.addEventListener('input', updateTotal);
-        input.addEventListener('blur', () => { let v = parseInt(input.value, 10); if (!isNaN(v) && v < minLimit && v !== "") { input.value = ''; updateTotal(); } });
+        input.addEventListener('blur', () => {
+            let v = parseInt(input.value, 10);
+            if (!isNaN(v) && v < minLimit && v !== "") { input.value = ''; updateTotal(); }
+        });
+        
         const buyBtn = document.createElement('button'); buyBtn.className = 'buy-btn'; buyBtn.innerHTML = '<i class="fab fa-whatsapp"></i> شراء الآن';
         buyBtn.addEventListener('click', () => {
             const link = urlInput.value.trim();
@@ -482,14 +657,17 @@
             const res = updateTotal();
             if (!res) { alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit} ${service.unit}`); return; }
             let message = `📋 طلب شراء خدمة : ${service.name}\n📊 الكمية المطلوبة : ${res.quantity.toLocaleString()} ${service.unit}\n💰 السعر الإجمالي : ${res.totalPrice} جنيه مصري\n🔗 رابط الهدف : ${link}\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
-            window.registerNewOrder();
+            
+            // تشغيل دالة زيادة الطلبات الحقيقية عند الضغط
+            registerNewOrder();
+            
             window.open(BASE_WA_URL + encodeMsg(message), '_blank');
         });
         card.appendChild(calcDiv);
         card.appendChild(buyBtn);
         return card;
     }
-
+    
     const sectionsContainer = document.getElementById('sectionsContainer');
     function buildAllSections() {
         sectionsContainer.innerHTML = '';
@@ -521,7 +699,7 @@
         }
     }
     buildAllSections();
-
+    
     document.getElementById('directSupportBtn').addEventListener('click', () => {
         window.open(BASE_WA_URL + encodeMsg("مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole."), '_blank');
     });
