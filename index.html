@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* جميع الأنماط كما هي - لم تتغير */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAECEF; line-height: 1.5; overflow-x: hidden; position: relative; }
         ::-webkit-scrollbar { width: 6px; height: 4px; }
@@ -281,7 +280,7 @@
     <a href="#" id="termsLink"><i class="fas fa-file-alt"></i> شروط الخدمة</a>
 </div>
 
-<!-- صفحات الشروط وطرق الدفع -->
+<!-- صفحات الشروط وطرق الدفع (نص مختصر للطول مع الحفاظ على المحتوى الكامل) -->
 <div id="termsPage" class="overlay-page">
     <div class="overlay-container">
         <h1>شروط الخدمة</h1>
@@ -353,23 +352,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    ///////////////////////// أولاً: إخفاء شاشة الترحيب بشكل مضمون بعد ثانيتين /////////////////////////
+    // إخفاء شاشة الترحيب بعد ثانيتين
     setTimeout(function() {
         var overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
             overlay.style.transition = 'opacity 0.6s ease';
             overlay.style.opacity = '0';
-            setTimeout(function() {
-                overlay.style.display = 'none';
-            }, 600);
+            setTimeout(function() { overlay.style.display = 'none'; }, 600);
         }
-    }, 2000);  // ثانيتان بالضبط
+    }, 2000);
 
-    ///////////////////////// ثانياً: باقي الكود (عدادات Supabase، التنقل، البطاقات) /////////////////////////
-    // استخدام try...catch لحماية الكود من أي أخطاء تمنع التنفيذ
     (function() {
         try {
-            // ---------- إعداد عدادات Supabase الحقيقية ----------
+            // ---------- إعداد Supabase ----------
             const supabaseUrl = 'https://bqiryyoanqleobzlztbl.supabase.co';
             const supabaseKey = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
             const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
@@ -382,38 +377,70 @@
                 if (orders !== undefined && ordersSpan) ordersSpan.innerText = orders.toLocaleString('en-US');
             }
 
-            window.registerNewOrder = function() {
-                supabase.rpc('increment_orders');
-            };
+            // دالة مستقلة لزيادة الطلبات (تعمل سواء كان RPC موجوداً أم لا)
+            async function incrementOrderCounter() {
+                try {
+                    // أولاً: محاولة استخدام دالة RPC إذا كانت موجودة
+                    const { error } = await supabase.rpc('increment_orders');
+                    if (error) throw error;
+                } catch (err) {
+                    // إذا فشلت RPC (الدالة غير موجودة أو خطأ)، نستخدم طريقة التحديث المباشر
+                    console.warn("RPC increment_orders failed, using direct update", err);
+                    try {
+                        const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
+                        const newCount = (current?.count || 0) + 1;
+                        await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
+                    } catch (e) {
+                        console.error("Direct update failed:", e);
+                    }
+                }
+            }
 
+            // دالة زيادة المستخدمين (بنفس المنطق الاحتياطي)
+            async function incrementUserCounter() {
+                try {
+                    const { error } = await supabase.rpc('increment_active_users');
+                    if (error) throw error;
+                } catch (err) {
+                    try {
+                        const { data: current } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
+                        const newCount = (current?.count || 0) + 1;
+                        await supabase.from('active_users_counter').update({ count: newCount }).eq('id', 1);
+                    } catch (e) {}
+                }
+            }
+
+            // ربط دالة الطلبات بالنطاق العام لاستدعائها من أزرار الشراء
+            window.registerNewOrder = incrementOrderCounter;
+
+            // جلب الأرقام عند تحميل الصفحة
             document.addEventListener('DOMContentLoaded', async () => {
                 try {
-                    // جلب الأرقام الحالية
                     const { data: usersData } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
                     const { data: ordersData } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
                     updateUI(usersData?.count, ordersData?.count);
 
-                    // زيادة الزائر لمرة واحدة
+                    // تسجيل الزائر الجديد (مرة واحدة لكل جهاز/متصفح)
                     if (!sessionStorage.getItem('smcole_visited_real')) {
-                        await supabase.rpc('increment_active_users');
+                        await incrementUserCounter();
                         sessionStorage.setItem('smcole_visited_real', 'true');
                     }
 
-                    // Realtime
+                    // تفعيل Realtime للمزامنة الفورية
                     supabase.channel('realtime-counters')
                         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => {
-                            updateUI(payload.new.count, undefined);
+                            if (payload.new) updateUI(payload.new.count, undefined);
                         })
                         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, (payload) => {
-                            updateUI(undefined, payload.new.count);
+                            if (payload.new) updateUI(undefined, payload.new.count);
                         })
                         .subscribe();
                 } catch(err) {
-                    console.warn("Supabase error:", err);
+                    console.warn("Supabase initialization error:", err);
                 }
             });
 
-            // ---------- التنقل بين الصفحات ----------
+            // ---------- باقي الكود (التنقل، البطاقات، الأيقونات) لم يتغير ----------
             const menuBtn = document.getElementById('menuButton');
             const dropdown = document.getElementById('dropdownMenu');
             const termsPage = document.getElementById('termsPage');
@@ -659,6 +686,7 @@
                     const res = updateTotal();
                     if (!res) { alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit} ${service.unit}`); return; }
                     let message = `📋 طلب شراء خدمة : ${service.name}\n📊 الكمية المطلوبة : ${res.quantity.toLocaleString()} ${service.unit}\n💰 السعر الإجمالي : ${res.totalPrice} جنيه مصري\n🔗 رابط الهدف : ${link}\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
+                    // استدعاء دالة زيادة الطلبات
                     if (window.registerNewOrder) window.registerNewOrder();
                     window.open(BASE_WA_URL + encodeMsg(message), '_blank');
                 });
@@ -703,8 +731,8 @@
                 window.open(BASE_WA_URL + encodeMsg("مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole."), '_blank');
             });
         } catch(err) {
-            console.error("حدث خطأ في الكود:", err);
-            // في حال حدوث أي خطأ، نضمن إخفاء الترحيب يدوياً
+            console.error("Unexpected error:", err);
+            // في حال حدوث أي خطأ نضمن إخفاء الترحيب
             var overlay = document.getElementById('welcomeOverlay');
             if (overlay) overlay.style.display = 'none';
         }
