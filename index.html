@@ -320,23 +320,6 @@
         .error-msg { color: #e83e5c; font-size: 0.6rem; text-align: center; margin-top: 3px; }
         .buy-btn { background: #2EBD85; border: none; padding: 8px 0; font-size: 0.85rem; font-weight: 700; font-family: 'Cairo', sans-serif; color: #0B0E11; border-radius: 40px; cursor: pointer; margin-top: 6px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .buy-btn:hover { background: #22a06f; transform: scale(0.98); }
-        .btn-details {
-            background: rgba(240,185,11,0.15);
-            border: 1px solid #f0b90b;
-            color: #f0b90b;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 8px;
-            width: 100%;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-        }
-        .btn-details:hover {
-            background: #f0b90b;
-            color: #0b0e11;
-        }
         .support-section { text-align: center; margin: 2rem 0 1rem; }
         .support-btn { background: #25D366; border: none; padding: 10px 24px; font-size: 1rem; font-weight: 700; border-radius: 60px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
         .footer { text-align: center; padding-top: 1rem; font-size: 0.7rem; color: #848E9C; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 1rem; }
@@ -433,110 +416,6 @@
         }
         .back-to-top.show { opacity: 1; visibility: visible; }
         .back-to-top:hover { background: #22a06f; transform: scale(1.05); }
-        
-        /* ===== أنماط النافذة المنبثقة (Modal) ===== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-container {
-            background: #181a20;
-            border: 1px solid #f0b90b;
-            border-radius: 32px;
-            width: 90%;
-            max-width: 700px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-            direction: rtl;
-        }
-        .modal-container::-webkit-scrollbar { width: 5px; }
-        .modal-container::-webkit-scrollbar-track { background: #1e2329; }
-        .modal-container::-webkit-scrollbar-thumb { background: #f0b90b; border-radius: 10px; }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(240,185,11,0.3);
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.2rem;
-        }
-        .modal-header h3 {
-            color: #f0b90b;
-            font-size: 1.4rem;
-        }
-        .modal-close {
-            background: none;
-            border: none;
-            color: #aaa;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .modal-close:hover { color: #f0b90b; transform: scale(1.1); }
-        .modal-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        .info-card {
-            background: #1e2329;
-            border-radius: 20px;
-            padding: 0.8rem;
-            text-align: center;
-            border: 1px solid rgba(46,189,133,0.3);
-        }
-        .info-card i { font-size: 1.4rem; color: #f0b90b; margin-bottom: 0.3rem; display: block; }
-        .info-card .label { font-size: 0.7rem; color: #b7bdc6; }
-        .info-card .value { font-size: 1rem; font-weight: bold; color: #2ebd85; margin-top: 4px; }
-        .modal-description {
-            background: #0b0e11;
-            border-radius: 20px;
-            padding: 1rem;
-            border-right: 3px solid #f0b90b;
-        }
-        .modal-description h4 {
-            color: #f0b90b;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .modal-description ul {
-            list-style: none;
-            padding-right: 1rem;
-        }
-        .modal-description li {
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-right: 1.2rem;
-            color: #ddd;
-        }
-        .modal-description li::before {
-            content: "•";
-            color: #2ebd85;
-            position: absolute;
-            right: 0;
-        }
         
         @media (max-width: 768px) {
             .menu-button { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 1.2rem; }
@@ -676,28 +555,6 @@
     <i class="fas fa-arrow-up"></i>
 </div>
 
-<!-- ========== نافذة Modal التفاصيل ========== -->
-<div id="serviceModal" class="modal-overlay">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h3 id="modalTitle">تفاصيل الخدمة</h3>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
-        </div>
-        <div class="modal-grid">
-            <div class="info-card"><i class="fas fa-hourglass-half"></i><div class="label">وقت البدء</div><div class="value" id="modalStartTime">خلال دقائق</div></div>
-            <div class="info-card"><i class="fas fa-tachometer-alt"></i><div class="label">السرعة</div><div class="value" id="modalSpeed">سريع جداً</div></div>
-            <div class="info-card"><i class="fas fa-shield-alt"></i><div class="label">الضمان</div><div class="value" id="modalGuarantee">--</div></div>
-            <div class="info-card"><i class="fas fa-sync-alt"></i><div class="label">التعويض</div><div class="value" id="modalRefill">--</div></div>
-            <div class="info-card"><i class="fas fa-ban"></i><div class="label">إلغاء الطلب</div><div class="value" id="modalCancel">--</div></div>
-            <div class="info-card"><i class="fas fa-calendar-alt"></i><div class="label">الجدولة (Dripfeed)</div><div class="value" id="modalDripfeed">--</div></div>
-        </div>
-        <div class="modal-description">
-            <h4><i class="fas fa-align-left"></i> وصف الخدمة</h4>
-            <ul id="modalDescList"></ul>
-        </div>
-    </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ======================= نظام تحويل العملات مع التثبيت في localStorage =======================
@@ -723,7 +580,6 @@
     } catch(e) { favorites = []; }
     
     let globalServicesList = []; // لتخزين جميع الخدمات مع معرفاتها
-    let allServicesData = [];     // تخزين كامل بيانات الخدمات من Supabase
     
     function saveFavorites() {
         localStorage.setItem('smcole_favorites', JSON.stringify(favorites));
@@ -884,450 +740,21 @@
         window.open(`https://wa.me/201154846407?text=${encodeURIComponent(message)}`, '_blank');
     }
     
-    // ========== دوال النافذة المنبثقة (Modal) ==========
-    function openDetailsModal(service) {
-        if (!service) return;
-        document.getElementById('modalTitle').innerHTML = `<i class="fas fa-info-circle"></i> ${service.name}`;
-        // وقت البدء والسرعة - نعرض قيماً افتراضية (يمكن تعديلها لاحقاً)
-        document.getElementById('modalStartTime').innerText = service.start_time || 'خلال دقائق';
-        document.getElementById('modalSpeed').innerText = service.speed || 'سريع جداً';
-        // الضمان (يمكن إضافة حقل guarantee في قاعدة البيانات أو تركه افتراضياً)
-        document.getElementById('modalGuarantee').innerHTML = service.guarantee ? '<i class="fas fa-check-circle" style="color:#2ebd85"></i> متوفر' : '<i class="fas fa-times-circle" style="color:#e83e5c"></i> غير متوفر';
-        // التعويض والإلغاء والجدولة
-        document.getElementById('modalRefill').innerHTML = service.refill ? '<i class="fas fa-check-circle" style="color:#2ebd85"></i> مفعل' : '<i class="fas fa-times-circle" style="color:#e83e5c"></i> غير مفعل';
-        document.getElementById('modalCancel').innerHTML = service.cancel ? '<i class="fas fa-check-circle" style="color:#2ebd85"></i> مفعل' : '<i class="fas fa-times-circle" style="color:#e83e5c"></i> غير مفعل';
-        document.getElementById('modalDripfeed').innerHTML = service.dripfeed ? '<i class="fas fa-check-circle" style="color:#2ebd85"></i> مفعل' : '<i class="fas fa-times-circle" style="color:#e83e5c"></i> غير مفعل';
-        
-        // عرض الوصف كنقاط
-        const descList = document.getElementById('modalDescList');
-        descList.innerHTML = '';
-        if (service.desc) {
-            const lines = service.desc.split('\n');
-            lines.forEach(line => {
-                if (line.trim()) {
-                    const li = document.createElement('li'); li.innerText = line.trim();
-                    descList.appendChild(li);
-                }
-            });
-        } else {
-            const li = document.createElement('li'); li.innerText = 'لا يوجد وصف إضافي';
-            descList.appendChild(li);
+    // ========== باقي الكود مع التعديل الجديد (جلب الخدمات من Supabase) ==========
+    setTimeout(() => {
+        const overlay = document.getElementById('welcomeOverlay');
+        if (overlay) {
+            overlay.style.transition = 'opacity 0.6s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 600);
         }
-        
-        document.getElementById('serviceModal').classList.add('active');
-    }
+    }, 2000);
     
-    function closeModal() {
-        document.getElementById('serviceModal').classList.remove('active');
-    }
-    
-    // ========== جلب الخدمات من Supabase وعرضها ديناميكياً ==========
-    const supabaseUrl = 'https://bqiryyoanqleobzlztbl.supabase.co';
-    const supabaseAnonKey = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
-    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-    
-    // تصنيف المنصة بناءً على الكلمات المفتاحية في الاسم
-    function detectPlatform(serviceName) {
-        const name = serviceName.toLowerCase();
-        if (name.includes('فيسبوك') || name.includes('facebook')) return 'facebook';
-        if (name.includes('انستقرام') || name.includes('instagram')) return 'instagram';
-        if (name.includes('تيك توك') || name.includes('tiktok')) return 'tiktok';
-        if (name.includes('يوتيوب') || name.includes('youtube')) return 'youtube';
-        if (name.includes('تليجرام') || name.includes('telegram')) return 'telegram';
-        if (name.includes('تويتر') || name.includes('twitter') || name.includes('x')) return 'twitter';
-        if (name.includes('سناب شات') || name.includes('snapchat')) return 'snapchat';
-        if (name.includes('واتساب') || name.includes('whatsapp')) return 'whatsapp';
-        if (name.includes('تويتش') || name.includes('twitch')) return 'twitch';
-        return 'facebook'; // افتراضي
-    }
-    
-    function getPlatformIcon(platform) {
-        const icons = {
-            facebook: '<i class="fab fa-facebook-f"></i>', instagram: '<i class="fab fa-instagram"></i>',
-            tiktok: '<i class="fab fa-tiktok"></i>', youtube: '<i class="fab fa-youtube"></i>',
-            telegram: '<i class="fab fa-telegram"></i>', twitter: '<i class="fab fa-twitter"></i>',
-            snapchat: '<i class="fab fa-snapchat"></i>', whatsapp: '<i class="fab fa-whatsapp"></i>',
-            twitch: '<i class="fab fa-twitch"></i>'
-        };
-        return icons[platform] || '<i class="fas fa-globe"></i>';
-    }
-    
-    function getPlatformTitle(platform) {
-        const titles = {
-            facebook: 'فيسبوك - خدمات الزيادة', instagram: 'انستقرام - تفاعل ومتابعين',
-            tiktok: 'تيك توك - نمو سريع', youtube: 'يوتيوب - مشاهدات ومشتركين',
-            telegram: 'تليجرام - قنوات ومتابعين', twitter: 'تويتر (X) - خدمات تفاعل',
-            snapchat: 'سناب شات - متابعين ولايكات', whatsapp: 'واتساب - قنوات ومتابعين',
-            twitch: 'تويتش - متابعين ومشاهدات'
-        };
-        return titles[platform] || 'خدمات التواصل الاجتماعي';
-    }
-    
-    async function fetchAndRenderServices() {
-        try {
-            // جلب الخدمات النشطة فقط من Supabase
-            const { data: services, error } = await supabaseClient
-                .from('services')
-                .select('*')
-                .eq('status', 'active')
-                .order('name');
-            
-            if (error) {
-                console.error('Error fetching services:', error);
-                return;
-            }
-            
-            if (!services || services.length === 0) {
-                console.warn('No services found in Supabase');
-                return;
-            }
-            
-            allServicesData = services;
-            
-            // تجميع الخدمات حسب المنصة
-            const grouped = {};
-            for (const svc of services) {
-                const platform = detectPlatform(svc.name);
-                if (!grouped[platform]) grouped[platform] = [];
-                grouped[platform].push(svc);
-            }
-            
-            // بناء الأقسام والبطاقات
-            const sectionsContainer = document.getElementById('sectionsContainer');
-            sectionsContainer.innerHTML = '';
-            let serviceCounterGlobal = 1;
-            globalServicesList = [];
-            
-            const platformOrder = ['facebook', 'instagram', 'tiktok', 'youtube', 'telegram', 'twitter', 'snapchat', 'whatsapp', 'twitch'];
-            
-            for (const platform of platformOrder) {
-                const platformServices = grouped[platform];
-                if (!platformServices || platformServices.length === 0) continue;
-                
-                const section = document.createElement('div');
-                section.className = 'platform-section';
-                section.id = `section-${platform}`;
-                
-                // رأس القسم وأزرار السلايدر
-                const headerDiv = document.createElement('div');
-                headerDiv.className = 'platform-header';
-                const titleSpan = document.createElement('div');
-                titleSpan.className = 'platform-title';
-                titleSpan.innerHTML = getPlatformIcon(platform) + ' ' + getPlatformTitle(platform);
-                const navDiv = document.createElement('div');
-                navDiv.className = 'slider-nav';
-                const btnPrev = document.createElement('button');
-                btnPrev.className = 'slider-btn';
-                btnPrev.innerHTML = '<i class="fas fa-chevron-right"></i>';
-                const btnNext = document.createElement('button');
-                btnNext.className = 'slider-btn';
-                btnNext.innerHTML = '<i class="fas fa-chevron-left"></i>';
-                navDiv.appendChild(btnPrev);
-                navDiv.appendChild(btnNext);
-                headerDiv.appendChild(titleSpan);
-                headerDiv.appendChild(navDiv);
-                section.appendChild(headerDiv);
-                
-                const sliderDiv = document.createElement('div');
-                sliderDiv.className = 'cards-slider';
-                
-                // إنشاء بطاقة لكل خدمة
-                for (const service of platformServices) {
-                    const card = createServiceCardFromDB(service, serviceCounterGlobal++);
-                    sliderDiv.appendChild(card);
-                }
-                section.appendChild(sliderDiv);
-                
-                // إعداد أحداث السلايدر
-                setupSliderEvents(sliderDiv, btnPrev, btnNext);
-                sectionsContainer.appendChild(section);
-            }
-            
-            // تحديث الأسعار بعد إنشاء البطاقات
-            updateAllPrices();
-            attachSearchListener();
-        } catch (err) {
-            console.error('Error in fetchAndRenderServices:', err);
-        }
-    }
-    
-    function createServiceCardFromDB(service, serviceNumber) {
-        const card = document.createElement('div');
-        card.className = 'service-card';
-        
-        let minLimit = service.min || 1000;
-        let stepValue = Math.ceil(minLimit / 10) || 100;
-        // إذا كان الحد الأدنى صغيراً (مثل 50) نجعل الخطوة 10
-        if (minLimit <= 100) stepValue = 10;
-        else if (minLimit <= 500) stepValue = 50;
-        
-        card.setAttribute('data-unit', '');
-        card.setAttribute('data-price-per-thousand', service.selling_price);
-        card.setAttribute('data-min-limit', minLimit);
-        card.setAttribute('data-service-number', serviceNumber);
-        const serviceId = String(service.service_id);
-        card.setAttribute('data-service-id', serviceId);
-        
-        globalServicesList.push({
-            id: serviceId,
-            name: service.name,
-            number: serviceNumber,
-            card: card,
-            serviceData: service
-        });
-        
-        // رقم الخدمة وزر المفضلة
-        const headerRow = document.createElement('div');
-        headerRow.className = 'card-header-row';
-        const numberSpan = document.createElement('span');
-        numberSpan.className = 'service-number';
-        numberSpan.innerText = `#${serviceNumber}`;
-        const favBtn = document.createElement('button');
-        favBtn.className = 'favorite-btn';
-        favBtn.innerHTML = isFavorite(serviceId) ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-        if (isFavorite(serviceId)) favBtn.classList.add('active');
-        favBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleFavorite(serviceId, favBtn);
-        });
-        headerRow.appendChild(numberSpan);
-        headerRow.appendChild(favBtn);
-        card.appendChild(headerRow);
-        
-        // أيقونة افتراضية
-        const iconDiv = document.createElement('div');
-        iconDiv.className = 'card-icon';
-        iconDiv.innerHTML = `<i class="fas fa-chart-line"></i>`;
-        const nameEl = document.createElement('h3');
-        nameEl.className = 'service-name';
-        nameEl.innerText = service.name;
-        card.appendChild(iconDiv);
-        card.appendChild(nameEl);
-        
-        // عرض الضمان إن وجد (يمكن إضافة حقل guarantee لاحقاً)
-        if (service.guarantee) {
-            const guarSpan = document.createElement('div');
-            guarSpan.className = 'badge-guarantee';
-            guarSpan.innerHTML = `<i class="fas fa-shield-alt"></i> ${service.guarantee}`;
-            card.appendChild(guarSpan);
-        }
-        
-        // السعر
-        const priceContainer = document.createElement('div');
-        priceContainer.className = 'price-container';
-        const priceValueSpan = document.createElement('span');
-        priceValueSpan.className = 'price-value';
-        priceValueSpan.setAttribute('data-original-price', service.selling_price);
-        const priceCurrencySpan = document.createElement('span');
-        priceCurrencySpan.className = 'price-currency';
-        priceCurrencySpan.innerText = (currentCurrency === 'USD') ? '$' : 'جنيه';
-        const smallUnitSpan = document.createElement('span');
-        smallUnitSpan.className = 'small-unit';
-        smallUnitSpan.innerText = `لكل 1000`;
-        priceContainer.appendChild(priceValueSpan);
-        priceContainer.appendChild(priceCurrencySpan);
-        priceContainer.appendChild(smallUnitSpan);
-        card.appendChild(priceContainer);
-        
-        // حقل الكمية والرابط
-        const calcDiv = document.createElement('div');
-        calcDiv.className = 'quantity-calc';
-        const label = document.createElement('span');
-        label.className = 'quantity-label';
-        label.innerText = `📦 الكمية المطلوبة (الحد الأدنى ${minLimit})`;
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.className = 'quantity-input';
-        input.placeholder = `مثال: ${minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')}`;
-        input.min = minLimit;
-        input.step = stepValue;
-        const urlLabel = document.createElement('span');
-        urlLabel.className = 'quantity-label';
-        urlLabel.style.marginTop = '8px';
-        urlLabel.innerHTML = '<i class="fas fa-link"></i> الرابط المطلوب';
-        const urlInput = document.createElement('input');
-        urlInput.type = 'url';
-        urlInput.placeholder = 'https://example.com/page';
-        urlInput.className = 'url-input';
-        const totalRow = document.createElement('div');
-        totalRow.className = 'total-price-row';
-        const totalLabelSpan = document.createElement('span');
-        totalLabelSpan.innerText = 'السعر الإجمالي:';
-        const totalAmountSpan = document.createElement('span');
-        totalAmountSpan.className = 'total-amount';
-        totalAmountSpan.innerText = '---';
-        totalRow.appendChild(totalLabelSpan);
-        totalRow.appendChild(totalAmountSpan);
-        const errorSpan = document.createElement('div');
-        errorSpan.className = 'error-msg';
-        errorSpan.style.display = 'none';
-        calcDiv.appendChild(label);
-        calcDiv.appendChild(input);
-        calcDiv.appendChild(urlLabel);
-        calcDiv.appendChild(urlInput);
-        calcDiv.appendChild(totalRow);
-        calcDiv.appendChild(errorSpan);
-        
-        // تحديث السعر الإجمالي
-        function updateTotal() {
-            let raw = input.value.trim();
-            if (raw === "") {
-                totalAmountSpan.innerText = '---';
-                errorSpan.style.display = 'none';
-                return;
-            }
-            let qty = parseInt(raw, 10);
-            if (isNaN(qty) || qty < minLimit) {
-                totalAmountSpan.innerText = '---';
-                errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit}`;
-                errorSpan.style.display = 'block';
-                return;
-            }
-            errorSpan.style.display = 'none';
-            let totalInEGP = (qty / 1000) * service.selling_price;
-            let totalToShow = totalInEGP;
-            let currencySymbol = 'جنيه';
-            let formatted;
-            if (currentCurrency === 'USD') {
-                totalToShow = totalInEGP / exchangeRate;
-                currencySymbol = '$';
-                formatted = totalToShow.toFixed(2);
-            } else {
-                if (Number.isInteger(totalToShow)) {
-                    formatted = totalToShow.toString();
-                } else {
-                    formatted = totalToShow.toFixed(2);
-                }
-            }
-            totalAmountSpan.innerText = `${formatted} ${currencySymbol}`;
-        }
-        input.addEventListener('input', updateTotal);
-        input.addEventListener('blur', () => {
-            let v = parseInt(input.value, 10);
-            if (!isNaN(v) && v < minLimit && v !== "") {
-                input.value = '';
-                updateTotal();
-            }
-        });
-        
-        const buyBtn = document.createElement('button');
-        buyBtn.className = 'buy-btn';
-        buyBtn.innerHTML = '<i class="fab fa-whatsapp"></i> شراء الآن';
-        buyBtn.addEventListener('click', function() {
-            sendOrder(this);
-        });
-        
-        // زر تفاصيل الخدمة
-        const detailsBtn = document.createElement('button');
-        detailsBtn.className = 'btn-details';
-        detailsBtn.innerText = 'تفاصيل الخدمة';
-        detailsBtn.addEventListener('click', () => {
-            openDetailsModal(service);
-        });
-        
-        card.appendChild(calcDiv);
-        card.appendChild(buyBtn);
-        card.appendChild(detailsBtn);
-        
-        return card;
-    }
-    
-    function setupSliderEvents(slider, btnPrev, btnNext) {
-        let scrollStep = 350;
-        const updateStep = () => {
-            const w = slider.querySelector('.service-card')?.offsetWidth || 340;
-            scrollStep = w + 24;
-        };
-        setTimeout(updateStep, 100);
-        window.addEventListener('resize', updateStep);
-        btnPrev.addEventListener('click', () => slider.scrollBy({ left: -scrollStep, behavior: 'smooth' }));
-        btnNext.addEventListener('click', () => slider.scrollBy({ left: scrollStep, behavior: 'smooth' }));
-        
-        let isDragging = false, startX, scrollLeft;
-        slider.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-            slider.style.cursor = 'grabbing';
-            e.preventDefault();
-        });
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            slider.scrollLeft = scrollLeft - walk;
-        });
-        window.addEventListener('mouseup', () => {
-            isDragging = false;
-            slider.style.cursor = 'grab';
-        });
-        slider.querySelectorAll('a, button, input').forEach(el => el.addEventListener('mousedown', (e) => e.stopPropagation()));
-    }
-    
-    function attachSearchListener() {
-        const searchInput = document.getElementById('searchInput');
-        const noResultsMsg = document.getElementById('noResultsMsg');
-        if (!searchInput) return;
-        searchInput.addEventListener('input', function(e) {
-            const term = e.target.value.trim().toLowerCase();
-            const sections = document.querySelectorAll('.platform-section');
-            let anyVisible = false;
-            sections.forEach(section => {
-                const cards = section.querySelectorAll('.service-card');
-                let sectionHasMatch = false;
-                cards.forEach(card => {
-                    const svcNumber = card.getAttribute('data-service-number') || '';
-                    const svcName = card.querySelector('.service-name')?.innerText.toLowerCase() || '';
-                    const matches = term === '' || svcNumber.includes(term) || svcName.includes(term);
-                    card.style.display = matches ? '' : 'none';
-                    if (matches) sectionHasMatch = true;
-                });
-                section.style.display = sectionHasMatch || term === '' ? '' : 'none';
-                if (sectionHasMatch) anyVisible = true;
-            });
-            if (noResultsMsg) noResultsMsg.style.display = anyVisible ? 'none' : 'block';
-        });
-    }
-    
-    function renderFavoritesPage() {
-        const container = document.getElementById('favoritesContainer');
-        const noMsg = document.getElementById('noFavoritesMsg');
-        if (!container) return;
-        container.innerHTML = '';
-        const uniqueFavServices = [];
-        const addedIds = new Set();
-        for (const svc of globalServicesList) {
-            if (favorites.includes(svc.id) && !addedIds.has(svc.id)) {
-                addedIds.add(svc.id);
-                uniqueFavServices.push(svc);
-            }
-        }
-        if (uniqueFavServices.length === 0) {
-            if (noMsg) noMsg.style.display = 'block';
-            return;
-        }
-        if (noMsg) noMsg.style.display = 'none';
-        uniqueFavServices.forEach(svc => {
-            const favCard = createServiceCardFromDB(svc.serviceData, svc.number);
-            const oldFavBtn = favCard.querySelector('.favorite-btn');
-            if (oldFavBtn) {
-                const newFavBtn = oldFavBtn.cloneNode(true);
-                oldFavBtn.parentNode.replaceChild(newFavBtn, oldFavBtn);
-                newFavBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleFavorite(svc.id, newFavBtn);
-                });
-            }
-            container.appendChild(favCard);
-        });
-    }
-    
-    // ========== الإحصائيات وعدادات Supabase (نفس الكود الأصلي) ==========
     (function() {
         try {
-            const supabaseUrlStats = 'https://bqiryyoanqleobzlztbl.supabase.co';
-            const supabaseKeyStats = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
-            const supabaseStats = window.supabase.createClient(supabaseUrlStats, supabaseKeyStats);
+            const supabaseUrl = 'https://bqiryyoanqleobzlztbl.supabase.co';
+            const supabaseKey = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
             
             const usersSpan = document.getElementById('usersCount');
             const ordersSpan = document.getElementById('ordersCount');
@@ -1339,26 +766,26 @@
             
             async function incrementOrderCounter() {
                 try {
-                    const { error } = await supabaseStats.rpc('increment_orders');
+                    const { error } = await supabase.rpc('increment_orders');
                     if (error) throw error;
                 } catch (err) {
                     try {
-                        const { data: current } = await supabaseStats.from('orders_counter').select('count').eq('id', 1).single();
+                        const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
                         const newCount = (current?.count || 0) + 1;
-                        await supabaseStats.from('orders_counter').update({ count: newCount }).eq('id', 1);
+                        await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
                     } catch (e) { console.warn(e); }
                 }
             }
             
             async function incrementUserCounter() {
                 try {
-                    const { error } = await supabaseStats.rpc('increment_active_users');
+                    const { error } = await supabase.rpc('increment_active_users');
                     if (error) throw error;
                 } catch (err) {
                     try {
-                        const { data: current } = await supabaseStats.from('active_users_counter').select('count').eq('id', 1).single();
+                        const { data: current } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
                         const newCount = (current?.count || 0) + 1;
-                        await supabaseStats.from('active_users_counter').update({ count: newCount }).eq('id', 1);
+                        await supabase.from('active_users_counter').update({ count: newCount }).eq('id', 1);
                     } catch (e) {}
                 }
             }
@@ -1367,14 +794,14 @@
             
             document.addEventListener('DOMContentLoaded', async () => {
                 try {
-                    const { data: usersData } = await supabaseStats.from('active_users_counter').select('count').eq('id', 1).single();
-                    const { data: ordersData } = await supabaseStats.from('orders_counter').select('count').eq('id', 1).single();
+                    const { data: usersData } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
+                    const { data: ordersData } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
                     updateUI(usersData?.count, ordersData?.count);
                     if (!sessionStorage.getItem('smcole_visited_real')) {
                         await incrementUserCounter();
                         sessionStorage.setItem('smcole_visited_real', 'true');
                     }
-                    supabaseStats.channel('realtime-counters')
+                    supabase.channel('realtime-counters')
                         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => {
                             if (payload.new) updateUI(payload.new.count, undefined);
                         })
@@ -1384,137 +811,369 @@
                         .subscribe();
                 } catch(err) { console.warn(err); }
             });
-        } catch(err) { console.warn(err); }
+            
+            // عناصر القائمة
+            const menuBtn = document.getElementById('menuButton');
+            const dropdown = document.getElementById('dropdownMenu');
+            const termsPage = document.getElementById('termsPage');
+            const paymentPage = document.getElementById('paymentPage');
+            const favoritesPage = document.getElementById('favoritesPage');
+            const mainContent = document.getElementById('mainContent');
+            const termsLink = document.getElementById('termsLink');
+            const paymentLink = document.getElementById('paymentLink');
+            const favoritesLink = document.getElementById('favoritesLink');
+            const supportDropdownLink = document.getElementById('supportDropdownLink');
+            const paymentMethodBtn = document.getElementById('paymentMethodBtn');
+            let currentState = 'home';
+            
+            function showPage(pageToShow) {
+                mainContent.style.display = 'none';
+                termsPage.style.display = 'none';
+                paymentPage.style.display = 'none';
+                favoritesPage.style.display = 'none';
+                pageToShow.style.display = 'block';
+                dropdown.classList.remove('show-dropdown');
+                if (pageToShow === termsPage) {
+                    history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms');
+                    currentState = 'terms';
+                } else if (pageToShow === paymentPage) {
+                    history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment');
+                    currentState = 'payment';
+                } else if (pageToShow === favoritesPage) {
+                    history.pushState({ page: 'favorites' }, 'المفضلة', '#favorites');
+                    currentState = 'favorites';
+                    renderFavoritesPage();
+                } else {
+                    if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
+                    currentState = 'home';
+                }
+            }
+            
+            function showHomePage() {
+                if (currentState === 'home') return;
+                mainContent.style.display = 'block';
+                termsPage.style.display = 'none';
+                paymentPage.style.display = 'none';
+                favoritesPage.style.display = 'none';
+                if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
+                currentState = 'home';
+            }
+            
+            window.addEventListener('popstate', function(event) {
+                if (event.state && event.state.page === 'terms') showPage(termsPage);
+                else if (event.state && event.state.page === 'payment') showPage(paymentPage);
+                else if (event.state && event.state.page === 'favorites') showPage(favoritesPage);
+                else showHomePage();
+            });
+            
+            menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
+            document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
+            
+            paymentLink.addEventListener('click', (e) => { e.preventDefault(); showPage(paymentPage); });
+            termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPage); });
+            favoritesLink.addEventListener('click', (e) => { e.preventDefault(); showPage(favoritesPage); renderFavoritesPage(); });
+            paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage); });
+            
+            // دعم واتساب من القائمة (مع أيقونة الواتساب)
+            supportDropdownLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم فني بخصوص خدمات smcole. يرجى مساعدتي.', '_blank');
+                dropdown.classList.remove('show-dropdown');
+            });
+            
+            // أيقونات المنصات
+            const iconCircles = document.querySelectorAll('.icon-circle');
+            iconCircles.forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    this.style.transition = '0.1s';
+                    this.style.backgroundColor = '#2EBD85';
+                    this.style.color = '#0B0E11';
+                    setTimeout(() => { this.style.backgroundColor = ''; this.style.color = ''; }, 200);
+                    const targetId = this.getAttribute('data-target');
+                    if (targetId) {
+                        const targetSection = document.getElementById(`section-${targetId}`);
+                        if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    showHomePage();
+                });
+            });
+            
+            // زر الدعم الموجود أصلاً في الأسفل
+            document.getElementById('directSupportBtn').addEventListener('click', () => {
+                window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole.', '_blank');
+            });
+            
+            // زر العودة للأعلى
+            const backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // دالة البحث (تخفي الأقسام بالكامل)
+            let searchTimeout;
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    const searchTerm = e.target.value.trim().toLowerCase();
+                    const sections = document.querySelectorAll('.platform-section');
+                    let anyVisible = false;
+                    
+                    sections.forEach(section => {
+                        const cards = section.querySelectorAll('.service-card');
+                        let sectionHasMatch = false;
+                        cards.forEach(card => {
+                            const serviceNumber = card.getAttribute('data-service-number') || '';
+                            const serviceName = card.querySelector('.service-name')?.innerText.toLowerCase() || '';
+                            const matches = searchTerm === '' || serviceNumber.includes(searchTerm) || serviceName.includes(searchTerm);
+                            if (matches) {
+                                card.style.display = '';
+                                sectionHasMatch = true;
+                                anyVisible = true;
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        section.style.display = sectionHasMatch || searchTerm === '' ? '' : 'none';
+                    });
+                    
+                    const noResultsMsg = document.getElementById('noResultsMsg');
+                    if (noResultsMsg) {
+                        noResultsMsg.style.display = anyVisible ? 'none' : 'block';
+                    }
+                }, 300);
+            });
+            
+            // ======================= الكود الجديد لعرض الخدمات ديناميكياً من Supabase =======================
+            let serviceCounter = 1;
+            
+            function createServiceCard(service, serviceNumber) {
+                const card = document.createElement('div'); card.className = 'service-card';
+                let minLimit = service.min_limit || 1000;
+                let stepValue = 500;
+                if (service.name && (service.name.includes("تعليق") || service.name.includes("comment"))) { minLimit = 50; stepValue = 10; }
+                else if (service.name && (service.name.includes("لايك") || service.name.includes("like"))) { minLimit = 250; stepValue = 50; }
+                card.setAttribute('data-unit', 'وحدة');
+                card.setAttribute('data-price-per-thousand', service.selling_price);
+                card.setAttribute('data-min-limit', minLimit);
+                card.setAttribute('data-service-number', serviceNumber);
+                card.setAttribute('data-service-id', service.service_id);
+                
+                const headerRow = document.createElement('div'); headerRow.className = 'card-header-row';
+                const numberSpan = document.createElement('span'); numberSpan.className = 'service-number'; numberSpan.innerText = `#${serviceNumber}`;
+                const favBtn = document.createElement('button'); favBtn.className = 'favorite-btn';
+                favBtn.innerHTML = isFavorite(service.service_id) ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+                if (isFavorite(service.service_id)) favBtn.classList.add('active');
+                favBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (isFavorite(service.service_id)) { removeFavorite(service.service_id); favBtn.classList.remove('active'); favBtn.innerHTML = '<i class="far fa-heart"></i>'; }
+                    else { addFavorite(service.service_id); favBtn.classList.add('active'); favBtn.innerHTML = '<i class="fas fa-heart"></i>'; }
+                    renderFavoritesPage();
+                    updateFavoriteButtonsInAllCards();
+                });
+                headerRow.appendChild(numberSpan); headerRow.appendChild(favBtn);
+                card.appendChild(headerRow);
+                
+                let iconClass = 'fas fa-globe';
+                if (service.category === 'facebook') iconClass = 'fab fa-facebook-f';
+                else if (service.category === 'instagram') iconClass = 'fab fa-instagram';
+                else if (service.category === 'tiktok') iconClass = 'fab fa-tiktok';
+                else if (service.category === 'youtube') iconClass = 'fab fa-youtube';
+                else if (service.category === 'telegram') iconClass = 'fab fa-telegram';
+                else if (service.category === 'twitter') iconClass = 'fab fa-twitter';
+                else if (service.category === 'snapchat') iconClass = 'fab fa-snapchat';
+                else if (service.category === 'whatsapp') iconClass = 'fab fa-whatsapp';
+                else if (service.category === 'twitch') iconClass = 'fab fa-twitch';
+                const iconDiv = document.createElement('div'); iconDiv.className = 'card-icon'; iconDiv.innerHTML = `<i class="${iconClass}"></i>`;
+                const nameEl = document.createElement('h3'); nameEl.className = 'service-name'; nameEl.innerText = service.name;
+                card.append(iconDiv, nameEl);
+                
+                const detailEl = document.createElement('div'); detailEl.className = 'service-detail';
+                detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل 1000 وحدة`;
+                card.appendChild(detailEl);
+                
+                const priceContainer = document.createElement('div'); priceContainer.className = 'price-container';
+                const priceValueSpan = document.createElement('span'); priceValueSpan.className = 'price-value';
+                priceValueSpan.setAttribute('data-original-price', service.selling_price);
+                let initPrice = service.selling_price;
+                if (currentCurrency === 'USD') initPrice = initPrice / exchangeRate;
+                priceValueSpan.innerText = (currentCurrency === 'USD') ? initPrice.toFixed(2) : (Number.isInteger(initPrice) ? initPrice.toString() : initPrice.toFixed(2));
+                const priceCurrencySpan = document.createElement('span'); priceCurrencySpan.className = 'price-currency';
+                priceCurrencySpan.innerText = (currentCurrency === 'USD') ? '$' : 'جنيه';
+                const smallUnitSpan = document.createElement('span'); smallUnitSpan.className = 'small-unit'; smallUnitSpan.innerText = `لكل 1000 وحدة`;
+                priceContainer.appendChild(priceValueSpan); priceContainer.appendChild(priceCurrencySpan); priceContainer.appendChild(smallUnitSpan);
+                card.appendChild(priceContainer);
+                
+                const calcDiv = document.createElement('div'); calcDiv.className = 'quantity-calc';
+                const label = document.createElement('span'); label.className = 'quantity-label'; 
+                label.innerText = `📦 الكمية المطلوبة (الحد الأدنى ${minLimit})`;
+                const input = document.createElement('input'); input.type = 'number'; input.placeholder = `مثال: ${minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')}`;
+                input.className = 'quantity-input'; input.value = ''; input.min = minLimit; input.step = stepValue;
+                const urlLabel = document.createElement('span'); urlLabel.className = 'quantity-label'; urlLabel.style.marginTop = '8px';
+                urlLabel.innerHTML = '<i class="fas fa-link"></i> الرابط المطلوب';
+                const urlInput = document.createElement('input'); urlInput.type = 'url'; urlInput.placeholder = 'https://example.com/page'; urlInput.className = 'url-input'; urlInput.value = '';
+                const totalRow = document.createElement('div'); totalRow.className = 'total-price-row';
+                const totalLabelSpan = document.createElement('span'); totalLabelSpan.className = 'total-label'; totalLabelSpan.innerText = 'السعر الإجمالي:';
+                const totalAmountSpan = document.createElement('span'); totalAmountSpan.className = 'total-amount'; totalAmountSpan.innerText = '---';
+                totalRow.appendChild(totalLabelSpan); totalRow.appendChild(totalAmountSpan);
+                const errorSpan = document.createElement('div'); errorSpan.className = 'error-msg'; errorSpan.style.display = 'none';
+                calcDiv.append(label, input, urlLabel, urlInput, totalRow, errorSpan);
+                
+                function updateTotal() {
+                    let raw = input.value.trim();
+                    if (raw === "") { totalAmountSpan.innerText = '---'; errorSpan.style.display = 'none'; return; }
+                    let qty = parseInt(raw, 10);
+                    if (isNaN(qty) || qty < minLimit) {
+                        totalAmountSpan.innerText = '---';
+                        errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit}`;
+                        errorSpan.style.display = 'block';
+                        return;
+                    }
+                    errorSpan.style.display = 'none';
+                    let totalInEGP = (qty / 1000) * service.selling_price;
+                    let totalToShow = totalInEGP, currencySymbol = 'جنيه';
+                    if (currentCurrency === 'USD') { totalToShow = totalInEGP / exchangeRate; currencySymbol = '$'; }
+                    totalAmountSpan.innerText = `${(currentCurrency === 'USD') ? totalToShow.toFixed(2) : (Number.isInteger(totalToShow) ? totalToShow.toString() : totalToShow.toFixed(2))} ${currencySymbol}`;
+                }
+                input.addEventListener('input', updateTotal);
+                input.addEventListener('blur', () => { let v = parseInt(input.value, 10); if (!isNaN(v) && v < minLimit && v !== "") { input.value = ''; updateTotal(); } });
+                
+                const buyBtn = document.createElement('button'); buyBtn.className = 'buy-btn'; buyBtn.innerHTML = '<i class="fab fa-whatsapp"></i> شراء الآن';
+                buyBtn.addEventListener('click', function() { sendOrder(this); });
+                
+                // زر تفاصيل الخدمة (جديد)
+                const detailsBtn = document.createElement('button');
+                detailsBtn.className = 'buy-btn';
+                detailsBtn.style.background = '#F0B90B';
+                detailsBtn.style.marginTop = '5px';
+                detailsBtn.innerHTML = '<i class="fas fa-info-circle"></i> تفاصيل الخدمة';
+                detailsBtn.addEventListener('click', () => {
+                    alert(`📋 اسم الخدمة: ${service.name}\n💰 السعر (لكل 1000): ${service.selling_price} جنيه\n📦 الحد الأدنى: ${service.min_limit || 'غير محدد'}\n📈 الحد الأقصى: ${service.max_limit || 'غير محدد'}\n⚡ سرعة التنفيذ: ${service.speed || 'عادية'}\n📝 الوصف: ${service.description || 'لا يوجد'}`);
+                });
+                
+                card.appendChild(calcDiv);
+                card.appendChild(buyBtn);
+                card.appendChild(detailsBtn);
+                return card;
+            }
+            
+            function renderFavoritesPage() {
+                const container = document.getElementById('favoritesContainer');
+                const noMsg = document.getElementById('noFavoritesMsg');
+                if (!container) return;
+                container.innerHTML = '';
+                const favServices = globalServicesList.filter(svc => favorites.includes(svc.service_id));
+                if (favServices.length === 0) { if (noMsg) noMsg.style.display = 'block'; return; }
+                if (noMsg) noMsg.style.display = 'none';
+                favServices.forEach((svc, idx) => { const favCard = createServiceCard(svc, idx+1); container.appendChild(favCard); });
+            }
+            
+            async function loadServicesFromSupabase() {
+                const sectionsContainer = document.getElementById('sectionsContainer');
+                sectionsContainer.innerHTML = '<div style="text-align:center;padding:2rem">جاري تحميل الخدمات...</div>';
+                try {
+                    const { data, error } = await supabase.from('services').select('*');
+                    if (error) throw error;
+                    if (!data || data.length === 0) {
+                        sectionsContainer.innerHTML = '<div style="text-align:center;padding:2rem">⚠️ لا توجد خدمات متاحة حالياً. يرجى تشغيل دالة التحديث أولاً.</div>';
+                        return;
+                    }
+                    // تجميع حسب التصنيف
+                    const grouped = {};
+                    data.forEach(svc => { const cat = svc.category || 'general'; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(svc); });
+                    sectionsContainer.innerHTML = '';
+                    serviceCounter = 1;
+                    globalServicesList = data;
+                    
+                    const categoryOrder = ['facebook', 'instagram', 'tiktok', 'youtube', 'telegram', 'twitter', 'snapchat', 'whatsapp', 'twitch'];
+                    const sortedCategories = Object.keys(grouped).sort((a,b) => {
+                        let ia = categoryOrder.indexOf(a), ib = categoryOrder.indexOf(b);
+                        if (ia === -1 && ib === -1) return a.localeCompare(b);
+                        if (ia === -1) return 1; if (ib === -1) return -1;
+                        return ia - ib;
+                    });
+                    
+                    for (const cat of sortedCategories) {
+                        const servicesList = grouped[cat];
+                        const section = document.createElement('div'); section.className = 'platform-section'; section.id = `section-${cat}`;
+                        const headerDiv = document.createElement('div'); headerDiv.className = 'platform-header';
+                        let titleHtml = '';
+                        if (cat === 'facebook') titleHtml = '<i class="fab fa-facebook-f"></i> فيسبوك - خدمات الزيادة';
+                        else if (cat === 'instagram') titleHtml = '<i class="fab fa-instagram"></i> انستقرام - تفاعل ومتابعين';
+                        else if (cat === 'tiktok') titleHtml = '<i class="fab fa-tiktok"></i> تيك توك - نمو سريع';
+                        else if (cat === 'youtube') titleHtml = '<i class="fab fa-youtube"></i> يوتيوب - مشاهدات ومشتركين';
+                        else if (cat === 'telegram') titleHtml = '<i class="fab fa-telegram"></i> تليجرام - قنوات ومتابعين';
+                        else if (cat === 'twitter') titleHtml = '<i class="fab fa-twitter"></i> تويتر (X) - خدمات تفاعل';
+                        else if (cat === 'snapchat') titleHtml = '<i class="fab fa-snapchat"></i> سناب شات - متابعين ولايكات';
+                        else if (cat === 'whatsapp') titleHtml = '<i class="fab fa-whatsapp"></i> واتساب - قنوات ومتابعين';
+                        else if (cat === 'twitch') titleHtml = '<i class="fab fa-twitch"></i> تويتش - متابعين ومشاهدات';
+                        else titleHtml = `<i class="fas fa-globe"></i> ${cat} - خدمات متنوعة`;
+                        const titleSpan = document.createElement('div'); titleSpan.className = 'platform-title'; titleSpan.innerHTML = titleHtml;
+                        const navDiv = document.createElement('div'); navDiv.className = 'slider-nav';
+                        const btnPrev = document.createElement('button'); btnPrev.className = 'slider-btn'; btnPrev.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                        const btnNext = document.createElement('button'); btnNext.className = 'slider-btn'; btnNext.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                        navDiv.appendChild(btnPrev); navDiv.appendChild(btnNext);
+                        headerDiv.appendChild(titleSpan); headerDiv.appendChild(navDiv);
+                        section.appendChild(headerDiv);
+                        const sliderDiv = document.createElement('div'); sliderDiv.className = 'cards-slider';
+                        servicesList.forEach(svc => { sliderDiv.appendChild(createServiceCard(svc, serviceCounter++)); });
+                        section.appendChild(sliderDiv);
+                        // سحب بالماوس
+                        let isDragging = false, startX, scrollLeft;
+                        sliderDiv.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX - sliderDiv.offsetLeft; scrollLeft = sliderDiv.scrollLeft; sliderDiv.style.cursor = 'grabbing'; e.preventDefault(); });
+                        window.addEventListener('mousemove', (e) => { if (!isDragging) return; const x = e.pageX - sliderDiv.offsetLeft; const walk = (x - startX) * 1.5; sliderDiv.scrollLeft = scrollLeft - walk; });
+                        window.addEventListener('mouseup', () => { isDragging = false; sliderDiv.style.cursor = 'grab'; });
+                        sliderDiv.querySelectorAll('a, button, input').forEach(el => el.addEventListener('mousedown', (e) => e.stopPropagation()));
+                        let scrollStep = 350;
+                        const updateStep = () => { const w = sliderDiv.querySelector('.service-card')?.offsetWidth || 340; scrollStep = w + 24; };
+                        setTimeout(updateStep, 100);
+                        window.addEventListener('resize', updateStep);
+                        btnPrev.addEventListener('click', () => sliderDiv.scrollBy({ left: -scrollStep, behavior: 'smooth' }));
+                        btnNext.addEventListener('click', () => sliderDiv.scrollBy({ left: scrollStep, behavior: 'smooth' }));
+                        sectionsContainer.appendChild(section);
+                    }
+                    updateAllPrices();
+                } catch (err) {
+                    console.error(err);
+                    sectionsContainer.innerHTML = '<div style="text-align:center;padding:2rem">❌ فشل تحميل الخدمات من قاعدة البيانات</div>';
+                }
+            }
+            
+            // استدعاء تحميل الخدمات بدلاً من buildAllSections
+            loadServicesFromSupabase();
+            fetchExchangeRate();
+            
+        } catch(err) {
+            console.error("Unexpected error:", err);
+            const overlay = document.getElementById('welcomeOverlay');
+            if (overlay) overlay.style.display = 'none';
+        }
     })();
     
-    // ========== باقي الكود الأصلي (القوائم، الأيقونات، PWA، إلخ) ==========
-    setTimeout(() => {
-        const overlay = document.getElementById('welcomeOverlay');
-        if (overlay) {
-            overlay.style.transition = 'opacity 0.6s ease';
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 600);
-        }
-    }, 2000);
-    
-    // عناصر القائمة
-    const menuBtn = document.getElementById('menuButton');
-    const dropdown = document.getElementById('dropdownMenu');
-    const termsPage = document.getElementById('termsPage');
-    const paymentPage = document.getElementById('paymentPage');
-    const favoritesPageElem = document.getElementById('favoritesPage');
-    const mainContent = document.getElementById('mainContent');
-    const termsLink = document.getElementById('termsLink');
-    const paymentLink = document.getElementById('paymentLink');
-    const favoritesLink = document.getElementById('favoritesLink');
-    const supportDropdownLink = document.getElementById('supportDropdownLink');
-    const paymentMethodBtn = document.getElementById('paymentMethodBtn');
-    let currentState = 'home';
-    
-    function showPage(pageToShow) {
-        mainContent.style.display = 'none';
-        termsPage.style.display = 'none';
-        paymentPage.style.display = 'none';
-        favoritesPageElem.style.display = 'none';
-        pageToShow.style.display = 'block';
-        dropdown.classList.remove('show-dropdown');
-        if (pageToShow === termsPage) {
-            history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms');
-            currentState = 'terms';
-        } else if (pageToShow === paymentPage) {
-            history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment');
-            currentState = 'payment';
-        } else if (pageToShow === favoritesPageElem) {
-            history.pushState({ page: 'favorites' }, 'المفضلة', '#favorites');
-            currentState = 'favorites';
-            renderFavoritesPage();
-        } else {
-            if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
-            currentState = 'home';
-        }
-    }
-    
-    function showHomePage() {
-        if (currentState === 'home') return;
-        mainContent.style.display = 'block';
-        termsPage.style.display = 'none';
-        paymentPage.style.display = 'none';
-        favoritesPageElem.style.display = 'none';
-        if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
-        currentState = 'home';
-    }
-    
-    window.addEventListener('popstate', function(event) {
-        if (event.state && event.state.page === 'terms') showPage(termsPage);
-        else if (event.state && event.state.page === 'payment') showPage(paymentPage);
-        else if (event.state && event.state.page === 'favorites') showPage(favoritesPageElem);
-        else showHomePage();
-    });
-    
-    menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
-    document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
-    
-    paymentLink.addEventListener('click', (e) => { e.preventDefault(); showPage(paymentPage); });
-    termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPage); });
-    favoritesLink.addEventListener('click', (e) => { e.preventDefault(); showPage(favoritesPageElem); renderFavoritesPage(); });
-    paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage); });
-    
-    supportDropdownLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم فني بخصوص خدمات smcole. يرجى مساعدتي.', '_blank');
-        dropdown.classList.remove('show-dropdown');
-    });
-    
-    const iconCircles = document.querySelectorAll('.icon-circle');
-    iconCircles.forEach(icon => {
-        icon.addEventListener('click', function(e) {
-            this.style.transition = '0.1s';
-            this.style.backgroundColor = '#2EBD85';
-            this.style.color = '#0B0E11';
-            setTimeout(() => { this.style.backgroundColor = ''; this.style.color = ''; }, 200);
-            const targetId = this.getAttribute('data-target');
-            if (targetId) {
-                const targetSection = document.getElementById(`section-${targetId}`);
-                if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            showHomePage();
-        });
-    });
-    
-    document.getElementById('directSupportBtn').addEventListener('click', () => {
-        window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole.', '_blank');
-    });
-    
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // العملة والقوائم
+    // دوال العملة والقوائم (مع تثبيت العملة)
     const currencyCircle = document.getElementById('currencyCircle');
-    const currencyDropdownElem = document.getElementById('currencyDropdown');
+    const currencyDropdown = document.getElementById('currencyDropdown');
     currencyCircle.addEventListener('click', (e) => {
         e.stopPropagation();
-        currencyDropdownElem.classList.toggle('show-currency-dropdown');
+        currencyDropdown.classList.toggle('show-currency-dropdown');
     });
     document.querySelectorAll('.currency-dropdown a').forEach(option => {
         option.addEventListener('click', (e) => {
             e.preventDefault();
             const newCurrency = option.getAttribute('data-currency');
             setCurrency(newCurrency);
-            currencyDropdownElem.classList.remove('show-currency-dropdown');
+            currencyDropdown.classList.remove('show-currency-dropdown');
         });
     });
     document.addEventListener('click', (event) => {
-        if (!currencyCircle.contains(event.target) && !currencyDropdownElem.contains(event.target)) {
-            currencyDropdownElem.classList.remove('show-currency-dropdown');
+        if (!currencyCircle.contains(event.target) && !currencyDropdown.contains(event.target)) {
+            currencyDropdown.classList.remove('show-currency-dropdown');
         }
     });
     
@@ -1540,17 +1199,7 @@
             .then(reg => console.log('Service Worker registered:', reg))
             .catch(err => console.log('Service Worker error:', err));
     }
-    
-    // تهيئة الصفحة: جلب سعر الصرف ثم عرض الخدمات
-    (async function init() {
-        await fetchExchangeRate();
-        await fetchAndRenderServices();
-        // ربط إغلاق الـ Modal
-        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
-        document.getElementById('serviceModal').addEventListener('click', (e) => {
-            if (e.target === document.getElementById('serviceModal')) closeModal();
-        });
-    })();
+    // ===========================================
 </script>
 </body>
 </html>
