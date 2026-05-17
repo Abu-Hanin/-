@@ -35,7 +35,7 @@
     <meta name="apple-mobile-web-app-title" content="smcole">
     <link rel="apple-touch-icon" href="/icon-192.png">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* جميع الأنماط الأصلية - بدون تغيير جوهري */
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
@@ -303,10 +303,10 @@
         .service-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; color: #f0f2f5; line-height: 1.3; }
         .badge-guarantee { background: #2EBD8522; color: #2EBD85; font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.7rem; border-radius: 30px; display: inline-block; margin: 0.3rem 0; width: fit-content; }
         .service-detail { font-size: 0.75rem; color: #aeb6c9; margin: 0.2rem 0; }
-        .price-container { margin: 0.5rem 0 0.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+        .price-container { margin: 0.5rem 0 0.2rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
         .price-value { font-size: 1.5rem; font-weight: 800; color: #2EBD85; }
-        .price-currency { font-size: 0.8rem; font-weight: 600; color: #2EBD85; margin-left: 2px; }
-        .small-unit { font-size: 0.7rem; color: #9aa2b5; margin-left: 4px;}
+        .price-currency { font-size: 0.8rem; font-weight: 600; color: #2EBD85; }
+        .small-unit { font-size: 0.75rem; color: #9aa2b5; margin-left: 5px; font-weight: 600;}
         .quantity-calc { margin: 0.8rem 0 0.5rem; background: #13171D; padding: 0.5rem; border-radius: 20px; }
         .quantity-label { font-size: 0.7rem; color: #B7BDC6; display: block; margin-bottom: 4px; }
         .quantity-input { width: 100%; padding: 6px 10px; border-radius: 40px; border: 1px solid #2EBD85; background: #0B0E11; color: #fff; font-size: 0.85rem; text-align: center; font-weight: 600; outline: none; }
@@ -542,11 +542,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // ======================= نظام تحويل العملات مع التثبيت في localStorage =======================
+    // ======================= نظام تحويل العملات مع التثبيت =======================
     let currentCurrency = 'EGP';
-    let exchangeRate = 48.5;
+    let exchangeRate = 48.5; // سعر الصرف المبدئي
     
-    // تحميل العملة المخزنة عند بدء التشغيل
     try {
         const savedCurrency = localStorage.getItem('smcole_currency');
         if (savedCurrency === 'USD' || savedCurrency === 'EGP') {
@@ -556,7 +555,7 @@
         }
     } catch(e) { currentCurrency = 'EGP'; }
     
-    // نظام المفضلة (localStorage)
+    // نظام المفضلة
     let favorites = [];
     try {
         const stored = localStorage.getItem('smcole_favorites');
@@ -564,61 +563,12 @@
         if (!Array.isArray(favorites)) favorites = [];
     } catch(e) { favorites = []; }
     
-    let globalServicesList = []; // لتخزين جميع الخدمات مع معرفاتها
+    let globalServicesList = []; 
     
-    function saveFavorites() {
-        localStorage.setItem('smcole_favorites', JSON.stringify(favorites));
-    }
-    
-    function isFavorite(serviceId) {
-        return favorites.includes(serviceId);
-    }
-    
-    function addFavorite(serviceId) {
-        if (!favorites.includes(serviceId)) {
-            favorites.push(serviceId);
-            saveFavorites();
-        }
-    }
-    
-    function removeFavorite(serviceId) {
-        favorites = favorites.filter(id => id !== serviceId);
-        saveFavorites();
-    }
-    
-    function toggleFavorite(serviceId, btnElement) {
-        if (isFavorite(serviceId)) {
-            removeFavorite(serviceId);
-            if (btnElement) {
-                btnElement.classList.remove('active');
-                btnElement.innerHTML = '<i class="far fa-heart"></i>';
-            }
-        } else {
-            addFavorite(serviceId);
-            if (btnElement) {
-                btnElement.classList.add('active');
-                btnElement.innerHTML = '<i class="fas fa-heart"></i>';
-            }
-        }
-        renderFavoritesPage(); // تحديث صفحة المفضلة
-        updateFavoriteButtonsInAllCards(); // تحديث حالة الأزرار في البطاقات
-    }
-    
-    function updateFavoriteButtonsInAllCards() {
-        document.querySelectorAll('.service-card').forEach(card => {
-            const serviceId = card.getAttribute('data-service-id');
-            const favBtn = card.querySelector('.favorite-btn');
-            if (serviceId && favBtn) {
-                if (isFavorite(serviceId)) {
-                    favBtn.classList.add('active');
-                    favBtn.innerHTML = '<i class="fas fa-heart"></i>';
-                } else {
-                    favBtn.classList.remove('active');
-                    favBtn.innerHTML = '<i class="far fa-heart"></i>';
-                }
-            }
-        });
-    }
+    function saveFavorites() { localStorage.setItem('smcole_favorites', JSON.stringify(favorites)); }
+    function isFavorite(serviceId) { return favorites.includes(serviceId); }
+    function addFavorite(serviceId) { if (!favorites.includes(serviceId)) { favorites.push(serviceId); saveFavorites(); } }
+    function removeFavorite(serviceId) { favorites = favorites.filter(id => id !== serviceId); saveFavorites(); }
     
     // تحديث الأسعار
     async function fetchExchangeRate() {
@@ -646,16 +596,20 @@
         document.querySelectorAll('.service-card').forEach(card => {
             const priceSpan = card.querySelector('.price-value');
             const currencySpan = card.querySelector('.price-currency');
-            const originalPrice = parseFloat(priceSpan?.getAttribute('data-original-price'));
-            if (!isNaN(originalPrice) && priceSpan) {
-                let displayPrice = originalPrice;
+            
+            // هذا السعر المخزن هو السعر النهائي المضاف إليه 120% بالجنيه المصري
+            const finalEGPPrice = parseFloat(priceSpan?.getAttribute('data-original-price'));
+            
+            if (!isNaN(finalEGPPrice) && priceSpan) {
+                let displayPrice = finalEGPPrice;
                 if (currentCurrency === 'USD') {
-                    displayPrice = originalPrice / exchangeRate;
+                    displayPrice = finalEGPPrice / exchangeRate; // يرجعه للدولار
                     currencySpan.innerText = '$';
                 } else {
-                    displayPrice = originalPrice;
+                    displayPrice = finalEGPPrice;
                     currencySpan.innerText = 'جنيه';
                 }
+                
                 if (currentCurrency === 'USD') {
                     priceSpan.innerText = displayPrice.toFixed(2);
                 } else {
@@ -669,20 +623,17 @@
         });
     }
     
-    // حفظ العملة عند التغيير
     function setCurrency(currency) {
         currentCurrency = currency;
         localStorage.setItem('smcole_currency', currency);
         updateAllPrices();
     }
     
-    // ========== الدالة المعدلة لإرسال الطلب مع الاعتماد على الحد الأدنى الديناميكي ==========
+    // ========== إرسال الطلب للواتساب بناءً على السعر الجديد والكمية الديناميكية ==========
     function sendOrder(button) {
         const card = button.closest('.service-card');
-        if (!card) {
-            alert('حدث خطأ: لم يتم العثور على بيانات الخدمة');
-            return;
-        }
+        if (!card) return;
+        
         const serviceNumber = card.getAttribute('data-service-number') || '?';
         const serviceName = card.querySelector('.service-name')?.innerText || 'غير معروف';
         const quantityInput = card.querySelector('.quantity-input');
@@ -690,28 +641,19 @@
         const link = urlInput ? urlInput.value.trim() : '';
         let quantity = quantityInput ? parseInt(quantityInput.value.trim()) : NaN;
         
-        if (!link) {
-            alert("⚠️ الرابط مطلوب! يرجى إدخال رابط الحساب أو المنشور أو الفيديو.");
-            return;
-        }
+        if (!link) { alert("⚠️ الرابط مطلوب! يرجى إدخال رابط الحساب أو المنشور."); return; }
         const minLimit = parseInt(card.getAttribute('data-min-limit')) || 1000;
-        if (isNaN(quantity) || quantity < minLimit) {
-            alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit}`);
-            return;
-        }
+        if (isNaN(quantity) || quantity < minLimit) { alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit}`); return; }
         
-        // استدعاء السعر وقيمة الحد الأدنى للحساب الصحيح
-        const pricePerUnit = parseFloat(card.getAttribute('data-price-per-unit'));
+        // استدعاء القيم الديناميكية الجديدة للحساب
+        const pricePerUnit = parseFloat(card.getAttribute('data-price-per-unit')); // هذا سعر الجنيه المصري مع الربح 120%
         const baseUnit = parseInt(card.getAttribute('data-base-unit')) || 1000;
         
-        if (isNaN(pricePerUnit)) {
-            alert('خطأ في سعر الخدمة');
-            return;
-        }
+        if (isNaN(pricePerUnit)) { alert('خطأ في سعر الخدمة'); return; }
         
         const unit = card.getAttribute('data-unit') || '';
         
-        // المعادلة الرياضية الصحيحة 100% التي تعتمد على الحد الأدنى من السيرفر
+        // المعادلة الرياضية الصحيحة والمظبوطة بالملي
         const totalInEGP = (quantity / baseUnit) * pricePerUnit;
         
         let totalToDisplay = totalInEGP;
@@ -723,11 +665,8 @@
             currencyName = 'دولار أمريكي';
             formattedTotal = totalToDisplay.toFixed(2);
         } else {
-            if (Number.isInteger(totalToDisplay)) {
-                formattedTotal = totalToDisplay.toString();
-            } else {
-                formattedTotal = totalToDisplay.toFixed(2);
-            }
+            if (Number.isInteger(totalToDisplay)) { formattedTotal = totalToDisplay.toString(); } 
+            else { formattedTotal = totalToDisplay.toFixed(2); }
         }
         
         const message = `📋 طلب شراء خدمة : ${serviceName}\n🔢 رقم الخدمة : ${serviceNumber}\n📊 الكمية المطلوبة : ${quantity} ${unit}\n💰 السعر الإجمالي : ${formattedTotal} ${currencyName}\n🔗 رابط الهدف : ${link}\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
@@ -735,14 +674,9 @@
         window.open(`https://wa.me/201154846407?text=${encodeURIComponent(message)}`, '_blank');
     }
     
-    // ========== باقي الكود الأصلي ==========
     setTimeout(() => {
         const overlay = document.getElementById('welcomeOverlay');
-        if (overlay) {
-            overlay.style.transition = 'opacity 0.6s ease';
-            overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 600);
-        }
+        if (overlay) { overlay.style.transition = 'opacity 0.6s ease'; overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 600); }
     }, 2000);
     
     (function() {
@@ -760,27 +694,21 @@
             }
             
             async function incrementOrderCounter() {
-                try {
-                    const { error } = await supabase.rpc('increment_orders');
-                    if (error) throw error;
-                } catch (err) {
-                    try {
-                        const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
-                        const newCount = (current?.count || 0) + 1;
-                        await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
+                try { const { error } = await supabase.rpc('increment_orders'); if (error) throw error; } 
+                catch (err) {
+                    try { const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
+                          const newCount = (current?.count || 0) + 1;
+                          await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
                     } catch (e) { console.warn(e); }
                 }
             }
             
             async function incrementUserCounter() {
-                try {
-                    const { error } = await supabase.rpc('increment_active_users');
-                    if (error) throw error;
-                } catch (err) {
-                    try {
-                        const { data: current } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
-                        const newCount = (current?.count || 0) + 1;
-                        await supabase.from('active_users_counter').update({ count: newCount }).eq('id', 1);
+                try { const { error } = await supabase.rpc('increment_active_users'); if (error) throw error; } 
+                catch (err) {
+                    try { const { data: current } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
+                          const newCount = (current?.count || 0) + 1;
+                          await supabase.from('active_users_counter').update({ count: newCount }).eq('id', 1);
                     } catch (e) {}
                 }
             }
@@ -792,22 +720,14 @@
                     const { data: usersData } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
                     const { data: ordersData } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
                     updateUI(usersData?.count, ordersData?.count);
-                    if (!sessionStorage.getItem('smcole_visited_real')) {
-                        await incrementUserCounter();
-                        sessionStorage.setItem('smcole_visited_real', 'true');
-                    }
+                    if (!sessionStorage.getItem('smcole_visited_real')) { await incrementUserCounter(); sessionStorage.setItem('smcole_visited_real', 'true'); }
                     supabase.channel('realtime-counters')
-                        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => {
-                            if (payload.new) updateUI(payload.new.count, undefined);
-                        })
-                        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, (payload) => {
-                            if (payload.new) updateUI(undefined, payload.new.count);
-                        })
+                        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => { if (payload.new) updateUI(payload.new.count, undefined); })
+                        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, (payload) => { if (payload.new) updateUI(undefined, payload.new.count); })
                         .subscribe();
                 } catch(err) { console.warn(err); }
             });
             
-            // عناصر القائمة
             const menuBtn = document.getElementById('menuButton');
             const dropdown = document.getElementById('dropdownMenu');
             const termsPage = document.getElementById('termsPage');
@@ -822,34 +742,17 @@
             let currentState = 'home';
             
             function showPage(pageToShow) {
-                mainContent.style.display = 'none';
-                termsPage.style.display = 'none';
-                paymentPage.style.display = 'none';
-                favoritesPage.style.display = 'none';
-                pageToShow.style.display = 'block';
-                dropdown.classList.remove('show-dropdown');
-                if (pageToShow === termsPage) {
-                    history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms');
-                    currentState = 'terms';
-                } else if (pageToShow === paymentPage) {
-                    history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment');
-                    currentState = 'payment';
-                } else if (pageToShow === favoritesPage) {
-                    history.pushState({ page: 'favorites' }, 'المفضلة', '#favorites');
-                    currentState = 'favorites';
-                    renderFavoritesPage();
-                } else {
-                    if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
-                    currentState = 'home';
-                }
+                mainContent.style.display = 'none'; termsPage.style.display = 'none'; paymentPage.style.display = 'none'; favoritesPage.style.display = 'none';
+                pageToShow.style.display = 'block'; dropdown.classList.remove('show-dropdown');
+                if (pageToShow === termsPage) { history.pushState({ page: 'terms' }, 'شروط الخدمة', '#terms'); currentState = 'terms'; } 
+                else if (pageToShow === paymentPage) { history.pushState({ page: 'payment' }, 'طرق الدفع', '#payment'); currentState = 'payment'; } 
+                else if (pageToShow === favoritesPage) { history.pushState({ page: 'favorites' }, 'المفضلة', '#favorites'); currentState = 'favorites'; renderFavoritesPage(); } 
+                else { if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' '); currentState = 'home'; }
             }
             
             function showHomePage() {
                 if (currentState === 'home') return;
-                mainContent.style.display = 'block';
-                termsPage.style.display = 'none';
-                paymentPage.style.display = 'none';
-                favoritesPage.style.display = 'none';
+                mainContent.style.display = 'block'; termsPage.style.display = 'none'; paymentPage.style.display = 'none'; favoritesPage.style.display = 'none';
                 if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
                 currentState = 'home';
             }
@@ -863,55 +766,32 @@
             
             menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
             document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
-            
             paymentLink.addEventListener('click', (e) => { e.preventDefault(); showPage(paymentPage); });
             termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPage); });
             favoritesLink.addEventListener('click', (e) => { e.preventDefault(); showPage(favoritesPage); renderFavoritesPage(); });
             paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage); });
-            
-            // دعم واتساب من القائمة (مع أيقونة الواتساب)
             supportDropdownLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم فني بخصوص خدمات smcole. يرجى مساعدتي.', '_blank');
                 dropdown.classList.remove('show-dropdown');
             });
             
-            // أيقونات المنصات
-            const iconCircles = document.querySelectorAll('.icon-circle');
-            iconCircles.forEach(icon => {
+            document.querySelectorAll('.icon-circle').forEach(icon => {
                 icon.addEventListener('click', function(e) {
-                    this.style.transition = '0.1s';
-                    this.style.backgroundColor = '#2EBD85';
-                    this.style.color = '#0B0E11';
+                    this.style.transition = '0.1s'; this.style.backgroundColor = '#2EBD85'; this.style.color = '#0B0E11';
                     setTimeout(() => { this.style.backgroundColor = ''; this.style.color = ''; }, 200);
                     const targetId = this.getAttribute('data-target');
-                    if (targetId) {
-                        const targetSection = document.getElementById(`section-${targetId}`);
-                        if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
+                    if (targetId) { const targetSection = document.getElementById(`section-${targetId}`); if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
                     showHomePage();
                 });
             });
             
-            // زر الدعم الموجود أصلاً في الأسفل
-            document.getElementById('directSupportBtn').addEventListener('click', () => {
-                window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole.', '_blank');
-            });
+            document.getElementById('directSupportBtn').addEventListener('click', () => { window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم بخصوص خدمات smcole.', '_blank'); });
             
-            // زر العودة للأعلى
             const backToTopBtn = document.getElementById('backToTop');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+            window.addEventListener('scroll', () => { if (window.scrollY > 300) { backToTopBtn.classList.add('show'); } else { backToTopBtn.classList.remove('show'); } });
+            backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
             
-            // دالة البحث
             let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', function(e) {
                 clearTimeout(searchTimeout);
@@ -927,31 +807,24 @@
                             const serviceNumber = card.getAttribute('data-service-number') || '';
                             const serviceName = card.querySelector('.service-name')?.innerText.toLowerCase() || '';
                             const matches = searchTerm === '' || serviceNumber.includes(searchTerm) || serviceName.includes(searchTerm);
-                            if (matches) {
-                                card.style.display = '';
-                                sectionHasMatch = true;
-                                anyVisible = true;
-                            } else {
-                                card.style.display = 'none';
-                            }
+                            if (matches) { card.style.display = ''; sectionHasMatch = true; anyVisible = true; } 
+                            else { card.style.display = 'none'; }
                         });
                         section.style.display = sectionHasMatch || searchTerm === '' ? '' : 'none';
                     });
                     
                     const noResultsMsg = document.getElementById('noResultsMsg');
-                    if (noResultsMsg) {
-                        noResultsMsg.style.display = anyVisible ? 'none' : 'block';
-                    }
+                    if (noResultsMsg) { noResultsMsg.style.display = anyVisible ? 'none' : 'block'; }
                 }, 300);
             });
             
-            // ======================= الكود الجديد الذكي لعرض الخدمات ديناميكياً =======================
+            // ======================= عملية جلب وإنشاء البطاقات بالطريقة الديناميكية 100% =======================
             let serviceCounter = 1;
             
             function createServiceCard(service, serviceNumber) {
                 const card = document.createElement('div'); card.className = 'service-card';
                 
-                // الاعتماد الكلي على حقل min_limit ليكون هو القيمة الأساسية (baseUnit)
+                // 1. تحديد الحد الأدنى ليكون هو مقياس السعر بالملي للبطاقة
                 let minLimit = parseInt(service.min_limit) || 1000;
                 let baseUnit = minLimit; 
                 let stepValue = 500;
@@ -959,9 +832,26 @@
                 if (service.name && (service.name.includes("تعليق") || service.name.includes("comment"))) { stepValue = 10; }
                 else if (service.name && (service.name.includes("لايك") || service.name.includes("like"))) { stepValue = 50; }
                 
+                // ========== الحسبة الرياضية الذكية (لحل مشكلة الدولار وهامش الربح) ==========
+                // أخذ السعر المخزن من قاعدة البيانات (والذي عادة يكون بالدولار من المزود الأصلي)
+                let originalRateUSD = parseFloat(service.original_rate);
+                
+                // لو السيرفر مكنش مسجل السعر الأصلي، هنعكس حسبته من الـ selling_price عشان نرجع لأصله
+                if (isNaN(originalRateUSD) || originalRateUSD === 0) {
+                    originalRateUSD = parseFloat(service.selling_price) / 2.2; 
+                }
+                if (isNaN(originalRateUSD)) originalRateUSD = 0;
+                
+                // هنا بنضرب السعر في سعر الصرف (48.5) عشان يتحول لجنيه مصري حقيقي بدل قروش
+                let originalRateEGP = originalRateUSD * exchangeRate;
+                
+                // ضرب السعر المصري الصافي في 2.2 لإضافة هامش الربح 120% اللي إنت طلبته
+                let finalPriceEGP = originalRateEGP * 2.2;
+                // ==============================================================================
+                
                 card.setAttribute('data-unit', 'وحدة');
-                card.setAttribute('data-price-per-unit', service.selling_price);
-                card.setAttribute('data-base-unit', baseUnit); // تخزين القيمة الديناميكية
+                card.setAttribute('data-price-per-unit', finalPriceEGP); // تخزين السعر الجديد بالجنيه 
+                card.setAttribute('data-base-unit', baseUnit); // تخزين الحد الأدنى (الكمية اللي بيتحسب عليها)
                 card.setAttribute('data-min-limit', minLimit);
                 card.setAttribute('data-service-number', serviceNumber);
                 card.setAttribute('data-service-id', service.service_id);
@@ -995,39 +885,43 @@
                 const nameEl = document.createElement('h3'); nameEl.className = 'service-name'; nameEl.innerText = service.name;
                 card.append(iconDiv, nameEl);
                 
-                // عنوان السعر الديناميكي يعتمد على قاعدة baseUnit
+                // تعديل العنوان الفرعي ليكون ديناميكي 
                 const detailEl = document.createElement('div'); detailEl.className = 'service-detail';
                 detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل ${baseUnit} وحدة`;
                 card.appendChild(detailEl);
                 
                 const priceContainer = document.createElement('div'); priceContainer.className = 'price-container';
                 const priceValueSpan = document.createElement('span'); priceValueSpan.className = 'price-value';
-                priceValueSpan.setAttribute('data-original-price', service.selling_price);
-                let initPrice = service.selling_price;
-                if (currentCurrency === 'USD') initPrice = initPrice / exchangeRate;
+                
+                // وضع السعر المصري المُحسب في الـ attribute ليعمل عليه محول العملات
+                priceValueSpan.setAttribute('data-original-price', finalPriceEGP);
+                
+                let initPrice = finalPriceEGP;
+                if (currentCurrency === 'USD') initPrice = initPrice / exchangeRate; // تحويل السعر للدولار لو اليوزر اختار دولار
                 priceValueSpan.innerText = (currentCurrency === 'USD') ? initPrice.toFixed(2) : (Number.isInteger(initPrice) ? initPrice.toString() : initPrice.toFixed(2));
+                
                 const priceCurrencySpan = document.createElement('span'); priceCurrencySpan.className = 'price-currency';
                 priceCurrencySpan.innerText = (currentCurrency === 'USD') ? '$' : 'جنيه';
                 
-                // النص الديناميكي للكمية
+                // كتابة نص الكمية بجوار السعر ديناميكياً
                 const smallUnitSpan = document.createElement('span'); smallUnitSpan.className = 'small-unit'; 
                 smallUnitSpan.innerText = `لكل ${baseUnit} وحدة`;
                 
-                // زر تفاصيل الخدمة الصغير والملاصق للنص (الاحترافي)
+                // إضافة زر (تفاصيل الخدمة) الصغير والشيك بجوار السعر
                 const detailsMiniBtn = document.createElement('button');
                 detailsMiniBtn.innerHTML = '<i class="fas fa-info-circle"></i> تفاصيل';
-                detailsMiniBtn.style.cssText = 'background: rgba(240, 185, 11, 0.15); color: #F0B90B; border: 1px solid rgba(240, 185, 11, 0.4); border-radius: 20px; padding: 3px 10px; font-size: 0.65rem; margin-right: 8px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 4px; font-family: "Cairo", sans-serif; font-weight: bold;';
-                detailsMiniBtn.addEventListener('hover', () => { detailsMiniBtn.style.background = '#F0B90B'; detailsMiniBtn.style.color = '#0B0E11'; });
+                detailsMiniBtn.style.cssText = 'background: rgba(240, 185, 11, 0.15); color: #F0B90B; border: 1px solid rgba(240, 185, 11, 0.4); border-radius: 20px; padding: 2px 8px; font-size: 0.7rem; margin-right: auto; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 4px; font-family: "Cairo", sans-serif; font-weight: bold;';
                 detailsMiniBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    alert(`📋 اسم الخدمة: ${service.name}\n💰 السعر (لكل ${baseUnit}): ${service.selling_price} جنيه\n📦 الحد الأدنى: ${service.min_limit || 'غير محدد'}\n📈 الحد الأقصى: ${service.max_limit || 'غير محدد'}\n⚡ سرعة التنفيذ: ${service.speed || 'عادية'}\n📝 الوصف: ${service.description || 'لا يوجد وصف متاح'}`);
+                    alert(`📋 اسم الخدمة: ${service.name}\n💰 السعر (لكل ${baseUnit}): ${finalPriceEGP.toFixed(2)} جنيه\n📦 الحد الأدنى: ${service.min_limit || 'غير محدد'}\n📈 الحد الأقصى: ${service.max_limit || 'غير محدد'}\n⚡ سرعة التنفيذ: ${service.speed || 'عادية'}\n📝 الوصف: ${service.description || 'لا يوجد وصف متاح'}`);
                 });
 
                 priceContainer.appendChild(priceValueSpan); 
                 priceContainer.appendChild(priceCurrencySpan); 
                 priceContainer.appendChild(smallUnitSpan);
-                priceContainer.appendChild(detailsMiniBtn); // إضافة الزر الصغير بجانب الكمية
+                priceContainer.appendChild(detailsMiniBtn);
+                
                 card.appendChild(priceContainer);
                 
                 const calcDiv = document.createElement('div'); calcDiv.className = 'quantity-calc';
@@ -1050,15 +944,12 @@
                     if (raw === "") { totalAmountSpan.innerText = '---'; errorSpan.style.display = 'none'; return; }
                     let qty = parseInt(raw, 10);
                     if (isNaN(qty) || qty < minLimit) {
-                        totalAmountSpan.innerText = '---';
-                        errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit}`;
-                        errorSpan.style.display = 'block';
-                        return;
+                        totalAmountSpan.innerText = '---'; errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit}`; errorSpan.style.display = 'block'; return;
                     }
                     errorSpan.style.display = 'none';
                     
-                    // المعادلة الرياضية الصحيحة والديناميكية
-                    let totalInEGP = (qty / baseUnit) * service.selling_price;
+                    // حساب السعر الإجمالي الديناميكي
+                    let totalInEGP = (qty / baseUnit) * finalPriceEGP;
                     
                     let totalToShow = totalInEGP, currencySymbol = 'جنيه';
                     if (currentCurrency === 'USD') { totalToShow = totalInEGP / exchangeRate; currencySymbol = '$'; }
@@ -1098,7 +989,6 @@
                         sectionsContainer.innerHTML = '<div style="text-align:center;padding:2rem">⚠️ لا توجد خدمات متاحة حالياً. يرجى تشغيل دالة التحديث أولاً.</div>';
                         return;
                     }
-                    // تجميع حسب التصنيف
                     const grouped = {};
                     data.forEach(svc => { const cat = svc.category || 'general'; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(svc); });
                     sectionsContainer.innerHTML = '';
@@ -1138,7 +1028,7 @@
                         const sliderDiv = document.createElement('div'); sliderDiv.className = 'cards-slider';
                         servicesList.forEach(svc => { sliderDiv.appendChild(createServiceCard(svc, serviceCounter++)); });
                         section.appendChild(sliderDiv);
-                        // سحب بالماوس
+                        
                         let isDragging = false, startX, scrollLeft;
                         sliderDiv.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX - sliderDiv.offsetLeft; scrollLeft = sliderDiv.scrollLeft; sliderDiv.style.cursor = 'grabbing'; e.preventDefault(); });
                         window.addEventListener('mousemove', (e) => { if (!isDragging) return; const x = e.pageX - sliderDiv.offsetLeft; const walk = (x - startX) * 1.5; sliderDiv.scrollLeft = scrollLeft - walk; });
@@ -1159,7 +1049,6 @@
                 }
             }
             
-            // استدعاء تحميل الخدمات بدلاً من buildAllSections
             loadServicesFromSupabase();
             fetchExchangeRate();
             
@@ -1170,50 +1059,18 @@
         }
     })();
     
-    // دوال العملة والقوائم (مع تثبيت العملة)
     const currencyCircle = document.getElementById('currencyCircle');
     const currencyDropdown = document.getElementById('currencyDropdown');
-    currencyCircle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        currencyDropdown.classList.toggle('show-currency-dropdown');
-    });
+    currencyCircle.addEventListener('click', (e) => { e.stopPropagation(); currencyDropdown.classList.toggle('show-currency-dropdown'); });
     document.querySelectorAll('.currency-dropdown a').forEach(option => {
-        option.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newCurrency = option.getAttribute('data-currency');
-            setCurrency(newCurrency);
-            currencyDropdown.classList.remove('show-currency-dropdown');
-        });
+        option.addEventListener('click', (e) => { e.preventDefault(); const newCurrency = option.getAttribute('data-currency'); setCurrency(newCurrency); currencyDropdown.classList.remove('show-currency-dropdown'); });
     });
-    document.addEventListener('click', (event) => {
-        if (!currencyCircle.contains(event.target) && !currencyDropdown.contains(event.target)) {
-            currencyDropdown.classList.remove('show-currency-dropdown');
-        }
-    });
+    document.addEventListener('click', (event) => { if (!currencyCircle.contains(event.target) && !currencyDropdown.contains(event.target)) { currencyDropdown.classList.remove('show-currency-dropdown'); } });
     
-    // ========== PWA Installation Code ==========
     let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        const installBtn = document.getElementById('installPwaBtn');
-        if (installBtn) installBtn.style.display = 'inline-flex';
-    });
-    
-    document.getElementById('installPwaBtn')?.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') deferredPrompt = null;
-        }
-    });
-    
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered:', reg))
-            .catch(err => console.log('Service Worker error:', err));
-    }
-    // ===========================================
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; const installBtn = document.getElementById('installPwaBtn'); if (installBtn) installBtn.style.display = 'inline-flex'; });
+    document.getElementById('installPwaBtn')?.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') deferredPrompt = null; } });
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').then(reg => console.log('Service Worker registered')).catch(err => console.log('Service Worker error:', err)); }
 </script>
 </body>
 </html>
