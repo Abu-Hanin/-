@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     
-    <!-- ======================= SEO & Meta Tags ======================= -->
     <title>smcole | أكبر موقع لزيادة متابعين ومشاهدات في مصر والوطن العربي</title>
     <meta name="description" content="أفضل موقع لشراء متابعين حقيقيين فيسبوك، تيك توك، انستقرام، يوتيوب، تليجرام. خدمات سريعة وأسعار منافسة ونتائج فورية. نضمن لك نمواً حقيقياً مع smcole.">
     <meta name="keywords" content="زيادة متابعين, شراء متابعين فيسبوك, تزويد مشاهدات يوتيوب, شراء متابعين تيك توك, زيادة لايكات انستقرام, smcole, متابعين مصريين, متابعين عرب, شراء متابعين رخيص, خدمات سوشيال ميديا, تزويد لايكات فيسبوك, شراء مشاهدات ريلز, زيادة أعضاء تليجرام">
@@ -29,15 +28,12 @@
     <meta name="twitter:description" content="أفضل موقع لزيادة متابعين ومشاهدات فيسبوك، تيك توك، انستقرام ويوتيوب. نمو حقيقي بأسعار مميزة.">
     <meta name="twitter:image" content="https://smcole.com/og-image.jpg">
     
-    <!-- ========== إضافات PWA ========== -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#0B0E11">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="smcole">
     <link rel="apple-touch-icon" href="/icon-192.png">
-    <!-- =============================== -->
-    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -307,10 +303,10 @@
         .service-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; color: #f0f2f5; line-height: 1.3; }
         .badge-guarantee { background: #2EBD8522; color: #2EBD85; font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.7rem; border-radius: 30px; display: inline-block; margin: 0.3rem 0; width: fit-content; }
         .service-detail { font-size: 0.75rem; color: #aeb6c9; margin: 0.2rem 0; }
-        .price-container { margin: 0.5rem 0 0.2rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+        .price-container { margin: 0.5rem 0 0.2rem; display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
         .price-value { font-size: 1.5rem; font-weight: 800; color: #2EBD85; }
-        .price-currency { font-size: 0.8rem; font-weight: 600; color: #2EBD85; }
-        .small-unit { font-size: 0.7rem; color: #9aa2b5; }
+        .price-currency { font-size: 0.8rem; font-weight: 600; color: #2EBD85; margin-left: 2px; }
+        .small-unit { font-size: 0.7rem; color: #9aa2b5; margin-left: 4px;}
         .quantity-calc { margin: 0.8rem 0 0.5rem; background: #13171D; padding: 0.5rem; border-radius: 20px; }
         .quantity-label { font-size: 0.7rem; color: #B7BDC6; display: block; margin-bottom: 4px; }
         .quantity-input { width: 100%; padding: 6px 10px; border-radius: 40px; border: 1px solid #2EBD85; background: #0B0E11; color: #fff; font-size: 0.85rem; text-align: center; font-weight: 600; outline: none; }
@@ -430,7 +426,6 @@
 </head>
 <body>
 
-<!-- شاشة الترحيب المؤقتة -->
 <div id="welcomeOverlay" class="welcome-overlay">
     <div class="welcome-card">
         <h2>ﷺ</h2>
@@ -438,12 +433,10 @@
     </div>
 </div>
 
-<!-- زر القائمة (يمين) -->
 <div class="menu-button" id="menuButton">
     <i class="fas fa-bars"></i>
 </div>
 
-<!-- زر العملة الدائري (يسار) -->
 <div class="currency-circle" id="currencyCircle">
     <i class="fas fa-dollar-sign"></i>
 </div>
@@ -452,7 +445,6 @@
     <a data-currency="EGP"><i class="fas fa-pound-sign"></i> EGP</a>
 </div>
 
-<!-- القائمة المنسدلة (الثلاث شرطات) مع أيقونة الواتساب للدعم الفني -->
 <div class="dropdown-menu" id="dropdownMenu">
     <a href="#" id="favoritesLink"><i class="fas fa-heart"></i> المفضلة</a>
     <a href="#" id="paymentLink"><i class="fas fa-credit-card"></i> طرق الدفع</a>
@@ -460,7 +452,6 @@
     <a href="#" id="termsLink"><i class="fas fa-file-alt"></i> شروط الخدمة</a>
 </div>
 
-<!-- صفحات الشروط وطرق الدفع -->
 <div id="termsPage" class="overlay-page">
     <div class="overlay-container">
         <h1>شروط الخدمة</h1>
@@ -494,18 +485,15 @@
     </div>
 </div>
 
-<!-- صفحة المفضلة (بدون overlay-container) -->
 <div id="favoritesPage" class="overlay-page">
     <div style="max-width: 1400px; margin: 0 auto;">
         <h1 style="color: #F0B90B; margin-bottom: 1.5rem; font-size: 2rem; text-align: center;"><i class="fas fa-heart"></i> خدماتي المفضلة</h1>
         <div id="favoritesContainer" class="favorites-grid">
-            <!-- سيتم ملؤها بالخدمات المفضلة ديناميكياً -->
-        </div>
+            </div>
         <div id="noFavoritesMsg" style="text-align: center; padding: 2rem; color: #aaa;">لا توجد خدمات مفضلة بعد. أضف خدماتك المفضلة بالضغط على القلب في البطاقة.</div>
     </div>
 </div>
 
-<!-- المحتوى الرئيسي -->
 <div class="container" id="mainContent">
     <div class="header">
         <div class="logo-text">SMCOLE</div>
@@ -519,7 +507,6 @@
         </div>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center;">
             <button class="payment-method-btn" id="paymentMethodBtn"><i class="fas fa-credit-card"></i> طرق الدفع</button>
-            <!-- زر تثبيت التطبيق - PWA Install Button -->
             <button class="payment-method-btn" id="installPwaBtn" style="background: #F0B90B; color: #0B0E11;"><i class="fas fa-mobile-alt"></i> تثبيت التطبيق</button>
         </div>
     </div>
@@ -539,7 +526,6 @@
         </div>
     </div>
     
-    <!-- شريط البحث -->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="🔍 ابحث برقم الخدمة أو باسم الخدمة ...">
     </div>
@@ -550,7 +536,6 @@
     <div class="footer">© حقوق الطبع والنشر. كل الحقوق محفوظة موقع <span>smcole</span></div>
 </div>
 
-<!-- زر العودة للأعلى -->
 <div id="backToTop" class="back-to-top">
     <i class="fas fa-arrow-up"></i>
 </div>
@@ -691,7 +676,7 @@
         updateAllPrices();
     }
     
-    // ========== الدالة المعدلة لإرسال الطلب (مع إضافة رقم الخدمة) ==========
+    // ========== الدالة المعدلة لإرسال الطلب مع الاعتماد على الحد الأدنى الديناميكي ==========
     function sendOrder(button) {
         const card = button.closest('.service-card');
         if (!card) {
@@ -714,16 +699,25 @@
             alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit}`);
             return;
         }
-        const pricePerThousand = parseFloat(card.getAttribute('data-price-per-thousand'));
-        if (isNaN(pricePerThousand)) {
+        
+        // استدعاء السعر وقيمة الحد الأدنى للحساب الصحيح
+        const pricePerUnit = parseFloat(card.getAttribute('data-price-per-unit'));
+        const baseUnit = parseInt(card.getAttribute('data-base-unit')) || 1000;
+        
+        if (isNaN(pricePerUnit)) {
             alert('خطأ في سعر الخدمة');
             return;
         }
+        
         const unit = card.getAttribute('data-unit') || '';
-        const totalInEGP = (quantity / 1000) * pricePerThousand;
+        
+        // المعادلة الرياضية الصحيحة 100% التي تعتمد على الحد الأدنى من السيرفر
+        const totalInEGP = (quantity / baseUnit) * pricePerUnit;
+        
         let totalToDisplay = totalInEGP;
         let currencyName = 'جنيه مصري';
         let formattedTotal;
+        
         if (currentCurrency === 'USD') {
             totalToDisplay = totalInEGP / exchangeRate;
             currencyName = 'دولار أمريكي';
@@ -735,12 +729,13 @@
                 formattedTotal = totalToDisplay.toFixed(2);
             }
         }
+        
         const message = `📋 طلب شراء خدمة : ${serviceName}\n🔢 رقم الخدمة : ${serviceNumber}\n📊 الكمية المطلوبة : ${quantity} ${unit}\n💰 السعر الإجمالي : ${formattedTotal} ${currencyName}\n🔗 رابط الهدف : ${link}\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
         if (window.registerNewOrder) window.registerNewOrder();
         window.open(`https://wa.me/201154846407?text=${encodeURIComponent(message)}`, '_blank');
     }
     
-    // ========== باقي الكود مع التعديل الجديد (جلب الخدمات من Supabase) ==========
+    // ========== باقي الكود الأصلي ==========
     setTimeout(() => {
         const overlay = document.getElementById('welcomeOverlay');
         if (overlay) {
@@ -916,7 +911,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
-            // دالة البحث (تخفي الأقسام بالكامل)
+            // دالة البحث
             let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', function(e) {
                 clearTimeout(searchTimeout);
@@ -950,17 +945,23 @@
                 }, 300);
             });
             
-            // ======================= الكود الجديد لعرض الخدمات ديناميكياً من Supabase =======================
+            // ======================= الكود الجديد الذكي لعرض الخدمات ديناميكياً =======================
             let serviceCounter = 1;
             
             function createServiceCard(service, serviceNumber) {
                 const card = document.createElement('div'); card.className = 'service-card';
-                let minLimit = service.min_limit || 1000;
+                
+                // الاعتماد الكلي على حقل min_limit ليكون هو القيمة الأساسية (baseUnit)
+                let minLimit = parseInt(service.min_limit) || 1000;
+                let baseUnit = minLimit; 
                 let stepValue = 500;
-                if (service.name && (service.name.includes("تعليق") || service.name.includes("comment"))) { minLimit = 50; stepValue = 10; }
-                else if (service.name && (service.name.includes("لايك") || service.name.includes("like"))) { minLimit = 250; stepValue = 50; }
+                
+                if (service.name && (service.name.includes("تعليق") || service.name.includes("comment"))) { stepValue = 10; }
+                else if (service.name && (service.name.includes("لايك") || service.name.includes("like"))) { stepValue = 50; }
+                
                 card.setAttribute('data-unit', 'وحدة');
-                card.setAttribute('data-price-per-thousand', service.selling_price);
+                card.setAttribute('data-price-per-unit', service.selling_price);
+                card.setAttribute('data-base-unit', baseUnit); // تخزين القيمة الديناميكية
                 card.setAttribute('data-min-limit', minLimit);
                 card.setAttribute('data-service-number', serviceNumber);
                 card.setAttribute('data-service-id', service.service_id);
@@ -994,8 +995,9 @@
                 const nameEl = document.createElement('h3'); nameEl.className = 'service-name'; nameEl.innerText = service.name;
                 card.append(iconDiv, nameEl);
                 
+                // عنوان السعر الديناميكي يعتمد على قاعدة baseUnit
                 const detailEl = document.createElement('div'); detailEl.className = 'service-detail';
-                detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل 1000 وحدة`;
+                detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل ${baseUnit} وحدة`;
                 card.appendChild(detailEl);
                 
                 const priceContainer = document.createElement('div'); priceContainer.className = 'price-container';
@@ -1006,8 +1008,26 @@
                 priceValueSpan.innerText = (currentCurrency === 'USD') ? initPrice.toFixed(2) : (Number.isInteger(initPrice) ? initPrice.toString() : initPrice.toFixed(2));
                 const priceCurrencySpan = document.createElement('span'); priceCurrencySpan.className = 'price-currency';
                 priceCurrencySpan.innerText = (currentCurrency === 'USD') ? '$' : 'جنيه';
-                const smallUnitSpan = document.createElement('span'); smallUnitSpan.className = 'small-unit'; smallUnitSpan.innerText = `لكل 1000 وحدة`;
-                priceContainer.appendChild(priceValueSpan); priceContainer.appendChild(priceCurrencySpan); priceContainer.appendChild(smallUnitSpan);
+                
+                // النص الديناميكي للكمية
+                const smallUnitSpan = document.createElement('span'); smallUnitSpan.className = 'small-unit'; 
+                smallUnitSpan.innerText = `لكل ${baseUnit} وحدة`;
+                
+                // زر تفاصيل الخدمة الصغير والملاصق للنص (الاحترافي)
+                const detailsMiniBtn = document.createElement('button');
+                detailsMiniBtn.innerHTML = '<i class="fas fa-info-circle"></i> تفاصيل';
+                detailsMiniBtn.style.cssText = 'background: rgba(240, 185, 11, 0.15); color: #F0B90B; border: 1px solid rgba(240, 185, 11, 0.4); border-radius: 20px; padding: 3px 10px; font-size: 0.65rem; margin-right: 8px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 4px; font-family: "Cairo", sans-serif; font-weight: bold;';
+                detailsMiniBtn.addEventListener('hover', () => { detailsMiniBtn.style.background = '#F0B90B'; detailsMiniBtn.style.color = '#0B0E11'; });
+                detailsMiniBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    alert(`📋 اسم الخدمة: ${service.name}\n💰 السعر (لكل ${baseUnit}): ${service.selling_price} جنيه\n📦 الحد الأدنى: ${service.min_limit || 'غير محدد'}\n📈 الحد الأقصى: ${service.max_limit || 'غير محدد'}\n⚡ سرعة التنفيذ: ${service.speed || 'عادية'}\n📝 الوصف: ${service.description || 'لا يوجد وصف متاح'}`);
+                });
+
+                priceContainer.appendChild(priceValueSpan); 
+                priceContainer.appendChild(priceCurrencySpan); 
+                priceContainer.appendChild(smallUnitSpan);
+                priceContainer.appendChild(detailsMiniBtn); // إضافة الزر الصغير بجانب الكمية
                 card.appendChild(priceContainer);
                 
                 const calcDiv = document.createElement('div'); calcDiv.className = 'quantity-calc';
@@ -1036,30 +1056,24 @@
                         return;
                     }
                     errorSpan.style.display = 'none';
-                    let totalInEGP = (qty / 1000) * service.selling_price;
+                    
+                    // المعادلة الرياضية الصحيحة والديناميكية
+                    let totalInEGP = (qty / baseUnit) * service.selling_price;
+                    
                     let totalToShow = totalInEGP, currencySymbol = 'جنيه';
                     if (currentCurrency === 'USD') { totalToShow = totalInEGP / exchangeRate; currencySymbol = '$'; }
                     totalAmountSpan.innerText = `${(currentCurrency === 'USD') ? totalToShow.toFixed(2) : (Number.isInteger(totalToShow) ? totalToShow.toString() : totalToShow.toFixed(2))} ${currencySymbol}`;
                 }
+                
                 input.addEventListener('input', updateTotal);
                 input.addEventListener('blur', () => { let v = parseInt(input.value, 10); if (!isNaN(v) && v < minLimit && v !== "") { input.value = ''; updateTotal(); } });
                 
                 const buyBtn = document.createElement('button'); buyBtn.className = 'buy-btn'; buyBtn.innerHTML = '<i class="fab fa-whatsapp"></i> شراء الآن';
                 buyBtn.addEventListener('click', function() { sendOrder(this); });
                 
-                // زر تفاصيل الخدمة (جديد)
-                const detailsBtn = document.createElement('button');
-                detailsBtn.className = 'buy-btn';
-                detailsBtn.style.background = '#F0B90B';
-                detailsBtn.style.marginTop = '5px';
-                detailsBtn.innerHTML = '<i class="fas fa-info-circle"></i> تفاصيل الخدمة';
-                detailsBtn.addEventListener('click', () => {
-                    alert(`📋 اسم الخدمة: ${service.name}\n💰 السعر (لكل 1000): ${service.selling_price} جنيه\n📦 الحد الأدنى: ${service.min_limit || 'غير محدد'}\n📈 الحد الأقصى: ${service.max_limit || 'غير محدد'}\n⚡ سرعة التنفيذ: ${service.speed || 'عادية'}\n📝 الوصف: ${service.description || 'لا يوجد'}`);
-                });
-                
                 card.appendChild(calcDiv);
                 card.appendChild(buyBtn);
-                card.appendChild(detailsBtn);
+                
                 return card;
             }
             
