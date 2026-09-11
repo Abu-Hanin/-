@@ -4,18 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
 <title>smcole | أكبر موقع لزيادة متابعين ومشاهدات في مصر والوطن العربي</title>
-<meta name="description" content="أفضل موقع لشراء متابعين حقيقيين فيسبوك، تيك توك، انستقرام، يوتيوب، تليجرام. خدمات سريعة وأسعار منافسة ونتائج فورية. نضمن لك نمواً حقيقياً مع smcole.">
+<meta name="description" content="أفضل موقع لشراء متابعين حقيقيين فيسبوك، تيك توك، انستقرام، يوتيوب، تليجرام.">
 <meta name="keywords" content="زيادة متابعين, شراء متابعين فيسبوك, تزويد مشاهدات يوتيوب, شراء متابعين تيك توك, زيادة لايكات انستقرام, smcole">
 <meta name="author" content="smcole">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://smcole.com/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="smcole | تزويد متابعين ومشاهدات حقيقية">
-<meta property="og:description" content="أسرع خدمة لزيادة متابعين ومشاهدات.">
-<meta property="og:url" content="https://smcole.com/">
-<meta property="og:image" content="https://smcole.com/og-image.jpg">
-<meta property="og:site_name" content="smcole">
-<meta property="og:locale" content="ar_AR">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#0B0E11">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -512,7 +505,7 @@ else throw new Error();
 } catch(e) { exchangeRate = 48.5; }
 updateAllPrices();
 }
-function formatNumberNoCommas(value, isUSD = false) {
+function formatNumberNoCommas(value, isUSD) {
 if (isUSD) return value.toFixed(2);
 if (Number.isInteger(value)) return value.toString();
 return value.toFixed(2);
@@ -551,7 +544,7 @@ const link = urlInput ? urlInput.value.trim() : '';
 let quantity = quantityInput ? parseInt(quantityInput.value.trim()) : NaN;
 if (!link) { alert("⚠️ الرابط مطلوب! يرجى إدخال رابط الحساب أو المنشور أو الفيديو."); return; }
 const minLimit = parseInt(card.getAttribute('data-min-limit')) || 1000;
-if (isNaN(quantity) || quantity < minLimit) { alert(`⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ${minLimit}`); return; }
+if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ' + minLimit); return; }
 const pricePerThousand = parseFloat(card.getAttribute('data-price-per-thousand'));
 if (isNaN(pricePerThousand)) { alert('خطأ في سعر الخدمة'); return; }
 const unit = card.getAttribute('data-unit') || '';
@@ -561,9 +554,9 @@ let currencyName = 'جنيه مصري';
 let formattedTotal;
 if (currentCurrency === 'USD') { totalToDisplay = totalInEGP / exchangeRate; currencyName = 'دولار أمريكي'; formattedTotal = totalToDisplay.toFixed(2); }
 else { formattedTotal = Number.isInteger(totalToDisplay) ? totalToDisplay.toString() : totalToDisplay.toFixed(2); }
-const message = `📋 طلب شراء خدمة : ${serviceName}\n🔢 رقم الخدمة : ${serviceNumber}\n📊 الكمية المطلوبة : ${quantity} ${unit}\n💰 السعر الإجمالي : ${formattedTotal} ${currencyName}\n🔗 رابط الهدف : ${link}\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.`;
+const message = '📋 طلب شراء خدمة : ' + serviceName + '\n🔢 رقم الخدمة : ' + serviceNumber + '\n📊 الكمية المطلوبة : ' + quantity + ' ' + unit + '\n💰 السعر الإجمالي : ' + formattedTotal + ' ' + currencyName + '\n🔗 رابط الهدف : ' + link + '\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.';
 if (window.registerNewOrder) window.registerNewOrder();
-window.open(`https://wa.me/201154846407?text=${encodeURIComponent(message)}`, '_blank');
+window.open('https://wa.me/201154846407?text=' + encodeURIComponent(message), '_blank');
 }
 setTimeout(() => {
 const overlay = document.getElementById('welcomeOverlay');
@@ -589,7 +582,7 @@ try {
 const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
 const newCount = (current?.count || 0) + 1;
 await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
-} catch (e) { console.warn(e); }
+} catch (e) {}
 }
 }
 async function incrementUserCounter() {
@@ -616,7 +609,7 @@ supabase.channel('realtime-counters')
 .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'active_users_counter' }, (payload) => { if (payload.new) updateUI(payload.new.count, undefined); })
 .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders_counter' }, (payload) => { if (payload.new) updateUI(undefined, payload.new.count); })
 .subscribe();
-} catch(err) { console.warn(err); }
+} catch(err) {}
 });
 const menuBtn = document.getElementById('menuButton');
 const dropdown = document.getElementById('dropdownMenu');
@@ -665,7 +658,7 @@ favoritesLink.addEventListener('click', (e) => { e.preventDefault(); showPage(fa
 paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage); });
 supportDropdownLink.addEventListener('click', (e) => {
 e.preventDefault();
-window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم فني بخصوص خدمات smcole. يرجى مساعدتي.', '_blank');
+window.open('https://wa.me/201154846407?text=مرحباً، أحتاج مساعدة ودعم فني بخصوص خدمات smcole.', '_blank');
 dropdown.classList.remove('show-dropdown');
 });
 const iconCircles = document.querySelectorAll('.icon-circle');
@@ -677,7 +670,7 @@ this.style.color = '#0B0E11';
 setTimeout(() => { this.style.backgroundColor = ''; this.style.color = ''; }, 200);
 const targetId = this.getAttribute('data-target');
 if (targetId) {
-const targetSection = document.getElementById(`section-${targetId}`);
+const targetSection = document.getElementById('section-' + targetId);
 if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 showHomePage();
@@ -833,26 +826,26 @@ card.setAttribute('data-unit', service.unit);
 card.setAttribute('data-price-per-thousand', service.pricePerThousand);
 card.setAttribute('data-min-limit', minLimit);
 card.setAttribute('data-service-number', serviceNumber);
-const serviceId = `service_${serviceNumber}`;
+const serviceId = 'service_' + serviceNumber;
 card.setAttribute('data-service-id', serviceId);
 globalServicesList.push({ id: serviceId, name: service.name, number: serviceNumber, card: card, serviceData: service });
 const headerRow = document.createElement('div'); headerRow.className = 'card-header-row';
-const numberSpan = document.createElement('span'); numberSpan.className = 'service-number'; numberSpan.innerText = `#${serviceNumber}`;
+const numberSpan = document.createElement('span'); numberSpan.className = 'service-number'; numberSpan.innerText = '#' + serviceNumber;
 const favBtn = document.createElement('button'); favBtn.className = 'favorite-btn';
 favBtn.innerHTML = isFavorite(serviceId) ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
 if (isFavorite(serviceId)) favBtn.classList.add('active');
 favBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFavorite(serviceId, favBtn); });
 headerRow.appendChild(numberSpan); headerRow.appendChild(favBtn);
 card.appendChild(headerRow);
-const iconDiv = document.createElement('div'); iconDiv.className = 'card-icon'; iconDiv.innerHTML = `<i class="${service.icon}"></i>`;
+const iconDiv = document.createElement('div'); iconDiv.className = 'card-icon'; iconDiv.innerHTML = '<i class="' + service.icon + '"></i>';
 const nameEl = document.createElement('h3'); nameEl.className = 'service-name'; nameEl.innerText = service.name;
 card.append(iconDiv, nameEl);
 if (service.guarantee) {
-const guarSpan = document.createElement('div'); guarSpan.className = 'badge-guarantee'; guarSpan.innerHTML = `<i class="fas fa-shield-alt"></i> ${service.guarantee}`;
+const guarSpan = document.createElement('div'); guarSpan.className = 'badge-guarantee'; guarSpan.innerHTML = '<i class="fas fa-shield-alt"></i> ' + service.guarantee;
 card.appendChild(guarSpan);
 }
 const detailEl = document.createElement('div'); detailEl.className = 'service-detail';
-detailEl.innerHTML = `<i class="fas fa-chart-line"></i> السعر لكل 1000 ${service.unit}`;
+detailEl.innerHTML = '<i class="fas fa-chart-line"></i> السعر لكل 1000 ' + service.unit;
 card.appendChild(detailEl);
 const priceContainer = document.createElement('div'); priceContainer.className = 'price-container';
 const priceValueSpan = document.createElement('span'); priceValueSpan.className = 'price-value';
@@ -863,15 +856,15 @@ priceValueSpan.innerText = (currentCurrency === 'USD') ? initPrice.toFixed(2) : 
 const priceCurrencySpan = document.createElement('span'); priceCurrencySpan.className = 'price-currency';
 priceCurrencySpan.innerText = (currentCurrency === 'USD') ? '$' : 'جنيه';
 const smallUnitSpan = document.createElement('span'); smallUnitSpan.className = 'small-unit';
-smallUnitSpan.innerText = `لكل 1000 ${service.unit}`;
+smallUnitSpan.innerText = 'لكل 1000 ' + service.unit;
 priceContainer.appendChild(priceValueSpan);
 priceContainer.appendChild(priceCurrencySpan);
 priceContainer.appendChild(smallUnitSpan);
 card.appendChild(priceContainer);
 const calcDiv = document.createElement('div'); calcDiv.className = 'quantity-calc';
 const label = document.createElement('span'); label.className = 'quantity-label';
-label.innerText = `📦 الكمية المطلوبة (الحد الأدنى ${minLimit} ${service.unit})`;
-const input = document.createElement('input'); input.type = 'number'; input.placeholder = `مثال: ${minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')} ${service.unit}`;
+label.innerText = '📦 الكمية المطلوبة (الحد الأدنى ' + minLimit + ' ' + service.unit + ')';
+const input = document.createElement('input'); input.type = 'number'; input.placeholder = 'مثال: ' + (minLimit === 50 ? '200' : (minLimit === 250 ? '500' : '2500')) + ' ' + service.unit;
 input.className = 'quantity-input'; input.value = ''; input.min = minLimit; input.step = stepValue;
 const urlLabel = document.createElement('span'); urlLabel.className = 'quantity-label'; urlLabel.style.marginTop = '8px';
 urlLabel.innerHTML = '<i class="fas fa-link"></i> الرابط المطلوب';
@@ -889,7 +882,7 @@ if (raw === "") { totalAmountSpan.innerText = '---'; errorSpan.style.display = '
 let qty = parseInt(raw, 10);
 if (isNaN(qty) || qty < minLimit) {
 totalAmountSpan.innerText = '---';
-errorSpan.innerText = `⚠️ الحد الأدنى هو ${minLimit} ${service.unit}`;
+errorSpan.innerText = '⚠️ الحد الأدنى هو ' + minLimit + ' ' + service.unit;
 errorSpan.style.display = 'block';
 return null;
 }
@@ -900,7 +893,7 @@ let currencySymbol = 'جنيه';
 let formatted;
 if (currentCurrency === 'USD') { totalToShow = totalInEGP / exchangeRate; currencySymbol = '$'; formatted = totalToShow.toFixed(2); }
 else { formatted = Number.isInteger(totalToShow) ? totalToShow.toString() : totalToShow.toFixed(2); }
-totalAmountSpan.innerText = `${formatted} ${currencySymbol}`;
+totalAmountSpan.innerText = formatted + ' ' + currencySymbol;
 return { quantity: qty, totalInEGP: totalInEGP };
 }
 input.addEventListener('input', updateTotal);
@@ -946,7 +939,7 @@ serviceCounter = 1;
 globalServicesList = [];
 for (const [key, data] of Object.entries(platformData)) {
 if (!data.services || data.services.length === 0) continue;
-const section = document.createElement('div'); section.className = 'platform-section'; section.id = `section-${data.id}`;
+const section = document.createElement('div'); section.className = 'platform-section'; section.id = 'section-' + data.id;
 const headerDiv = document.createElement('div'); headerDiv.className = 'platform-header';
 const titleSpan = document.createElement('div'); titleSpan.className = 'platform-title'; titleSpan.innerHTML = data.title;
 const navDiv = document.createElement('div'); navDiv.className = 'slider-nav';
@@ -977,8 +970,8 @@ try {
 const { data, error } = await supabase.from('services').select('*')
 .order('sort_order', { ascending: true })
 .order('price_per_thousand', { ascending: true });
-if (error) { console.warn('DB load error:', error); return false; }
-if (!data || data.length === 0) { console.log('No services in DB, using defaults'); return false; }
+if (error) return false;
+if (!data || data.length === 0) return false;
 const grouped = {};
 for (const key of Object.keys(platformData)) grouped[key] = [];
 for (const s of data) {
@@ -998,9 +991,8 @@ stepValue: s.step_value
 for (const key of Object.keys(platformData)) {
 platformData[key].services = sortFollowers(grouped[key] || []);
 }
-console.log('Loaded ' + data.length + ' services from DB');
 return true;
-} catch(e) { console.warn('DB load failed:', e); return false; }
+} catch(e) { return false; }
 };
 (async () => {
 await window.loadServicesFromDB();
@@ -1008,7 +1000,6 @@ buildAllSections();
 fetchExchangeRate();
 })();
 } catch(err) {
-console.error("Unexpected error:", err);
 const overlay = document.getElementById('welcomeOverlay');
 if (overlay) overlay.style.display = 'none';
 try { buildAllSections(); fetchExchangeRate(); } catch(e) {}
@@ -1046,7 +1037,7 @@ if (outcome === 'accepted') deferredPrompt = null;
 }
 });
 if ('serviceWorker' in navigator) {
-navigator.serviceWorker.register('/sw.js').then(reg => console.log('SW registered:', reg)).catch(err => console.log('SW error:', err));
+navigator.serviceWorker.register('/sw.js').then(reg => {}).catch(err => {});
 }
 </script>
 <script>
@@ -1185,7 +1176,7 @@ window.loadAdminServices();
 if (window.loadServicesFromDB) { await window.loadServicesFromDB(); if (window.buildAllSections) window.buildAllSections(); }
 };
 document.getElementById('adminSeedBtn').addEventListener('click', async () => {
-if (!confirm('⚠️ سيتم إضافة جميع الخدمات الأصلية إلى قاعدة البيانات.\n\nهل أنت متأكد؟ (تأكد أن الجدول فارغ أولاً)')) return;
+if (!confirm('⚠️ سيتم إضافة جميع الخدمات الأصلية إلى قاعدة البيانات.\n\nهل أنت متأكد؟')) return;
 const btn = document.getElementById('adminSeedBtn');
 btn.disabled = true;
 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التعبئة...';
@@ -1211,11 +1202,19 @@ is_comment: svc.isComment === true
 });
 }
 }
-const { error } = await supabase.from('services').insert(SEED_DATA);
+let successCount = 0;
+let errorMsg = null;
+for (let i = 0; i < SEED_DATA.length; i += 10) {
+const batch = SEED_DATA.slice(i, i + 10);
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + successCount + '/' + SEED_DATA.length;
+const { error } = await supabase.from('services').insert(batch);
+if (error) { errorMsg = error.message; break; }
+successCount += batch.length;
+}
 btn.disabled = false;
 btn.innerHTML = '<i class="fas fa-database"></i> تعبئة البيانات الأصلية';
-if (error) { toast('خطأ: ' + error.message, true); return; }
-toast('✅ تمت تعبئة ' + SEED_DATA.length + ' خدمة بنجاح');
+if (errorMsg) { toast('خطأ: ' + errorMsg, true); return; }
+toast('✅ تمت تعبئة ' + successCount + ' خدمة بنجاح');
 window.loadAdminServices();
 if (window.loadServicesFromDB) { await window.loadServicesFromDB(); if (window.buildAllSections) window.buildAllSections(); }
 });
@@ -1228,7 +1227,7 @@ if (adminMode === 'true') {
 window.openAdminPanel(session.user);
 }
 }
-} catch(e) { console.warn('Session check failed:', e); }
+} catch(e) {}
 })();
 })();
 </script>
