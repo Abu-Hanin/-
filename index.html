@@ -38,8 +38,10 @@ body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAEC
 .show-dropdown { display: flex; }
 .payment-method-btn { background: #2EBD85; border: none; padding: 8px 20px; font-size: 0.85rem; font-weight: 700; border-radius: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; margin-top: 0.5rem; }
 .payment-method-btn:hover { background: #22a06f; transform: scale(0.98); }
-.overlay-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0B0E11; z-index: 1100; overflow-y: auto; padding: 2rem; display: none; }
+.overlay-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0B0E11; z-index: 1100; overflow-y: auto; padding: 2rem 1rem; display: none; }
 .overlay-container { max-width: 1000px; margin: 0 auto; background: #1E2329; border-radius: 32px; padding: 2rem; border: 1px solid rgba(240, 185, 11, 0.2); }
+#termsPage { background: #0B0E11; padding: 2.5rem 1.5rem; }
+#termsPage .overlay-container, #paymentPage .overlay-container { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; max-width: 1100px; }
 #favoritesPage { background: #0B0E11; padding: 2rem; }
 .favorites-grid { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
 .favorites-grid .service-card { width: 100%; max-width: 500px; margin: 0 auto; }
@@ -51,7 +53,7 @@ body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAEC
 .overlay-container ul li { margin-bottom: 0.5rem; position: relative; padding-right: 1.5rem; }
 .overlay-container ul li::before { content: "•"; color: #F0B90B; font-weight: bold; position: absolute; right: 0; }
 .payment-categories { display: flex; flex-direction: column; gap: 2rem; margin-top: 1rem; }
-.payment-category { background: #0B0E11; border-radius: 28px; padding: 1.2rem; border: 1px solid rgba(240, 185, 11, 0.2); }
+.payment-category { background: #1E2329; border-radius: 28px; padding: 1.2rem; border: 1px solid rgba(240, 185, 11, 0.2); }
 .payment-category h3 { color: #F0B90B; font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px dashed rgba(240, 185, 11, 0.3); padding-bottom: 0.5rem; }
 .payment-methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.8rem; }
 .payment-card { background: #1E2329; border: 1px solid rgba(46, 189, 133, 0.3); border-radius: 50px; padding: 0.6rem 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; transition: 0.2s; color: #EAECEF; }
@@ -146,7 +148,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .admin-login-card p { text-align: center; color: #B7BDC6; font-size: 0.85rem; margin-bottom: 1.6rem; }
 .admin-field { margin-bottom: 1rem; }
 .admin-field label { display: block; font-size: 0.8rem; color: #B7BDC6; margin-bottom: 6px; font-weight: 600; }
-.admin-field input, .admin-field select { width: 100%; padding: 11px 14px; border-radius: 14px; background: #0B0E11; border: 1px solid rgba(240,185,11,0.3); color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; transition: 0.2s; }
+.admin-field input, .admin-field select, .admin-field textarea { width: 100%; padding: 11px 14px; border-radius: 14px; background: #0B0E11; border: 1px solid rgba(240,185,11,0.3); color: #fff; font-family: inherit; font-size: 0.9rem; outline: none; transition: 0.2s; }
 .admin-field input:focus, .admin-field select:focus { border-color: #F0B90B; }
 .admin-btn { background: #2EBD85; color: #0B0E11; border: none; padding: 10px 22px; border-radius: 40px; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
 .admin-btn:hover { background: #22a06f; transform: scale(0.98); }
@@ -167,19 +169,24 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .admin-stat-box .lbl { color: #B7BDC6; font-size: 0.75rem; }
 .admin-stat-box .val { color: #2EBD85; font-size: 1.6rem; font-weight: 800; direction: ltr; }
 .admin-table-wrap { background: #1E2329; border-radius: 20px; border: 1px solid rgba(240,185,11,0.2); overflow-x: auto; }
-.admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 900px; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 1000px; }
 .admin-table th, .admin-table td { padding: 12px 14px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .admin-table th { background: #13171D; color: #F0B90B; font-weight: 700; font-size: 0.8rem; }
 .admin-table tr:hover td { background: rgba(46,189,133,0.05); }
 .admin-badge { padding: 3px 10px; border-radius: 30px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
 .admin-badge.gold { background: rgba(240,185,11,0.15); color: #F0B90B; }
 .admin-badge.green { background: rgba(46,189,133,0.2); color: #2EBD85; }
-.admin-actions-cell { display: flex; gap: 6px; }
-.admin-actions-cell button { padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; border: none; cursor: pointer; font-family: inherit; font-weight: 600; }
+.admin-badge.hidden { background: rgba(232,62,92,0.15); color: #e83e5c; }
+.admin-actions-cell { display: flex; gap: 6px; flex-wrap: wrap; }
+.admin-actions-cell button { padding: 6px 10px; border-radius: 10px; font-size: 0.72rem; border: none; cursor: pointer; font-family: inherit; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
 .admin-edit-btn { background: rgba(240,185,11,0.15); color: #F0B90B; }
 .admin-edit-btn:hover { background: #F0B90B; color: #0B0E11; }
 .admin-del-btn { background: rgba(232,62,92,0.15); color: #e83e5c; }
 .admin-del-btn:hover { background: #e83e5c; color: #fff; }
+.admin-hide-btn { background: rgba(150,150,150,0.2); color: #ccc; }
+.admin-hide-btn:hover { background: #666; color: #fff; }
+.admin-show-btn { background: rgba(46,189,133,0.2); color: #2EBD85; }
+.admin-show-btn:hover { background: #2EBD85; color: #0B0E11; }
 .admin-modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: center; justify-content: center; z-index: 1600; padding: 20px; backdrop-filter: blur(5px); }
 .admin-modal-bg.show { display: flex; }
 .admin-modal { background: #1E2329; border-radius: 24px; border: 1px solid rgba(240,185,11,0.3); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 1.8rem; }
@@ -193,6 +200,10 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .admin-toast.err { background: #e83e5c; color: #fff; }
 .admin-empty, .admin-loader { text-align: center; padding: 3rem 1rem; color: #848E9C; }
 .admin-loader { color: #F0B90B; }
+@media (max-width: 600px) {
+  #termsPage .overlay-container h1, #paymentPage .overlay-container h1 { font-size: 1.5rem; }
+  #termsPage .overlay-container h2, #paymentPage .overlay-container h2 { font-size: 1.1rem; }
+}
 </style>
 </head>
 <body>
@@ -320,13 +331,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <h1><i class="fas fa-cogs"></i> إدارة الخدمات</h1>
 <div class="actions">
 <button class="admin-btn gold" id="adminAddBtn"><i class="fas fa-plus"></i> إضافة خدمة</button>
-<button class="admin-btn ghost" id="adminSeedBtn" title="تعبئة البيانات الأصلية"><i class="fas fa-database"></i> تعبئة البيانات الأصلية</button>
 <button class="admin-btn danger" id="adminLogoutBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
 </div>
 </div>
 <div class="admin-stats">
 <div class="admin-stat-box"><div class="lbl">إجمالي الخدمات</div><div class="val" id="adminTotalServices">0</div></div>
 <div class="admin-stat-box"><div class="lbl">عدد المنصات</div><div class="val" id="adminTotalPlatforms">0</div></div>
+<div class="admin-stat-box"><div class="lbl">خدمات مخفية</div><div class="val" id="adminHiddenServices">0</div></div>
 <div class="admin-stat-box"><div class="lbl">مسجل دخول</div><div class="val" id="adminUserEmail" style="font-size:0.85rem;">-</div></div>
 </div>
 <div class="admin-table-wrap">
@@ -336,14 +347,14 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <tr>
 <th>#</th><th>المنصة</th><th>اسم الخدمة</th><th>النوع</th>
 <th>الوحدة</th><th>سعر / 1000</th><th>الضمان</th>
-<th>الحد الأدنى</th><th>إجراءات</th>
+<th>الحد الأدنى</th><th>الحالة</th><th>إجراءات</th>
 </tr>
 </thead>
 <tbody id="adminTableBody"></tbody>
 </table>
 <div id="adminEmpty" class="admin-empty" style="display:none;">
 <i class="fas fa-inbox" style="font-size:2.5rem; color:#F0B90B; margin-bottom:1rem;"></i>
-<p>لا توجد خدمات بعد. اضغط "إضافة خدمة" أو "تعبئة البيانات الأصلية".</p>
+<p>لا توجد خدمات بعد. اضغط "إضافة خدمة" لبدء الإضافة.</p>
 </div>
 </div>
 </div>
@@ -366,6 +377,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <option value="snapchat">سناب شات</option>
 <option value="whatsapp">واتساب</option>
 <option value="twitch">تويتش</option>
+<option value="other">✨ خدمات أخرى</option>
 </select>
 </div>
 <div class="admin-field">
@@ -376,6 +388,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <option value="views">مشاهدات</option>
 <option value="comments">تعليقات</option>
 <option value="members">أعضاء</option>
+<option value="other">أخرى</option>
 </select>
 </div>
 </div>
@@ -403,9 +416,61 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </select>
 </div>
 <div class="admin-field">
-<label>الأيقونة (FontAwesome)</label>
-<input type="text" id="adminSvcIcon" placeholder="fas fa-star" value="fas fa-star">
-<div class="admin-hint">مثال: fab fa-facebook-f / fas fa-heart / fas fa-eye</div>
+<label>الأيقونة (اختر حسب الخدمة)</label>
+<select id="adminSvcIcon">
+<optgroup label="منصات التواصل الاجتماعي">
+<option value="fab fa-facebook-f">فيسبوك</option>
+<option value="fab fa-instagram">انستقرام</option>
+<option value="fab fa-tiktok">تيك توك</option>
+<option value="fab fa-youtube">يوتيوب</option>
+<option value="fab fa-telegram">تليجرام</option>
+<option value="fab fa-twitter">تويتر (X)</option>
+<option value="fab fa-snapchat">سناب شات</option>
+<option value="fab fa-whatsapp">واتساب</option>
+<option value="fab fa-twitch">تويتش</option>
+<option value="fab fa-linkedin">لينكد إن</option>
+<option value="fab fa-pinterest">بينتريست</option>
+<option value="fab fa-reddit">ريديت</option>
+<option value="fab fa-discord">ديسكورد</option>
+<option value="fab fa-spotify">سبوتيفاي</option>
+<option value="fab fa-soundcloud">ساوند كلاود</option>
+<option value="fab fa-vimeo">فيميو</option>
+<option value="fab fa-threads">ثريدز</option>
+</optgroup>
+<optgroup label="أنواع الخدمات">
+<option value="fas fa-users">متابعين / مشتركين</option>
+<option value="fas fa-heart">لايكات</option>
+<option value="fas fa-eye">مشاهدات</option>
+<option value="fas fa-play-circle">فيديو</option>
+<option value="fas fa-video">بث مباشر</option>
+<option value="fas fa-tv">مشاهدة تلفزيونية</option>
+<option value="fas fa-comment">تعليقات</option>
+<option value="fas fa-comments">محادثات</option>
+<option value="fas fa-thumbs-up">إعجاب</option>
+<option value="fas fa-fire">تفاعل</option>
+<option value="fas fa-chart-line">إحصائيات</option>
+<option value="fas fa-share">مشاركة</option>
+<option value="fas fa-star">نجوم / تقييم</option>
+<option value="fas fa-shield-alt">ضمان</option>
+<option value="fas fa-rocket">نمو سريع</option>
+<option value="fas fa-gift">هدايا</option>
+<option value="fas fa-crown">مميز</option>
+<option value="fas fa-bolt">سريع</option>
+<option value="fas fa-mobile-alt">جوال</option>
+<option value="fas fa-globe">ويب</option>
+<option value="fas fa-cube">باقة</option>
+<option value="fas fa-box">صندوق</option>
+<option value="fas fa-magic">سحري</option>
+<option value="fas fa-cog">إعدادات</option>
+<option value="fas fa-check-circle">مؤكد</option>
+<option value="fas fa-trophy">إنجاز</option>
+<option value="fas fa-medal">ميدالية</option>
+<option value="fas fa-certificate">شهادة</option>
+<option value="fas fa-hashtag">هاشتاج</option>
+<option value="fas fa-bell">إشعارات</option>
+</optgroup>
+</select>
+<div class="admin-hint">اختر الأيقونة اللي تناسب نوع الخدمة</div>
 </div>
 </div>
 <div class="admin-grid-2">
@@ -542,18 +607,19 @@ const quantityInput = card.querySelector('.quantity-input');
 const urlInput = card.querySelector('.url-input');
 const link = urlInput ? urlInput.value.trim() : '';
 let quantity = quantityInput ? parseInt(quantityInput.value.trim()) : NaN;
-if (!link) { alert("⚠️ الرابط مطلوب!"); return; }
+if (!link) { alert("⚠️ الرابط مطلوب! يرجى إدخال رابط الحساب أو المنشور أو الفيديو."); return; }
 const minLimit = parseInt(card.getAttribute('data-min-limit')) || 1000;
-if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ الكمية غير صحيحة. الحد الأدنى ' + minLimit); return; }
+if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ' + minLimit); return; }
 const pricePerThousand = parseFloat(card.getAttribute('data-price-per-thousand'));
-if (isNaN(pricePerThousand)) { alert('خطأ في السعر'); return; }
+if (isNaN(pricePerThousand)) { alert('خطأ في سعر الخدمة'); return; }
 const unit = card.getAttribute('data-unit') || '';
 const totalInEGP = (quantity / 1000) * pricePerThousand;
-let formattedTotal;
+let totalToDisplay = totalInEGP;
 let currencyName = 'جنيه مصري';
-if (currentCurrency === 'USD') { formattedTotal = (totalInEGP / exchangeRate).toFixed(2); currencyName = 'دولار أمريكي'; }
-else { formattedTotal = Number.isInteger(totalInEGP) ? totalInEGP.toString() : totalInEGP.toFixed(2); }
-const message = '📋 طلب شراء خدمة : ' + serviceName + '\n🔢 رقم الخدمة : ' + serviceNumber + '\n📊 الكمية المطلوبة : ' + quantity + ' ' + unit + '\n💰 السعر الإجمالي : ' + formattedTotal + ' ' + currencyName + '\n🔗 رابط الهدف : ' + link + '\n\n🌐 *لطلب خدمات أخرى:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.';
+let formattedTotal;
+if (currentCurrency === 'USD') { totalToDisplay = totalInEGP / exchangeRate; currencyName = 'دولار أمريكي'; formattedTotal = totalToDisplay.toFixed(2); }
+else { formattedTotal = Number.isInteger(totalToDisplay) ? totalToDisplay.toString() : totalToDisplay.toFixed(2); }
+const message = '📋 طلب شراء خدمة : ' + serviceName + '\n🔢 رقم الخدمة : ' + serviceNumber + '\n📊 الكمية المطلوبة : ' + quantity + ' ' + unit + '\n💰 السعر الإجمالي : ' + formattedTotal + ' ' + currencyName + '\n🔗 رابط الهدف : ' + link + '\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.';
 if (window.registerNewOrder) window.registerNewOrder();
 window.open('https://wa.me/201154846407?text=' + encodeURIComponent(message), '_blank');
 }
@@ -808,7 +874,8 @@ twitch: { id: 'twitch', title: '<i class="fab fa-twitch"></i> تويتش - مت�
 { name: "تزويد متابعين تويتش ضمان 365 يوم", unit: "متابع", pricePerThousand: 220, guarantee: "ضمان 365 يوم", icon: "fab fa-twitch" },
 { name: "تزويد مشاهدات فيديو تويتش", unit: "مشاهدة", pricePerThousand: 100, guarantee: "ضمان 30 يوم", icon: "fas fa-video" },
 { name: "تزويد مشاهدات بث مباشر فيديو تويتش", unit: "مشاهدة", pricePerThousand: 100, guarantee: "ضمان 30 يوم", icon: "fas fa-tv" }
-])}
+])},
+other: { id: 'other', title: '<i class="fas fa-star"></i> خدمات أخرى مميزة', services: [] }
 };
 let serviceCounter = 1;
 function createServiceCard(service, serviceNumber) {
@@ -962,6 +1029,13 @@ btnNext.addEventListener('click', () => sliderDiv.scrollBy({ left: scrollStep, b
 sectionsContainer.appendChild(section);
 }
 }
+function getSvcType(svc) {
+if (svc.isComment) return 'comments';
+if (svc.name.indexOf('لايك') !== -1) return 'likes';
+if (svc.name.indexOf('مشاهد') !== -1) return 'views';
+if (svc.name.indexOf('اعضاء') !== -1) return 'members';
+return 'followers';
+}
 window.autoSeedIfEmpty = async function() {
 try {
 const { data: checkData, error: checkError } = await supabase.from('services').select('id').limit(1);
@@ -969,13 +1043,9 @@ if (checkError) return false;
 if (checkData && checkData.length > 0) return false;
 const SEED = [];
 for (const key of Object.keys(platformData)) {
+if (key === 'other') continue;
 for (const svc of platformData[key].services) {
-let svcType = 'followers';
-if (svc.isComment) svcType = 'comments';
-else if (svc.name.indexOf('لايك') !== -1) svcType = 'likes';
-else if (svc.name.indexOf('مشاهد') !== -1) svcType = 'views';
-else if (svc.name.indexOf('اعضاء') !== -1) svcType = 'members';
-SEED.push({ platform: key, type: svcType, name: svc.name, unit: svc.unit, price_per_thousand: svc.pricePerThousand, guarantee: svc.guarantee || 'بدون ضمان', icon: svc.icon || 'fas fa-star', min_limit: svc.minLimit || 1000, step_value: svc.stepValue || 500, is_comment: svc.isComment === true });
+SEED.push({ platform: key, type: getSvcType(svc), name: svc.name, unit: svc.unit, price_per_thousand: svc.pricePerThousand, guarantee: svc.guarantee || 'بدون ضمان', icon: svc.icon || 'fas fa-star', min_limit: svc.minLimit || 1000, step_value: svc.stepValue || 500, is_comment: svc.isComment === true, is_hidden: false });
 }
 }
 for (let i = 0; i < SEED.length; i += 10) {
@@ -994,6 +1064,7 @@ if (!data || data.length === 0) return false;
 const grouped = {};
 for (const key of Object.keys(platformData)) grouped[key] = [];
 for (const s of data) {
+if (s.is_hidden === true) continue;
 if (grouped[s.platform]) {
 grouped[s.platform].push({
 name: s.name,
@@ -1063,8 +1134,8 @@ navigator.serviceWorker.register('/sw.js').then(reg => {}).catch(err => {});
 <script>
 (function(){
 const supabase = getSupabase();
-const PLATFORM_AR = { facebook:'فيسبوك', instagram:'انستقرام', tiktok:'تيك توك', youtube:'يوتيوب', telegram:'تليجرام', twitter:'تويتر', snapchat:'سناب شات', whatsapp:'واتساب', twitch:'تويتش' };
-const TYPE_AR = { followers:'متابعين', likes:'لايكات', views:'مشاهدات', comments:'تعليقات', members:'أعضاء' };
+const PLATFORM_AR = { facebook:'فيسبوك', instagram:'انستقرام', tiktok:'تيك توك', youtube:'يوتيوب', telegram:'تليجرام', twitter:'تويتر', snapchat:'سناب شات', whatsapp:'واتساب', twitch:'تويتش', other:'خدمات أخرى' };
+const TYPE_AR = { followers:'متابعين', likes:'لايكات', views:'مشاهدات', comments:'تعليقات', members:'أعضاء', other:'أخرى' };
 let allServices = [];
 function toast(msg, isErr) {
 const t = document.getElementById('adminToast');
@@ -1116,13 +1187,19 @@ if (error) { toast('خطأ في التحميل: ' + error.message, true); return
 allServices = data || [];
 document.getElementById('adminTotalServices').innerText = allServices.length;
 document.getElementById('adminTotalPlatforms').innerText = new Set(allServices.map(s => s.platform)).size;
+document.getElementById('adminHiddenServices').innerText = allServices.filter(s => s.is_hidden === true).length;
 if (allServices.length === 0) { empty.style.display = 'block'; return; }
 table.style.display = 'table';
 const tbody = document.getElementById('adminTableBody');
 tbody.innerHTML = '';
 allServices.forEach((s, i) => {
 const tr = document.createElement('tr');
-tr.innerHTML = '<td>' + (i + 1) + '</td><td><span class="admin-badge gold">' + (PLATFORM_AR[s.platform] || s.platform) + '</span></td><td>' + s.name + '</td><td>' + (TYPE_AR[s.type] || s.type || '-') + '</td><td>' + s.unit + '</td><td style="color:#2EBD85; font-weight:700;">' + s.price_per_thousand + '</td><td>' + (s.guarantee || '-') + '</td><td>' + (s.min_limit || 1000) + '</td><td class="admin-actions-cell"><button class="admin-edit-btn" onclick="__adminEdit(' + s.id + ')"><i class="fas fa-pen"></i> تعديل</button><button class="admin-del-btn" onclick="__adminDelete(' + s.id + ')"><i class="fas fa-trash"></i> حذف</button></td>';
+const isHidden = s.is_hidden === true;
+const statusBadge = isHidden ? '<span class="admin-badge hidden">مخفية</span>' : '<span class="admin-badge green">ظاهرة</span>';
+const hideBtn = isHidden
+? '<button class="admin-show-btn" onclick="__adminToggleHide(' + s.id + ', false)"><i class="fas fa-eye"></i> إظهار</button>'
+: '<button class="admin-hide-btn" onclick="__adminToggleHide(' + s.id + ', true)"><i class="fas fa-eye-slash"></i> إخفاء</button>';
+tr.innerHTML = '<td>' + (i + 1) + '</td><td><span class="admin-badge gold">' + (PLATFORM_AR[s.platform] || s.platform) + '</span></td><td>' + s.name + '</td><td>' + (TYPE_AR[s.type] || s.type || '-') + '</td><td>' + s.unit + '</td><td style="color:#2EBD85; font-weight:700;">' + s.price_per_thousand + '</td><td>' + (s.guarantee || '-') + '</td><td>' + (s.min_limit || 1000) + '</td><td>' + statusBadge + '</td><td class="admin-actions-cell">' + hideBtn + '<button class="admin-edit-btn" onclick="__adminEdit(' + s.id + ')"><i class="fas fa-pen"></i> تعديل</button><button class="admin-del-btn" onclick="__adminDelete(' + s.id + ')"><i class="fas fa-trash"></i> حذف</button></td>';
 tbody.appendChild(tr);
 });
 };
@@ -1166,7 +1243,7 @@ name: document.getElementById('adminSvcName').value.trim(),
 unit: document.getElementById('adminSvcUnit').value.trim(),
 price_per_thousand: parseFloat(document.getElementById('adminSvcPrice').value),
 guarantee: document.getElementById('adminSvcGuarantee').value,
-icon: document.getElementById('adminSvcIcon').value.trim() || 'fas fa-star',
+icon: document.getElementById('adminSvcIcon').value || 'fas fa-star',
 min_limit: parseInt(document.getElementById('adminSvcMinLimit').value) || 1000,
 step_value: parseInt(document.getElementById('adminSvcStep').value) || 500,
 is_comment: document.getElementById('adminSvcIsComment').checked
@@ -1195,38 +1272,15 @@ toast('تم الحذف بنجاح 🗑️');
 window.loadAdminServices();
 if (window.loadServicesFromDB) { await window.loadServicesFromDB(); if (window.buildAllSections) window.buildAllSections(); }
 };
-document.getElementById('adminSeedBtn').addEventListener('click', async () => {
-if (!confirm('⚠️ سيتم إضافة جميع الخدمات الأصلية إلى قاعدة البيانات.\n\nهل أنت متأكد؟')) return;
-const btn = document.getElementById('adminSeedBtn');
-btn.disabled = true;
-btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التعبئة...';
-const SEED_DATA = [];
-for (const key of Object.keys(platformData)) {
-for (const svc of platformData[key].services) {
-let svcType = 'followers';
-if (svc.isComment) svcType = 'comments';
-else if (svc.name.indexOf('لايك') !== -1) svcType = 'likes';
-else if (svc.name.indexOf('مشاهد') !== -1) svcType = 'views';
-else if (svc.name.indexOf('اعضاء') !== -1) svcType = 'members';
-SEED_DATA.push({ platform: key, type: svcType, name: svc.name, unit: svc.unit, price_per_thousand: svc.pricePerThousand, guarantee: svc.guarantee || 'بدون ضمان', icon: svc.icon || 'fas fa-star', min_limit: svc.minLimit || 1000, step_value: svc.stepValue || 500, is_comment: svc.isComment === true });
-}
-}
-let successCount = 0;
-let errorMsg = null;
-for (let i = 0; i < SEED_DATA.length; i += 10) {
-const batch = SEED_DATA.slice(i, i + 10);
-btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ' + successCount + '/' + SEED_DATA.length;
-const { error } = await supabase.from('services').insert(batch);
-if (error) { errorMsg = error.message; break; }
-successCount += batch.length;
-}
-btn.disabled = false;
-btn.innerHTML = '<i class="fas fa-database"></i> تعبئة البيانات الأصلية';
-if (errorMsg) { toast('خطأ: ' + errorMsg, true); return; }
-toast('✅ تمت تعبئة ' + successCount + ' خدمة بنجاح');
+window.__adminToggleHide = async function(id, shouldHide) {
+const s = allServices.find(x => x.id === id);
+if (!s) return;
+const { error } = await supabase.from('services').update({ is_hidden: shouldHide }).eq('id', id);
+if (error) { toast('خطأ: ' + error.message, true); return; }
+toast(shouldHide ? '👁️‍🗨️ تم إخفاء الخدمة من الموقع' : '👁️ تم إظهار الخدمة في الموقع');
 window.loadAdminServices();
 if (window.loadServicesFromDB) { await window.loadServicesFromDB(); if (window.buildAllSections) window.buildAllSections(); }
-});
+};
 (async () => {
 try {
 const { data: { session } } = await supabase.auth.getSession();
