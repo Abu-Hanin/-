@@ -535,26 +535,25 @@ updateAllPrices();
 }
 function sendOrder(button) {
 const card = button.closest('.service-card');
-if (!card) { alert('حدث خطأ: لم يتم العثور على بيانات الخدمة'); return; }
+if (!card) { alert('حدث خطأ'); return; }
 const serviceNumber = card.getAttribute('data-service-number') || '?';
 const serviceName = card.querySelector('.service-name')?.innerText || 'غير معروف';
 const quantityInput = card.querySelector('.quantity-input');
 const urlInput = card.querySelector('.url-input');
 const link = urlInput ? urlInput.value.trim() : '';
 let quantity = quantityInput ? parseInt(quantityInput.value.trim()) : NaN;
-if (!link) { alert("⚠️ الرابط مطلوب! يرجى إدخال رابط الحساب أو المنشور أو الفيديو."); return; }
+if (!link) { alert("⚠️ الرابط مطلوب!"); return; }
 const minLimit = parseInt(card.getAttribute('data-min-limit')) || 1000;
-if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ يرجى إدخال كمية صحيحة. الحد الأدنى ' + minLimit); return; }
+if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ الكمية غير صحيحة. الحد الأدنى ' + minLimit); return; }
 const pricePerThousand = parseFloat(card.getAttribute('data-price-per-thousand'));
-if (isNaN(pricePerThousand)) { alert('خطأ في سعر الخدمة'); return; }
+if (isNaN(pricePerThousand)) { alert('خطأ في السعر'); return; }
 const unit = card.getAttribute('data-unit') || '';
 const totalInEGP = (quantity / 1000) * pricePerThousand;
-let totalToDisplay = totalInEGP;
-let currencyName = 'جنيه مصري';
 let formattedTotal;
-if (currentCurrency === 'USD') { totalToDisplay = totalInEGP / exchangeRate; currencyName = 'دولار أمريكي'; formattedTotal = totalToDisplay.toFixed(2); }
-else { formattedTotal = Number.isInteger(totalToDisplay) ? totalToDisplay.toString() : totalToDisplay.toFixed(2); }
-const message = '📋 طلب شراء خدمة : ' + serviceName + '\n🔢 رقم الخدمة : ' + serviceNumber + '\n📊 الكمية المطلوبة : ' + quantity + ' ' + unit + '\n💰 السعر الإجمالي : ' + formattedTotal + ' ' + currencyName + '\n🔗 رابط الهدف : ' + link + '\n\n🌐 *لطلب خدمات أخرى، يمكنك العودة إلى موقعنا:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.';
+let currencyName = 'جنيه مصري';
+if (currentCurrency === 'USD') { formattedTotal = (totalInEGP / exchangeRate).toFixed(2); currencyName = 'دولار أمريكي'; }
+else { formattedTotal = Number.isInteger(totalInEGP) ? totalInEGP.toString() : totalInEGP.toFixed(2); }
+const message = '📋 طلب شراء خدمة : ' + serviceName + '\n🔢 رقم الخدمة : ' + serviceNumber + '\n📊 الكمية المطلوبة : ' + quantity + ' ' + unit + '\n💰 السعر الإجمالي : ' + formattedTotal + ' ' + currencyName + '\n🔗 رابط الهدف : ' + link + '\n\n🌐 *لطلب خدمات أخرى:*\nhttps://smcole.com\n\n✅ يرجى تأكيد الطلب وإتمام الدفع.';
 if (window.registerNewOrder) window.registerNewOrder();
 window.open('https://wa.me/201154846407?text=' + encodeURIComponent(message), '_blank');
 }
@@ -580,8 +579,7 @@ try { const { error } = await supabase.rpc('increment_orders'); if (error) throw
 catch (err) {
 try {
 const { data: current } = await supabase.from('orders_counter').select('count').eq('id', 1).single();
-const newCount = (current?.count || 0) + 1;
-await supabase.from('orders_counter').update({ count: newCount }).eq('id', 1);
+await supabase.from('orders_counter').update({ count: (current?.count || 0) + 1 }).eq('id', 1);
 } catch (e) {}
 }
 }
@@ -590,8 +588,7 @@ try { const { error } = await supabase.rpc('increment_active_users'); if (error)
 catch (err) {
 try {
 const { data: current } = await supabase.from('active_users_counter').select('count').eq('id', 1).single();
-const newCount = (current?.count || 0) + 1;
-await supabase.from('active_users_counter').update({ count: newCount }).eq('id', 1);
+await supabase.from('active_users_counter').update({ count: (current?.count || 0) + 1 }).eq('id', 1);
 } catch (e) {}
 }
 }
@@ -965,6 +962,28 @@ btnNext.addEventListener('click', () => sliderDiv.scrollBy({ left: scrollStep, b
 sectionsContainer.appendChild(section);
 }
 }
+window.autoSeedIfEmpty = async function() {
+try {
+const { data: checkData, error: checkError } = await supabase.from('services').select('id').limit(1);
+if (checkError) return false;
+if (checkData && checkData.length > 0) return false;
+const SEED = [];
+for (const key of Object.keys(platformData)) {
+for (const svc of platformData[key].services) {
+let svcType = 'followers';
+if (svc.isComment) svcType = 'comments';
+else if (svc.name.indexOf('لايك') !== -1) svcType = 'likes';
+else if (svc.name.indexOf('مشاهد') !== -1) svcType = 'views';
+else if (svc.name.indexOf('اعضاء') !== -1) svcType = 'members';
+SEED.push({ platform: key, type: svcType, name: svc.name, unit: svc.unit, price_per_thousand: svc.pricePerThousand, guarantee: svc.guarantee || 'بدون ضمان', icon: svc.icon || 'fas fa-star', min_limit: svc.minLimit || 1000, step_value: svc.stepValue || 500, is_comment: svc.isComment === true });
+}
+}
+for (let i = 0; i < SEED.length; i += 10) {
+await supabase.from('services').insert(SEED.slice(i, i + 10));
+}
+return true;
+} catch(e) { return false; }
+};
 window.loadServicesFromDB = async function() {
 try {
 const { data, error } = await supabase.from('services').select('*')
@@ -995,6 +1014,7 @@ return true;
 } catch(e) { return false; }
 };
 (async () => {
+await window.autoSeedIfEmpty();
 await window.loadServicesFromDB();
 buildAllSections();
 fetchExchangeRate();
@@ -1188,18 +1208,7 @@ if (svc.isComment) svcType = 'comments';
 else if (svc.name.indexOf('لايك') !== -1) svcType = 'likes';
 else if (svc.name.indexOf('مشاهد') !== -1) svcType = 'views';
 else if (svc.name.indexOf('اعضاء') !== -1) svcType = 'members';
-SEED_DATA.push({
-platform: key,
-type: svcType,
-name: svc.name,
-unit: svc.unit,
-price_per_thousand: svc.pricePerThousand,
-guarantee: svc.guarantee || 'بدون ضمان',
-icon: svc.icon || 'fas fa-star',
-min_limit: svc.minLimit || 1000,
-step_value: svc.stepValue || 500,
-is_comment: svc.isComment === true
-});
+SEED_DATA.push({ platform: key, type: svcType, name: svc.name, unit: svc.unit, price_per_thousand: svc.pricePerThousand, guarantee: svc.guarantee || 'بدون ضمان', icon: svc.icon || 'fas fa-star', min_limit: svc.minLimit || 1000, step_value: svc.stepValue || 500, is_comment: svc.isComment === true });
 }
 }
 let successCount = 0;
