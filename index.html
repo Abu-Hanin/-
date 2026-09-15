@@ -469,6 +469,45 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .balance-modal { max-width:450px; }
 .balance-modal input, .balance-modal select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
 .balance-modal label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
+
+/* ===== Mobile Auth Modal Fix ===== */
+@media (max-width: 500px) {
+.auth-modal { max-width: 94vw; padding: 1.1rem 0.9rem; max-height: 94vh; border-radius: 20px; }
+.auth-logo-wrap { margin-bottom: 0.5rem; }
+.auth-logo-icon { width: 50px; height: 50px; font-size: 1.3rem; margin-bottom: 0.3rem; box-shadow: 0 6px 18px rgba(240,185,11,0.4); }
+.auth-modal h2 { font-size: 1.05rem; margin-bottom: 0.2rem; }
+.auth-modal p.auth-sub { font-size: 0.7rem; margin-bottom: 0.7rem; }
+.auth-tabs { padding: 4px; margin-bottom: 0.7rem; gap: 5px; }
+.auth-tab { padding: 8px 6px; font-size: 0.78rem; }
+.auth-form { gap: 0.5rem; }
+.auth-form input { padding: 10px 14px; font-size: 0.85rem; border-radius: 12px; }
+.auth-form .hint { font-size: 0.65rem; margin-top: -4px; }
+.auth-btn { padding: 11px; font-size: 0.88rem; }
+.auth-msg { font-size: 0.75rem; min-height: 16px; }
+.auth-close-btn { top: 10px; left: 10px; width: 30px; height: 30px; font-size: 0.9rem; }
+.password-wrap input { padding-left: 38px !important; }
+.password-toggle { left: 8px; padding: 4px; font-size: 0.9rem; }
+}
+
+/* ===== Payment Selector Cards ===== */
+.payment-selector-grid { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+.payment-selector-card { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #1E2329, #13171D); border: 1px solid rgba(240,185,11,0.25); border-radius: 20px; padding: 1.2rem; cursor: pointer; transition: 0.25s; }
+.payment-selector-card:hover { border-color: #F0B90B; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.psc-logo { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 900; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.psc-logo.vodafone { background: #E60000; color: #fff; font-family: Arial; }
+.psc-logo.binance { background: #F0B90B; color: #0B0E11; }
+.psc-logo.usdt { background: #26A17B; color: #fff; }
+.psc-info { flex: 1; }
+.psc-info h3 { color: #EAECEF; font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+.psc-info p { color: #848E9C; font-size: 0.78rem; margin: 0; }
+.psc-arrow { color: #F0B90B; font-size: 1.2rem; transition: 0.25s; }
+.payment-selector-card:hover .psc-arrow { transform: translateX(-5px); }
+@media (max-width: 500px) {
+.psc-logo { width: 48px; height: 48px; font-size: 1.4rem; border-radius: 14px; }
+.psc-info h3 { font-size: 0.95rem; }
+.psc-info p { font-size: 0.72rem; }
+.payment-selector-card { padding: 1rem; gap: 12px; }
+}
 </style>
 </head>
 <body>
@@ -517,18 +556,43 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
+<!-- ============ PAYMENT PAGE (NEW: Selector) ============ -->
 <div id="paymentPage" class="overlay-page">
 <div class="overlay-container">
-<h1>طرق الدفع المتاحة</h1>
-<p>نوفر في SMCole مجموعة متنوعة من وسائل الدفع الآمنة والمرنة لتسهيل إتمام طلباتك بكل سرعة وراحة.</p>
-<div class="payment-categories">
-<div class="payment-category"><h3><i class="fas fa-wallet"></i> المحافظ الإلكترونية</h3><div class="payment-methods-grid"><div class="payment-card"><i class="fas fa-mobile-alt"></i> فودافون كاش</div><div class="payment-card"><i class="fas fa-mobile-alt"></i> اتصالات كاش</div><div class="payment-card"><i class="fas fa-mobile-alt"></i> أورنج كاش</div><div class="payment-card"><i class="fas fa-mobile-alt"></i> وي كاش</div></div></div>
-<div class="payment-category"><h3><i class="fas fa-university"></i> الدفع البنكي والمحلي</h3><div class="payment-methods-grid"><div class="payment-card"><i class="fas fa-exchange-alt"></i> إنستا باي</div><div class="payment-card"><i class="fab fa-cc-visa"></i> فيزا</div><div class="payment-card"><i class="fab fa-cc-mastercard"></i> ماستر كارد</div><div class="payment-card"><i class="fas fa-credit-card"></i> ميزة</div></div></div>
-<div class="payment-category"><h3><i class="fas fa-coins"></i> الدفع الرقمي والعملات المشفرة</h3><div class="payment-methods-grid"><div class="payment-card"><i class="fab fa-bitcoin"></i> باينانس باي</div><div class="payment-card"><i class="fas fa-coins"></i> USDT (TRC20)</div><div class="payment-card"><i class="fas fa-chart-line"></i> عملات رقمية مشفرة</div></div></div>
-<div class="payment-category"><h3><i class="fas fa-credit-card"></i> بوابات الدفع الإلكترونية</h3><div class="payment-methods-grid"><div class="payment-card"><i class="fas fa-money-bill-wave"></i> كاشير</div></div></div>
+<h1><i class="fas fa-wallet"></i> طرق الدفع المتاحة</h1>
+<p>نوفر في SMCole مجموعة متنوعة من وسائل الدفع الآمنة والمرنة لتسهيل إتمام طلباتك بكل سرعة وراحة. اختر وسيلة الدفع المناسبة:</p>
+
+<div class="payment-selector-grid">
+<div class="payment-selector-card" data-method="vodafone">
+<div class="psc-logo vodafone">V</div>
+<div class="psc-info">
+<h3>محافظ الكاش</h3>
+<p>فودافون كاش / اتصالات كاش / أورنج كاش / وي كاش</p>
 </div>
+<div class="psc-arrow"><i class="fas fa-chevron-left"></i></div>
+</div>
+
+<div class="payment-selector-card" data-method="binance">
+<div class="psc-logo binance">₿</div>
+<div class="psc-info">
+<h3>باينانس باي</h3>
+<p>الدفع عن طريق منصة Binance العالمية</p>
+</div>
+<div class="psc-arrow"><i class="fas fa-chevron-left"></i></div>
+</div>
+
+<div class="payment-selector-card" data-method="usdt">
+<div class="psc-logo usdt">₮</div>
+<div class="psc-info">
+<h3>العملات الرقمية</h3>
+<p>USDT عبر شبكة Tron (TRC20)</p>
+</div>
+<div class="psc-arrow"><i class="fas fa-chevron-left"></i></div>
+</div>
+</div>
+
 <h2><i class="fas fa-shopping-cart"></i> طريقة الدفع</h2>
-<div class="step-list"><div class="step-card"><div class="step-number">1</div> اختر الخدمة المطلوبة</div><div class="step-card"><div class="step-number">2</div> أدخل الرابط والكمية</div><div class="step-card"><div class="step-number">3</div> اضغط "شراء الآن"</div><div class="step-card"><div class="step-number">4</div> تحويل لواتساب للتواصل</div><div class="step-card"><div class="step-number">5</div> اختر وسيلة الدفع المناسبة</div><div class="step-card"><div class="step-number">6</div> يبدأ التنفيذ بعد تأكيد الدفع</div></div>
+<div class="step-list"><div class="step-card"><div class="step-number">1</div> اختر الوسيلة المناسبة</div><div class="step-card"><div class="step-number">2</div> حوّل المبلغ على الرقم/العنوان</div><div class="step-card"><div class="step-number">3</div> احتفظ بلقطة شاشة للتحويل</div><div class="step-card"><div class="step-number">4</div> املأ البيانات واضغط تأكيد</div><div class="step-card"><div class="step-number">5</div> سيتم مراجعة طلبك خلال 24 ساعة</div></div>
 <h2><i class="fas fa-info-circle"></i> ملاحظات مهمة</h2>
 <div class="note-box"><ul style="margin:0"><li>جميع المدفوعات تتم بشكل آمن.</li><li>يبدأ تنفيذ الطلب بعد تأكيد الدفع فقط.</li><li>يُرجى التأكد من صحة بيانات الطلب قبل الدفع.</li><li>جميع المدفوعات بعد التأكيد تعتبر نهائية وغير قابلة للاسترداد.</li></ul></div>
 </div>
@@ -1242,7 +1306,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ MODAL: إعدادات الموقع (موسّعة) ============ -->
+<!-- ============ MODAL: إعدادات الموقع ============ -->
 <div class="admin-modal-bg" id="adminSettingsModalBg">
 <div class="admin-modal settings-modal">
 <h2><i class="fas fa-cog"></i> إعدادات الموقع</h2>
@@ -1495,7 +1559,6 @@ else { favBtn.classList.remove('active'); favBtn.innerHTML = '<i class="far fa-h
 });
 }
 async function fetchExchangeRate() {
-// 1) لو الأدمن حط سعر يدوي → نستخدمه فوراً
 if (siteSettings.exchange_rate !== null && siteSettings.exchange_rate !== undefined && parseFloat(siteSettings.exchange_rate) > 0) {
 exchangeRate = parseFloat(siteSettings.exchange_rate);
 updateAllPrices();
@@ -1503,7 +1566,6 @@ if (window.refreshBalanceUI) window.refreshBalanceUI();
 if (window.refreshCurrencyButtons) window.refreshCurrencyButtons();
 return;
 }
-// 2) لو مفيش سعر يدوي → نحمّل من الإنترنت
 try {
 const response = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/egp.json');
 if (!response.ok) throw new Error();
@@ -1575,7 +1637,6 @@ usersSpan.innerText = siteSettings.active_users_override.toLocaleString('en-US')
 if (siteSettings.completed_orders_override !== null && siteSettings.completed_orders_override !== undefined && ordersSpan) {
 ordersSpan.innerText = siteSettings.completed_orders_override.toLocaleString('en-US');
 }
-// Payment numbers
 const vNumEl = document.getElementById('vodafoneNumber');
 const vCopyBtn = document.getElementById('vodafoneCopyBtn');
 const vStep2 = document.getElementById('vodafoneNumberStep2');
@@ -2215,6 +2276,52 @@ alert(msg);
 if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('/sw.js').then(reg => {}).catch(err => {});
 }
+
+// ==================== PAYMENT SELECTOR CARDS ====================
+(function() {
+function setupPaymentSelectorCards() {
+const cards = document.querySelectorAll('.payment-selector-card');
+if (!cards || cards.length === 0) return;
+cards.forEach(card => {
+// avoid double-binding
+if (card.dataset.bound === '1') return;
+card.dataset.bound = '1';
+card.addEventListener('click', function() {
+const method = this.getAttribute('data-method');
+if (!method) return;
+if (typeof window.openDepositPage !== 'function') {
+// fallback: if user system not ready yet, just navigate to paymentPage
+return;
+}
+// make sure profile exists
+if (!window.currentProfile) {
+alert('⚠️ يرجى تسجيل الدخول أولاً');
+if (typeof showAuthModal === 'function') showAuthModal();
+return;
+}
+// open deposit page then switch to the selected method
+Promise.resolve(window.openDepositPage()).then(() => {
+setTimeout(() => {
+if (method === 'vodafone' && typeof document.getElementById('depositTabVodafone') !== 'undefined') {
+document.getElementById('depositTabVodafone')?.click();
+} else if (method === 'binance') {
+document.getElementById('depositTabBinance')?.click();
+} else if (method === 'usdt') {
+document.getElementById('depositTabUsdt')?.click();
+}
+}, 200);
+});
+});
+});
+}
+// run when DOM is ready and also after user system init
+document.addEventListener('DOMContentLoaded', function() {
+setTimeout(setupPaymentSelectorCards, 300);
+});
+setTimeout(setupPaymentSelectorCards, 1200);
+setTimeout(setupPaymentSelectorCards, 2500);
+window.__setupPaymentSelectorCards = setupPaymentSelectorCards;
+})();
 </script>
 <script>
 (function(){
@@ -2246,7 +2353,6 @@ setTimeout(() => t.className = 'admin-toast', 2500);
 }
 window.__adminToast = toast;
 
-// ============ PASSWORD TOGGLE ============
 document.addEventListener('click', function(e) {
 const btn = e.target.closest && e.target.closest('.password-toggle');
 if (!btn) return;
@@ -2312,7 +2418,6 @@ document.getElementById('adminLoginPage').classList.remove('active');
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ============ PLATFORM TABS ============
 function renderPlatformTabs() {
 const container = document.getElementById('adminPlatformTabs');
 if (!container) return;
@@ -2542,7 +2647,6 @@ await window.loadAdminServices();
 if (window.loadServicesFromDB) { await window.loadServicesFromDB(); if (window.buildAllSections) window.buildAllSections(); }
 };
 
-// ============ SETTINGS MODAL ============
 const settingsModalBg = document.getElementById('adminSettingsModalBg');
 const settingsForm = document.getElementById('adminSettingsForm');
 
@@ -2634,7 +2738,6 @@ if (window.fetchExchangeRate) { window.fetchExchangeRate(); }
 }
 });
 
-// ============ ADMIN MAIN TABS ============
 document.querySelectorAll('.admin-main-tab').forEach(tab => {
 tab.addEventListener('click', () => {
 const target = tab.getAttribute('data-admin-tab');
@@ -2650,7 +2753,6 @@ else if (target === 'transactions') loadAdminTransactions();
 });
 });
 
-// ============ ADMIN USERS ============
 let allUsersData = [];
 let usersSearchTerm = '';
 async function loadAdminUsers() {
@@ -2736,7 +2838,6 @@ if (error) { toast('خطأ: ' + error.message, true); return; }
 await loadAdminUsers();
 };
 
-// ============ BALANCE MODAL ============
 let balanceModalAction = 'add';
 let balanceModalUser = null;
 window.__adminOpenBalance = function(userId, action) {
@@ -2800,7 +2901,6 @@ document.getElementById('adminBalanceModalBg').classList.remove('show');
 await loadAdminUsers();
 });
 
-// ============ USER PASSWORD MODAL ============
 let userPasswordTarget = null;
 window.__adminOpenPassword = function(userId) {
 const u = allUsersData.find(x => x.id === userId);
@@ -2840,7 +2940,6 @@ btn.disabled = false;
 btn.innerHTML = '<i class="fas fa-save"></i> تغيير';
 });
 
-// ============ ADMIN ORDERS ============
 let allOrdersData = [];
 let ordersSearchTerm = '';
 async function loadAdminOrders() {
@@ -2915,7 +3014,6 @@ if (error) { toast('خطأ: ' + error.message, true); return; }
 await loadAdminOrders();
 };
 
-// ============ ADMIN DEPOSITS ============
 let allDepositsData = [];
 let depositsSearchTerm = '';
 async function loadAdminDeposits() {
@@ -3048,7 +3146,6 @@ if (d) await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount)
 await loadAdminDeposits();
 };
 
-// ============ ADMIN TRANSACTIONS ============
 let allTxData = [];
 let txSearchTerm = '';
 async function loadAdminTransactions() {
@@ -3121,7 +3218,6 @@ txSearchTerm = e.target.value.trim();
 renderTxTable();
 });
 
-// ============ SESSION CHECK ============
 (async () => {
 try {
 const { data: { session } } = await supabase.auth.getSession();
@@ -3196,6 +3292,7 @@ document.body.removeChild(ta);
 
 function showAuthModal() { document.getElementById('authModalBg').classList.add('show'); }
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
+window.showAuthModal = showAuthModal;
 
 // ============================================
 // UNIFIED BALANCE
@@ -3576,10 +3673,17 @@ if (currentProfile) openProfilePage(); else showAuthModal();
 // ============================================
 // DEPOSIT PAGE
 // ============================================
-async function openDepositPage() {
+async function openDepositPage(method) {
 if (!currentProfile) { showAuthModal(); return; }
 window.__navigateTo('deposit', document.getElementById('depositPage'), true);
 await loadUserTransactions();
+if (method === 'binance') {
+document.getElementById('depositTabBinance')?.click();
+} else if (method === 'usdt') {
+document.getElementById('depositTabUsdt')?.click();
+} else if (method === 'vodafone') {
+document.getElementById('depositTabVodafone')?.click();
+}
 }
 window.openDepositPage = openDepositPage;
 
@@ -3685,7 +3789,7 @@ img.src = dataURL;
 }
 
 // ============================================
-// UPLOAD SCREENSHOT (3 services + timeout)
+// UPLOAD SCREENSHOT
 // ============================================
 function withTimeout(promise, ms) {
 return new Promise((resolve, reject) => {
@@ -3706,7 +3810,6 @@ catch(e) { return null; }
 const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg').replace('+xml','') : 'jpg';
 const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
 
-// 1) Supabase Storage
 try {
 const uploadPromise = sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: true });
 const result = await withTimeout(uploadPromise, 8000);
@@ -3721,7 +3824,6 @@ console.warn('Supabase err:', result.error.message);
 }
 } catch(e) { console.warn('Supabase fail:', e.message); }
 
-// 2) catbox.moe
 try {
 const fd = new FormData();
 fd.append('reqtype', 'fileupload');
@@ -3736,7 +3838,6 @@ return url;
 }
 } catch(e) { console.warn('catbox fail:', e.message); }
 
-// 3) 0x0.st
 try {
 const fd = new FormData();
 fd.append('file', blob, fileName);
@@ -3754,7 +3855,7 @@ return null;
 }
 
 // ============================================
-// OPEN WHATSAPP (تحويل مباشر — نفس التاب)
+// OPEN WHATSAPP
 // ============================================
 function openWhatsAppUrl(url) {
 window.location.href = url;
@@ -3976,7 +4077,7 @@ openWhatsAppUrl(waUrl);
 });
 
 // ============================================
-// USER TRANSACTIONS LOG (deposits only)
+// USER TRANSACTIONS LOG
 // ============================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
@@ -4046,7 +4147,7 @@ if (e.target === document.getElementById('insufficientModalBg')) document.getEle
 });
 document.getElementById('insufficientDepositBtn').addEventListener('click', () => {
 document.getElementById('insufficientModalBg').classList.remove('show');
-openDepositPage();
+window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 
 // ============================================
@@ -4183,10 +4284,10 @@ const dBtn = document.getElementById('depositMethodBtn');
 if (dLink) dLink.addEventListener('click', (e) => {
 e.preventDefault();
 document.getElementById('dropdownMenu').classList.remove('show-dropdown');
-if (currentProfile) openDepositPage(); else showAuthModal();
+window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 if (dBtn) dBtn.addEventListener('click', () => {
-if (currentProfile) openDepositPage(); else showAuthModal();
+window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 }, 500);
 
