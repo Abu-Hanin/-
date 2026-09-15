@@ -31,7 +31,7 @@ body { background-color: #0B0E11; font-family: 'Cairo', sans-serif; color: #EAEC
 .currency-dropdown a i { width: 24px; color: #F0B90B; }
 .currency-dropdown a:hover { background: rgba(46, 189, 133, 0.2); color: #2EBD85; }
 .show-currency-dropdown { display: flex; }
-.dropdown-menu { position: absolute; top: 80px; right: 25px; background: #1E2329; border-radius: 20px; padding: 0.5rem 0; width: 220px; z-index: 1001; display: none; flex-direction: column; border: 1px solid rgba(240, 185, 11, 0.3); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
+.dropdown-menu { position: absolute; top: 80px; right: 25px; background: #1E2329; border-radius: 20px; padding: 0.5rem 0; width: 240px; z-index: 1001; display: none; flex-direction: column; border: 1px solid rgba(240, 185, 11, 0.3); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
 .dropdown-menu a { padding: 12px 20px; color: #EAECEF; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; cursor: pointer; }
 .dropdown-menu a i { width: 24px; color: #F0B90B; font-size: 1.1rem; }
 .dropdown-menu a:hover { background: rgba(46, 189, 133, 0.2); color: #2EBD85; }
@@ -233,70 +233,243 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .settings-section .admin-field:last-child { margin-bottom: 0; }
 .settings-section textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
 .settings-save-bar { position: sticky; bottom: -1.8rem; background: #1E2329; padding: 1rem 0 0; border-top: 1px solid rgba(240,185,11,0.2); margin-top: 1rem; display: flex; gap: 10px; justify-content: flex-end; z-index: 10; }
-.auth-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:3000; padding:20px; backdrop-filter:blur(6px); }
+.auth-modal-bg { position:fixed; inset:0; background:radial-gradient(circle at center,rgba(240,185,11,0.15),rgba(0,0,0,0.9)); display:none; align-items:center; justify-content:center; z-index:3000; padding:20px; backdrop-filter:blur(8px); }
 .auth-modal-bg.show { display:flex; }
-.auth-modal { background:#1E2329; border-radius:28px; border:1px solid rgba(240,185,11,0.3); width:100%; max-width:450px; max-height:90vh; overflow-y:auto; padding:2rem; }
-.auth-modal h2 { color:#F0B90B; text-align:center; margin-bottom:0.5rem; font-size:1.4rem; }
-.auth-modal p.auth-sub { text-align:center; color:#B7BDC6; font-size:0.85rem; margin-bottom:1.5rem; }
-.auth-tabs { display:flex; gap:10px; margin-bottom:1.5rem; background:#0B0E11; padding:6px; border-radius:14px; }
+.auth-modal { background: linear-gradient(160deg, #1E2329 0%, #13171D 100%); border-radius:28px; border:1px solid rgba(240,185,11,0.4); width:100%; max-width:460px; max-height:90vh; overflow-y:auto; padding:2rem; box-shadow: 0 30px 80px rgba(0,0,0,0.7); position: relative; overflow: hidden; }
+.auth-modal::before { content: ''; position: absolute; top: -100px; left: -100px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(240,185,11,0.15), transparent 70%); border-radius: 50%; pointer-events: none; }
+.auth-modal::after { content: ''; position: absolute; bottom: -100px; right: -100px; width: 250px; height: 250px; background: radial-gradient(circle, rgba(46,189,133,0.1), transparent 70%); border-radius: 50%; pointer-events: none; }
+.auth-logo-wrap { text-align: center; margin-bottom: 1.2rem; position: relative; z-index: 2; }
+.auth-logo-icon { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #F0B90B, #FFD966); color: #0B0E11; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 30px rgba(240,185,11,0.4); margin-bottom: 0.8rem; }
+.auth-modal h2 { color:#F0B90B; text-align:center; margin-bottom:0.4rem; font-size:1.4rem; position:relative; z-index:2; }
+.auth-modal p.auth-sub { text-align:center; color:#B7BDC6; font-size:0.85rem; margin-bottom:1.5rem; position:relative; z-index:2; }
+.auth-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:rgba(11,14,17,0.7); backdrop-filter: blur(10px); padding:6px; border-radius:14px; position:relative; z-index:2; }
 .auth-tab { flex:1; padding:10px; text-align:center; border-radius:10px; cursor:pointer; color:#B7BDC6; font-weight:700; transition:0.2s; font-family:inherit; background:transparent; border:none; font-size:0.9rem; }
-.auth-tab.active { background:#2EBD85; color:#0B0E11; }
-.auth-form { display:flex; flex-direction:column; gap:1rem; }
-.auth-form input { padding:12px 16px; border-radius:14px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; transition:0.2s; }
-.auth-form input:focus { border-color:#F0B90B; }
+.auth-tab.active { background:linear-gradient(135deg, #2EBD85, #22a06f); color:#fff; box-shadow: 0 4px 12px rgba(46,189,133,0.3); }
+.auth-form { display:flex; flex-direction:column; gap:1rem; position:relative; z-index:2; }
+.auth-form input { padding:13px 16px; border-radius:14px; background: rgba(11,14,17,0.7); backdrop-filter: blur(10px); border:1px solid rgba(240,185,11,0.2); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; transition: all 0.3s; }
+.auth-form input:focus { border-color:#F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.15); }
 .auth-form .hint { font-size:0.7rem; color:#848E9C; margin-top:-6px; }
-.auth-btn { background:#2EBD85; color:#0B0E11; border:none; padding:12px; border-radius:40px; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; transition:0.2s; }
-.auth-btn:hover { background:#22a06f; }
+.auth-btn { background:linear-gradient(135deg, #2EBD85, #22a06f); color:#fff; border:none; padding:13px; border-radius:40px; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; transition:0.2s; box-shadow: 0 8px 20px rgba(46,189,133,0.3); }
+.auth-btn:hover { transform:translateY(-2px); box-shadow: 0 12px 28px rgba(46,189,133,0.4); }
 .auth-msg { text-align:center; font-size:0.85rem; min-height:20px; }
 .auth-msg.err { color:#e83e5c; }
 .auth-msg.ok { color:#2EBD85; }
-.auth-close-btn { position:absolute; top:15px; left:15px; background:transparent; border:none; color:#848E9C; font-size:1.5rem; cursor:pointer; }
-#profilePage, #depositPage { padding:1.5rem 1rem; }
+.auth-close-btn { position:absolute; top:15px; left:15px; background:rgba(11,14,17,0.6); border:1px solid rgba(255,255,255,0.1); color:#848E9C; font-size:1.1rem; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; transition: 0.2s; }
+.auth-close-btn:hover { background:#e83e5c; color:#fff; border-color:#e83e5c; }
+
+/* ===== Password Toggle ===== */
+.password-wrap { position: relative; }
+.password-wrap input { padding-left: 44px !important; }
+.password-toggle { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); background: transparent; border: none; color: #848E9C; cursor: pointer; font-size: 1rem; padding: 6px; z-index: 2; transition: 0.2s; }
+.password-toggle:hover { color: #F0B90B; }
+
+#profilePage, #depositPage, #myOrdersPage { padding:1.5rem 1rem; }
 .page-container { max-width:800px; margin:0 auto; }
 .page-title { color:#F0B90B; text-align:center; font-size:1.6rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:2px solid rgba(240,185,11,0.2); display:flex; align-items:center; justify-content:center; gap:10px; }
-.balance-card { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.5rem; margin-bottom:1.5rem; border:1px solid rgba(46,189,133,0.3); text-align:center; }
-.balance-card .lbl { color:#B7BDC6; font-size:0.85rem; margin-bottom:0.5rem; }
-.balance-card .val { color:#2EBD85; font-size:2rem; font-weight:800; direction:ltr; }
-.balance-row { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-.balance-row > div { flex:1; min-width:150px; }
-.profile-section { background:#1E2329; border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
-.profile-section h3 { color:#F0B90B; font-size:1rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.5rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
+
+/* ===== Profile Hero - Enhanced ===== */
+.profile-hero { position:relative; background:linear-gradient(135deg,#1E2329 0%,#0B0E11 50%,#1E2329 100%); border-radius:32px; padding:2rem 1.5rem 1.5rem; margin-bottom:1.5rem; border:1px solid rgba(240,185,11,0.25); overflow:hidden; text-align:center; }
+.profile-hero::before { content:''; position:absolute; top:-100px; right:-100px; width:300px; height:300px; background:radial-gradient(circle,rgba(240,185,11,0.2),transparent 70%); border-radius:50%; }
+.profile-hero::after { content:''; position:absolute; bottom:-100px; left:-100px; width:300px; height:300px; background:radial-gradient(circle,rgba(46,189,133,0.15),transparent 70%); border-radius:50%; }
+.profile-avatar-wrap { position:relative; display:inline-block; margin-bottom:0.8rem; z-index:2; }
+.profile-avatar { width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); display:inline-flex; align-items:center; justify-content:center; font-size:2.6rem; font-weight:800; color:#0B0E11; border:4px solid #0B0E11; box-shadow:0 0 0 3px #F0B90B,0 10px 30px rgba(240,185,11,0.3); position:relative; overflow:hidden; }
+.profile-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.avatar-upload-btn { position:absolute; bottom:0; left:0; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border:3px solid #0B0E11; width:34px; height:34px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.9rem; transition:0.2s; z-index:3; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+.avatar-upload-btn:hover { background:#2EBD85; transform:scale(1.1); }
+.profile-name { font-size:1.5rem; font-weight:800; color:#EAECEF; margin-bottom:4px; position:relative; z-index:2; }
+.profile-username { font-size:0.85rem; color:#F0B90B; font-weight:600; direction:ltr; position:relative; z-index:2; margin-bottom:1rem; }
+.profile-balance-box { background:linear-gradient(135deg,rgba(46,189,133,0.15),rgba(46,189,133,0.05)); border:1px solid rgba(46,189,133,0.4); border-radius:24px; padding:1.4rem 1.2rem; margin-top:1rem; position:relative; z-index:2; }
+.profile-balance-box .pb-lbl { font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; display:flex; align-items:center; justify-content:center; gap:6px; }
+.profile-balance-box .pb-val { font-size:2.4rem; font-weight:800; color:#2EBD85; direction:ltr; line-height:1.1; }
+.profile-balance-box .pb-cur { font-size:0.9rem; color:#2EBD85; font-weight:600; }
+.profile-currency-switch { display:flex; gap:8px; justify-content:center; margin-top:14px; position:relative; z-index:2; }
+.profile-currency-btn { background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#B7BDC6; padding:8px 18px; border-radius:40px; font-weight:700; font-family:inherit; cursor:pointer; font-size:0.8rem; display:inline-flex; align-items:center; gap:6px; transition:0.2s; }
+.profile-currency-btn.active { background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border-color:#F0B90B; box-shadow: 0 6px 18px rgba(240,185,11,0.3); }
+.profile-currency-btn:hover:not(.active) { border-color:#F0B90B; color:#F0B90B; }
+.profile-stats-row { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:1rem; position:relative; z-index:2; }
+.profile-stat-mini { background:rgba(11,14,17,0.6); backdrop-filter: blur(10px); border:1px solid rgba(240,185,11,0.2); border-radius:16px; padding:12px 8px; text-align:center; }
+.profile-stat-mini .ps-icon { font-size:1.3rem; color:#F0B90B; margin-bottom:4px; }
+.profile-stat-mini .ps-val { font-size:1.1rem; font-weight:800; color:#EAECEF; direction:ltr; }
+.profile-stat-mini .ps-lbl { font-size:0.65rem; color:#B7BDC6; margin-top:2px; }
+.profile-logout-btn { width:100%; margin-top:1.5rem; background:rgba(232,62,92,0.12); border:1px solid rgba(232,62,92,0.5); color:#e83e5c; padding:14px; border-radius:20px; font-weight:700; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; }
+.profile-logout-btn:hover { background:#e83e5c; color:#fff; transform:translateY(-2px); }
+
+/* ===== Profile Section ===== */
+.profile-section { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
+.profile-section h3 { color:#F0B90B; font-size:0.95rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.5rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
 .profile-section h3 i { color:#2EBD85; }
 .profile-field { margin-bottom:1rem; }
 .profile-field label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
-.profile-field input { width:100%; padding:11px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; transition:0.2s; }
-.profile-field input:focus { border-color:#F0B90B; }
+.profile-field input { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; transition:0.2s; }
+.profile-field input:focus { border-color:#F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.1); }
 .profile-field input:disabled { background:#13171D; color:#848E9C; }
-.profile-save-btn { background:#2EBD85; color:#0B0E11; border:none; padding:12px 24px; border-radius:40px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:0.5rem; display:inline-flex; align-items:center; gap:8px; font-size:0.9rem; }
-.profile-save-btn:hover { background:#22a06f; }
+.profile-save-btn { background:linear-gradient(135deg, #2EBD85, #22a06f); color:#fff; border:none; padding:12px 24px; border-radius:40px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:0.5rem; display:inline-flex; align-items:center; gap:8px; font-size:0.9rem; transition:0.2s; }
+.profile-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,189,133,0.3); }
 .profile-msg { color:#2EBD85; font-size:0.85rem; margin-top:0.5rem; min-height:18px; }
 .profile-msg.err { color:#e83e5c; }
+
+/* ===== Deposit Tabs with Brand Colors ===== */
 .deposit-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:16px; border:1px solid rgba(240,185,11,0.2); flex-wrap:wrap; }
-.deposit-tab { flex:1; min-width:110px; padding:12px 8px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.2s; background:transparent; border:none; font-size:0.85rem; display:flex; align-items:center; justify-content:center; gap:6px; }
-.deposit-tab.active { background:#2EBD85; color:#0B0E11; }
+.deposit-tab { flex:1; min-width:110px; padding:14px 8px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.25s; background:transparent; border:none; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
+.deposit-tab .tab-icon { font-size:1.5rem; }
+.deposit-tab.active { background:linear-gradient(135deg, #2EBD85, #22a06f); color:#0B0E11; box-shadow: 0 6px 18px rgba(46,189,133,0.3); }
+.deposit-tab.brand-vodafone.active { background:linear-gradient(135deg, #E60000, #b80000); color:#fff; box-shadow: 0 6px 18px rgba(230,0,0,0.35); }
+.deposit-tab.brand-binance.active { background:linear-gradient(135deg, #F0B90B, #d9a509); color:#0B0E11; box-shadow: 0 6px 18px rgba(240,185,11,0.35); }
+.deposit-tab.brand-usdt.active { background:linear-gradient(135deg, #26A17B, #1a8060); color:#fff; box-shadow: 0 6px 18px rgba(38,161,123,0.35); }
 .deposit-panel { display:none; }
 .deposit-panel.active { display:block; }
-.deposit-info { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
-.deposit-info p { color:#ddd; margin-bottom:0.8rem; line-height:1.7; font-size:0.9rem; }
-.deposit-number-row { display:flex; gap:10px; align-items:center; background:#0B0E11; padding:12px 16px; border-radius:16px; margin:1rem 0; border:1px solid rgba(46,189,133,0.4); flex-wrap:wrap; }
-.deposit-number { flex:1; color:#F0B90B; font-weight:800; font-size:1.15rem; direction:ltr; letter-spacing:1px; word-break:break-all; min-width:0; }
-.deposit-copy-btn { background:#2EBD85; color:#0B0E11; border:none; padding:8px 16px; border-radius:12px; font-weight:700; cursor:pointer; font-family:inherit; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
-.deposit-copy-btn:hover { background:#22a06f; }
-.deposit-steps { background:rgba(46,189,133,0.08); border-right:4px solid #2EBD85; padding:1rem; border-radius:16px; margin:1rem 0; }
-.deposit-steps ol { padding-right:1.2rem; color:#ddd; font-size:0.85rem; line-height:1.9; }
-.deposit-steps ol li { margin-bottom:0.4rem; }
+
+/* ===== Deposit Info - Enhanced ===== */
+.deposit-info { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.4rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); position:relative; overflow: hidden; }
+.deposit-info::before { content:''; position:absolute; top:-60px; left:-60px; width:180px; height:180px; background:radial-gradient(circle, rgba(240,185,11,0.08), transparent 70%); border-radius:50%; pointer-events:none; }
+.deposit-brand-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; position: relative; z-index: 2; }
+.deposit-brand-logo { width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 900; flex-shrink: 0; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.deposit-brand-logo.vodafone { background: #E60000; color: #fff; font-family: Arial; }
+.deposit-brand-logo.binance { background: #F0B90B; color: #0B0E11; }
+.deposit-brand-logo.usdt { background: #26A17B; color: #fff; }
+.deposit-brand-title { flex: 1; }
+.deposit-brand-title h2 { color: #EAECEF; font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
+.deposit-brand-title p { color: #848E9C; font-size: 0.78rem; }
+.deposit-info > p { color:#ddd; margin-bottom:0.8rem; line-height:1.7; font-size:0.9rem; position: relative; z-index: 2; }
+.deposit-number-row { display:flex; gap:10px; align-items:center; background:#0B0E11; padding:14px 18px; border-radius:16px; margin:1rem 0; border:1px solid rgba(46,189,133,0.4); flex-wrap:wrap; position: relative; z-index: 2; }
+.deposit-number { flex:1; color:#F0B90B; font-weight:800; font-size:1.2rem; direction:ltr; letter-spacing:1px; word-break:break-all; min-width:0; }
+.deposit-copy-btn { background:linear-gradient(135deg,#2EBD85,#22a06f); color:#0B0E11; border:none; padding:10px 18px; border-radius:12px; font-weight:700; cursor:pointer; font-family:inherit; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition: 0.2s; }
+.deposit-copy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(46,189,133,0.3); }
+
+/* ===== Deposit Steps - Enhanced ===== */
+.deposit-steps { display: flex; flex-direction: column; gap: 10px; background: linear-gradient(135deg, rgba(46,189,133,0.05), rgba(46,189,133,0.02)); border: 1px solid rgba(46,189,133,0.25); padding: 1.2rem; border-radius: 20px; margin: 1rem 0; position: relative; z-index: 2; }
+.step-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; background: rgba(11,14,17,0.6); border-radius: 14px; border: 1px solid rgba(255,255,255,0.03); }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #2EBD85, #22a06f); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(46,189,133,0.3); }
+.step-text { flex: 1; color: #EAECEF; font-size: 0.85rem; line-height: 1.6; }
+.step-text b { color: #F0B90B; }
+
 .deposit-form { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; border:1px solid rgba(240,185,11,0.2); margin-top:1rem; }
 .deposit-form h3 { color:#F0B90B; margin-bottom:1rem; font-size:1rem; display:flex; align-items:center; gap:8px; }
-.deposit-form input, .deposit-form select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
-.deposit-form input:focus, .deposit-form select:focus { border-color:#F0B90B; }
+.deposit-form input, .deposit-form select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; transition: 0.2s; }
+.deposit-form input:focus, .deposit-form select:focus { border-color:#F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.1); }
 .deposit-form label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
-.deposit-submit-btn { background:#F0B90B; color:#0B0E11; border:none; padding:12px 24px; border-radius:40px; font-weight:700; cursor:pointer; font-family:inherit; width:100%; font-size:0.95rem; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
-.deposit-submit-btn:hover { background:#d9a509; }
+.deposit-submit-btn { background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border:none; padding:14px 24px; border-radius:40px; font-weight:800; cursor:pointer; font-family:inherit; width:100%; font-size:0.95rem; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition: 0.2s; box-shadow: 0 8px 20px rgba(240,185,11,0.25); }
+.deposit-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(240,185,11,0.35); }
+
+/* ===== Upload Zone ===== */
+.deposit-upload-zone { border:2px dashed rgba(240,185,11,0.4); background:linear-gradient(135deg,rgba(240,185,11,0.05),rgba(240,185,11,0.02)); border-radius:20px; padding:1.5rem 1rem; text-align:center; cursor:pointer; transition:0.2s; margin-bottom:1rem; }
+.deposit-upload-zone:hover { border-color:#F0B90B; background:linear-gradient(135deg,rgba(240,185,11,0.1),rgba(240,185,11,0.03)); }
+.deposit-upload-zone.has-file { border-color:#2EBD85; background:linear-gradient(135deg,rgba(46,189,133,0.1),rgba(46,189,133,0.03)); border-style:solid; }
+.deposit-upload-zone .u-icon { font-size:2.2rem; color:#F0B90B; margin-bottom:8px; display:block; }
+.deposit-upload-zone.has-file .u-icon { color:#2EBD85; }
+.deposit-upload-zone .u-title { font-size:0.9rem; font-weight:700; color:#EAECEF; margin-bottom:4px; }
+.deposit-upload-zone .u-hint { font-size:0.75rem; color:#848E9C; }
+.deposit-upload-preview { max-width:100%; max-height:200px; border-radius:14px; margin-top:10px; display:none; }
+.deposit-upload-zone.has-file .deposit-upload-preview { display:inline-block; }
+
+.deposit-wallet-logos { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1rem; position: relative; z-index: 2; }
+.wallet-logo-chip { background:rgba(11,14,17,0.7); border:1px solid rgba(46,189,133,0.3); border-radius:40px; padding:8px 14px; font-size:0.75rem; font-weight:700; color:#2EBD85; display:inline-flex; align-items:center; gap:6px; }
+.usdt-address-box { background:linear-gradient(135deg,rgba(38,161,123,0.15),rgba(38,161,123,0.05)); border:1px solid rgba(38,161,123,0.5); border-radius:20px; padding:1.2rem; margin:1rem 0; position: relative; z-index: 2; }
+.usdt-address-box .usdt-lbl { font-size:0.8rem; color:#26A17B; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.usdt-address-box .usdt-addr { background:#0B0E11; padding:14px; border-radius:12px; color:#F0B90B; font-size:0.85rem; direction:ltr; word-break:break-all; font-family:monospace; margin-bottom:10px; border:1px solid rgba(240,185,11,0.25); }
+
+/* ===== Transactions Log (deposits only) ===== */
+.tx-log-section { margin-top:2rem; background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.5rem; border:1px solid rgba(240,185,11,0.2); }
+.tx-log-section h3 { color:#F0B90B; font-size:1.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.6rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
+.tx-log-section h3 i { color:#2EBD85; }
+.tx-item { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#0B0E11; border-radius:16px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); transition:0.2s; gap:12px; flex-wrap:wrap; }
+.tx-item:hover { border-color:rgba(240,185,11,0.3); }
+.tx-icon-wrap { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.tx-icon-wrap.dep { background:rgba(46,189,133,0.15); color:#2EBD85; }
+.tx-icon-wrap.add { background:rgba(240,185,11,0.15); color:#F0B90B; }
+.tx-icon-wrap.wd { background:rgba(232,62,92,0.15); color:#e83e5c; }
+.tx-info { flex:1; min-width:150px; }
+.tx-title { font-size:0.9rem; font-weight:700; color:#EAECEF; margin-bottom:2px; }
+.tx-sub { font-size:0.72rem; color:#848E9C; }
+.tx-amount { font-size:1rem; font-weight:800; direction:ltr; }
+.tx-amount.pos { color:#2EBD85; }
+.tx-amount.neg { color:#e83e5c; }
+.tx-badge { padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; }
+.tx-badge.pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
+.tx-badge.approved, .tx-badge.completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
+.tx-badge.rejected, .tx-badge.cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
+
+/* ===== Order Cards - Enhanced ===== */
+.order-card { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:24px; padding:1.3rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.15); position:relative; overflow:hidden; transition:0.25s; }
+.order-card:hover { border-color:rgba(240,185,11,0.4); transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+.order-card::before { content:''; position:absolute; top:0; right:0; width:5px; height:100%; }
+.order-card.status-pending::before { background:linear-gradient(180deg, #F0B90B, #d9a509); }
+.order-card.status-processing::before { background:linear-gradient(180deg, #60a5fa, #3b82f6); }
+.order-card.status-completed::before { background:linear-gradient(180deg, #2EBD85, #22a06f); }
+.order-card.status-cancelled::before { background:linear-gradient(180deg, #e83e5c, #c72f4a); }
+.order-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:8px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.06); }
+.order-id { font-size:0.85rem; color:#F0B90B; font-weight:800; direction:ltr; background:rgba(240,185,11,0.1); padding:5px 14px; border-radius:30px; border: 1px solid rgba(240,185,11,0.2); }
+.order-title-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; }
+.order-icon-box { width: 44px; height: 44px; border-radius: 12px; background: rgba(240,185,11,0.1); color: #F0B90B; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.order-name { font-size:1rem; font-weight:700; color:#EAECEF; line-height: 1.3; }
+.order-meta { display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem; color:#B7BDC6; margin-bottom:0.8rem; }
+.order-meta span { display:flex; align-items:center; gap:6px; }
+.order-meta span i { color:#F0B90B; }
+.order-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.06); }
+.order-total { font-size:1.15rem; font-weight:800; color:#2EBD85; direction:ltr; }
+.order-status-badge { padding:6px 14px; border-radius:30px; font-size:0.75rem; font-weight:700; display:inline-flex; align-items:center; gap:5px; }
+.os-pending { background:rgba(240,185,11,0.15); color:#F0B90B; border: 1px solid rgba(240,185,11,0.3); }
+.os-processing { background:rgba(96,165,250,0.15); color:#60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+.os-completed { background:rgba(46,189,133,0.2); color:#2EBD85; border: 1px solid rgba(46,189,133,0.4); }
+.os-cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; border: 1px solid rgba(232,62,92,0.3); }
+.order-link-btn { color:#F0B90B; font-size:0.8rem; text-decoration:none; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(240,185,11,0.1); border-radius: 30px; transition: 0.2s; border: 1px solid rgba(240,185,11,0.2); }
+.order-link-btn:hover { background: rgba(240,185,11,0.2); }
+.empty-orders { text-align:center; padding:4rem 1rem; }
+.empty-orders i { font-size:4rem; color:#F0B90B; opacity:0.4; margin-bottom:1rem; display:block; }
+.empty-orders p { color:#B7BDC6; font-size:1rem; }
+@media (max-width:600px){ .order-meta { grid-template-columns:1fr; } }
+
+/* ===== Admin Monthly Stats ===== */
+.admin-monthly-stats { background:linear-gradient(135deg,rgba(240,185,11,0.08),rgba(46,189,133,0.05)); border:1px solid rgba(240,185,11,0.3); border-radius:20px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+.admin-monthly-stats .m-icon { width:60px; height:60px; border-radius:20px; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0; }
+.admin-monthly-stats .m-info { flex:1; min-width:180px; }
+.admin-monthly-stats .m-lbl { font-size:0.8rem; color:#B7BDC6; }
+.admin-monthly-stats .m-val { font-size:1.8rem; font-weight:800; color:#F0B90B; direction:ltr; }
+.admin-monthly-stats .m-sub { font-size:0.7rem; color:#848E9C; margin-top:2px; }
+.screenshot-preview-btn { background:rgba(240,185,11,0.15); color:#F0B90B; border:none; padding:5px 10px; border-radius:10px; cursor:pointer; font-size:0.72rem; font-weight:700; font-family:inherit; display:inline-flex; align-items:center; gap:4px; }
+.screenshot-preview-btn:hover { background:#F0B90B; color:#0B0E11; }
+.screenshot-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px; }
+.screenshot-modal-bg.show { display:flex; }
+.screenshot-modal-bg img { max-width:90vw; max-height:85vh; border-radius:16px; border:2px solid #F0B90B; }
+
+/* User balance chip */
+.user-balance-chip { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#1E2329,#13171D); padding:10px 14px; border-radius:16px; border:1px solid rgba(240,185,11,0.3); margin:0 12px 8px; cursor:pointer; }
+.user-balance-chip .b-icon { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+.user-balance-chip .b-info { flex:1; }
+.user-balance-chip .b-lbl { font-size:0.7rem; color:#B7BDC6; }
+.user-balance-chip .b-val { font-size:1.1rem; font-weight:800; color:#2EBD85; direction:ltr; }
+
+/* Insufficient Modal */
+.insufficient-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:3500; padding:20px; backdrop-filter:blur(8px); }
+.insufficient-modal-bg.show { display:flex; }
+.insufficient-modal { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:32px; border:1px solid rgba(232,62,92,0.4); width:100%; max-width:440px; padding:2rem 1.5rem; text-align:center; position:relative; overflow:hidden; animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes slideUp { from { opacity:0; transform:translateY(40px) scale(0.95); } to { opacity:1; transform:translateY(0) scale(1); } }
+.insufficient-modal::before { content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%); width:220px; height:220px; background:radial-gradient(circle,rgba(232,62,92,0.25),transparent 70%); border-radius:50%; pointer-events:none; }
+.insufficient-icon-wrap { width:86px; height:86px; margin:0 auto 1rem; border-radius:50%; background:linear-gradient(135deg,rgba(232,62,92,0.25),rgba(232,62,92,0.1)); border:2px solid rgba(232,62,92,0.5); display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#e83e5c; position:relative; z-index:2; animation:shakeIcon 0.6s ease; }
+@keyframes shakeIcon { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
+.insufficient-title { font-size:1.35rem; font-weight:800; color:#EAECEF; margin-bottom:6px; position:relative; z-index:2; }
+.insufficient-sub { font-size:0.85rem; color:#B7BDC6; margin-bottom:1.5rem; position:relative; z-index:2; }
+.insufficient-rows { display:flex; flex-direction:column; gap:10px; margin-bottom:1.5rem; position:relative; z-index:2; }
+.insufficient-row { display:flex; justify-content:space-between; align-items:center; background:#0B0E11; padding:14px 18px; border-radius:16px; border:1px solid rgba(255,255,255,0.06); }
+.insufficient-row .ir-lbl { font-size:0.8rem; color:#B7BDC6; display:flex; align-items:center; gap:8px; }
+.insufficient-row .ir-val { font-size:1.05rem; font-weight:800; direction:ltr; }
+.insufficient-row.current .ir-val { color:#2EBD85; }
+.insufficient-row.needed .ir-val { color:#e83e5c; }
+.insufficient-diff-row { background:linear-gradient(135deg,rgba(240,185,11,0.12),rgba(240,185,11,0.04)); border:1px solid rgba(240,185,11,0.4); border-radius:16px; padding:14px 18px; margin-bottom:1.5rem; position:relative; z-index:2; }
+.insufficient-diff-row .idr-lbl { font-size:0.8rem; color:#F0B90B; margin-bottom:4px; display:flex; align-items:center; justify-content:center; gap:6px; }
+.insufficient-diff-row .idr-val { font-size:1.5rem; font-weight:800; color:#F0B90B; direction:ltr; }
+.insufficient-actions { display:flex; flex-direction:column; gap:10px; position:relative; z-index:2; }
+.insufficient-btn-deposit { background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border:none; padding:14px; border-radius:18px; font-weight:800; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; box-shadow:0 8px 20px rgba(240,185,11,0.3); }
+.insufficient-btn-deposit:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(240,185,11,0.4); }
+.insufficient-btn-cancel { background:transparent; color:#B7BDC6; border:1px solid rgba(255,255,255,0.1); padding:12px; border-radius:18px; font-weight:600; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:0.2s; }
+.insufficient-btn-cancel:hover { color:#EAECEF; border-color:rgba(255,255,255,0.25); }
+
+/* Main tabs */
 .admin-main-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:18px; overflow-x:auto; border:1px solid rgba(240,185,11,0.2); scrollbar-width:thin; }
 .admin-main-tabs::-webkit-scrollbar { height:5px; }
 .admin-main-tabs::-webkit-scrollbar-thumb { background:#F0B90B; border-radius:10px; }
 .admin-main-tab { padding:10px 20px; border-radius:14px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.2s; background:transparent; border:none; white-space:nowrap; font-size:0.9rem; display:inline-flex; align-items:center; gap:6px; }
-.admin-main-tab.active { background:#2EBD85; color:#0B0E11; }
+.admin-main-tab.active { background:linear-gradient(135deg,#2EBD85,#22a06f); color:#fff; box-shadow: 0 6px 18px rgba(46,189,133,0.3); }
 .admin-section { display:none; }
 .admin-section.active { display:block; }
 .user-search-input { width:100%; padding:12px 20px; border-radius:40px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; margin-bottom:1rem; transition:0.2s; }
@@ -325,143 +498,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .balance-modal { max-width:450px; }
 .balance-modal input, .balance-modal select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
 .balance-modal label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
-
-/* ====== User balance chip in dropdown ====== */
-.user-balance-chip { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#1E2329,#13171D); padding:10px 14px; border-radius:16px; border:1px solid rgba(240,185,11,0.3); margin:0 12px 8px; cursor:pointer; }
-.user-balance-chip .b-icon { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
-.user-balance-chip .b-info { flex:1; }
-.user-balance-chip .b-lbl { font-size:0.7rem; color:#B7BDC6; }
-.user-balance-chip .b-val { font-size:1.1rem; font-weight:800; color:#2EBD85; direction:ltr; }
-
-/* ====== Profile Hero ====== */
-.profile-hero { position:relative; background:linear-gradient(135deg,#1E2329 0%,#13171D 50%,#1E2329 100%); border-radius:32px; padding:2rem 1.5rem 1.5rem; margin-bottom:1.5rem; border:1px solid rgba(240,185,11,0.25); overflow:hidden; text-align:center; }
-.profile-hero::before { content:''; position:absolute; top:-50px; right:-50px; width:180px; height:180px; background:radial-gradient(circle,rgba(240,185,11,0.15),transparent 70%); border-radius:50%; }
-.profile-hero::after { content:''; position:absolute; bottom:-60px; left:-60px; width:200px; height:200px; background:radial-gradient(circle,rgba(46,189,133,0.12),transparent 70%); border-radius:50%; }
-.profile-avatar-wrap { position:relative; display:inline-block; margin-bottom:0.8rem; }
-.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); display:inline-flex; align-items:center; justify-content:center; font-size:2.5rem; font-weight:800; color:#0B0E11; border:4px solid #0B0E11; box-shadow:0 0 0 3px #F0B90B,0 10px 30px rgba(240,185,11,0.3); position:relative; z-index:2; overflow:hidden; }
-.profile-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-.avatar-upload-btn { position:absolute; bottom:0; left:0; background:#F0B90B; color:#0B0E11; border:3px solid #0B0E11; width:32px; height:32px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:0.2s; z-index:3; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
-.avatar-upload-btn:hover { background:#2EBD85; transform:scale(1.1); }
-.profile-name { font-size:1.4rem; font-weight:800; color:#EAECEF; margin-bottom:4px; position:relative; z-index:2; }
-.profile-username { font-size:0.85rem; color:#F0B90B; font-weight:600; direction:ltr; position:relative; z-index:2; margin-bottom:1rem; }
-.profile-balance-box { background:linear-gradient(135deg,rgba(46,189,133,0.15),rgba(46,189,133,0.05)); border:1px solid rgba(46,189,133,0.4); border-radius:24px; padding:1.2rem; margin-top:1rem; position:relative; z-index:2; }
-.profile-balance-box .pb-lbl { font-size:0.8rem; color:#B7BDC6; margin-bottom:4px; display:flex; align-items:center; justify-content:center; gap:6px; }
-.profile-balance-box .pb-val { font-size:2.2rem; font-weight:800; color:#2EBD85; direction:ltr; line-height:1.1; }
-.profile-balance-box .pb-cur { font-size:0.9rem; color:#2EBD85; font-weight:600; }
-.profile-currency-switch { display:flex; gap:8px; justify-content:center; margin-top:12px; position:relative; z-index:2; }
-.profile-currency-btn { background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#B7BDC6; padding:8px 18px; border-radius:40px; font-weight:700; font-family:inherit; cursor:pointer; font-size:0.8rem; display:inline-flex; align-items:center; gap:6px; transition:0.2s; }
-.profile-currency-btn.active { background:#F0B90B; color:#0B0E11; border-color:#F0B90B; }
-.profile-currency-btn:hover:not(.active) { border-color:#F0B90B; color:#F0B90B; }
-.profile-logout-btn { width:100%; margin-top:1.5rem; background:rgba(232,62,92,0.12); border:1px solid rgba(232,62,92,0.5); color:#e83e5c; padding:14px; border-radius:20px; font-weight:700; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; }
-.profile-logout-btn:hover { background:#e83e5c; color:#fff; transform:translateY(-2px); }
-
-/* ====== Password Toggle ====== */
-.password-wrap { position: relative; }
-.password-wrap input { padding-left: 42px !important; }
-.password-toggle { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); background: transparent; border: none; color: #848E9C; cursor: pointer; font-size: 1rem; padding: 6px; z-index: 2; }
-.password-toggle:hover { color: #F0B90B; }
-
-/* ====== Insufficient Modal ====== */
-.insufficient-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:3500; padding:20px; backdrop-filter:blur(8px); }
-.insufficient-modal-bg.show { display:flex; }
-.insufficient-modal { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:32px; border:1px solid rgba(232,62,92,0.4); width:100%; max-width:440px; padding:2rem 1.5rem; text-align:center; position:relative; overflow:hidden; animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1); }
-@keyframes slideUp { from { opacity:0; transform:translateY(40px) scale(0.95); } to { opacity:1; transform:translateY(0) scale(1); } }
-.insufficient-modal::before { content:''; position:absolute; top:-80px; left:50%; transform:translateX(-50%); width:220px; height:220px; background:radial-gradient(circle,rgba(232,62,92,0.25),transparent 70%); border-radius:50%; pointer-events:none; }
-.insufficient-icon-wrap { width:86px; height:86px; margin:0 auto 1rem; border-radius:50%; background:linear-gradient(135deg,rgba(232,62,92,0.25),rgba(232,62,92,0.1)); border:2px solid rgba(232,62,92,0.5); display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#e83e5c; position:relative; z-index:2; animation:shakeIcon 0.6s ease; }
-@keyframes shakeIcon { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
-.insufficient-title { font-size:1.35rem; font-weight:800; color:#EAECEF; margin-bottom:6px; position:relative; z-index:2; }
-.insufficient-sub { font-size:0.85rem; color:#B7BDC6; margin-bottom:1.5rem; position:relative; z-index:2; }
-.insufficient-rows { display:flex; flex-direction:column; gap:10px; margin-bottom:1.5rem; position:relative; z-index:2; }
-.insufficient-row { display:flex; justify-content:space-between; align-items:center; background:#0B0E11; padding:14px 18px; border-radius:16px; border:1px solid rgba(255,255,255,0.06); }
-.insufficient-row .ir-lbl { font-size:0.8rem; color:#B7BDC6; display:flex; align-items:center; gap:8px; }
-.insufficient-row .ir-val { font-size:1.05rem; font-weight:800; direction:ltr; }
-.insufficient-row.current .ir-val { color:#2EBD85; }
-.insufficient-row.needed .ir-val { color:#e83e5c; }
-.insufficient-diff-row { background:linear-gradient(135deg,rgba(240,185,11,0.12),rgba(240,185,11,0.04)); border:1px solid rgba(240,185,11,0.4); border-radius:16px; padding:14px 18px; margin-bottom:1.5rem; position:relative; z-index:2; }
-.insufficient-diff-row .idr-lbl { font-size:0.8rem; color:#F0B90B; margin-bottom:4px; display:flex; align-items:center; justify-content:center; gap:6px; }
-.insufficient-diff-row .idr-val { font-size:1.5rem; font-weight:800; color:#F0B90B; direction:ltr; }
-.insufficient-actions { display:flex; flex-direction:column; gap:10px; position:relative; z-index:2; }
-.insufficient-btn-deposit { background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border:none; padding:14px; border-radius:18px; font-weight:800; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; box-shadow:0 8px 20px rgba(240,185,11,0.3); }
-.insufficient-btn-deposit:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(240,185,11,0.4); }
-.insufficient-btn-cancel { background:transparent; color:#B7BDC6; border:1px solid rgba(255,255,255,0.1); padding:12px; border-radius:18px; font-weight:600; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:0.2s; }
-.insufficient-btn-cancel:hover { color:#EAECEF; border-color:rgba(255,255,255,0.25); }
-
-/* ====== Deposit Upload Zone ====== */
-.deposit-upload-zone { border:2px dashed rgba(240,185,11,0.4); background:linear-gradient(135deg,rgba(240,185,11,0.05),rgba(240,185,11,0.02)); border-radius:20px; padding:1.5rem 1rem; text-align:center; cursor:pointer; transition:0.2s; margin-bottom:1rem; }
-.deposit-upload-zone:hover { border-color:#F0B90B; background:linear-gradient(135deg,rgba(240,185,11,0.1),rgba(240,185,11,0.03)); }
-.deposit-upload-zone.has-file { border-color:#2EBD85; background:linear-gradient(135deg,rgba(46,189,133,0.1),rgba(46,189,133,0.03)); border-style:solid; }
-.deposit-upload-zone .u-icon { font-size:2.2rem; color:#F0B90B; margin-bottom:8px; display:block; }
-.deposit-upload-zone.has-file .u-icon { color:#2EBD85; }
-.deposit-upload-zone .u-title { font-size:0.9rem; font-weight:700; color:#EAECEF; margin-bottom:4px; }
-.deposit-upload-zone .u-hint { font-size:0.75rem; color:#848E9C; }
-.deposit-upload-preview { max-width:100%; max-height:200px; border-radius:14px; margin-top:10px; display:none; }
-.deposit-upload-zone.has-file .deposit-upload-preview { display:inline-block; }
-
-.deposit-wallet-logos { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1rem; }
-.wallet-logo-chip { background:#0B0E11; border:1px solid rgba(46,189,133,0.3); border-radius:40px; padding:6px 14px; font-size:0.75rem; font-weight:700; color:#2EBD85; display:inline-flex; align-items:center; gap:6px; }
-.usdt-address-box { background:linear-gradient(135deg,rgba(38,161,123,0.15),rgba(38,161,123,0.05)); border:1px solid rgba(38,161,123,0.5); border-radius:20px; padding:1.2rem; margin:1rem 0; }
-.usdt-address-box .usdt-lbl { font-size:0.8rem; color:#26A17B; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-.usdt-address-box .usdt-addr { background:#0B0E11; padding:12px 14px; border-radius:12px; color:#F0B90B; font-size:0.85rem; direction:ltr; word-break:break-all; font-family:monospace; margin-bottom:10px; border:1px solid rgba(240,185,11,0.25); }
-
-/* ====== Order Cards ====== */
-.order-card { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); position:relative; overflow:hidden; transition:0.2s; }
-.order-card:hover { border-color:rgba(240,185,11,0.4); transform:translateY(-2px); }
-.order-card::before { content:''; position:absolute; top:0; right:0; width:6px; height:100%; background:#F0B90B; }
-.order-card.status-pending::before { background:#F0B90B; }
-.order-card.status-processing::before { background:#60a5fa; }
-.order-card.status-completed::before { background:#2EBD85; }
-.order-card.status-cancelled::before { background:#e83e5c; }
-.order-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:8px; }
-.order-id { font-size:0.85rem; color:#F0B90B; font-weight:800; direction:ltr; background:rgba(240,185,11,0.1); padding:4px 12px; border-radius:30px; }
-.order-name { font-size:1rem; font-weight:700; color:#EAECEF; margin-bottom:0.5rem; }
-.order-meta { display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.8rem; color:#B7BDC6; margin-bottom:0.8rem; }
-.order-meta span { display:flex; align-items:center; gap:6px; }
-.order-meta span i { color:#F0B90B; }
-.order-total { font-size:1.1rem; font-weight:800; color:#2EBD85; direction:ltr; }
-.order-status-badge { padding:5px 14px; border-radius:30px; font-size:0.75rem; font-weight:700; display:inline-flex; align-items:center; gap:5px; }
-.os-pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
-.os-processing { background:rgba(96,165,250,0.15); color:#60a5fa; }
-.os-completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
-.os-cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
-.empty-orders { text-align:center; padding:4rem 1rem; }
-.empty-orders i { font-size:4rem; color:#F0B90B; opacity:0.4; margin-bottom:1rem; display:block; }
-.empty-orders p { color:#B7BDC6; font-size:1rem; }
-@media (max-width:600px){ .order-meta { grid-template-columns:1fr; } }
-
-/* ====== Admin Monthly Stats ====== */
-.admin-monthly-stats { background:linear-gradient(135deg,rgba(240,185,11,0.08),rgba(46,189,133,0.05)); border:1px solid rgba(240,185,11,0.3); border-radius:20px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
-.admin-monthly-stats .m-icon { width:60px; height:60px; border-radius:20px; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0; }
-.admin-monthly-stats .m-info { flex:1; min-width:180px; }
-.admin-monthly-stats .m-lbl { font-size:0.8rem; color:#B7BDC6; }
-.admin-monthly-stats .m-val { font-size:1.8rem; font-weight:800; color:#F0B90B; direction:ltr; }
-.admin-monthly-stats .m-sub { font-size:0.7rem; color:#848E9C; margin-top:2px; }
-.screenshot-preview-btn { background:rgba(240,185,11,0.15); color:#F0B90B; border:none; padding:5px 10px; border-radius:10px; cursor:pointer; font-size:0.72rem; font-weight:700; font-family:inherit; display:inline-flex; align-items:center; gap:4px; }
-.screenshot-preview-btn:hover { background:#F0B90B; color:#0B0E11; }
-.screenshot-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px; }
-.screenshot-modal-bg.show { display:flex; }
-.screenshot-modal-bg img { max-width:90vw; max-height:85vh; border-radius:16px; border:2px solid #F0B90B; }
-
-/* ====== Transactions Log ====== */
-.tx-log-section { margin-top:2rem; background:#1E2329; border-radius:24px; padding:1.5rem; border:1px solid rgba(240,185,11,0.2); }
-.tx-log-section h3 { color:#F0B90B; font-size:1.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.6rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
-.tx-log-section h3 i { color:#2EBD85; }
-.tx-item { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#0B0E11; border-radius:16px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); transition:0.2s; gap:12px; flex-wrap:wrap; }
-.tx-item:hover { border-color:rgba(240,185,11,0.3); }
-.tx-icon-wrap { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-.tx-icon-wrap.dep { background:rgba(46,189,133,0.15); color:#2EBD85; }
-.tx-icon-wrap.wd { background:rgba(232,62,92,0.15); color:#e83e5c; }
-.tx-icon-wrap.add { background:rgba(240,185,11,0.15); color:#F0B90B; }
-.tx-icon-wrap.ord { background:rgba(96,165,250,0.15); color:#60a5fa; }
-.tx-info { flex:1; min-width:150px; }
-.tx-title { font-size:0.9rem; font-weight:700; color:#EAECEF; margin-bottom:2px; }
-.tx-sub { font-size:0.72rem; color:#848E9C; }
-.tx-amount { font-size:1rem; font-weight:800; direction:ltr; }
-.tx-amount.pos { color:#2EBD85; }
-.tx-amount.neg { color:#e83e5c; }
-.tx-badge { padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; }
-.tx-badge.pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
-.tx-badge.approved, .tx-badge.completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
-.tx-badge.rejected, .tx-badge.cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
 </style>
 </head>
 <body>
@@ -586,32 +622,35 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="auth-modal-bg" id="authModalBg">
 <div class="auth-modal" style="position:relative;">
 <button class="auth-close-btn" id="authCloseBtn" type="button"><i class="fas fa-times"></i></button>
-<h2><i class="fas fa-user-circle"></i> حسابك</h2>
-<p class="auth-sub">سجل دخولك أو أنشئ حساب جديد</p>
+<div class="auth-logo-wrap">
+<div class="auth-logo-icon"><i class="fas fa-bolt"></i></div>
+</div>
+<h2>مرحباً بك في <span style="color:#2EBD85;">SMCOLE</span></h2>
+<p class="auth-sub">سجل دخولك أو أنشئ حساب جديد وابدأ رحلتك في عالم السوشيال ميديا</p>
 <div class="auth-tabs">
-<button class="auth-tab active" id="loginTabBtn" type="button">تسجيل دخول</button>
-<button class="auth-tab" id="registerTabBtn" type="button">حساب جديد</button>
+<button class="auth-tab active" id="loginTabBtn" type="button"><i class="fas fa-sign-in-alt"></i> تسجيل دخول</button>
+<button class="auth-tab" id="registerTabBtn" type="button"><i class="fas fa-user-plus"></i> حساب جديد</button>
 </div>
 <form class="auth-form" id="loginForm" autocomplete="on">
-<input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required autocomplete="email">
+<input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني" required autocomplete="email">
 <div class="password-wrap">
-<input type="password" id="loginPassword" placeholder="كلمة المرور" required autocomplete="current-password">
+<input type="password" id="loginPassword" placeholder="🔒 كلمة المرور" required autocomplete="current-password">
 <button type="button" class="password-toggle" data-target="loginPassword"><i class="fas fa-eye"></i></button>
 </div>
 <button type="submit" class="auth-btn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
 <div class="auth-msg" id="loginMsg"></div>
 </form>
 <form class="auth-form" id="registerForm" style="display:none;" autocomplete="on">
-<input type="text" id="regName" placeholder="الاسم الكامل" required>
-<input type="text" id="regUsername" placeholder="اسم المستخدم (بالإنجليزي بدون مسافات)" required pattern="[a-zA-Z0-9_]{3,20}" title="3-20 حرف إنجليزي أو رقم أو _">
+<input type="text" id="regName" placeholder="👤 الاسم الكامل" required>
+<input type="text" id="regUsername" placeholder="🆔 اسم المستخدم (بالإنجليزي بدون مسافات)" required pattern="[a-zA-Z0-9_]{3,20}" title="3-20 حرف إنجليزي أو رقم أو _">
 <div class="hint">اسم المستخدم لازم يكون فريد ويستخدم في البحث عنه</div>
-<input type="email" id="regEmail" placeholder="البريد الإلكتروني" required autocomplete="email">
-<input type="tel" id="regPhone" placeholder="رقم الهاتف (اختياري)" autocomplete="tel">
+<input type="email" id="regEmail" placeholder="📧 البريد الإلكتروني" required autocomplete="email">
+<input type="tel" id="regPhone" placeholder="📱 رقم الهاتف (اختياري)" autocomplete="tel">
 <div class="password-wrap">
-<input type="password" id="regPassword" placeholder="كلمة المرور (6 أحرف على الأقل)" required minlength="6" autocomplete="new-password">
+<input type="password" id="regPassword" placeholder="🔒 كلمة المرور (6 أحرف على الأقل)" required minlength="6" autocomplete="new-password">
 <button type="button" class="password-toggle" data-target="regPassword"><i class="fas fa-eye"></i></button>
 </div>
-<button type="submit" class="auth-btn"><i class="fas fa-user-plus"></i> إنشاء حساب</button>
+<button type="submit" class="auth-btn"><i class="fas fa-user-plus"></i> إنشاء حساب جديد</button>
 <div class="auth-msg" id="registerMsg"></div>
 </form>
 </div>
@@ -628,6 +667,23 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <div class="profile-name" id="profileDisplayName">مستخدم</div>
 <div class="profile-username" id="profileDisplayUsername">@username</div>
+<div class="profile-stats-row" id="profileStatsRow">
+<div class="profile-stat-mini">
+<div class="ps-icon"><i class="fas fa-shopping-bag"></i></div>
+<div class="ps-val" id="profileStatOrders">0</div>
+<div class="ps-lbl">طلباتي</div>
+</div>
+<div class="profile-stat-mini">
+<div class="ps-icon"><i class="fas fa-heart"></i></div>
+<div class="ps-val" id="profileStatFavs">0</div>
+<div class="ps-lbl">المفضلة</div>
+</div>
+<div class="profile-stat-mini">
+<div class="ps-icon"><i class="fas fa-calendar-alt"></i></div>
+<div class="ps-val" id="profileStatDays">0</div>
+<div class="ps-lbl">أيام معنا</div>
+</div>
+</div>
 <div class="profile-balance-box">
 <div class="pb-lbl"><i class="fas fa-wallet"></i> رصيدك الحالي</div>
 <div class="pb-val" id="profileBalanceVal">0.00 <span class="pb-cur" id="profileBalanceCur">جنيه</span></div>
@@ -697,15 +753,31 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="page-container">
 <h1 class="page-title"><i class="fas fa-wallet"></i> إيداع رصيد</h1>
 <div class="deposit-tabs">
-<button class="deposit-tab active" id="depositTabVodafone" type="button"><i class="fas fa-mobile-alt"></i> محافظ الكاش</button>
-<button class="deposit-tab" id="depositTabBinance" type="button"><i class="fab fa-bitcoin"></i> باينانس باي</button>
-<button class="deposit-tab" id="depositTabUsdt" type="button"><i class="fas fa-coins"></i> العملات الرقمية</button>
+<button class="deposit-tab brand-vodafone active" id="depositTabVodafone" type="button">
+<span class="tab-icon"><i class="fas fa-mobile-alt"></i></span>
+محافظ الكاش
+</button>
+<button class="deposit-tab brand-binance" id="depositTabBinance" type="button">
+<span class="tab-icon"><i class="fab fa-bitcoin"></i></span>
+باينانس باي
+</button>
+<button class="deposit-tab brand-usdt" id="depositTabUsdt" type="button">
+<span class="tab-icon"><i class="fas fa-coins"></i></span>
+العملات الرقمية
+</button>
 </div>
 
 <!-- VODAFONE / WALLETS PANEL -->
 <div class="deposit-panel active" id="depositPanelVodafone">
 <div class="deposit-info">
-<p>قم بالتحويل على رقم المحفظة التالي (يدعم: فودافون كاش / اتصالات كاش / أورنج كاش / وي كاش):</p>
+<div class="deposit-brand-header">
+<div class="deposit-brand-logo vodafone">V</div>
+<div class="deposit-brand-title">
+<h2>فودافون كاش ومحافظ الكاش</h2>
+<p>يدعم فودافون / اتصالات / أورنج / وي كاش</p>
+</div>
+</div>
+<p>قم بالتحويل على رقم المحفظة التالي من أي محفظة كاش:</p>
 <div class="deposit-wallet-logos">
 <span class="wallet-logo-chip"><i class="fas fa-mobile-alt"></i> فودافون كاش</span>
 <span class="wallet-logo-chip"><i class="fas fa-mobile-alt"></i> اتصالات كاش</span>
@@ -717,14 +789,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button class="deposit-copy-btn" type="button" id="vodafoneCopyBtn" data-copy="01001606298"><i class="fas fa-copy"></i> نسخ</button>
 </div>
 <div class="deposit-steps">
-<ol>
-<li>افتح تطبيق المحفظة (فودافون/اتصالات/أورنج/وي) أو اتصل بكود الخدمة</li>
-<li>اختر "تحويل أموال" واكتب الرقم الموضح بالأعلى</li>
-<li>اكتب المبلغ الذي تريد إيداعه</li>
-<li>أكد العملية واحتفظ بـ <b>لقطة شاشة للتحويل</b></li>
-<li>ارجع هنا، اكتب المبلغ ورقم هاتفك، وارفق لقطة الشاشة، واضغط "تأكيد"</li>
-<li>سيتم إرسال إشعار للإدارة، وسيتم مراجعة طلبك خلال 24 ساعة</li>
-</ol>
+<div class="step-item"><span class="step-num">1</span><span class="step-text">افتح تطبيق المحفظة (فودافون/اتصالات/أورنج/وي) أو اتصل بكود الخدمة</span></div>
+<div class="step-item"><span class="step-num">2</span><span class="step-text">اختر "تحويل أموال" واكتب الرقم: <b id="vodafoneNumberStep2">01001606298</b></span></div>
+<div class="step-item"><span class="step-num">3</span><span class="step-text">اكتب المبلغ الذي تريد إيداعه وأكد العملية</span></div>
+<div class="step-item"><span class="step-num">4</span><span class="step-text">احتفظ بـ <b>لقطة شاشة للتحويل</b> كإثبات</span></div>
+<div class="step-item"><span class="step-num">5</span><span class="step-text">ارجع هنا واملأ البيانات وارفق اللقطة واضغط "تأكيد"</span></div>
 </div>
 <p style="color:#F0B90B; font-weight:700;"><i class="fas fa-info-circle"></i> الحد الأدنى للإيداع: 50 جنيه</p>
 </div>
@@ -750,20 +819,24 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <!-- BINANCE PANEL -->
 <div class="deposit-panel" id="depositPanelBinance">
 <div class="deposit-info">
+<div class="deposit-brand-header">
+<div class="deposit-brand-logo binance">₿</div>
+<div class="deposit-brand-title">
+<h2>Binance Pay</h2>
+<p>الدفع عن طريق منصة بينانس العالمية</p>
+</div>
+</div>
 <p>قم بالتحويل عن طريق Binance Pay إلى معرف Binance التالي:</p>
 <div class="deposit-number-row">
 <div class="deposit-number" id="binanceNumber">746211155</div>
 <button class="deposit-copy-btn" type="button" id="binanceCopyBtn" data-copy="746211155"><i class="fas fa-copy"></i> نسخ</button>
 </div>
 <div class="deposit-steps">
-<ol>
-<li>افتح تطبيق Binance → Pay</li>
-<li>اختر "Send" واكتب معرف Binance الموضح بالأعلى</li>
-<li>أدخل المبلغ بالدولار الأمريكي</li>
-<li>أكد العملية واحتفظ بـ <b>لقطة شاشة للتحويل</b></li>
-<li>ارجع هنا، اكتب المبلغ (بالدولار)، ارفق اللقطة، واضغط "تأكيد"</li>
-<li>سيتم إرسال إشعار للإدارة، وسيتم مراجعة طلبك خلال 24 ساعة</li>
-</ol>
+<div class="step-item"><span class="step-num">1</span><span class="step-text">افتح تطبيق Binance → اختر "Pay"</span></div>
+<div class="step-item"><span class="step-num">2</span><span class="step-text">اختر "Send" واكتب معرف Binance: <b id="binanceIdStep2">746211155</b></span></div>
+<div class="step-item"><span class="step-num">3</span><span class="step-text">أدخل المبلغ بالدولار الأمريكي وأكد</span></div>
+<div class="step-item"><span class="step-num">4</span><span class="step-text">احتفظ بـ <b>لقطة شاشة للتحويل</b> كإثبات</span></div>
+<div class="step-item"><span class="step-num">5</span><span class="step-text">ارجع هنا واملأ البيانات وارفق اللقطة واضغط "تأكيد"</span></div>
 </div>
 <p style="color:#F0B90B; font-weight:700;"><i class="fas fa-info-circle"></i> الحد الأدنى للإيداع: 2 دولار</p>
 </div>
@@ -789,6 +862,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <!-- USDT PANEL -->
 <div class="deposit-panel" id="depositPanelUsdt">
 <div class="deposit-info">
+<div class="deposit-brand-header">
+<div class="deposit-brand-logo usdt">₮</div>
+<div class="deposit-brand-title">
+<h2>العملات الرقمية (USDT)</h2>
+<p>عبر شبكة Tron TRC20</p>
+</div>
+</div>
 <p>قم بإرسال مبلغ USDT عبر شبكة <b>Tron (TRC20)</b> إلى العنوان التالي:</p>
 <div class="usdt-address-box">
 <div class="usdt-lbl"><i class="fas fa-coins"></i> عنوان محفظة USDT (TRC20):</div>
@@ -796,14 +876,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button class="deposit-copy-btn" type="button" id="usdtCopyBtn" data-copy="TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D" style="width:100%;"><i class="fas fa-copy"></i> نسخ العنوان</button>
 </div>
 <div class="deposit-steps">
-<ol>
-<li>افتح محفظتك الرقمية (Binance / Trust Wallet / ... إلخ)</li>
-<li>اختر شبكة <b>Tron (TRC20)</b> — مهم جداً</li>
-<li>أرسل المبلغ إلى العنوان الموضح بالأعلى</li>
-<li>أكد العملية واحتفظ بـ <b>معرف العملية (TXID) + لقطة شاشة</b></li>
-<li>ارجع هنا، اكتب المبلغ بالدولار، معرف العملية، ارفق اللقطة، واضغط "تأكيد"</li>
-<li>سيتم إرسال إشعار للإدارة، وسيتم مراجعة طلبك خلال 24 ساعة</li>
-</ol>
+<div class="step-item"><span class="step-num">1</span><span class="step-text">افتح محفظتك الرقمية (Binance / Trust Wallet / ... إلخ)</span></div>
+<div class="step-item"><span class="step-num">2</span><span class="step-text">اختر شبكة <b>Tron (TRC20)</b> — مهم جداً</span></div>
+<div class="step-item"><span class="step-num">3</span><span class="step-text">أرسل المبلغ إلى العنوان الموضح بالأعلى</span></div>
+<div class="step-item"><span class="step-num">4</span><span class="step-text">احتفظ بـ <b>معرف العملية (TXID) + لقطة شاشة</b></span></div>
+<div class="step-item"><span class="step-num">5</span><span class="step-text">ارجع هنا واملأ البيانات واضغط "تأكيد"</span></div>
 </div>
 <p style="color:#e83e5c; font-weight:700;"><i class="fas fa-exclamation-triangle"></i> تنبيه: الإرسال على شبكة أخرى غير TRC20 قد يؤدي لفقدان المبلغ</p>
 <p style="color:#F0B90B; font-weight:700;"><i class="fas fa-info-circle"></i> الحد الأدنى للإيداع: 2 دولار</p>
@@ -827,11 +904,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </form>
 </div>
 
-<!-- Transactions Log -->
+<!-- Transactions Log (deposits only) -->
 <div class="tx-log-section">
-<h3><i class="fas fa-history"></i> سجل المعاملات</h3>
+<h3><i class="fas fa-history"></i> سجل معاملات الإيداع</h3>
 <div id="txLogContainer">
-<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>
+<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-spinner fa-spin"></i></div>
 </div>
 </div>
 </div>
@@ -908,7 +985,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button class="admin-main-tab" data-admin-tab="users" type="button"><i class="fas fa-users"></i> المستخدمين</button>
 <button class="admin-main-tab" data-admin-tab="orders" type="button"><i class="fas fa-shopping-cart"></i> الطلبات</button>
 <button class="admin-main-tab" data-admin-tab="deposits" type="button"><i class="fas fa-wallet"></i> طلبات الإيداع</button>
-<button class="admin-main-tab" data-admin-tab="transactions" type="button"><i class="fas fa-history"></i> سجل المعاملات</button>
+<button class="admin-main-tab" data-admin-tab="transactions" type="button"><i class="fas fa-history"></i> سجل الإيداعات</button>
 </div>
 
 <!-- TAB 1: SERVICES -->
@@ -1120,7 +1197,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <option value="10">لكل 10</option>
 <option value="1">لكل 1 (للوحدة الواحدة)</option>
 </select>
-<div class="admin-hint">مثال: لو السعر لكل 1 حساب → اختار "لكل 1"</div>
 </div>
 <div class="admin-field">
 <label>الضمان</label>
@@ -1195,11 +1271,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ MODAL: إعدادات الموقع ============ -->
+<!-- ============ MODAL: إعدادات الموقع (موسّعة) ============ -->
 <div class="admin-modal-bg" id="adminSettingsModalBg">
 <div class="admin-modal settings-modal">
 <h2><i class="fas fa-cog"></i> إعدادات الموقع</h2>
 <form id="adminSettingsForm">
+
 <div class="settings-section">
 <h3><i class="fas fa-globe"></i> معلومات الموقع الأساسية</h3>
 <div class="admin-field">
@@ -1219,12 +1296,14 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <textarea id="settingsPromoText" placeholder="عايز تكبر على السوشيال ميديا..." maxlength="500"></textarea>
 </div>
 </div>
+
 <div class="settings-section">
 <h3><i class="fab fa-whatsapp"></i> أرقام التواصل</h3>
 <div class="admin-grid-2">
 <div class="admin-field">
 <label>رقم الدعم الفني (واتساب)</label>
 <input type="text" id="settingsSupportPhone" placeholder="201154846407" dir="ltr">
+<div class="admin-hint">بصيغة دولية بدون + (مثال: 201154846407)</div>
 </div>
 <div class="admin-field">
 <label>رقم الشراء "شراء الآن"</label>
@@ -1232,11 +1311,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 </div>
+
 <div class="settings-section">
 <h3><i class="fas fa-credit-card"></i> معلومات طرق الدفع</h3>
 <div class="admin-grid-2">
 <div class="admin-field">
-<label>رقم محفظة الكاش</label>
+<label>رقم محفظة الكاش (فودافون/اتصالات/أورنج/وي)</label>
 <input type="text" id="settingsVodafoneNumber" placeholder="01001606298" dir="ltr">
 </div>
 <div class="admin-field">
@@ -1246,22 +1326,27 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <div class="admin-field">
 <label>عنوان محفظة USDT (TRC20)</label>
-<input type="text" id="settingsUsdtAddress" placeholder="TKBAMK..." dir="ltr">
+<input type="text" id="settingsUsdtAddress" placeholder="TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D" dir="ltr">
 </div>
+<div class="admin-hint">💡 كل هذه البيانات ستظهر تلقائياً في صفحات الإيداع للمستخدمين</div>
 </div>
+
 <div class="settings-section">
 <h3><i class="fas fa-chart-line"></i> الإحصائيات (الأرقام المعروضة)</h3>
 <div class="admin-grid-2">
 <div class="admin-field">
 <label>عدد المستخدمين النشطين</label>
 <input type="number" id="settingsActiveUsers" placeholder="مثال: 1500" min="0">
+<div class="admin-hint">اتركه فاضي للحساب التلقائي من الزوار</div>
 </div>
 <div class="admin-field">
 <label>عدد الطلبات المكتملة</label>
 <input type="number" id="settingsCompletedOrders" placeholder="مثال: 3200" min="0">
+<div class="admin-hint">اتركه فاضي للحساب التلقائي من الطلبات</div>
 </div>
 </div>
 </div>
+
 <div class="settings-section">
 <h3><i class="fas fa-user-shield"></i> بيانات الدخول للوحة التحكم</h3>
 <div class="admin-field">
@@ -1277,6 +1362,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 </div>
+
 <div class="settings-save-bar">
 <button type="button" class="admin-btn ghost" id="adminSettingsCancel"><i class="fas fa-times"></i> إلغاء</button>
 <button type="submit" class="admin-btn gold" id="adminSettingsSaveBtn"><i class="fas fa-save"></i> حفظ الإعدادات</button>
@@ -1338,7 +1424,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button type="button" class="admin-btn ghost" id="userPasswordCancelBtn"><i class="fas fa-times"></i> إلغاء</button>
 <button type="submit" class="admin-btn gold" id="userPasswordSaveBtn"><i class="fas fa-save"></i> تغيير</button>
 </div>
-<div class="admin-hint" style="text-align:center;margin-top:10px;">⚠️ ملاحظة: التغيير يتم من خلال RPC على Supabase</div>
+<div class="admin-hint" style="text-align:center;margin-top:10px;">⚠️ يتم التغيير عبر دالة RPC في Supabase</div>
 </form>
 </div>
 </div>
@@ -1499,18 +1585,22 @@ usersSpan.innerText = siteSettings.active_users_override.toLocaleString('en-US')
 if (siteSettings.completed_orders_override !== null && siteSettings.completed_orders_override !== undefined && ordersSpan) {
 ordersSpan.innerText = siteSettings.completed_orders_override.toLocaleString('en-US');
 }
-// Payment numbers (they get updated after settings load)
+// Payment numbers
 const vNumEl = document.getElementById('vodafoneNumber');
 const vCopyBtn = document.getElementById('vodafoneCopyBtn');
-if (vNumEl && siteSettings.vodafone_number) {
-vNumEl.innerText = siteSettings.vodafone_number;
+const vStep2 = document.getElementById('vodafoneNumberStep2');
+if (siteSettings.vodafone_number) {
+if (vNumEl) vNumEl.innerText = siteSettings.vodafone_number;
 if (vCopyBtn) vCopyBtn.setAttribute('data-copy', siteSettings.vodafone_number);
+if (vStep2) vStep2.innerText = siteSettings.vodafone_number;
 }
 const bNumEl = document.getElementById('binanceNumber');
 const bCopyBtn = document.getElementById('binanceCopyBtn');
-if (bNumEl && siteSettings.binance_id) {
-bNumEl.innerText = siteSettings.binance_id;
+const bStep2 = document.getElementById('binanceIdStep2');
+if (siteSettings.binance_id) {
+if (bNumEl) bNumEl.innerText = siteSettings.binance_id;
 if (bCopyBtn) bCopyBtn.setAttribute('data-copy', siteSettings.binance_id);
+if (bStep2) bStep2.innerText = siteSettings.binance_id;
 }
 const uAddrEl = document.getElementById('usdtAddress');
 const uCopyBtn = document.getElementById('usdtCopyBtn');
@@ -1619,9 +1709,9 @@ const termsLink = document.getElementById('termsLink');
 const supportDropdownLink = document.getElementById('supportDropdownLink');
 const paymentMethodBtn = document.getElementById('paymentMethodBtn');
 
-// ==================== ROUTER (fixed back button behavior) ====================
-let isPoppingState = false;
+// ==================== ROUTER (back button never leaves the site) ====================
 window.__currentRoute = 'home';
+window.__routeHistory = ['home'];
 
 function setPageVisibility(pageEl) {
 mainContent.style.display = 'none';
@@ -1631,74 +1721,89 @@ else mainContent.style.display = 'block';
 }
 window.__setPageVisibility = setPageVisibility;
 
-function navigateTo(routeName, pageEl, pushState = true) {
-setPageVisibility(pageEl);
-dropdown.classList.remove('show-dropdown');
+function routeToPage(routeName) {
+if (routeName === 'home') setPageVisibility(null);
+else if (routeName === 'terms') setPageVisibility(termsPage);
+else if (routeName === 'payment') setPageVisibility(paymentPage);
+else if (routeName === 'favorites') { setPageVisibility(favoritesPage); renderFavoritesPage(); }
+else if (routeName === 'profile' && window.currentProfile) setPageVisibility(profilePage);
+else if (routeName === 'deposit' && window.currentProfile) setPageVisibility(depositPage);
+else if (routeName === 'orders' && window.currentProfile) { setPageVisibility(myOrdersPage); if (window.loadMyOrders) window.loadMyOrders(); }
+else setPageVisibility(null);
 window.__currentRoute = routeName;
 window.scrollTo(0, 0);
-if (pushState) {
-const url = routeName === 'home' ? location.pathname + location.search : '#' + routeName;
-history.pushState({ route: routeName }, '', url);
 }
+
+window.__navigateTo = function(routeName, pageEl, pushState) {
+if (pushState === undefined) pushState = true;
+dropdown.classList.remove('show-dropdown');
+if (routeName === window.__currentRoute) {
+setPageVisibility(pageEl || null);
 if (routeName === 'favorites') renderFavoritesPage();
+if (routeName === 'orders' && window.loadMyOrders) window.loadMyOrders();
+window.scrollTo(0, 0);
+return;
 }
-window.__navigateTo = navigateTo;
+if (pushState) {
+try {
+history.pushState({ route: routeName, idx: history.length }, '', '#' + routeName);
+window.__routeHistory.push(routeName);
+} catch(e) {}
+}
+routeToPage(routeName);
+};
 
 window.showPage = function(pageToShow, hashName) {
-navigateTo(hashName || 'home', pageToShow, true);
+window.__navigateTo(hashName || 'home', pageToShow, true);
 };
 window.showHomePage = function() {
 if (window.__currentRoute === 'home') return;
-navigateTo('home', null, true);
+window.__navigateTo('home', null, true);
 };
 
-// Handle back/forward - NEVER leave the site
+// Handle browser back/forward — NEVER leave the site
 window.addEventListener('popstate', function(event) {
-isPoppingState = true;
 const route = (event.state && event.state.route) ? event.state.route : 'home';
-if (route === 'home') {
-setPageVisibility(null);
-window.__currentRoute = 'home';
-} else if (route === 'terms') { setPageVisibility(termsPage); window.__currentRoute = 'terms'; }
-else if (route === 'payment') { setPageVisibility(paymentPage); window.__currentRoute = 'payment'; }
-else if (route === 'favorites') { setPageVisibility(favoritesPage); window.__currentRoute = 'favorites'; renderFavoritesPage(); }
-else if (route === 'profile' && window.currentProfile) { setPageVisibility(profilePage); window.__currentRoute = 'profile'; }
-else if (route === 'deposit' && window.currentProfile) { setPageVisibility(depositPage); window.__currentRoute = 'deposit'; }
-else if (route === 'orders' && window.currentProfile) { setPageVisibility(myOrdersPage); window.__currentRoute = 'orders'; if (window.loadMyOrders) window.loadMyOrders(); }
-else {
-// Default: return to home
-setPageVisibility(null);
-window.__currentRoute = 'home';
+// If there's no state and we're on home page → push a state back so back button doesn't exit
+if (!event.state) {
+try { history.pushState({ route: 'home', idx: 0 }, '', location.pathname + location.search); } catch(e) {}
+routeToPage('home');
+return;
 }
-window.scrollTo(0, 0);
-setTimeout(() => { isPoppingState = false; }, 50);
+routeToPage(route);
 });
 
-// Restore from URL hash on first load
+// Restore from hash on load
 window.restorePageFromHash = function() {
 const hash = (window.location.hash || '').replace('#','');
+// Always seed a "home" state first so back button works correctly
+try {
+history.replaceState({ route: 'home', idx: 0 }, '', location.pathname + location.search);
+} catch(e) {}
+
 if (!hash) {
-history.replaceState({ route: 'home' }, '', location.pathname + location.search);
 window.__currentRoute = 'home';
 return;
 }
 setTimeout(() => {
-if (hash === 'terms') navigateTo('terms', termsPage, false);
-else if (hash === 'payment') navigateTo('payment', paymentPage, false);
-else if (hash === 'favorites') navigateTo('favorites', favoritesPage, false);
-else if (hash === 'profile' && window.currentProfile) navigateTo('profile', profilePage, false);
-else if (hash === 'deposit' && window.currentProfile) navigateTo('deposit', depositPage, false);
-else if (hash === 'orders' && window.currentProfile) { navigateTo('orders', myOrdersPage, false); if (window.loadMyOrders) window.loadMyOrders(); }
-else { history.replaceState({ route: 'home' }, '', location.pathname + location.search); }
+// Push home first, then push the target — so going back goes home
+try { history.pushState({ route: 'home', idx: 1 }, '', '#' + 'home'); } catch(e) {}
+if (hash === 'terms') window.__navigateTo('terms', termsPage, true);
+else if (hash === 'payment') window.__navigateTo('payment', paymentPage, true);
+else if (hash === 'favorites') window.__navigateTo('favorites', favoritesPage, true);
+else if (hash === 'profile' && window.currentProfile) window.__navigateTo('profile', profilePage, true);
+else if (hash === 'deposit' && window.currentProfile) window.__navigateTo('deposit', depositPage, true);
+else if (hash === 'orders' && window.currentProfile) window.__navigateTo('orders', myOrdersPage, true);
+else routeToPage('home');
 }, 800);
 };
 
 menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
 document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
-termsLink.addEventListener('click', (e) => { e.preventDefault(); navigateTo('terms', termsPage); });
+termsLink.addEventListener('click', (e) => { e.preventDefault(); window.__navigateTo('terms', termsPage, true); });
 const favoritesLink = document.getElementById('favoritesLink');
-favoritesLink.addEventListener('click', (e) => { e.preventDefault(); navigateTo('favorites', favoritesPage); });
-if (paymentMethodBtn) paymentMethodBtn.addEventListener('click', () => { navigateTo('payment', paymentPage); });
+favoritesLink.addEventListener('click', (e) => { e.preventDefault(); window.__navigateTo('favorites', favoritesPage, true); });
+if (paymentMethodBtn) paymentMethodBtn.addEventListener('click', () => { window.__navigateTo('payment', paymentPage, true); });
 supportDropdownLink.addEventListener('click', (e) => {
 e.preventDefault();
 const supportPhone = siteSettings.support_phone || '201154846407';
@@ -2156,6 +2261,18 @@ setTimeout(() => t.className = 'admin-toast', 2500);
 }
 window.__adminToast = toast;
 
+// ============ PASSWORD TOGGLE ============
+document.addEventListener('click', function(e) {
+const btn = e.target.closest && e.target.closest('.password-toggle');
+if (!btn) return;
+e.preventDefault();
+const targetId = btn.getAttribute('data-target');
+const input = document.getElementById(targetId);
+if (!input) return;
+if (input.type === 'password') { input.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; }
+else { input.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
+});
+
 const iconSelect = document.getElementById('adminSvcIcon');
 const iconPreview = document.getElementById('adminIconPreview');
 if (iconSelect && iconPreview) {
@@ -2210,19 +2327,7 @@ document.getElementById('adminLoginPage').classList.remove('active');
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ============ PASSWORD TOGGLE (global) ============
-document.addEventListener('click', function(e) {
-const btn = e.target.closest && e.target.closest('.password-toggle');
-if (!btn) return;
-e.preventDefault();
-const targetId = btn.getAttribute('data-target');
-const input = document.getElementById(targetId);
-if (!input) return;
-if (input.type === 'password') { input.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; }
-else { input.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
-});
-
-// ============ ADMIN SERVICES TAB ============
+// ============ PLATFORM TABS ============
 function renderPlatformTabs() {
 const container = document.getElementById('adminPlatformTabs');
 if (!container) return;
@@ -3103,14 +3208,13 @@ function showAuthModal() { document.getElementById('authModalBg').classList.add(
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 
 // ============================================
-// UNIFIED BALANCE HELPERS
+// UNIFIED BALANCE
 // ============================================
-function getUnifiedBalance(currency) {
+function getUnifiedBalance() {
 if (!currentProfile) return 0;
-const cur = currency || currentCurrency;
 const egp = parseFloat(currentProfile.balance_egp || 0);
 const usd = parseFloat(currentProfile.balance_usd || 0);
-if (cur === 'EGP') return egp + (usd * exchangeRate);
+if (currentCurrency === 'EGP') return egp + (usd * exchangeRate);
 return usd + (egp / exchangeRate);
 }
 function getCurrencyLabel() { return currentCurrency === 'USD' ? '$' : 'جنيه'; }
@@ -3187,18 +3291,17 @@ document.getElementById('loginForm').style.display = 'none';
 });
 
 // ============================================
-// AFTER AUTH SUCCESS — RETURN TO PREVIOUS PAGE OR HOME
+// AFTER AUTH SUCCESS — RETURN TO HOME / PREVIOUS PAGE
 // ============================================
 function afterAuthSuccess() {
 hideAuthModal();
-// اذا كان المستخدم كان واقف على صفحة معينة (ايداع/طلبات) يرجعه لها
 const hash = (window.location.hash || '').replace('#','');
+// لو كان المستخدم واقف على صفحة داخلية معينة يرجعه لها
 if (hash === 'deposit') { setTimeout(() => openDepositPage(), 150); return; }
 if (hash === 'orders') { setTimeout(() => openMyOrdersPage(), 150); return; }
 if (hash === 'profile') { setTimeout(() => openProfilePage(), 150); return; }
-// الافتراضي: الصفحة الرئيسية
+// الافتراضي: الرئيسية (مش البروفايل)
 if (window.showHomePage) window.showHomePage();
-// اذا كان في عملية شراء معلقة يتم تنفيذها
 if (pendingBuyAfterAuth) {
 const cb = pendingBuyAfterAuth;
 pendingBuyAfterAuth = null;
@@ -3270,7 +3373,7 @@ setTimeout(() => { afterAuthSuccess(); }, 400);
 // ============================================
 // PROFILE PAGE
 // ============================================
-function openProfilePage() {
+async function openProfilePage() {
 if (!currentProfile) { showAuthModal(); return; }
 document.getElementById('profileName').value = currentProfile.name || '';
 document.getElementById('profileUsername').value = currentProfile.username || '';
@@ -3283,6 +3386,20 @@ document.getElementById('profileMsg').innerText = '';
 document.getElementById('profilePasswordMsg').innerText = '';
 document.getElementById('profileCurrentPassword').value = '';
 document.getElementById('profileNewPassword').value = '';
+// احصائيات مختصرة
+try {
+const { count: ordersCount } = await sb.from('orders').select('*', { count: 'exact', head: true }).eq('user_id', currentProfile.id);
+const el = document.getElementById('profileStatOrders');
+if (el) el.innerText = ordersCount || 0;
+} catch(e) {}
+const favEl = document.getElementById('profileStatFavs');
+if (favEl) favEl.innerText = favorites.length || 0;
+const daysEl = document.getElementById('profileStatDays');
+if (daysEl && currentProfile.created_at) {
+const created = new Date(currentProfile.created_at);
+const days = Math.max(1, Math.floor((Date.now() - created.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+daysEl.innerText = days;
+}
 window.__navigateTo('profile', document.getElementById('profilePage'), true);
 }
 window.openProfilePage = openProfilePage;
@@ -3398,7 +3515,7 @@ document.getElementById('dropdownMenu').classList.remove('show-dropdown');
 window.location.hash = '';
 if (window.__setPageVisibility) window.__setPageVisibility(null);
 window.__currentRoute = 'home';
-history.replaceState({ route: 'home' }, '', location.pathname + location.search);
+try { history.replaceState({ route: 'home', idx: 0 }, '', location.pathname + location.search); } catch(e) {}
 userToast('تم تسجيل الخروج', 'ok');
 }
 document.getElementById('profileLogoutBtn').addEventListener('click', doLogout);
@@ -3435,13 +3552,16 @@ card.innerHTML =
 '<span class="order-id">#' + o.id + '</span>' +
 '<span class="order-status-badge ' + st[2] + '">' + st[1] + '</span>' +
 '</div>' +
+'<div class="order-title-row">' +
+'<div class="order-icon-box"><i class="fas fa-rocket"></i></div>' +
 '<div class="order-name">' + (o.service_name || '-') + '</div>' +
+'</div>' +
 '<div class="order-meta">' +
 '<span><i class="fas fa-sort-amount-up"></i> الكمية: ' + (o.quantity || '-') + ' ' + (o.unit || '') + '</span>' +
 '<span><i class="fas fa-clock"></i> ' + dateStr + '</span>' +
 '</div>' +
-'<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
-'<a href="' + (o.link || '#') + '" target="_blank" style="color:#F0B90B;font-size:0.8rem;text-decoration:none;"><i class="fas fa-link"></i> فتح الرابط</a>' +
+'<div class="order-footer">' +
+'<a href="' + (o.link || '#') + '" target="_blank" class="order-link-btn"><i class="fas fa-link"></i> فتح الرابط</a>' +
 '<span class="order-total">' + parseFloat(o.total || 0).toFixed(2) + ' ' + cur + '</span>' +
 '</div>';
 container.appendChild(card);
@@ -3512,7 +3632,7 @@ if (val) window.copyToClipboard(val);
 });
 });
 
-// Image upload handlers
+// Image upload handlers (with Storage upload)
 function attachImageUpload(inputId, zoneId, previewId) {
 const input = document.getElementById(inputId);
 const zone = document.getElementById(zoneId);
@@ -3538,9 +3658,35 @@ attachImageUpload('vodafoneScreenshot', 'vodafoneUploadZone', 'vodafonePreview')
 attachImageUpload('binanceScreenshot', 'binanceUploadZone', 'binancePreview');
 attachImageUpload('usdtScreenshot', 'usdtUploadZone', 'usdtPreview');
 
-function getScreenshotBase64(inputId, previewId) {
-const preview = document.getElementById(previewId);
+function getScreenshotPreviewSrc(inputId) {
+// نستخدم preview.src اللي بيحتوي على data:URL
+const zone = document.getElementById(inputId)?.previousElementSibling;
+const preview = zone ? zone.querySelector('.deposit-upload-preview') : null;
 return (preview && preview.src && preview.src.startsWith('data:')) ? preview.src : null;
+}
+
+async function dataURLtoBlob(dataURL) {
+const res = await fetch(dataURL);
+return await res.blob();
+}
+
+// ارفع الصورة على Supabase Storage وارجع الرابط العام
+async function uploadScreenshotToStorage(dataURL, method) {
+try {
+const blob = await dataURLtoBlob(dataURL);
+const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg') : 'jpg';
+const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
+const { error } = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type, upsert: false });
+if (error) {
+console.warn('Storage upload failed:', error.message);
+return null;
+}
+const { data: pub } = sb.storage.from('screenshots').getPublicUrl(fileName);
+return pub && pub.publicUrl ? pub.publicUrl : null;
+} catch(e) {
+console.warn('Upload error:', e);
+return null;
+}
 }
 
 // VODAFONE SUBMIT
@@ -3550,12 +3696,15 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('vodafoneMsg');
 const amount = parseFloat(document.getElementById('vodafoneAmount').value);
 const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
-const screenshot = getScreenshotBase64('vodafoneScreenshot', 'vodafonePreview');
+const screenshot = getScreenshotPreviewSrc('vodafoneScreenshot');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
 if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري الإرسال...';
+msg.innerText = 'جاري رفع الصورة والإرسال...';
+// upload to storage to get public URL for WhatsApp
+const publicUrl = await uploadScreenshotToStorage(screenshot, 'vodafone');
+const storageUrl = publicUrl || screenshot; // fallback: dataURL
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'vodafone',
@@ -3567,13 +3716,18 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+try {
 await sb.from('transactions').insert({
 user_id: currentProfile.id, type: 'deposit', method: 'vodafone',
 amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيداع محافظ كاش'
 });
+} catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💳 *طلب إيداع محافظ كاش*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' جنيه\n📱 رقم المُحوِّل: ' + senderPhone + '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
+let waMsg = '💳 *طلب إيداع محافظ كاش*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' جنيه\n📱 رقم المُحوِّل: ' + senderPhone;
+if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
+else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
+waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('vodafoneForm').reset();
@@ -3591,12 +3745,13 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
 const tx = document.getElementById('binanceTransaction').value.trim();
-const screenshot = getScreenshotBase64('binanceScreenshot', 'binancePreview');
+const screenshot = getScreenshotPreviewSrc('binanceScreenshot');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري الإرسال...';
+msg.innerText = 'جاري رفع الصورة والإرسال...';
+const publicUrl = await uploadScreenshotToStorage(screenshot, 'binance');
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'binance',
@@ -3607,13 +3762,17 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+try {
 await sb.from('transactions').insert({
 user_id: currentProfile.id, type: 'deposit', method: 'binance',
 amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع باينانس باي'
 });
+} catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💳 *طلب إيداع Binance Pay*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية: ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة.';
+let waMsg = '💳 *طلب إيداع Binance Pay*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية: ' + tx;
+if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
+else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('binanceForm').reset();
@@ -3631,12 +3790,13 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
 const tx = document.getElementById('usdtTransaction').value.trim();
-const screenshot = getScreenshotBase64('usdtScreenshot', 'usdtPreview');
+const screenshot = getScreenshotPreviewSrc('usdtScreenshot');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية (TXID) غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري الإرسال...';
+msg.innerText = 'جاري رفع الصورة والإرسال...';
+const publicUrl = await uploadScreenshotToStorage(screenshot, 'usdt');
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'usdt',
@@ -3647,13 +3807,17 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+try {
 await sb.from('transactions').insert({
 user_id: currentProfile.id, type: 'deposit', method: 'usdt',
 amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع عملات رقمية USDT (TRC20)'
 });
+} catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 TXID: ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة.';
+let waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 TXID: ' + tx;
+if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
+else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('usdtForm').reset();
@@ -3665,7 +3829,7 @@ loadUserTransactions();
 });
 
 // ============================================
-// USER TRANSACTIONS LOG (inside deposit page)
+// USER TRANSACTIONS LOG (DEPOSITS ONLY — not orders)
 // ============================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
@@ -3673,10 +3837,14 @@ const container = document.getElementById('txLogContainer');
 if (!container) return;
 container.innerHTML = '<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-spinner fa-spin"></i></div>';
 try {
-const { data, error } = await sb.from('transactions').select('*').eq('user_id', currentProfile.id).order('created_at', { ascending: false }).limit(50);
+const { data, error } = await sb.from('transactions').select('*')
+.eq('user_id', currentProfile.id)
+.in('type', ['deposit', 'admin_credit', 'admin_debit'])
+.order('created_at', { ascending: false })
+.limit(50);
 if (error) throw error;
 if (!data || data.length === 0) {
-container.innerHTML = '<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-inbox" style="font-size:2rem;display:block;margin-bottom:10px;opacity:0.5;"></i>لا توجد معاملات بعد</div>';
+container.innerHTML = '<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-inbox" style="font-size:2rem;display:block;margin-bottom:10px;opacity:0.5;"></i>لا توجد معاملات إيداع بعد</div>';
 return;
 }
 container.innerHTML = '';
@@ -3684,8 +3852,7 @@ data.forEach(t => {
 const typeMap = {
 deposit: ['إيداع', 'dep', 'fa-arrow-down'],
 admin_credit: ['إضافة من الإدارة', 'add', 'fa-plus'],
-admin_debit: ['خصم من الإدارة', 'wd', 'fa-minus'],
-order: ['طلب', 'ord', 'fa-shopping-cart']
+admin_debit: ['خصم من الإدارة', 'wd', 'fa-minus']
 };
 const tp = typeMap[t.type] || [t.type, 'add', 'fa-circle'];
 const cur = t.currency === 'USD' ? '$' : 'جنيه';
@@ -3746,7 +3913,6 @@ e.stopImmediatePropagation();
 e.preventDefault();
 if (buyBtn.dataset.processing === '1') return;
 if (!currentProfile) {
-// احفظ العمليه عشان تكمل بعد تسجيل الدخول
 const card = buyBtn.closest('.service-card');
 if (card) {
 pendingBuyAfterAuth = () => { buyBtn.click(); };
@@ -3834,13 +4000,6 @@ link: link,
 status: 'pending'
 });
 if (ordErr) throw ordErr;
-try {
-await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'order', method: 'order',
-amount: totalToPay, currency: currencySymbol, status: 'pending',
-description: 'طلب: ' + serviceName + ' (' + quantity + ' ' + unit + ')'
-});
-} catch(err) {}
 const tgMsg = '📋 طلب شراء خدمة : ' + serviceName +
 '\n🔢 رقم الخدمة : ' + serviceNumber +
 '\n👤 العميل : ' + currentProfile.name + ' (@' + currentProfile.username + ')' +
@@ -3869,7 +4028,7 @@ buyBtn.dataset.processing = '0';
 }, true);
 
 // ============================================
-// MENU LINKS (deposit button)
+// MENU LINKS
 // ============================================
 setTimeout(() => {
 const dLink = document.getElementById('depositMenuLink');
@@ -3896,7 +4055,7 @@ origOpenPanel(user);
 setTimeout(() => { if (window.loadAdminServices) window.loadAdminServices(); }, 400);
 };
 }
-// restore page
+// restore page from hash
 setTimeout(() => {
 const hash = (window.location.hash || '').replace('#','');
 if (hash === 'profile' && currentProfile) openProfilePage();
