@@ -3146,7 +3146,7 @@ window.openAdminPanel(session.user);
 })();
 </script>
 <script>
-window.sendOrder = function() {}; // stub — handled by global listener below
+window.sendOrder = function() {};
 
 (function(){
 'use strict';
@@ -3290,17 +3290,12 @@ document.getElementById('registerForm').style.display = 'flex';
 document.getElementById('loginForm').style.display = 'none';
 });
 
-// ============================================
-// AFTER AUTH SUCCESS — RETURN TO HOME / PREVIOUS PAGE
-// ============================================
 function afterAuthSuccess() {
 hideAuthModal();
 const hash = (window.location.hash || '').replace('#','');
-// لو كان المستخدم واقف على صفحة داخلية معينة يرجعه لها
 if (hash === 'deposit') { setTimeout(() => openDepositPage(), 150); return; }
 if (hash === 'orders') { setTimeout(() => openMyOrdersPage(), 150); return; }
 if (hash === 'profile') { setTimeout(() => openProfilePage(), 150); return; }
-// الافتراضي: الرئيسية (مش البروفايل)
 if (window.showHomePage) window.showHomePage();
 if (pendingBuyAfterAuth) {
 const cb = pendingBuyAfterAuth;
@@ -3386,7 +3381,6 @@ document.getElementById('profileMsg').innerText = '';
 document.getElementById('profilePasswordMsg').innerText = '';
 document.getElementById('profileCurrentPassword').value = '';
 document.getElementById('profileNewPassword').value = '';
-// احصائيات مختصرة
 try {
 const { count: ordersCount } = await sb.from('orders').select('*', { count: 'exact', head: true }).eq('user_id', currentProfile.id);
 const el = document.getElementById('profileStatOrders');
@@ -3624,7 +3618,6 @@ document.getElementById('depositPanelVodafone').classList.remove('active');
 document.getElementById('depositPanelBinance').classList.remove('active');
 });
 
-// Copy buttons
 document.querySelectorAll('[data-copy]').forEach(btn => {
 btn.addEventListener('click', () => {
 const val = btn.getAttribute('data-copy');
@@ -3632,7 +3625,7 @@ if (val) window.copyToClipboard(val);
 });
 });
 
-// Image upload handlers (with Storage upload)
+// Image upload handlers
 function attachImageUpload(inputId, zoneId, previewId) {
 const input = document.getElementById(inputId);
 const zone = document.getElementById(zoneId);
@@ -3658,9 +3651,8 @@ attachImageUpload('vodafoneScreenshot', 'vodafoneUploadZone', 'vodafonePreview')
 attachImageUpload('binanceScreenshot', 'binanceUploadZone', 'binancePreview');
 attachImageUpload('usdtScreenshot', 'usdtUploadZone', 'usdtPreview');
 
-function getScreenshotPreviewSrc(inputId) {
-// نستخدم preview.src اللي بيحتوي على data:URL
-const zone = document.getElementById(inputId)?.previousElementSibling;
+function getScreenshotPreviewSrc(zoneId) {
+const zone = document.getElementById(zoneId);
 const preview = zone ? zone.querySelector('.deposit-upload-preview') : null;
 return (preview && preview.src && preview.src.startsWith('data:')) ? preview.src : null;
 }
@@ -3670,41 +3662,82 @@ const res = await fetch(dataURL);
 return await res.blob();
 }
 
-// ارفع الصورة على Supabase Storage وارجع الرابط العام
-async function uploadScreenshotToStorage(dataURL, method) {
-try {
-const blob = await dataURLtoBlob(dataURL);
-const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg') : 'jpg';
+// ==================== UPLOAD SCREENSHOT (3 محاولات) ====================
+async function uploadScreenshot(dataURL, method) {
+if (!dataURL) return null;
+let blob;
+try { blob = await dataURLtoBlob(dataURL); }
+catch(e) { console.warn('blob fail:', e); return null; }
+
+const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg').replace('+xml','') : 'jpg';
 const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
-const { error } = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type, upsert: false });
-if (error) {
-console.warn('Storage upload failed:', error.message);
-return null;
-}
+
+// 1) Supabase Storage
+try {
+const { error: upErr } = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: false });
+if (!upErr) {
 const { data: pub } = sb.storage.from('screenshots').getPublicUrl(fileName);
-return pub && pub.publicUrl ? pub.publicUrl : null;
-} catch(e) {
-console.warn('Upload error:', e);
-return null;
+if (pub && pub.publicUrl) {
+console.log('✅ رُفعت على Supabase:', pub.publicUrl);
+return pub.publicUrl;
 }
+} else {
+console.warn('Supabase Storage:', upErr.message);
+}
+} catch(e) { console.warn('Supabase upload:', e); }
+
+// 2) catbox.moe
+try {
+const fd = new FormData();
+fd.append('reqtype', 'fileupload');
+fd.append('fileToUpload', blob, fileName);
+const r = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd });
+if (r.ok) {
+const url = (await r.text()).trim();
+if (url && url.startsWith('http')) {
+console.log('✅ رُفعت على catbox:', url);
+return url;
+}
+}
+} catch(e) { console.warn('catbox:', e); }
+
+// 3) 0x0.st
+try {
+const fd = new FormData();
+fd.append('file', blob, fileName);
+const r = await fetch('https://0x0.st', { method: 'POST', body: fd });
+if (r.ok) {
+const url = (await r.text()).trim();
+if (url && url.startsWith('http')) {
+console.log('✅ رُفعت على 0x0:', url);
+return url;
+}
+}
+} catch(e) { console.warn('0x0:', e); }
+
+return null;
 }
 
-// VODAFONE SUBMIT
+// ==================== VODAFONE SUBMIT ====================
 document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('vodafoneMsg');
 const amount = parseFloat(document.getElementById('vodafoneAmount').value);
 const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
-const screenshot = getScreenshotPreviewSrc('vodafoneScreenshot');
+const screenshot = getScreenshotPreviewSrc('vodafoneUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
 if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري رفع الصورة والإرسال...';
-// upload to storage to get public URL for WhatsApp
-const publicUrl = await uploadScreenshotToStorage(screenshot, 'vodafone');
-const storageUrl = publicUrl || screenshot; // fallback: dataURL
+msg.innerText = '⏳ جاري رفع الصورة، انتظر لحظة...';
+const publicUrl = await uploadScreenshot(screenshot, 'vodafone');
+if (!publicUrl) {
+msg.className = 'profile-msg err';
+msg.innerText = '⚠️ فشل رفع الصورة، تأكد من اتصالك بالإنترنت وحاول مرة أخرى';
+return;
+}
+msg.innerText = 'جاري حفظ الطلب...';
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'vodafone',
@@ -3712,7 +3745,7 @@ amount: amount,
 currency: 'EGP',
 transaction_id: senderPhone,
 sender_phone: senderPhone,
-screenshot: screenshot,
+screenshot: publicUrl,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
@@ -3724,10 +3757,13 @@ amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيد�
 } catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💳 *طلب إيداع محافظ كاش*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' جنيه\n📱 رقم المُحوِّل: ' + senderPhone;
-if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
-else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
-waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
+const waMsg = '💳 *طلب إيداع محافظ كاش*\n\n' +
+'👤 المستخدم: ' + currentProfile.username + '\n' +
+'📝 الاسم: ' + currentProfile.name + '\n' +
+'💰 المبلغ: ' + amount + ' جنيه\n' +
+'📱 رقم المُحوِّل: ' + senderPhone + '\n\n' +
+'📸 *صورة إثبات التحويل:*\n' + publicUrl + '\n\n' +
+'يرجى مراجعة الطلب وإضافة الرصيد.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('vodafoneForm').reset();
@@ -3735,30 +3771,36 @@ document.getElementById('vodafoneUploadZone').classList.remove('has-file');
 const p = document.getElementById('vodafonePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 3000);
 });
 
-// BINANCE SUBMIT
+// ==================== BINANCE SUBMIT ====================
 document.getElementById('binanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
 const tx = document.getElementById('binanceTransaction').value.trim();
-const screenshot = getScreenshotPreviewSrc('binanceScreenshot');
+const screenshot = getScreenshotPreviewSrc('binanceUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري رفع الصورة والإرسال...';
-const publicUrl = await uploadScreenshotToStorage(screenshot, 'binance');
+msg.innerText = '⏳ جاري رفع الصورة، انتظر لحظة...';
+const publicUrl = await uploadScreenshot(screenshot, 'binance');
+if (!publicUrl) {
+msg.className = 'profile-msg err';
+msg.innerText = '⚠️ فشل رفع الصورة، تأكد من اتصالك بالإنترنت وحاول مرة أخرى';
+return;
+}
+msg.innerText = 'جاري حفظ الطلب...';
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'binance',
 amount: amount,
 currency: 'USD',
 transaction_id: tx,
-screenshot: screenshot,
+screenshot: publicUrl,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
@@ -3770,9 +3812,13 @@ amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيد�
 } catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💳 *طلب إيداع Binance Pay*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية: ' + tx;
-if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
-else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة.';
+const waMsg = '💳 *طلب إيداع Binance Pay*\n\n' +
+'👤 المستخدم: ' + currentProfile.username + '\n' +
+'📝 الاسم: ' + currentProfile.name + '\n' +
+'💰 المبلغ: ' + amount + ' دولار\n' +
+'🔢 معرف العملية: ' + tx + '\n\n' +
+'📸 *صورة إثبات التحويل:*\n' + publicUrl + '\n\n' +
+'يرجى مراجعة الطلب وإضافة الرصيد.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('binanceForm').reset();
@@ -3780,30 +3826,36 @@ document.getElementById('binanceUploadZone').classList.remove('has-file');
 const p = document.getElementById('binancePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 3000);
 });
 
-// USDT SUBMIT
+// ==================== USDT SUBMIT ====================
 document.getElementById('usdtForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
 const tx = document.getElementById('usdtTransaction').value.trim();
-const screenshot = getScreenshotPreviewSrc('usdtScreenshot');
+const screenshot = getScreenshotPreviewSrc('usdtUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية (TXID) غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-msg.innerText = 'جاري رفع الصورة والإرسال...';
-const publicUrl = await uploadScreenshotToStorage(screenshot, 'usdt');
+msg.innerText = '⏳ جاري رفع الصورة، انتظر لحظة...';
+const publicUrl = await uploadScreenshot(screenshot, 'usdt');
+if (!publicUrl) {
+msg.className = 'profile-msg err';
+msg.innerText = '⚠️ فشل رفع الصورة، تأكد من اتصالك بالإنترنت وحاول مرة أخرى';
+return;
+}
+msg.innerText = 'جاري حفظ الطلب...';
 const { error } = await sb.from('deposit_requests').insert({
 user_id: currentProfile.id,
 method: 'usdt',
 amount: amount,
 currency: 'USD',
 transaction_id: tx,
-screenshot: screenshot,
+screenshot: publicUrl,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
@@ -3815,9 +3867,13 @@ amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيد�
 } catch(e) {}
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 TXID: ' + tx;
-if (publicUrl) waMsg += '\n\n📸 لقطة الشاشة: ' + publicUrl;
-else waMsg += '\n\n📸 تم إرفاق لقطة الشاشة.';
+const waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n' +
+'👤 المستخدم: ' + currentProfile.username + '\n' +
+'📝 الاسم: ' + currentProfile.name + '\n' +
+'💰 المبلغ: ' + amount + ' دولار\n' +
+'🔢 TXID: ' + tx + '\n\n' +
+'📸 *صورة إثبات التحويل:*\n' + publicUrl + '\n\n' +
+'يرجى مراجعة الطلب وإضافة الرصيد.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
 setTimeout(() => {
 document.getElementById('usdtForm').reset();
@@ -3825,11 +3881,11 @@ document.getElementById('usdtUploadZone').classList.remove('has-file');
 const p = document.getElementById('usdtPreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 3000);
 });
 
 // ============================================
-// USER TRANSACTIONS LOG (DEPOSITS ONLY — not orders)
+// USER TRANSACTIONS LOG (DEPOSITS ONLY)
 // ============================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
@@ -4055,7 +4111,6 @@ origOpenPanel(user);
 setTimeout(() => { if (window.loadAdminServices) window.loadAdminServices(); }, 400);
 };
 }
-// restore page from hash
 setTimeout(() => {
 const hash = (window.location.hash || '').replace('#','');
 if (hash === 'profile' && currentProfile) openProfilePage();
