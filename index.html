@@ -256,18 +256,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .auth-msg.ok { color:#2EBD85; }
 .auth-close-btn { position:absolute; top:15px; left:15px; background:rgba(11,14,17,0.6); border:1px solid rgba(255,255,255,0.1); color:#848E9C; font-size:1.1rem; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; transition: 0.2s; }
 .auth-close-btn:hover { background:#e83e5c; color:#fff; border-color:#e83e5c; }
-
-/* ===== Password Toggle ===== */
 .password-wrap { position: relative; }
 .password-wrap input { padding-left: 44px !important; }
 .password-toggle { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); background: transparent; border: none; color: #848E9C; cursor: pointer; font-size: 1rem; padding: 6px; z-index: 2; transition: 0.2s; }
 .password-toggle:hover { color: #F0B90B; }
-
 #profilePage, #depositPage, #myOrdersPage { padding:1.5rem 1rem; }
 .page-container { max-width:800px; margin:0 auto; }
 .page-title { color:#F0B90B; text-align:center; font-size:1.6rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:2px solid rgba(240,185,11,0.2); display:flex; align-items:center; justify-content:center; gap:10px; }
-
-/* ===== Profile Hero - Enhanced ===== */
 .profile-hero { position:relative; background:linear-gradient(135deg,#1E2329 0%,#0B0E11 50%,#1E2329 100%); border-radius:32px; padding:2rem 1.5rem 1.5rem; margin-bottom:1.5rem; border:1px solid rgba(240,185,11,0.25); overflow:hidden; text-align:center; }
 .profile-hero::before { content:''; position:absolute; top:-100px; right:-100px; width:300px; height:300px; background:radial-gradient(circle,rgba(240,185,11,0.2),transparent 70%); border-radius:50%; }
 .profile-hero::after { content:''; position:absolute; bottom:-100px; left:-100px; width:300px; height:300px; background:radial-gradient(circle,rgba(46,189,133,0.15),transparent 70%); border-radius:50%; }
@@ -293,8 +288,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .profile-stat-mini .ps-lbl { font-size:0.65rem; color:#B7BDC6; margin-top:2px; }
 .profile-logout-btn { width:100%; margin-top:1.5rem; background:rgba(232,62,92,0.12); border:1px solid rgba(232,62,92,0.5); color:#e83e5c; padding:14px; border-radius:20px; font-weight:700; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; }
 .profile-logout-btn:hover { background:#e83e5c; color:#fff; transform:translateY(-2px); }
-
-/* ===== Profile Section ===== */
 .profile-section { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
 .profile-section h3 { color:#F0B90B; font-size:0.95rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.5rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
 .profile-section h3 i { color:#2EBD85; }
@@ -307,8 +300,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .profile-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,189,133,0.3); }
 .profile-msg { color:#2EBD85; font-size:0.85rem; margin-top:0.5rem; min-height:18px; }
 .profile-msg.err { color:#e83e5c; }
-
-/* ===== Deposit Tabs with Brand Colors ===== */
 .deposit-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:16px; border:1px solid rgba(240,185,11,0.2); flex-wrap:wrap; }
 .deposit-tab { flex:1; min-width:110px; padding:14px 8px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.25s; background:transparent; border:none; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
 .deposit-tab .tab-icon { font-size:1.5rem; }
@@ -318,8 +309,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .deposit-tab.brand-usdt.active { background:linear-gradient(135deg, #26A17B, #1a8060); color:#fff; box-shadow: 0 6px 18px rgba(38,161,123,0.35); }
 .deposit-panel { display:none; }
 .deposit-panel.active { display:block; }
-
-/* ===== Deposit Info - Enhanced ===== */
 .deposit-info { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.4rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); position:relative; overflow: hidden; }
 .deposit-info::before { content:''; position:absolute; top:-60px; left:-60px; width:180px; height:180px; background:radial-gradient(circle, rgba(240,185,11,0.08), transparent 70%); border-radius:50%; pointer-events:none; }
 .deposit-brand-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; position: relative; z-index: 2; }
@@ -335,14 +324,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .deposit-number { flex:1; color:#F0B90B; font-weight:800; font-size:1.2rem; direction:ltr; letter-spacing:1px; word-break:break-all; min-width:0; }
 .deposit-copy-btn { background:linear-gradient(135deg,#2EBD85,#22a06f); color:#0B0E11; border:none; padding:10px 18px; border-radius:12px; font-weight:700; cursor:pointer; font-family:inherit; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition: 0.2s; }
 .deposit-copy-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(46,189,133,0.3); }
-
-/* ===== Deposit Steps - Enhanced ===== */
 .deposit-steps { display: flex; flex-direction: column; gap: 10px; background: linear-gradient(135deg, rgba(46,189,133,0.05), rgba(46,189,133,0.02)); border: 1px solid rgba(46,189,133,0.25); padding: 1.2rem; border-radius: 20px; margin: 1rem 0; position: relative; z-index: 2; }
 .step-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 12px; background: rgba(11,14,17,0.6); border-radius: 14px; border: 1px solid rgba(255,255,255,0.03); }
 .step-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #2EBD85, #22a06f); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(46,189,133,0.3); }
 .step-text { flex: 1; color: #EAECEF; font-size: 0.85rem; line-height: 1.6; }
 .step-text b { color: #F0B90B; }
-
 .deposit-form { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; border:1px solid rgba(240,185,11,0.2); margin-top:1rem; }
 .deposit-form h3 { color:#F0B90B; margin-bottom:1rem; font-size:1rem; display:flex; align-items:center; gap:8px; }
 .deposit-form input, .deposit-form select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; transition: 0.2s; }
@@ -350,8 +336,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .deposit-form label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
 .deposit-submit-btn { background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; border:none; padding:14px 24px; border-radius:40px; font-weight:800; cursor:pointer; font-family:inherit; width:100%; font-size:0.95rem; display:inline-flex; align-items:center; justify-content:center; gap:8px; transition: 0.2s; box-shadow: 0 8px 20px rgba(240,185,11,0.25); }
 .deposit-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(240,185,11,0.35); }
-
-/* ===== Upload Zone ===== */
 .deposit-upload-zone { border:2px dashed rgba(240,185,11,0.4); background:linear-gradient(135deg,rgba(240,185,11,0.05),rgba(240,185,11,0.02)); border-radius:20px; padding:1.5rem 1rem; text-align:center; cursor:pointer; transition:0.2s; margin-bottom:1rem; }
 .deposit-upload-zone:hover { border-color:#F0B90B; background:linear-gradient(135deg,rgba(240,185,11,0.1),rgba(240,185,11,0.03)); }
 .deposit-upload-zone.has-file { border-color:#2EBD85; background:linear-gradient(135deg,rgba(46,189,133,0.1),rgba(46,189,133,0.03)); border-style:solid; }
@@ -361,14 +345,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .deposit-upload-zone .u-hint { font-size:0.75rem; color:#848E9C; }
 .deposit-upload-preview { max-width:100%; max-height:200px; border-radius:14px; margin-top:10px; display:none; }
 .deposit-upload-zone.has-file .deposit-upload-preview { display:inline-block; }
-
 .deposit-wallet-logos { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1rem; position: relative; z-index: 2; }
 .wallet-logo-chip { background:rgba(11,14,17,0.7); border:1px solid rgba(46,189,133,0.3); border-radius:40px; padding:8px 14px; font-size:0.75rem; font-weight:700; color:#2EBD85; display:inline-flex; align-items:center; gap:6px; }
 .usdt-address-box { background:linear-gradient(135deg,rgba(38,161,123,0.15),rgba(38,161,123,0.05)); border:1px solid rgba(38,161,123,0.5); border-radius:20px; padding:1.2rem; margin:1rem 0; position: relative; z-index: 2; }
 .usdt-address-box .usdt-lbl { font-size:0.8rem; color:#26A17B; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
 .usdt-address-box .usdt-addr { background:#0B0E11; padding:14px; border-radius:12px; color:#F0B90B; font-size:0.85rem; direction:ltr; word-break:break-all; font-family:monospace; margin-bottom:10px; border:1px solid rgba(240,185,11,0.25); }
-
-/* ===== Transactions Log (deposits only) ===== */
 .tx-log-section { margin-top:2rem; background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.5rem; border:1px solid rgba(240,185,11,0.2); }
 .tx-log-section h3 { color:#F0B90B; font-size:1.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.6rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
 .tx-log-section h3 i { color:#2EBD85; }
@@ -388,8 +369,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .tx-badge.pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
 .tx-badge.approved, .tx-badge.completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
 .tx-badge.rejected, .tx-badge.cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
-
-/* ===== Order Cards - Enhanced ===== */
 .order-card { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:24px; padding:1.3rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.15); position:relative; overflow:hidden; transition:0.25s; }
 .order-card:hover { border-color:rgba(240,185,11,0.4); transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
 .order-card::before { content:''; position:absolute; top:0; right:0; width:5px; height:100%; }
@@ -418,8 +397,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .empty-orders i { font-size:4rem; color:#F0B90B; opacity:0.4; margin-bottom:1rem; display:block; }
 .empty-orders p { color:#B7BDC6; font-size:1rem; }
 @media (max-width:600px){ .order-meta { grid-template-columns:1fr; } }
-
-/* ===== Admin Monthly Stats ===== */
 .admin-monthly-stats { background:linear-gradient(135deg,rgba(240,185,11,0.08),rgba(46,189,133,0.05)); border:1px solid rgba(240,185,11,0.3); border-radius:20px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
 .admin-monthly-stats .m-icon { width:60px; height:60px; border-radius:20px; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0; }
 .admin-monthly-stats .m-info { flex:1; min-width:180px; }
@@ -431,15 +408,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .screenshot-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px; }
 .screenshot-modal-bg.show { display:flex; }
 .screenshot-modal-bg img { max-width:90vw; max-height:85vh; border-radius:16px; border:2px solid #F0B90B; }
-
-/* User balance chip */
 .user-balance-chip { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#1E2329,#13171D); padding:10px 14px; border-radius:16px; border:1px solid rgba(240,185,11,0.3); margin:0 12px 8px; cursor:pointer; }
 .user-balance-chip .b-icon { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
 .user-balance-chip .b-info { flex:1; }
 .user-balance-chip .b-lbl { font-size:0.7rem; color:#B7BDC6; }
 .user-balance-chip .b-val { font-size:1.1rem; font-weight:800; color:#2EBD85; direction:ltr; }
-
-/* Insufficient Modal */
 .insufficient-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:3500; padding:20px; backdrop-filter:blur(8px); }
 .insufficient-modal-bg.show { display:flex; }
 .insufficient-modal { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:32px; border:1px solid rgba(232,62,92,0.4); width:100%; max-width:440px; padding:2rem 1.5rem; text-align:center; position:relative; overflow:hidden; animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1); }
@@ -463,8 +436,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .insufficient-btn-deposit:hover { transform:translateY(-2px); box-shadow:0 12px 28px rgba(240,185,11,0.4); }
 .insufficient-btn-cancel { background:transparent; color:#B7BDC6; border:1px solid rgba(255,255,255,0.1); padding:12px; border-radius:18px; font-weight:600; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:0.2s; }
 .insufficient-btn-cancel:hover { color:#EAECEF; border-color:rgba(255,255,255,0.25); }
-
-/* Main tabs */
 .admin-main-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:18px; overflow-x:auto; border:1px solid rgba(240,185,11,0.2); scrollbar-width:thin; }
 .admin-main-tabs::-webkit-scrollbar { height:5px; }
 .admin-main-tabs::-webkit-scrollbar-thumb { background:#F0B90B; border-radius:10px; }
@@ -1332,6 +1303,15 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 
 <div class="settings-section">
+<h3><i class="fas fa-dollar-sign"></i> سعر صرف الدولار</h3>
+<div class="admin-field">
+<label>سعر 1 دولار = كم جنيه مصري؟</label>
+<input type="number" id="settingsExchangeRate" placeholder="مثال: 50 (اتركه فاضي للتحميل التلقائي)" min="1" step="0.01" dir="ltr">
+<div class="admin-hint">💡 لو حطيت رقم → الموقع هيستخدمه لكل الحسابات. لو سيبته فاضي → الموقع هيجيب السعر تلقائياً من الإنترنت.</div>
+</div>
+</div>
+
+<div class="settings-section">
 <h3><i class="fas fa-chart-line"></i> الإحصائيات (الأرقام المعروضة)</h3>
 <div class="admin-grid-2">
 <div class="admin-field">
@@ -1484,7 +1464,8 @@ vodafone_number: '01001606298',
 binance_id: '746211155',
 usdt_address: 'TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D',
 active_users_override: null,
-completed_orders_override: null
+completed_orders_override: null,
+exchange_rate: null
 };
 let siteSettings = window.siteSettings;
 
@@ -1514,6 +1495,15 @@ else { favBtn.classList.remove('active'); favBtn.innerHTML = '<i class="far fa-h
 });
 }
 async function fetchExchangeRate() {
+// 1) لو الأدمن حط سعر يدوي → نستخدمه فوراً
+if (siteSettings.exchange_rate !== null && siteSettings.exchange_rate !== undefined && parseFloat(siteSettings.exchange_rate) > 0) {
+exchangeRate = parseFloat(siteSettings.exchange_rate);
+updateAllPrices();
+if (window.refreshBalanceUI) window.refreshBalanceUI();
+if (window.refreshCurrencyButtons) window.refreshCurrencyButtons();
+return;
+}
+// 2) لو مفيش سعر يدوي → نحمّل من الإنترنت
 try {
 const response = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/egp.json');
 if (!response.ok) throw new Error();
@@ -1627,6 +1617,7 @@ siteSettings.binance_id = data.binance_id || siteSettings.binance_id;
 siteSettings.usdt_address = data.usdt_address || siteSettings.usdt_address;
 siteSettings.active_users_override = (data.active_users_override !== null && data.active_users_override !== undefined) ? parseInt(data.active_users_override) : null;
 siteSettings.completed_orders_override = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? parseInt(data.completed_orders_override) : null;
+siteSettings.exchange_rate = (data.exchange_rate !== null && data.exchange_rate !== undefined) ? parseFloat(data.exchange_rate) : null;
 return true;
 } catch(e) { console.warn('Settings load failed:', e); return false; }
 };
@@ -1709,7 +1700,7 @@ const termsLink = document.getElementById('termsLink');
 const supportDropdownLink = document.getElementById('supportDropdownLink');
 const paymentMethodBtn = document.getElementById('paymentMethodBtn');
 
-// ==================== ROUTER (back button never leaves the site) ====================
+// ==================== ROUTER ====================
 window.__currentRoute = 'home';
 window.__routeHistory = ['home'];
 
@@ -1761,10 +1752,8 @@ if (window.__currentRoute === 'home') return;
 window.__navigateTo('home', null, true);
 };
 
-// Handle browser back/forward — NEVER leave the site
 window.addEventListener('popstate', function(event) {
 const route = (event.state && event.state.route) ? event.state.route : 'home';
-// If there's no state and we're on home page → push a state back so back button doesn't exit
 if (!event.state) {
 try { history.pushState({ route: 'home', idx: 0 }, '', location.pathname + location.search); } catch(e) {}
 routeToPage('home');
@@ -1773,20 +1762,16 @@ return;
 routeToPage(route);
 });
 
-// Restore from hash on load
 window.restorePageFromHash = function() {
 const hash = (window.location.hash || '').replace('#','');
-// Always seed a "home" state first so back button works correctly
 try {
 history.replaceState({ route: 'home', idx: 0 }, '', location.pathname + location.search);
 } catch(e) {}
-
 if (!hash) {
 window.__currentRoute = 'home';
 return;
 }
 setTimeout(() => {
-// Push home first, then push the target — so going back goes home
 try { history.pushState({ route: 'home', idx: 1 }, '', '#' + 'home'); } catch(e) {}
 if (hash === 'terms') window.__navigateTo('terms', termsPage, true);
 else if (hash === 'payment') window.__navigateTo('payment', paymentPage, true);
@@ -2575,6 +2560,7 @@ document.getElementById('settingsPurchasePhone').value = data.purchase_phone || 
 document.getElementById('settingsVodafoneNumber').value = data.vodafone_number || '';
 document.getElementById('settingsBinanceId').value = data.binance_id || '';
 document.getElementById('settingsUsdtAddress').value = data.usdt_address || '';
+document.getElementById('settingsExchangeRate').value = (data.exchange_rate !== null && data.exchange_rate !== undefined) ? data.exchange_rate : '';
 document.getElementById('settingsActiveUsers').value = (data.active_users_override !== null && data.active_users_override !== undefined) ? data.active_users_override : '';
 document.getElementById('settingsCompletedOrders').value = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? data.completed_orders_override : '';
 } catch(e) { console.warn(e); }
@@ -2601,6 +2587,7 @@ btn.disabled = true;
 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
 const activeUsersVal = document.getElementById('settingsActiveUsers').value.trim();
 const completedOrdersVal = document.getElementById('settingsCompletedOrders').value.trim();
+const exchangeRateVal = document.getElementById('settingsExchangeRate').value.trim();
 const payload = {
 id: 1,
 site_name: document.getElementById('settingsSiteName').value.trim() || 'SMCOLE',
@@ -2612,6 +2599,7 @@ purchase_phone: document.getElementById('settingsPurchasePhone').value.trim() ||
 vodafone_number: document.getElementById('settingsVodafoneNumber').value.trim() || '01001606298',
 binance_id: document.getElementById('settingsBinanceId').value.trim() || '746211155',
 usdt_address: document.getElementById('settingsUsdtAddress').value.trim() || 'TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D',
+exchange_rate: exchangeRateVal === '' ? null : parseFloat(exchangeRateVal),
 active_users_override: activeUsersVal === '' ? null : parseInt(activeUsersVal),
 completed_orders_override: completedOrdersVal === '' ? null : parseInt(completedOrdersVal),
 updated_at: new Date().toISOString()
@@ -2640,7 +2628,9 @@ if (window.siteSettings) {
 Object.assign(window.siteSettings, payload);
 window.siteSettings.active_users_override = payload.active_users_override;
 window.siteSettings.completed_orders_override = payload.completed_orders_override;
+window.siteSettings.exchange_rate = payload.exchange_rate;
 if (window.applySiteSettings) { window.applySiteSettings(); }
+if (window.fetchExchangeRate) { window.fetchExchangeRate(); }
 }
 });
 
@@ -3665,7 +3655,7 @@ return await res.blob();
 }
 
 // ============================================
-// SIMPLE IMAGE COMPRESS (سريع وآمن)
+// SIMPLE IMAGE COMPRESS
 // ============================================
 function compressImage(dataURL, maxSize, quality) {
 maxSize = maxSize || 1200;
@@ -3764,45 +3754,10 @@ return null;
 }
 
 // ============================================
-// OPEN WHATSAPP (موبايل + كمبيوتر)
+// OPEN WHATSAPP (تحويل مباشر — نفس التاب)
 // ============================================
-function openWhatsAppUrl(url, preOpenedWindow) {
-if (preOpenedWindow && !preOpenedWindow.closed) {
-try { preOpenedWindow.location.href = url; return; } catch(e) {}
-}
-try {
-const w = window.open(url, '_blank');
-if (w && !w.closed) return;
-} catch(e) {}
-try {
-const a = document.createElement('a');
-a.href = url;
-a.target = '_blank';
-a.rel = 'noopener noreferrer';
-document.body.appendChild(a);
-a.click();
-setTimeout(() => { try { document.body.removeChild(a); } catch(e) {} }, 100);
-return;
-} catch(e) {}
+function openWhatsAppUrl(url) {
 window.location.href = url;
-}
-
-// ============================================
-// OPEN LOADING WINDOW (يمنع حجب المتصفح)
-// ============================================
-function openLoadingWindow() {
-try {
-const w = window.open('about:blank', '_blank');
-if (w) {
-try {
-const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>جاري التجهيز</title></head><body style="font-family:Cairo,Arial,sans-serif;background:#0B0E11;color:#F0B90B;text-align:center;padding:60px 20px;margin:0;"><div style="max-width:400px;margin:0 auto;"><div style="font-size:60px;margin-bottom:20px;">&#9203;</div><h1 style="font-size:22px;margin-bottom:10px;color:#F0B90B;">جاري تجهيز طلبك</h1><p style="color:#B7BDC6;font-size:15px;line-height:1.6;">انتظر لحظة، هيتم تحويلك لواتساب تلقائياً...</p><div style="margin-top:30px;width:60px;height:60px;border:5px solid #1E2329;border-top-color:#F0B90B;border-radius:50%;animation:spin 1s linear infinite;margin-left:auto;margin-right:auto;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style></div></body></html>';
-w.document.open();
-w.document.write(html);
-w.document.close();
-} catch(e) {}
-}
-return w;
-} catch(e) { return null; }
 }
 
 // ============================================
@@ -3812,9 +3767,6 @@ document.getElementById('vodafoneForm').addEventListener('submit', async (e) => 
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
 
-// افتح نافذة الواتساب فوراً قبل أي await
-const waWindow = openLoadingWindow();
-
 const msg = document.getElementById('vodafoneMsg');
 const amount = parseFloat(document.getElementById('vodafoneAmount').value);
 const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
@@ -3822,15 +3774,12 @@ const screenshot = getScreenshotPreviewSrc('vodafoneUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 
 if (!amount || amount < 50) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return;
 }
 if (!senderPhone || senderPhone.length < 8) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return;
 }
 if (!screenshot) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return;
 }
 
@@ -3852,7 +3801,6 @@ status: 'pending'
 });
 
 if (error) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return;
 }
 try {
@@ -3873,7 +3821,6 @@ if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + pub
 else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
-openWhatsAppUrl(waUrl, waWindow);
 
 setTimeout(() => {
 document.getElementById('vodafoneForm').reset();
@@ -3881,7 +3828,9 @@ document.getElementById('vodafoneUploadZone').classList.remove('has-file');
 const p = document.getElementById('vodafonePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 1500);
+
+openWhatsAppUrl(waUrl);
 });
 
 // ============================================
@@ -3890,7 +3839,7 @@ loadUserTransactions();
 document.getElementById('binanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const waWindow = openLoadingWindow();
+
 const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
 const tx = document.getElementById('binanceTransaction').value.trim();
@@ -3898,15 +3847,12 @@ const screenshot = getScreenshotPreviewSrc('binanceUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 
 if (!amount || amount < 2) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return;
 }
 if (!tx || tx.length < 5) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return;
 }
 if (!screenshot) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return;
 }
 
@@ -3926,7 +3872,6 @@ screenshot: publicUrl || compressed,
 status: 'pending'
 });
 if (error) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return;
 }
 try {
@@ -3947,7 +3892,6 @@ if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + pub
 else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
-openWhatsAppUrl(waUrl, waWindow);
 
 setTimeout(() => {
 document.getElementById('binanceForm').reset();
@@ -3955,7 +3899,9 @@ document.getElementById('binanceUploadZone').classList.remove('has-file');
 const p = document.getElementById('binancePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 1500);
+
+openWhatsAppUrl(waUrl);
 });
 
 // ============================================
@@ -3964,7 +3910,7 @@ loadUserTransactions();
 document.getElementById('usdtForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const waWindow = openLoadingWindow();
+
 const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
 const tx = document.getElementById('usdtTransaction').value.trim();
@@ -3972,15 +3918,12 @@ const screenshot = getScreenshotPreviewSrc('usdtUploadZone');
 msg.className = 'profile-msg'; msg.innerText = '';
 
 if (!amount || amount < 2) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return;
 }
 if (!tx || tx.length < 5) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية (TXID) غير صحيح'; return;
 }
 if (!screenshot) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return;
 }
 
@@ -4000,7 +3943,6 @@ screenshot: publicUrl || compressed,
 status: 'pending'
 });
 if (error) {
-if (waWindow && !waWindow.closed) { try { waWindow.close(); } catch(e) {} }
 msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return;
 }
 try {
@@ -4021,7 +3963,6 @@ if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + pub
 else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
-openWhatsAppUrl(waUrl, waWindow);
 
 setTimeout(() => {
 document.getElementById('usdtForm').reset();
@@ -4029,11 +3970,13 @@ document.getElementById('usdtUploadZone').classList.remove('has-file');
 const p = document.getElementById('usdtPreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 2500);
+}, 1500);
+
+openWhatsAppUrl(waUrl);
 });
 
 // ============================================
-// USER TRANSACTIONS LOG
+// USER TRANSACTIONS LOG (deposits only)
 // ============================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
