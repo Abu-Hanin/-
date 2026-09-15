@@ -3674,7 +3674,7 @@ const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).sl
 
 // 1) Supabase Storage
 try {
-const { error: upErr } = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: false });
+const { error: upErr } = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: true });
 if (!upErr) {
 const { data: pub } = sb.storage.from('screenshots').getPublicUrl(fileName);
 if (pub && pub.publicUrl) {
