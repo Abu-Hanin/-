@@ -435,6 +435,19 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <p>صلوا على النبي</p>
 </div>
 </div>
+<script>
+(function(){
+  var overlay = document.getElementById('welcomeOverlay');
+  if (overlay) {
+    setTimeout(function(){
+      overlay.style.opacity = '0';
+      setTimeout(function(){
+        overlay.style.display = 'none';
+      }, 500);
+    }, 2000);
+  }
+})();
+</script>
 <div class="menu-button" id="menuButton"><i class="fas fa-bars"></i></div>
 <div class="currency-circle" id="currencyCircle"><i class="fas fa-dollar-sign"></i></div>
 <div class="currency-dropdown" id="currencyDropdown">
