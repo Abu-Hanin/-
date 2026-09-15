@@ -251,16 +251,9 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .auth-msg.err { color:#e83e5c; }
 .auth-msg.ok { color:#2EBD85; }
 .auth-close-btn { position:absolute; top:15px; left:15px; background:transparent; border:none; color:#848E9C; font-size:1.5rem; cursor:pointer; }
-.user-menu-btn { position:absolute; top:85px; right:25px; z-index:1000; background:#1E2329; border:1px solid rgba(240,185,11,0.3); border-radius:50%; width:48px; height:48px; display:none; align-items:center; justify-content:center; cursor:pointer; transition:0.2s; font-size:1.3rem; color:#F0B90B; }
-.user-menu-btn.show { display:flex; }
-.user-menu-btn:hover { background:#2EBD85; color:#0B0E11; transform:scale(1.05); }
-.user-menu-btn .user-initial { font-weight:800; font-size:1.1rem; }
-@media (max-width:768px){ .user-menu-btn { top:65px; right:15px; width:40px; height:40px; font-size:1.1rem; } }
 #profilePage, #depositPage { padding:1.5rem 1rem; }
 .page-container { max-width:800px; margin:0 auto; }
 .page-title { color:#F0B90B; text-align:center; font-size:1.6rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:2px solid rgba(240,185,11,0.2); display:flex; align-items:center; justify-content:center; gap:10px; }
-.back-btn { position:absolute; top:20px; right:20px; background:#1E2329; border:1px solid rgba(240,185,11,0.3); color:#F0B90B; padding:8px 16px; border-radius:40px; cursor:pointer; font-family:inherit; font-weight:600; display:inline-flex; align-items:center; gap:8px; font-size:0.85rem; }
-.back-btn:hover { background:#F0B90B; color:#0B0E11; }
 .balance-card { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.5rem; margin-bottom:1.5rem; border:1px solid rgba(46,189,133,0.3); text-align:center; }
 .balance-card .lbl { color:#B7BDC6; font-size:0.85rem; margin-bottom:0.5rem; }
 .balance-card .val { color:#2EBD85; font-size:2rem; font-weight:800; direction:ltr; }
@@ -278,12 +271,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .profile-save-btn:hover { background:#22a06f; }
 .profile-msg { color:#2EBD85; font-size:0.85rem; margin-top:0.5rem; min-height:18px; }
 .profile-msg.err { color:#e83e5c; }
-.deposit-tabs { display:flex; gap:10px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:16px; border:1px solid rgba(240,185,11,0.2); flex-wrap:wrap; }
-.deposit-tab { flex:1; min-width:120px; padding:12px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.2s; background:transparent; border:none; font-size:0.85rem; display:flex; align-items:center; justify-content:center; gap:6px; }
+.deposit-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:16px; border:1px solid rgba(240,185,11,0.2); flex-wrap:wrap; }
+.deposit-tab { flex:1; min-width:110px; padding:12px 8px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.2s; background:transparent; border:none; font-size:0.85rem; display:flex; align-items:center; justify-content:center; gap:6px; }
 .deposit-tab.active { background:#2EBD85; color:#0B0E11; }
 .deposit-panel { display:none; }
 .deposit-panel.active { display:block; }
-.deposit-info { background:#1E2329; border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
+.deposit-info { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); }
 .deposit-info p { color:#ddd; margin-bottom:0.8rem; line-height:1.7; font-size:0.9rem; }
 .deposit-number-row { display:flex; gap:10px; align-items:center; background:#0B0E11; padding:12px 16px; border-radius:16px; margin:1rem 0; border:1px solid rgba(46,189,133,0.4); flex-wrap:wrap; }
 .deposit-number { flex:1; color:#F0B90B; font-weight:800; font-size:1.15rem; direction:ltr; letter-spacing:1px; word-break:break-all; min-width:0; }
@@ -292,7 +285,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .deposit-steps { background:rgba(46,189,133,0.08); border-right:4px solid #2EBD85; padding:1rem; border-radius:16px; margin:1rem 0; }
 .deposit-steps ol { padding-right:1.2rem; color:#ddd; font-size:0.85rem; line-height:1.9; }
 .deposit-steps ol li { margin-bottom:0.4rem; }
-.deposit-form { background:#1E2329; border-radius:20px; padding:1.2rem; border:1px solid rgba(240,185,11,0.2); margin-top:1rem; }
+.deposit-form { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.2rem; border:1px solid rgba(240,185,11,0.2); margin-top:1rem; }
 .deposit-form h3 { color:#F0B90B; margin-bottom:1rem; font-size:1rem; display:flex; align-items:center; gap:8px; }
 .deposit-form input, .deposit-form select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
 .deposit-form input:focus, .deposit-form select:focus { border-color:#F0B90B; }
@@ -320,6 +313,8 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .user-unban-btn:hover { background:#2EBD85; color:#0B0E11; }
 .user-delete-btn { background:rgba(232,62,92,0.2); color:#e83e5c; }
 .user-delete-btn:hover { background:#e83e5c; color:#fff; }
+.user-pass-btn { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.user-pass-btn:hover { background:#60a5fa; color:#fff; }
 .status-badge { padding:4px 12px; border-radius:30px; font-size:0.7rem; font-weight:600; display:inline-block; }
 .status-pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
 .status-processing { background:rgba(59,130,246,0.15); color:#60a5fa; }
@@ -331,27 +326,42 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .balance-modal input, .balance-modal select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
 .balance-modal label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
 
-/* ====== NEW STYLES: Unified Balance, Profile Hero, Insufficient Balance Modal, Deposit improvements, Orders page ====== */
-
+/* ====== User balance chip in dropdown ====== */
 .user-balance-chip { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#1E2329,#13171D); padding:10px 14px; border-radius:16px; border:1px solid rgba(240,185,11,0.3); margin:0 12px 8px; cursor:pointer; }
 .user-balance-chip .b-icon { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
 .user-balance-chip .b-info { flex:1; }
 .user-balance-chip .b-lbl { font-size:0.7rem; color:#B7BDC6; }
 .user-balance-chip .b-val { font-size:1.1rem; font-weight:800; color:#2EBD85; direction:ltr; }
 
+/* ====== Profile Hero ====== */
 .profile-hero { position:relative; background:linear-gradient(135deg,#1E2329 0%,#13171D 50%,#1E2329 100%); border-radius:32px; padding:2rem 1.5rem 1.5rem; margin-bottom:1.5rem; border:1px solid rgba(240,185,11,0.25); overflow:hidden; text-align:center; }
 .profile-hero::before { content:''; position:absolute; top:-50px; right:-50px; width:180px; height:180px; background:radial-gradient(circle,rgba(240,185,11,0.15),transparent 70%); border-radius:50%; }
 .profile-hero::after { content:''; position:absolute; bottom:-60px; left:-60px; width:200px; height:200px; background:radial-gradient(circle,rgba(46,189,133,0.12),transparent 70%); border-radius:50%; }
-.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); display:inline-flex; align-items:center; justify-content:center; font-size:2.5rem; font-weight:800; color:#0B0E11; margin-bottom:0.8rem; border:4px solid #0B0E11; box-shadow:0 0 0 3px #F0B90B,0 10px 30px rgba(240,185,11,0.3); position:relative; z-index:2; }
+.profile-avatar-wrap { position:relative; display:inline-block; margin-bottom:0.8rem; }
+.profile-avatar { width:90px; height:90px; border-radius:50%; background:linear-gradient(135deg,#F0B90B,#d9a509); display:inline-flex; align-items:center; justify-content:center; font-size:2.5rem; font-weight:800; color:#0B0E11; border:4px solid #0B0E11; box-shadow:0 0 0 3px #F0B90B,0 10px 30px rgba(240,185,11,0.3); position:relative; z-index:2; overflow:hidden; }
+.profile-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.avatar-upload-btn { position:absolute; bottom:0; left:0; background:#F0B90B; color:#0B0E11; border:3px solid #0B0E11; width:32px; height:32px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.85rem; transition:0.2s; z-index:3; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+.avatar-upload-btn:hover { background:#2EBD85; transform:scale(1.1); }
 .profile-name { font-size:1.4rem; font-weight:800; color:#EAECEF; margin-bottom:4px; position:relative; z-index:2; }
 .profile-username { font-size:0.85rem; color:#F0B90B; font-weight:600; direction:ltr; position:relative; z-index:2; margin-bottom:1rem; }
 .profile-balance-box { background:linear-gradient(135deg,rgba(46,189,133,0.15),rgba(46,189,133,0.05)); border:1px solid rgba(46,189,133,0.4); border-radius:24px; padding:1.2rem; margin-top:1rem; position:relative; z-index:2; }
 .profile-balance-box .pb-lbl { font-size:0.8rem; color:#B7BDC6; margin-bottom:4px; display:flex; align-items:center; justify-content:center; gap:6px; }
 .profile-balance-box .pb-val { font-size:2.2rem; font-weight:800; color:#2EBD85; direction:ltr; line-height:1.1; }
 .profile-balance-box .pb-cur { font-size:0.9rem; color:#2EBD85; font-weight:600; }
+.profile-currency-switch { display:flex; gap:8px; justify-content:center; margin-top:12px; position:relative; z-index:2; }
+.profile-currency-btn { background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#B7BDC6; padding:8px 18px; border-radius:40px; font-weight:700; font-family:inherit; cursor:pointer; font-size:0.8rem; display:inline-flex; align-items:center; gap:6px; transition:0.2s; }
+.profile-currency-btn.active { background:#F0B90B; color:#0B0E11; border-color:#F0B90B; }
+.profile-currency-btn:hover:not(.active) { border-color:#F0B90B; color:#F0B90B; }
 .profile-logout-btn { width:100%; margin-top:1.5rem; background:rgba(232,62,92,0.12); border:1px solid rgba(232,62,92,0.5); color:#e83e5c; padding:14px; border-radius:20px; font-weight:700; font-family:inherit; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:0.2s; }
 .profile-logout-btn:hover { background:#e83e5c; color:#fff; transform:translateY(-2px); }
 
+/* ====== Password Toggle ====== */
+.password-wrap { position: relative; }
+.password-wrap input { padding-left: 42px !important; }
+.password-toggle { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); background: transparent; border: none; color: #848E9C; cursor: pointer; font-size: 1rem; padding: 6px; z-index: 2; }
+.password-toggle:hover { color: #F0B90B; }
+
+/* ====== Insufficient Modal ====== */
 .insufficient-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:3500; padding:20px; backdrop-filter:blur(8px); }
 .insufficient-modal-bg.show { display:flex; }
 .insufficient-modal { background:linear-gradient(160deg,#1E2329 0%,#13171D 100%); border-radius:32px; border:1px solid rgba(232,62,92,0.4); width:100%; max-width:440px; padding:2rem 1.5rem; text-align:center; position:relative; overflow:hidden; animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1); }
@@ -367,7 +377,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .insufficient-row .ir-val { font-size:1.05rem; font-weight:800; direction:ltr; }
 .insufficient-row.current .ir-val { color:#2EBD85; }
 .insufficient-row.needed .ir-val { color:#e83e5c; }
-.insufficient-row .ir-diff { font-size:0.75rem; color:#F0B90B; display:block; margin-top:2px; }
 .insufficient-diff-row { background:linear-gradient(135deg,rgba(240,185,11,0.12),rgba(240,185,11,0.04)); border:1px solid rgba(240,185,11,0.4); border-radius:16px; padding:14px 18px; margin-bottom:1.5rem; position:relative; z-index:2; }
 .insufficient-diff-row .idr-lbl { font-size:0.8rem; color:#F0B90B; margin-bottom:4px; display:flex; align-items:center; justify-content:center; gap:6px; }
 .insufficient-diff-row .idr-val { font-size:1.5rem; font-weight:800; color:#F0B90B; direction:ltr; }
@@ -377,6 +386,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .insufficient-btn-cancel { background:transparent; color:#B7BDC6; border:1px solid rgba(255,255,255,0.1); padding:12px; border-radius:18px; font-weight:600; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:0.2s; }
 .insufficient-btn-cancel:hover { color:#EAECEF; border-color:rgba(255,255,255,0.25); }
 
+/* ====== Deposit Upload Zone ====== */
 .deposit-upload-zone { border:2px dashed rgba(240,185,11,0.4); background:linear-gradient(135deg,rgba(240,185,11,0.05),rgba(240,185,11,0.02)); border-radius:20px; padding:1.5rem 1rem; text-align:center; cursor:pointer; transition:0.2s; margin-bottom:1rem; }
 .deposit-upload-zone:hover { border-color:#F0B90B; background:linear-gradient(135deg,rgba(240,185,11,0.1),rgba(240,185,11,0.03)); }
 .deposit-upload-zone.has-file { border-color:#2EBD85; background:linear-gradient(135deg,rgba(46,189,133,0.1),rgba(46,189,133,0.03)); border-style:solid; }
@@ -389,12 +399,11 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 
 .deposit-wallet-logos { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:1rem; }
 .wallet-logo-chip { background:#0B0E11; border:1px solid rgba(46,189,133,0.3); border-radius:40px; padding:6px 14px; font-size:0.75rem; font-weight:700; color:#2EBD85; display:inline-flex; align-items:center; gap:6px; }
-
 .usdt-address-box { background:linear-gradient(135deg,rgba(38,161,123,0.15),rgba(38,161,123,0.05)); border:1px solid rgba(38,161,123,0.5); border-radius:20px; padding:1.2rem; margin:1rem 0; }
 .usdt-address-box .usdt-lbl { font-size:0.8rem; color:#26A17B; font-weight:700; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
 .usdt-address-box .usdt-addr { background:#0B0E11; padding:12px 14px; border-radius:12px; color:#F0B90B; font-size:0.85rem; direction:ltr; word-break:break-all; font-family:monospace; margin-bottom:10px; border:1px solid rgba(240,185,11,0.25); }
 
-/* User Orders Page */
+/* ====== Order Cards ====== */
 .order-card { background:linear-gradient(135deg,#1E2329,#13171D); border-radius:24px; padding:1.2rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); position:relative; overflow:hidden; transition:0.2s; }
 .order-card:hover { border-color:rgba(240,185,11,0.4); transform:translateY(-2px); }
 .order-card::before { content:''; position:absolute; top:0; right:0; width:6px; height:100%; background:#F0B90B; }
@@ -414,13 +423,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .os-processing { background:rgba(96,165,250,0.15); color:#60a5fa; }
 .os-completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
 .os-cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
-
 .empty-orders { text-align:center; padding:4rem 1rem; }
 .empty-orders i { font-size:4rem; color:#F0B90B; opacity:0.4; margin-bottom:1rem; display:block; }
 .empty-orders p { color:#B7BDC6; font-size:1rem; }
 @media (max-width:600px){ .order-meta { grid-template-columns:1fr; } }
 
-/* Admin monthly stats */
+/* ====== Admin Monthly Stats ====== */
 .admin-monthly-stats { background:linear-gradient(135deg,rgba(240,185,11,0.08),rgba(46,189,133,0.05)); border:1px solid rgba(240,185,11,0.3); border-radius:20px; padding:1.2rem 1.5rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
 .admin-monthly-stats .m-icon { width:60px; height:60px; border-radius:20px; background:linear-gradient(135deg,#F0B90B,#d9a509); color:#0B0E11; display:flex; align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0; }
 .admin-monthly-stats .m-info { flex:1; min-width:180px; }
@@ -432,6 +440,28 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .screenshot-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px; }
 .screenshot-modal-bg.show { display:flex; }
 .screenshot-modal-bg img { max-width:90vw; max-height:85vh; border-radius:16px; border:2px solid #F0B90B; }
+
+/* ====== Transactions Log ====== */
+.tx-log-section { margin-top:2rem; background:#1E2329; border-radius:24px; padding:1.5rem; border:1px solid rgba(240,185,11,0.2); }
+.tx-log-section h3 { color:#F0B90B; font-size:1.05rem; margin-bottom:1rem; display:flex; align-items:center; gap:8px; padding-bottom:0.6rem; border-bottom:1px dashed rgba(240,185,11,0.2); }
+.tx-log-section h3 i { color:#2EBD85; }
+.tx-item { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; background:#0B0E11; border-radius:16px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); transition:0.2s; gap:12px; flex-wrap:wrap; }
+.tx-item:hover { border-color:rgba(240,185,11,0.3); }
+.tx-icon-wrap { width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.tx-icon-wrap.dep { background:rgba(46,189,133,0.15); color:#2EBD85; }
+.tx-icon-wrap.wd { background:rgba(232,62,92,0.15); color:#e83e5c; }
+.tx-icon-wrap.add { background:rgba(240,185,11,0.15); color:#F0B90B; }
+.tx-icon-wrap.ord { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.tx-info { flex:1; min-width:150px; }
+.tx-title { font-size:0.9rem; font-weight:700; color:#EAECEF; margin-bottom:2px; }
+.tx-sub { font-size:0.72rem; color:#848E9C; }
+.tx-amount { font-size:1rem; font-weight:800; direction:ltr; }
+.tx-amount.pos { color:#2EBD85; }
+.tx-amount.neg { color:#e83e5c; }
+.tx-badge { padding:3px 10px; border-radius:20px; font-size:0.68rem; font-weight:700; }
+.tx-badge.pending { background:rgba(240,185,11,0.15); color:#F0B90B; }
+.tx-badge.approved, .tx-badge.completed { background:rgba(46,189,133,0.2); color:#2EBD85; }
+.tx-badge.rejected, .tx-badge.cancelled { background:rgba(232,62,92,0.15); color:#e83e5c; }
 </style>
 </head>
 <body>
@@ -462,7 +492,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <a href="#" id="depositMenuLink"><i class="fas fa-wallet"></i> طرق الدفع والإيداع</a>
 <a href="#" id="supportDropdownLink"><i class="fab fa-whatsapp"></i> الدعم الفني</a>
 <a href="#" id="termsLink"><i class="fas fa-file-alt"></i> شروط الخدمة</a>
-<a href="#" id="logoutLink" style="color:#e83e5c;"><i class="fas fa-sign-out-alt" style="color:#e83e5c;"></i> تسجيل الخروج</a>
 </div>
 
 <div id="termsPage" class="overlay-page">
@@ -565,7 +594,10 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <form class="auth-form" id="loginForm" autocomplete="on">
 <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required autocomplete="email">
+<div class="password-wrap">
 <input type="password" id="loginPassword" placeholder="كلمة المرور" required autocomplete="current-password">
+<button type="button" class="password-toggle" data-target="loginPassword"><i class="fas fa-eye"></i></button>
+</div>
 <button type="submit" class="auth-btn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
 <div class="auth-msg" id="loginMsg"></div>
 </form>
@@ -575,23 +607,34 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="hint">اسم المستخدم لازم يكون فريد ويستخدم في البحث عنه</div>
 <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required autocomplete="email">
 <input type="tel" id="regPhone" placeholder="رقم الهاتف (اختياري)" autocomplete="tel">
+<div class="password-wrap">
 <input type="password" id="regPassword" placeholder="كلمة المرور (6 أحرف على الأقل)" required minlength="6" autocomplete="new-password">
+<button type="button" class="password-toggle" data-target="regPassword"><i class="fas fa-eye"></i></button>
+</div>
 <button type="submit" class="auth-btn"><i class="fas fa-user-plus"></i> إنشاء حساب</button>
 <div class="auth-msg" id="registerMsg"></div>
 </form>
 </div>
 </div>
 
-<!-- ============ PROFILE PAGE (REDESIGNED) ============ -->
+<!-- ============ PROFILE PAGE ============ -->
 <div id="profilePage" class="overlay-page" style="padding:1.5rem 1rem;">
 <div class="page-container">
 <div class="profile-hero">
+<div class="profile-avatar-wrap">
 <div class="profile-avatar" id="profileAvatar">؟</div>
+<button class="avatar-upload-btn" id="avatarUploadBtn" type="button" title="تغيير الصورة"><i class="fas fa-camera"></i></button>
+<input type="file" id="avatarFileInput" accept="image/*" style="display:none;">
+</div>
 <div class="profile-name" id="profileDisplayName">مستخدم</div>
 <div class="profile-username" id="profileDisplayUsername">@username</div>
 <div class="profile-balance-box">
 <div class="pb-lbl"><i class="fas fa-wallet"></i> رصيدك الحالي</div>
 <div class="pb-val" id="profileBalanceVal">0.00 <span class="pb-cur" id="profileBalanceCur">جنيه</span></div>
+<div class="profile-currency-switch">
+<button class="profile-currency-btn" data-currency="EGP" type="button"><i class="fas fa-pound-sign"></i> جنيه مصري</button>
+<button class="profile-currency-btn" data-currency="USD" type="button"><i class="fas fa-dollar-sign"></i> دولار أمريكي</button>
+</div>
 </div>
 </div>
 
@@ -621,11 +664,17 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <h3><i class="fas fa-lock"></i> تغيير كلمة المرور</h3>
 <div class="profile-field">
 <label>كلمة المرور الحالية</label>
+<div class="password-wrap">
 <input type="password" id="profileCurrentPassword" placeholder="كلمة المرور الحالية">
+<button type="button" class="password-toggle" data-target="profileCurrentPassword"><i class="fas fa-eye"></i></button>
+</div>
 </div>
 <div class="profile-field">
 <label>كلمة المرور الجديدة</label>
+<div class="password-wrap">
 <input type="password" id="profileNewPassword" placeholder="كلمة المرور الجديدة (6 أحرف على الأقل)">
+<button type="button" class="password-toggle" data-target="profileNewPassword"><i class="fas fa-eye"></i></button>
+</div>
 </div>
 <button class="profile-save-btn" id="profilePasswordBtn" type="button"><i class="fas fa-key"></i> تغيير كلمة المرور</button>
 <div class="profile-msg" id="profilePasswordMsg"></div>
@@ -643,14 +692,14 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ DEPOSIT PAGE (REDESIGNED) ============ -->
+<!-- ============ DEPOSIT PAGE ============ -->
 <div id="depositPage" class="overlay-page" style="padding:1.5rem 1rem;">
 <div class="page-container">
 <h1 class="page-title"><i class="fas fa-wallet"></i> إيداع رصيد</h1>
 <div class="deposit-tabs">
-<button class="deposit-tab active" id="depositTabVodafone" type="button"><i class="fas fa-mobile-alt"></i> محافظ كاش</button>
-<button class="deposit-tab" id="depositTabBinance" type="button"><i class="fab fa-bitcoin"></i> Binance Pay</button>
-<button class="deposit-tab" id="depositTabUsdt" type="button"><i class="fas fa-coins"></i> USDT</button>
+<button class="deposit-tab active" id="depositTabVodafone" type="button"><i class="fas fa-mobile-alt"></i> محافظ الكاش</button>
+<button class="deposit-tab" id="depositTabBinance" type="button"><i class="fab fa-bitcoin"></i> باينانس باي</button>
+<button class="deposit-tab" id="depositTabUsdt" type="button"><i class="fas fa-coins"></i> العملات الرقمية</button>
 </div>
 
 <!-- VODAFONE / WALLETS PANEL -->
@@ -665,12 +714,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <div class="deposit-number-row">
 <div class="deposit-number" id="vodafoneNumber">01001606298</div>
-<button class="deposit-copy-btn" type="button" onclick="copyToClipboard('01001606298')"><i class="fas fa-copy"></i> نسخ</button>
+<button class="deposit-copy-btn" type="button" id="vodafoneCopyBtn" data-copy="01001606298"><i class="fas fa-copy"></i> نسخ</button>
 </div>
 <div class="deposit-steps">
 <ol>
 <li>افتح تطبيق المحفظة (فودافون/اتصالات/أورنج/وي) أو اتصل بكود الخدمة</li>
-<li>اختر "تحويل أموال" واكتب الرقم: <b>01001606298</b></li>
+<li>اختر "تحويل أموال" واكتب الرقم الموضح بالأعلى</li>
 <li>اكتب المبلغ الذي تريد إيداعه</li>
 <li>أكد العملية واحتفظ بـ <b>لقطة شاشة للتحويل</b></li>
 <li>ارجع هنا، اكتب المبلغ ورقم هاتفك، وارفق لقطة الشاشة، واضغط "تأكيد"</li>
@@ -704,12 +753,12 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <p>قم بالتحويل عن طريق Binance Pay إلى معرف Binance التالي:</p>
 <div class="deposit-number-row">
 <div class="deposit-number" id="binanceNumber">746211155</div>
-<button class="deposit-copy-btn" type="button" onclick="copyToClipboard('746211155')"><i class="fas fa-copy"></i> نسخ</button>
+<button class="deposit-copy-btn" type="button" id="binanceCopyBtn" data-copy="746211155"><i class="fas fa-copy"></i> نسخ</button>
 </div>
 <div class="deposit-steps">
 <ol>
 <li>افتح تطبيق Binance → Pay</li>
-<li>اختر "Send" واكتب معرف Binance: <b>746211155</b></li>
+<li>اختر "Send" واكتب معرف Binance الموضح بالأعلى</li>
 <li>أدخل المبلغ بالدولار الأمريكي</li>
 <li>أكد العملية واحتفظ بـ <b>لقطة شاشة للتحويل</b></li>
 <li>ارجع هنا، اكتب المبلغ (بالدولار)، ارفق اللقطة، واضغط "تأكيد"</li>
@@ -744,13 +793,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="usdt-address-box">
 <div class="usdt-lbl"><i class="fas fa-coins"></i> عنوان محفظة USDT (TRC20):</div>
 <div class="usdt-addr" id="usdtAddress">TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D</div>
-<button class="deposit-copy-btn" type="button" onclick="copyToClipboard('TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D')" style="width:100%;"><i class="fas fa-copy"></i> نسخ العنوان</button>
+<button class="deposit-copy-btn" type="button" id="usdtCopyBtn" data-copy="TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D" style="width:100%;"><i class="fas fa-copy"></i> نسخ العنوان</button>
 </div>
 <div class="deposit-steps">
 <ol>
 <li>افتح محفظتك الرقمية (Binance / Trust Wallet / ... إلخ)</li>
 <li>اختر شبكة <b>Tron (TRC20)</b> — مهم جداً</li>
-<li>أرسل المبلغ إلى العنوان: <b style="word-break:break-all;">TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D</b></li>
+<li>أرسل المبلغ إلى العنوان الموضح بالأعلى</li>
 <li>أكد العملية واحتفظ بـ <b>معرف العملية (TXID) + لقطة شاشة</b></li>
 <li>ارجع هنا، اكتب المبلغ بالدولار، معرف العملية، ارفق اللقطة، واضغط "تأكيد"</li>
 <li>سيتم إرسال إشعار للإدارة، وسيتم مراجعة طلبك خلال 24 ساعة</li>
@@ -778,6 +827,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </form>
 </div>
 
+<!-- Transactions Log -->
+<div class="tx-log-section">
+<h3><i class="fas fa-history"></i> سجل المعاملات</h3>
+<div id="txLogContainer">
+<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -808,7 +864,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ SCREENSHOT VIEWER MODAL (ADMIN) ============ -->
+<!-- ============ SCREENSHOT VIEWER MODAL ============ -->
 <div class="screenshot-modal-bg" id="screenshotModalBg">
 <img id="screenshotModalImg" src="" alt="screenshot">
 </div>
@@ -824,7 +880,10 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <div class="admin-field">
 <label>كلمة المرور</label>
+<div class="password-wrap">
 <input type="password" id="adminLoginPassword" placeholder="••••••••" autocomplete="current-password">
+<button type="button" class="password-toggle" data-target="adminLoginPassword"><i class="fas fa-eye"></i></button>
+</div>
 </div>
 <button class="admin-btn full" id="adminLoginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
 <button class="admin-btn full ghost" id="adminBackHome" style="margin-top:10px;"><i class="fas fa-arrow-right"></i> العودة للرئيسية</button>
@@ -849,6 +908,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button class="admin-main-tab" data-admin-tab="users" type="button"><i class="fas fa-users"></i> المستخدمين</button>
 <button class="admin-main-tab" data-admin-tab="orders" type="button"><i class="fas fa-shopping-cart"></i> الطلبات</button>
 <button class="admin-main-tab" data-admin-tab="deposits" type="button"><i class="fas fa-wallet"></i> طلبات الإيداع</button>
+<button class="admin-main-tab" data-admin-tab="transactions" type="button"><i class="fas fa-history"></i> سجل المعاملات</button>
 </div>
 
 <!-- TAB 1: SERVICES -->
@@ -968,6 +1028,33 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div id="adminDepositsEmpty" class="admin-empty" style="display:none;">
 <i class="fas fa-wallet" style="font-size:2.5rem; color:#F0B90B; margin-bottom:1rem;"></i>
 <p>لا توجد طلبات إيداع بعد.</p>
+</div>
+</div>
+</div>
+
+<!-- TAB 5: TRANSACTIONS LOG -->
+<div class="admin-section" id="adminSectionTransactions">
+<div class="admin-stats">
+<div class="admin-stat-box"><div class="lbl">إجمالي المعاملات</div><div class="val" id="adminTotalTx">0</div></div>
+<div class="admin-stat-box"><div class="lbl">إيداعات</div><div class="val" id="adminDepositTx">0</div></div>
+<div class="admin-stat-box"><div class="lbl">خصومات</div><div class="val" id="adminWithdrawTx">0</div></div>
+</div>
+<div style="margin-bottom:1rem;">
+<input type="text" id="adminTxSearch" class="user-search-input" placeholder="🔍 ابحث باليوزر أو النوع أو الوصف...">
+</div>
+<div class="admin-table-wrap">
+<div id="adminTxLoader" class="admin-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>
+<table class="admin-table" id="adminTxTable" style="display:none;">
+<thead>
+<tr>
+<th>#</th><th>اليوزر</th><th>النوع</th><th>الطريقة</th><th>المبلغ</th><th>الوصف</th><th>التاريخ</th>
+</tr>
+</thead>
+<tbody id="adminTxBody"></tbody>
+</table>
+<div id="adminTxEmpty" class="admin-empty" style="display:none;">
+<i class="fas fa-history" style="font-size:2.5rem; color:#F0B90B; margin-bottom:1rem;"></i>
+<p>لا توجد معاملات بعد.</p>
 </div>
 </div>
 </div>
@@ -1118,22 +1205,18 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="admin-field">
 <label>اسم الموقع (اللوجو)</label>
 <input type="text" id="settingsSiteName" placeholder="SMCOLE" maxlength="50">
-<div class="admin-hint">يظهر في أعلى الصفحة الرئيسية وفي الفوتر</div>
 </div>
 <div class="admin-field">
 <label>وصف الموقع (العنوان الرئيسي)</label>
 <input type="text" id="settingsSiteDescription" placeholder="افضل وارخص موقع تزويد متابعين ومشاهدات" maxlength="120">
-<div class="admin-hint">النص اللي بيظهر تحت اللوجو</div>
 </div>
 <div class="admin-field">
-<label>رابط الموقع (يظهر في رسالة واتساب)</label>
+<label>رابط الموقع</label>
 <input type="text" id="settingsSiteUrl" placeholder="https://smcole.com" dir="ltr">
-<div class="admin-hint">الرابط اللي بيظهر في رسالة الطلب على واتساب عند "لطلب خدمات أخرى"</div>
 </div>
 <div class="admin-field">
 <label>النص الترويجي</label>
 <textarea id="settingsPromoText" placeholder="عايز تكبر على السوشيال ميديا..." maxlength="500"></textarea>
-<div class="admin-hint">النص اللي في البطاقة الترويجية (تقدر تكتب سطرين بالسطر الجديد)</div>
 </div>
 </div>
 <div class="settings-section">
@@ -1142,13 +1225,28 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="admin-field">
 <label>رقم الدعم الفني (واتساب)</label>
 <input type="text" id="settingsSupportPhone" placeholder="201154846407" dir="ltr">
-<div class="admin-hint">بصيغة دولية بدون + (مثال: 201154846407)</div>
 </div>
 <div class="admin-field">
 <label>رقم الشراء "شراء الآن"</label>
 <input type="text" id="settingsPurchasePhone" placeholder="201154846407" dir="ltr">
-<div class="admin-hint">الرقم اللي بيتم تحويل العميل عليه عند الضغط على "شراء الآن"</div>
 </div>
+</div>
+</div>
+<div class="settings-section">
+<h3><i class="fas fa-credit-card"></i> معلومات طرق الدفع</h3>
+<div class="admin-grid-2">
+<div class="admin-field">
+<label>رقم محفظة الكاش</label>
+<input type="text" id="settingsVodafoneNumber" placeholder="01001606298" dir="ltr">
+</div>
+<div class="admin-field">
+<label>معرف Binance Pay</label>
+<input type="text" id="settingsBinanceId" placeholder="746211155" dir="ltr">
+</div>
+</div>
+<div class="admin-field">
+<label>عنوان محفظة USDT (TRC20)</label>
+<input type="text" id="settingsUsdtAddress" placeholder="TKBAMK..." dir="ltr">
 </div>
 </div>
 <div class="settings-section">
@@ -1157,12 +1255,10 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <div class="admin-field">
 <label>عدد المستخدمين النشطين</label>
 <input type="number" id="settingsActiveUsers" placeholder="مثال: 1500" min="0">
-<div class="admin-hint">اتركه فاضي لو عايز الرقم يتحسب تلقائياً من الزوار</div>
 </div>
 <div class="admin-field">
 <label>عدد الطلبات المكتملة</label>
 <input type="number" id="settingsCompletedOrders" placeholder="مثال: 3200" min="0">
-<div class="admin-hint">اتركه فاضي لو عايز الرقم يتحسب تلقائياً من الطلبات</div>
 </div>
 </div>
 </div>
@@ -1175,8 +1271,10 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 <div class="admin-field">
 <label>كلمة مرور جديدة</label>
+<div class="password-wrap">
 <input type="password" id="settingsAdminPassword" placeholder="اتركها فاضية لو مش عايز تغيرها" autocomplete="new-password">
-<div class="admin-hint">اتركها فاضية لو مش عايز تغير الباسورد. لو حطيت باسورد جديد، هيتطبق فوراً</div>
+<button type="button" class="password-toggle" data-target="settingsAdminPassword"><i class="fas fa-eye"></i></button>
+</div>
 </div>
 </div>
 <div class="settings-save-bar">
@@ -1215,6 +1313,32 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <button type="button" class="admin-btn ghost" id="balanceCancelBtn"><i class="fas fa-times"></i> إلغاء</button>
 <button type="submit" class="admin-btn gold" id="balanceSaveBtn"><i class="fas fa-save"></i> تأكيد</button>
 </div>
+</form>
+</div>
+</div>
+
+<!-- ============ MODAL: تغيير كلمة مرور المستخدم ============ -->
+<div class="admin-modal-bg" id="adminUserPasswordModalBg">
+<div class="admin-modal balance-modal">
+<h2><i class="fas fa-key"></i> تغيير كلمة مرور المستخدم</h2>
+<form id="userPasswordForm">
+<input type="hidden" id="userPasswordUserId">
+<div class="admin-field">
+<label>المستخدم</label>
+<input type="text" id="userPasswordUsername" disabled>
+</div>
+<div class="admin-field">
+<label>كلمة المرور الجديدة (6 أحرف على الأقل)</label>
+<div class="password-wrap">
+<input type="password" id="userPasswordNew" placeholder="كلمة المرور الجديدة" minlength="6" required autocomplete="new-password">
+<button type="button" class="password-toggle" data-target="userPasswordNew"><i class="fas fa-eye"></i></button>
+</div>
+</div>
+<div class="admin-modal-actions">
+<button type="button" class="admin-btn ghost" id="userPasswordCancelBtn"><i class="fas fa-times"></i> إلغاء</button>
+<button type="submit" class="admin-btn gold" id="userPasswordSaveBtn"><i class="fas fa-save"></i> تغيير</button>
+</div>
+<div class="admin-hint" style="text-align:center;margin-top:10px;">⚠️ ملاحظة: التغيير يتم من خلال RPC على Supabase</div>
 </form>
 </div>
 </div>
@@ -1270,6 +1394,9 @@ support_phone: '201154846407',
 purchase_phone: '201154846407',
 site_url: 'https://smcole.com',
 promo_text: 'عايز تكبر على السوشيال ميديا وتوصل للشهرة؟\nخدماتنا تساعدك على تحقيق نمو حقيقي وزيادة التفاعل بطريقة احترافية وآمنة!',
+vodafone_number: '01001606298',
+binance_id: '746211155',
+usdt_address: 'TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D',
 active_users_override: null,
 completed_orders_override: null
 };
@@ -1311,6 +1438,7 @@ else throw new Error();
 } catch(e) { exchangeRate = 48.5; }
 updateAllPrices();
 if (window.refreshBalanceUI) window.refreshBalanceUI();
+if (window.refreshCurrencyButtons) window.refreshCurrencyButtons();
 }
 function formatNumberNoCommas(value, isUSD) {
 if (isUSD) return value.toFixed(2);
@@ -1340,7 +1468,9 @@ currentCurrency = currency;
 localStorage.setItem('smcole_currency', currency);
 updateAllPrices();
 if (window.refreshBalanceUI) window.refreshBalanceUI();
+if (window.refreshCurrencyButtons) window.refreshCurrencyButtons();
 }
+window.setCurrency = setCurrency;
 
 window.applySiteSettings = function() {
 const nameEl = document.getElementById('siteNameDisplay');
@@ -1369,6 +1499,25 @@ usersSpan.innerText = siteSettings.active_users_override.toLocaleString('en-US')
 if (siteSettings.completed_orders_override !== null && siteSettings.completed_orders_override !== undefined && ordersSpan) {
 ordersSpan.innerText = siteSettings.completed_orders_override.toLocaleString('en-US');
 }
+// Payment numbers (they get updated after settings load)
+const vNumEl = document.getElementById('vodafoneNumber');
+const vCopyBtn = document.getElementById('vodafoneCopyBtn');
+if (vNumEl && siteSettings.vodafone_number) {
+vNumEl.innerText = siteSettings.vodafone_number;
+if (vCopyBtn) vCopyBtn.setAttribute('data-copy', siteSettings.vodafone_number);
+}
+const bNumEl = document.getElementById('binanceNumber');
+const bCopyBtn = document.getElementById('binanceCopyBtn');
+if (bNumEl && siteSettings.binance_id) {
+bNumEl.innerText = siteSettings.binance_id;
+if (bCopyBtn) bCopyBtn.setAttribute('data-copy', siteSettings.binance_id);
+}
+const uAddrEl = document.getElementById('usdtAddress');
+const uCopyBtn = document.getElementById('usdtCopyBtn');
+if (uAddrEl && siteSettings.usdt_address) {
+uAddrEl.innerText = siteSettings.usdt_address;
+if (uCopyBtn) uCopyBtn.setAttribute('data-copy', siteSettings.usdt_address);
+}
 };
 
 window.loadSiteSettings = async function() {
@@ -1383,6 +1532,9 @@ siteSettings.support_phone = data.support_phone || siteSettings.support_phone;
 siteSettings.purchase_phone = data.purchase_phone || siteSettings.purchase_phone;
 siteSettings.site_url = data.site_url || siteSettings.site_url;
 siteSettings.promo_text = data.promo_text || siteSettings.promo_text;
+siteSettings.vodafone_number = data.vodafone_number || siteSettings.vodafone_number;
+siteSettings.binance_id = data.binance_id || siteSettings.binance_id;
+siteSettings.usdt_address = data.usdt_address || siteSettings.usdt_address;
 siteSettings.active_users_override = (data.active_users_override !== null && data.active_users_override !== undefined) ? parseInt(data.active_users_override) : null;
 siteSettings.completed_orders_override = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? parseInt(data.completed_orders_override) : null;
 return true;
@@ -1466,58 +1618,87 @@ const mainContent = document.getElementById('mainContent');
 const termsLink = document.getElementById('termsLink');
 const supportDropdownLink = document.getElementById('supportDropdownLink');
 const paymentMethodBtn = document.getElementById('paymentMethodBtn');
-let currentState = 'home';
 
-// ============ PAGE ROUTING WITH HASH PERSISTENCE ============
-function showPage(pageToShow, hashName) {
+// ==================== ROUTER (fixed back button behavior) ====================
+let isPoppingState = false;
+window.__currentRoute = 'home';
+
+function setPageVisibility(pageEl) {
 mainContent.style.display = 'none';
 [termsPage, paymentPage, favoritesPage, profilePage, depositPage, myOrdersPage].forEach(p => { if (p) p.style.display = 'none'; });
-if (pageToShow) pageToShow.style.display = 'block';
-dropdown.classList.remove('show-dropdown');
-if (hashName && window.location.hash !== '#' + hashName) {
-history.pushState({ page: hashName }, '', '#' + hashName);
+if (pageEl) pageEl.style.display = 'block';
+else mainContent.style.display = 'block';
 }
-currentState = hashName || 'home';
-}
-function showHomePage() {
-mainContent.style.display = 'block';
-[termsPage, paymentPage, favoritesPage, profilePage, depositPage, myOrdersPage].forEach(p => { if (p) p.style.display = 'none'; });
-if (window.location.hash !== '') history.pushState({ page: 'home' }, 'الرئيسية', ' ');
-currentState = 'home';
-}
-window.showHomePage = showHomePage;
+window.__setPageVisibility = setPageVisibility;
 
-// Restore page from hash on load
-window.restorePageFromHash = function() {
-const hash = (window.location.hash || '').replace('#','');
-if (!hash) return;
-setTimeout(() => {
-if (hash === 'terms') showPage(termsPage, 'terms');
-else if (hash === 'payment') showPage(paymentPage, 'payment');
-else if (hash === 'favorites') { showPage(favoritesPage, 'favorites'); renderFavoritesPage(); }
-else if (hash === 'profile') { if (typeof openProfilePage === 'function' && window.currentProfile) showPage(profilePage, 'profile'); }
-else if (hash === 'deposit') { if (typeof openDepositPage === 'function' && window.currentProfile) showPage(depositPage, 'deposit'); }
-else if (hash === 'orders') { if (typeof openMyOrdersPage === 'function' && window.currentProfile) openMyOrdersPage(); }
-}, 700);
+function navigateTo(routeName, pageEl, pushState = true) {
+setPageVisibility(pageEl);
+dropdown.classList.remove('show-dropdown');
+window.__currentRoute = routeName;
+window.scrollTo(0, 0);
+if (pushState) {
+const url = routeName === 'home' ? location.pathname + location.search : '#' + routeName;
+history.pushState({ route: routeName }, '', url);
+}
+if (routeName === 'favorites') renderFavoritesPage();
+}
+window.__navigateTo = navigateTo;
+
+window.showPage = function(pageToShow, hashName) {
+navigateTo(hashName || 'home', pageToShow, true);
+};
+window.showHomePage = function() {
+if (window.__currentRoute === 'home') return;
+navigateTo('home', null, true);
 };
 
+// Handle back/forward - NEVER leave the site
 window.addEventListener('popstate', function(event) {
-const hash = (window.location.hash || '').replace('#','');
-if (hash === 'terms') showPage(termsPage, 'terms');
-else if (hash === 'payment') showPage(paymentPage, 'payment');
-else if (hash === 'favorites') { showPage(favoritesPage, 'favorites'); renderFavoritesPage(); }
-else if (hash === 'profile' && window.currentProfile) showPage(profilePage, 'profile');
-else if (hash === 'deposit' && window.currentProfile) showPage(depositPage, 'deposit');
-else if (hash === 'orders' && window.currentProfile) openMyOrdersPage();
-else showHomePage();
+isPoppingState = true;
+const route = (event.state && event.state.route) ? event.state.route : 'home';
+if (route === 'home') {
+setPageVisibility(null);
+window.__currentRoute = 'home';
+} else if (route === 'terms') { setPageVisibility(termsPage); window.__currentRoute = 'terms'; }
+else if (route === 'payment') { setPageVisibility(paymentPage); window.__currentRoute = 'payment'; }
+else if (route === 'favorites') { setPageVisibility(favoritesPage); window.__currentRoute = 'favorites'; renderFavoritesPage(); }
+else if (route === 'profile' && window.currentProfile) { setPageVisibility(profilePage); window.__currentRoute = 'profile'; }
+else if (route === 'deposit' && window.currentProfile) { setPageVisibility(depositPage); window.__currentRoute = 'deposit'; }
+else if (route === 'orders' && window.currentProfile) { setPageVisibility(myOrdersPage); window.__currentRoute = 'orders'; if (window.loadMyOrders) window.loadMyOrders(); }
+else {
+// Default: return to home
+setPageVisibility(null);
+window.__currentRoute = 'home';
+}
+window.scrollTo(0, 0);
+setTimeout(() => { isPoppingState = false; }, 50);
 });
+
+// Restore from URL hash on first load
+window.restorePageFromHash = function() {
+const hash = (window.location.hash || '').replace('#','');
+if (!hash) {
+history.replaceState({ route: 'home' }, '', location.pathname + location.search);
+window.__currentRoute = 'home';
+return;
+}
+setTimeout(() => {
+if (hash === 'terms') navigateTo('terms', termsPage, false);
+else if (hash === 'payment') navigateTo('payment', paymentPage, false);
+else if (hash === 'favorites') navigateTo('favorites', favoritesPage, false);
+else if (hash === 'profile' && window.currentProfile) navigateTo('profile', profilePage, false);
+else if (hash === 'deposit' && window.currentProfile) navigateTo('deposit', depositPage, false);
+else if (hash === 'orders' && window.currentProfile) { navigateTo('orders', myOrdersPage, false); if (window.loadMyOrders) window.loadMyOrders(); }
+else { history.replaceState({ route: 'home' }, '', location.pathname + location.search); }
+}, 800);
+};
 
 menuBtn.addEventListener('click', (e) => { e.stopPropagation(); dropdown.classList.toggle('show-dropdown'); });
 document.addEventListener('click', function(event) { if (!menuBtn.contains(event.target) && !dropdown.contains(event.target)) dropdown.classList.remove('show-dropdown'); });
-termsLink.addEventListener('click', (e) => { e.preventDefault(); showPage(termsPage, 'terms'); });
+termsLink.addEventListener('click', (e) => { e.preventDefault(); navigateTo('terms', termsPage); });
 const favoritesLink = document.getElementById('favoritesLink');
-favoritesLink.addEventListener('click', (e) => { e.preventDefault(); showPage(favoritesPage, 'favorites'); renderFavoritesPage(); });
-if (paymentMethodBtn) paymentMethodBtn.addEventListener('click', () => { showPage(paymentPage, 'payment'); });
+favoritesLink.addEventListener('click', (e) => { e.preventDefault(); navigateTo('favorites', favoritesPage); });
+if (paymentMethodBtn) paymentMethodBtn.addEventListener('click', () => { navigateTo('payment', paymentPage); });
 supportDropdownLink.addEventListener('click', (e) => {
 e.preventDefault();
 const supportPhone = siteSettings.support_phone || '201154846407';
@@ -1536,7 +1717,7 @@ if (targetId) {
 const targetSection = document.getElementById('section-' + targetId);
 if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-showHomePage();
+if (window.__currentRoute !== 'home') window.showHomePage();
 });
 });
 document.getElementById('directSupportBtn').addEventListener('click', () => {
@@ -1773,7 +1954,7 @@ if (!isNaN(v) && v < minLimit && v !== "") { input.value = ''; updateTotal(); }
 });
 const buyBtn = document.createElement('button');
 buyBtn.className = 'buy-btn';
-buyBtn.innerHTML = '<i class="fab fa-whatsapp"></i> شراء الآن';
+buyBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> شراء الآن';
 buyBtn.addEventListener('click', function() { sendOrder(this); });
 card.appendChild(calcDiv);
 card.appendChild(buyBtn);
@@ -1945,7 +2126,6 @@ if ('serviceWorker' in navigator) {
 navigator.serviceWorker.register('/sw.js').then(reg => {}).catch(err => {});
 }
 </script>
-
 <script>
 (function(){
 const supabase = getSupabase();
@@ -1974,6 +2154,8 @@ t.innerText = msg;
 t.className = 'admin-toast show' + (isErr ? ' err' : '');
 setTimeout(() => t.className = 'admin-toast', 2500);
 }
+window.__adminToast = toast;
+
 const iconSelect = document.getElementById('adminSvcIcon');
 const iconPreview = document.getElementById('adminIconPreview');
 if (iconSelect && iconPreview) {
@@ -2028,6 +2210,19 @@ document.getElementById('adminLoginPage').classList.remove('active');
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// ============ PASSWORD TOGGLE (global) ============
+document.addEventListener('click', function(e) {
+const btn = e.target.closest && e.target.closest('.password-toggle');
+if (!btn) return;
+e.preventDefault();
+const targetId = btn.getAttribute('data-target');
+const input = document.getElementById(targetId);
+if (!input) return;
+if (input.type === 'password') { input.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; }
+else { input.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
+});
+
+// ============ ADMIN SERVICES TAB ============
 function renderPlatformTabs() {
 const container = document.getElementById('adminPlatformTabs');
 if (!container) return;
@@ -2115,10 +2310,7 @@ window.loadAdminServices = async function() {
 const loader = document.getElementById('adminTableLoader');
 const table = document.getElementById('adminServicesTable');
 const empty = document.getElementById('adminEmpty');
-if (loader) {
-loader.style.display = 'block';
-loader.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
-}
+if (loader) { loader.style.display = 'block'; loader.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...'; }
 if (table) table.style.display = 'none';
 if (empty) empty.style.display = 'none';
 try {
@@ -2275,6 +2467,9 @@ document.getElementById('settingsSiteUrl').value = data.site_url || '';
 document.getElementById('settingsPromoText').value = data.promo_text || '';
 document.getElementById('settingsSupportPhone').value = data.support_phone || '';
 document.getElementById('settingsPurchasePhone').value = data.purchase_phone || '';
+document.getElementById('settingsVodafoneNumber').value = data.vodafone_number || '';
+document.getElementById('settingsBinanceId').value = data.binance_id || '';
+document.getElementById('settingsUsdtAddress').value = data.usdt_address || '';
 document.getElementById('settingsActiveUsers').value = (data.active_users_override !== null && data.active_users_override !== undefined) ? data.active_users_override : '';
 document.getElementById('settingsCompletedOrders').value = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? data.completed_orders_override : '';
 } catch(e) { console.warn(e); }
@@ -2309,6 +2504,9 @@ site_url: document.getElementById('settingsSiteUrl').value.trim() || 'https://sm
 promo_text: document.getElementById('settingsPromoText').value.trim() || '',
 support_phone: document.getElementById('settingsSupportPhone').value.trim() || '201154846407',
 purchase_phone: document.getElementById('settingsPurchasePhone').value.trim() || '201154846407',
+vodafone_number: document.getElementById('settingsVodafoneNumber').value.trim() || '01001606298',
+binance_id: document.getElementById('settingsBinanceId').value.trim() || '746211155',
+usdt_address: document.getElementById('settingsUsdtAddress').value.trim() || 'TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D',
 active_users_override: activeUsersVal === '' ? null : parseInt(activeUsersVal),
 completed_orders_override: completedOrdersVal === '' ? null : parseInt(completedOrdersVal),
 updated_at: new Date().toISOString()
@@ -2334,12 +2532,7 @@ btn.innerHTML = '<i class="fas fa-save"></i> حفظ الإعدادات';
 toast('✅ تم حفظ الإعدادات بنجاح' + passwordMsg);
 settingsModalBg.classList.remove('show');
 if (window.siteSettings) {
-window.siteSettings.site_name = payload.site_name;
-window.siteSettings.site_description = payload.site_description;
-window.siteSettings.site_url = payload.site_url;
-window.siteSettings.promo_text = payload.promo_text;
-window.siteSettings.support_phone = payload.support_phone;
-window.siteSettings.purchase_phone = payload.purchase_phone;
+Object.assign(window.siteSettings, payload);
 window.siteSettings.active_users_override = payload.active_users_override;
 window.siteSettings.completed_orders_override = payload.completed_orders_override;
 if (window.applySiteSettings) { window.applySiteSettings(); }
@@ -2358,6 +2551,7 @@ if (sec) sec.classList.add('active');
 if (target === 'users') loadAdminUsers();
 else if (target === 'orders') loadAdminOrders();
 else if (target === 'deposits') loadAdminDeposits();
+else if (target === 'transactions') loadAdminTransactions();
 });
 });
 
@@ -2418,6 +2612,7 @@ tr.innerHTML = '<td>' + (i + 1) + '</td>' +
 '<td class="user-row-actions">' +
 '<button class="user-add-balance-btn" onclick="__adminOpenBalance(' + u.id + ', \'add\')"><i class="fas fa-plus"></i> رصيد</button>' +
 '<button class="user-remove-balance-btn" onclick="__adminOpenBalance(' + u.id + ', \'remove\')"><i class="fas fa-minus"></i> خصم</button>' +
+'<button class="user-pass-btn" onclick="__adminOpenPassword(' + u.id + ')"><i class="fas fa-key"></i> كلمة السر</button>' +
 banBtn +
 '<button class="user-delete-btn" onclick="__adminDeleteUser(' + u.id + ')"><i class="fas fa-trash"></i></button>' +
 '</td>';
@@ -2446,6 +2641,7 @@ if (error) { toast('خطأ: ' + error.message, true); return; }
 await loadAdminUsers();
 };
 
+// ============ BALANCE MODAL ============
 let balanceModalAction = 'add';
 let balanceModalUser = null;
 window.__adminOpenBalance = function(userId, action) {
@@ -2469,6 +2665,16 @@ document.getElementById('adminBalanceModalBg').classList.remove('show');
 document.getElementById('adminBalanceModalBg').addEventListener('click', (e) => {
 if (e.target === document.getElementById('adminBalanceModalBg')) document.getElementById('adminBalanceModalBg').classList.remove('show');
 });
+
+async function logTransaction(userId, type, method, amount, currency, status, description) {
+try {
+await supabase.from('transactions').insert({
+user_id: userId, type, method, amount, currency, status: status || 'completed', description: description || ''
+});
+} catch(e) { console.warn('tx log failed', e); }
+}
+window.__logTransaction = logTransaction;
+
 document.getElementById('balanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!balanceModalUser) return;
@@ -2486,8 +2692,57 @@ newBal = currentBal - amount;
 const updates = {}; updates[field] = newBal;
 const { error } = await supabase.from('users').update(updates).eq('id', balanceModalUser.id);
 if (error) { toast('خطأ: ' + error.message, true); return; }
+await logTransaction(
+balanceModalUser.id,
+balanceModalAction === 'add' ? 'admin_credit' : 'admin_debit',
+'admin_manual',
+amount,
+currency,
+'completed',
+(balanceModalAction === 'add' ? 'إضافة رصيد بواسطة الأدمن' : 'خصم رصيد بواسطة الأدمن')
+);
 document.getElementById('adminBalanceModalBg').classList.remove('show');
 await loadAdminUsers();
+});
+
+// ============ USER PASSWORD MODAL ============
+let userPasswordTarget = null;
+window.__adminOpenPassword = function(userId) {
+const u = allUsersData.find(x => x.id === userId);
+if (!u) return;
+userPasswordTarget = u;
+document.getElementById('userPasswordUserId').value = u.id;
+document.getElementById('userPasswordUsername').value = u.name + ' (@' + u.username + ')';
+document.getElementById('userPasswordNew').value = '';
+document.getElementById('adminUserPasswordModalBg').classList.add('show');
+};
+document.getElementById('userPasswordCancelBtn').addEventListener('click', () => {
+document.getElementById('adminUserPasswordModalBg').classList.remove('show');
+});
+document.getElementById('adminUserPasswordModalBg').addEventListener('click', (e) => {
+if (e.target === document.getElementById('adminUserPasswordModalBg')) document.getElementById('adminUserPasswordModalBg').classList.remove('show');
+});
+document.getElementById('userPasswordForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+if (!userPasswordTarget) return;
+const newPass = document.getElementById('userPasswordNew').value;
+if (!newPass || newPass.length < 6) { toast('كلمة المرور 6 أحرف على الأقل', true); return; }
+const btn = document.getElementById('userPasswordSaveBtn');
+btn.disabled = true;
+btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التغيير...';
+try {
+const { error } = await supabase.rpc('admin_change_user_password', {
+target_user_id: userPasswordTarget.id,
+new_password: newPass
+});
+if (error) throw error;
+toast('✅ تم تغيير كلمة المرور بنجاح');
+document.getElementById('adminUserPasswordModalBg').classList.remove('show');
+} catch(err) {
+toast('❌ فشل التغيير: ' + (err.message || 'تأكد من إعداد RPC في Supabase'), true);
+}
+btn.disabled = false;
+btn.innerHTML = '<i class="fas fa-save"></i> تغيير';
 });
 
 // ============ ADMIN ORDERS ============
@@ -2565,7 +2820,7 @@ if (error) { toast('خطأ: ' + error.message, true); return; }
 await loadAdminOrders();
 };
 
-// ============ ADMIN DEPOSITS (with screenshot + monthly stats) ============
+// ============ ADMIN DEPOSITS ============
 let allDepositsData = [];
 let depositsSearchTerm = '';
 async function loadAdminDeposits() {
@@ -2589,7 +2844,6 @@ document.getElementById('adminTotalDeposits').innerText = allDepositsData.length
 document.getElementById('adminPendingDeposits').innerText = allDepositsData.filter(d => d.status === 'pending').length;
 document.getElementById('adminApprovedDeposits').innerText = allDepositsData.filter(d => d.status === 'approved').length;
 
-// Monthly revenue calculation
 const now = new Date();
 const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 let monthlyEGP = 0, monthlyUSD = 0;
@@ -2605,7 +2859,7 @@ const revEl = document.getElementById('adminMonthlyRevenue');
 const subEl = document.getElementById('adminMonthlyRevenueSub');
 if (revEl) revEl.innerText = totalEGP.toFixed(2) + ' ج';
 if (subEl) subEl.innerText = (monthlyEGP > 0 || monthlyUSD > 0)
-? ('شامل: ' + monthlyEGP.toFixed(2) + ' جنيه + ' + monthlyUSD.toFixed(2) + ' دولار — من بداية الشهر الحالي')
+? ('شامل: ' + monthlyEGP.toFixed(2) + ' جنيه + ' + monthlyUSD.toFixed(2) + ' دولار')
 : 'لا توجد إيداعات مؤكدة هذا الشهر';
 renderDepositsTable();
 } catch(e) {
@@ -2632,8 +2886,8 @@ list.forEach((d, i) => {
 const tr = document.createElement('tr');
 let methodLabel = d.method;
 if (d.method === 'vodafone') methodLabel = '📱 محافظ كاش';
-else if (d.method === 'binance') methodLabel = '🪙 Binance';
-else if (d.method === 'usdt') methodLabel = '💎 USDT (TRC20)';
+else if (d.method === 'binance') methodLabel = '🪙 باينانس باي';
+else if (d.method === 'usdt') methodLabel = '💎 عملات رقمية USDT';
 const cur = d.currency === 'USD' ? 'دولار' : 'جنيه';
 const stMap = { pending: ['status-pending','⏳ قيد المراجعة'], approved: ['status-completed','✅ تم التأكيد'], rejected: ['status-cancelled','❌ مرفوض'] };
 const st = stMap[d.status] || ['status-pending','—'];
@@ -2687,14 +2941,90 @@ const { error: uErr } = await supabase.from('users').update(upd).eq('id', d.user
 if (uErr) { toast('خطأ: ' + uErr.message, true); return; }
 const { error: dErr } = await supabase.from('deposit_requests').update({ status: 'approved' }).eq('id', id);
 if (dErr) { toast('خطأ: ' + dErr.message, true); return; }
+await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'approved', 'تم تأكيد الإيداع بواسطة الأدمن');
 await loadAdminDeposits();
 };
 window.__adminRejectDeposit = async function(id) {
 if (!confirm('رفض طلب الإيداع؟')) return;
+const d = allDepositsData.find(x => x.id === id);
 const { error } = await supabase.from('deposit_requests').update({ status: 'rejected' }).eq('id', id);
 if (error) { toast('خطأ: ' + error.message, true); return; }
+if (d) await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', 'تم رفض الإيداع بواسطة الأدمن');
 await loadAdminDeposits();
 };
+
+// ============ ADMIN TRANSACTIONS ============
+let allTxData = [];
+let txSearchTerm = '';
+async function loadAdminTransactions() {
+const loader = document.getElementById('adminTxLoader');
+const table = document.getElementById('adminTxTable');
+const empty = document.getElementById('adminTxEmpty');
+loader.style.display = 'block'; table.style.display = 'none'; empty.style.display = 'none';
+try {
+const { data, error } = await supabase.from('transactions').select('*').order('created_at', { ascending: false }).limit(500);
+loader.style.display = 'none';
+if (error) { toast('خطأ: ' + error.message, true); return; }
+allTxData = data || [];
+const userIds = [...new Set(allTxData.map(t => t.user_id).filter(Boolean))];
+let usersMap = {};
+if (userIds.length > 0) {
+const { data: usersData } = await supabase.from('users').select('id,username,name').in('id', userIds);
+(usersData || []).forEach(u => usersMap[u.id] = u);
+}
+allTxData.forEach(t => { t._user = usersMap[t.user_id] || null; });
+document.getElementById('adminTotalTx').innerText = allTxData.length;
+document.getElementById('adminDepositTx').innerText = allTxData.filter(t => t.type === 'deposit' || t.type === 'admin_credit').length;
+document.getElementById('adminWithdrawTx').innerText = allTxData.filter(t => t.type === 'admin_debit' || t.type === 'order').length;
+renderTxTable();
+} catch(e) {
+loader.style.display = 'none'; toast('خطأ: ' + e.message, true);
+}
+}
+function renderTxTable() {
+const table = document.getElementById('adminTxTable');
+const empty = document.getElementById('adminTxEmpty');
+const tbody = document.getElementById('adminTxBody');
+const term = txSearchTerm.toLowerCase();
+let list = allTxData;
+if (term) {
+list = list.filter(t =>
+(t._user && (t._user.username || t._user.name || '').toLowerCase().includes(term)) ||
+(t.type || '').toLowerCase().includes(term) ||
+(t.description || '').toLowerCase().includes(term)
+);
+}
+if (list.length === 0) { table.style.display = 'none'; empty.style.display = 'block'; return; }
+table.style.display = 'table'; empty.style.display = 'none';
+tbody.innerHTML = '';
+list.forEach((t, i) => {
+const tr = document.createElement('tr');
+const typeMap = {
+deposit: ['✅ إيداع', '#2EBD85'],
+admin_credit: ['➕ إضافة من الأدمن', '#F0B90B'],
+admin_debit: ['➖ خصم من الأدمن', '#e83e5c'],
+order: ['🛒 طلب', '#60a5fa']
+};
+const tp = typeMap[t.type] || [t.type, '#aaa'];
+const cur = t.currency === 'USD' ? 'دولار' : 'جنيه';
+const dateStr = t.created_at ? new Date(t.created_at).toLocaleString('ar-EG', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '-';
+const amountSign = (t.type === 'deposit' || t.type === 'admin_credit') ? '+' : '-';
+const amountColor = (t.type === 'deposit' || t.type === 'admin_credit') ? '#2EBD85' : '#e83e5c';
+tr.innerHTML = '<td>#' + t.id + '</td>' +
+'<td>' + (t._user ? (t._user.username || t._user.name) : '-') + '</td>' +
+'<td><span style="color:' + tp[1] + ';font-weight:700;">' + tp[0] + '</span></td>' +
+'<td>' + (t.method || '-') + '</td>' +
+'<td style="color:' + amountColor + ';font-weight:800;direction:ltr;">' + amountSign + parseFloat(t.amount || 0).toFixed(2) + ' ' + cur + '</td>' +
+'<td style="font-size:0.75rem;">' + (t.description || '-') + '</td>' +
+'<td style="font-size:0.7rem;">' + dateStr + '</td>';
+tbody.appendChild(tr);
+});
+}
+const txSearchEl = document.getElementById('adminTxSearch');
+if (txSearchEl) txSearchEl.addEventListener('input', (e) => {
+txSearchTerm = e.target.value.trim();
+renderTxTable();
+});
 
 // ============ SESSION CHECK ============
 (async () => {
@@ -2710,8 +3040,9 @@ window.openAdminPanel(session.user);
 })();
 })();
 </script>
-
 <script>
+window.sendOrder = function() {}; // stub — handled by global listener below
+
 (function(){
 'use strict';
 const sb = getSupabase();
@@ -2719,6 +3050,33 @@ const sb = getSupabase();
 let currentUser = null;
 let currentProfile = null;
 window.currentProfile = null;
+let pendingBuyAfterAuth = null;
+
+// ============================================
+// USER TOAST
+// ============================================
+function userToast(msg, type) {
+let t = document.getElementById('userToast');
+if (!t) {
+t = document.createElement('div');
+t.id = 'userToast';
+t.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:#2EBD85;color:#0B0E11;padding:14px 26px;border-radius:40px;font-weight:700;z-index:99999;transition:0.3s;opacity:0;font-family:Cairo,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,0.5);max-width:90vw;text-align:center;font-size:0.9rem;line-height:1.5;';
+document.body.appendChild(t);
+}
+t.innerText = msg;
+if (type === 'err') { t.style.background = '#e83e5c'; t.style.color = '#fff'; }
+else if (type === 'warn') { t.style.background = '#F0B90B'; t.style.color = '#0B0E11'; }
+else if (type === 'ok') { t.style.background = '#2EBD85'; t.style.color = '#0B0E11'; }
+else { t.style.background = '#1E2329'; t.style.color = '#EAECEF'; t.style.border = '1px solid #F0B90B'; }
+t.style.opacity = '1';
+t.style.transform = 'translateX(-50%) translateY(0)';
+clearTimeout(t._timer);
+t._timer = setTimeout(() => {
+t.style.opacity = '0';
+t.style.transform = 'translateX(-50%) translateY(100px)';
+}, 3500);
+}
+window.userToast = userToast;
 
 // ============================================
 // HELPERS
@@ -2726,7 +3084,7 @@ window.currentProfile = null;
 window.copyToClipboard = function(text) {
 if (navigator.clipboard && navigator.clipboard.writeText) {
 navigator.clipboard.writeText(text).then(() => {
-alert('✅ تم النسخ: ' + text);
+userToast('✅ تم النسخ: ' + text, 'ok');
 }).catch(() => fallbackCopy(text));
 } else fallbackCopy(text);
 };
@@ -2737,38 +3095,22 @@ ta.style.position = 'fixed';
 ta.style.opacity = '0';
 document.body.appendChild(ta);
 ta.select();
-try { document.execCommand('copy'); alert('✅ تم النسخ'); } catch(e) { alert('الرقم: ' + text); }
+try { document.execCommand('copy'); userToast('✅ تم النسخ', 'ok'); } catch(e) { userToast('الرقم: ' + text); }
 document.body.removeChild(ta);
 }
-function showOverlay(id, hashName) {
-document.querySelectorAll('.overlay-page').forEach(el => el.style.display = 'none');
-const main = document.getElementById('mainContent');
-if (main) main.style.display = 'none';
-const el = document.getElementById(id);
-if (el) el.style.display = 'block';
-if (hashName && window.location.hash !== '#' + hashName) {
-history.pushState({ page: hashName }, '', '#' + hashName);
-}
-window.scrollTo(0, 0);
-}
-function hideOverlays() {
-document.querySelectorAll('.overlay-page').forEach(el => el.style.display = 'none');
-const main = document.getElementById('mainContent');
-if (main) main.style.display = 'block';
-if (window.location.hash !== '') history.pushState({ page: 'home' }, '', ' ');
-window.scrollTo(0, 0);
-}
+
 function showAuthModal() { document.getElementById('authModalBg').classList.add('show'); }
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 
 // ============================================
 // UNIFIED BALANCE HELPERS
 // ============================================
-function getUnifiedBalance() {
+function getUnifiedBalance(currency) {
 if (!currentProfile) return 0;
+const cur = currency || currentCurrency;
 const egp = parseFloat(currentProfile.balance_egp || 0);
 const usd = parseFloat(currentProfile.balance_usd || 0);
-if (currentCurrency === 'EGP') return egp + (usd * exchangeRate);
+if (cur === 'EGP') return egp + (usd * exchangeRate);
 return usd + (egp / exchangeRate);
 }
 function getCurrencyLabel() { return currentCurrency === 'USD' ? '$' : 'جنيه'; }
@@ -2776,13 +3118,22 @@ function formatBalance(val) {
 if (currentCurrency === 'USD') return val.toFixed(2);
 return Number.isInteger(val) ? val.toString() : val.toFixed(2);
 }
+
 window.refreshBalanceUI = function() {
 if (!currentProfile) return;
 const unified = getUnifiedBalance();
 const valEl = document.getElementById('dropdownBalance');
 if (valEl) valEl.innerText = formatBalance(unified) + ' ' + (currentCurrency === 'USD' ? '$' : 'ج');
 const pbVal = document.getElementById('profileBalanceVal');
-if (pbVal) pbVal.innerHTML = formatBalance(unified) + ' <span class="pb-cur" id="profileBalanceCur">' + getCurrencyLabel() + '</span>';
+if (pbVal) pbVal.innerHTML = formatBalance(unified) + ' <span class="pb-cur">' + getCurrencyLabel() + '</span>';
+};
+
+window.refreshCurrencyButtons = function() {
+document.querySelectorAll('.profile-currency-btn').forEach(btn => {
+const c = btn.getAttribute('data-currency');
+if (c === currentCurrency) btn.classList.add('active');
+else btn.classList.remove('active');
+});
 };
 
 // ============================================
@@ -2810,8 +3161,10 @@ window.currentProfile = profile;
 const chip = document.getElementById('userBalanceChip');
 if (chip) chip.style.display = 'flex';
 window.refreshBalanceUI();
+window.refreshCurrencyButtons();
 } catch(e) { console.warn(e); }
 }
+window.refreshUserUI = refreshUserUI;
 
 // ============================================
 // AUTH MODAL TABS
@@ -2832,6 +3185,26 @@ document.getElementById('loginTabBtn').classList.remove('active');
 document.getElementById('registerForm').style.display = 'flex';
 document.getElementById('loginForm').style.display = 'none';
 });
+
+// ============================================
+// AFTER AUTH SUCCESS — RETURN TO PREVIOUS PAGE OR HOME
+// ============================================
+function afterAuthSuccess() {
+hideAuthModal();
+// اذا كان المستخدم كان واقف على صفحة معينة (ايداع/طلبات) يرجعه لها
+const hash = (window.location.hash || '').replace('#','');
+if (hash === 'deposit') { setTimeout(() => openDepositPage(), 150); return; }
+if (hash === 'orders') { setTimeout(() => openMyOrdersPage(), 150); return; }
+if (hash === 'profile') { setTimeout(() => openProfilePage(), 150); return; }
+// الافتراضي: الصفحة الرئيسية
+if (window.showHomePage) window.showHomePage();
+// اذا كان في عملية شراء معلقة يتم تنفيذها
+if (pendingBuyAfterAuth) {
+const cb = pendingBuyAfterAuth;
+pendingBuyAfterAuth = null;
+setTimeout(cb, 300);
+}
+}
 
 // ============================================
 // REGISTER
@@ -2869,7 +3242,7 @@ if (insertErr) { msg.className = 'auth-msg err'; msg.innerText = 'خطأ: ' + in
 await sb.auth.signInWithPassword({ email, password });
 msg.className = 'auth-msg ok'; msg.innerText = '✅ تم إنشاء الحساب بنجاح';
 await refreshUserUI();
-setTimeout(() => { hideAuthModal(); openProfilePage(); }, 700);
+setTimeout(() => { afterAuthSuccess(); }, 500);
 });
 
 // ============================================
@@ -2891,7 +3264,7 @@ return;
 }
 msg.className = 'auth-msg ok'; msg.innerText = '✅ تم تسجيل الدخول';
 await refreshUserUI();
-setTimeout(() => { hideAuthModal(); openProfilePage(); }, 600);
+setTimeout(() => { afterAuthSuccess(); }, 400);
 });
 
 // ============================================
@@ -2903,21 +3276,66 @@ document.getElementById('profileName').value = currentProfile.name || '';
 document.getElementById('profileUsername').value = currentProfile.username || '';
 document.getElementById('profileEmail').value = currentProfile.email || '';
 document.getElementById('profilePhone').value = currentProfile.phone || '';
-const avatarEl = document.getElementById('profileAvatar');
-const nameEl = document.getElementById('profileDisplayName');
-const usernameEl = document.getElementById('profileDisplayUsername');
-if (avatarEl) avatarEl.innerText = (currentProfile.name || currentProfile.username || '?').trim().charAt(0).toUpperCase();
-if (nameEl) nameEl.innerText = currentProfile.name || 'مستخدم';
-if (usernameEl) usernameEl.innerText = '@' + (currentProfile.username || 'user');
+updateProfileAvatarUI();
 window.refreshBalanceUI();
+window.refreshCurrencyButtons();
 document.getElementById('profileMsg').innerText = '';
 document.getElementById('profilePasswordMsg').innerText = '';
 document.getElementById('profileCurrentPassword').value = '';
 document.getElementById('profileNewPassword').value = '';
-showOverlay('profilePage', 'profile');
+window.__navigateTo('profile', document.getElementById('profilePage'), true);
 }
 window.openProfilePage = openProfilePage;
 
+function updateProfileAvatarUI() {
+const avatarEl = document.getElementById('profileAvatar');
+const nameEl = document.getElementById('profileDisplayName');
+const usernameEl = document.getElementById('profileDisplayUsername');
+if (nameEl) nameEl.innerText = currentProfile.name || 'مستخدم';
+if (usernameEl) usernameEl.innerText = '@' + (currentProfile.username || 'user');
+if (avatarEl) {
+if (currentProfile.avatar) {
+avatarEl.innerHTML = '<img src="' + currentProfile.avatar + '" alt="avatar">';
+} else {
+avatarEl.innerHTML = (currentProfile.name || currentProfile.username || '?').trim().charAt(0).toUpperCase();
+}
+}
+}
+
+// ============================================
+// AVATAR UPLOAD
+// ============================================
+document.getElementById('avatarUploadBtn').addEventListener('click', () => {
+document.getElementById('avatarFileInput').click();
+});
+document.getElementById('avatarFileInput').addEventListener('change', (e) => {
+const file = e.target.files && e.target.files[0];
+if (!file) return;
+if (file.size > 2 * 1024 * 1024) {
+userToast('⚠️ حجم الصورة يجب أن يكون أقل من 2 ميجا', 'warn');
+e.target.value = '';
+return;
+}
+const reader = new FileReader();
+reader.onload = async (ev) => {
+const base64 = ev.target.result;
+try {
+const { error } = await sb.from('users').update({ avatar: base64 }).eq('id', currentProfile.id);
+if (error) throw error;
+currentProfile.avatar = base64;
+window.currentProfile = currentProfile;
+updateProfileAvatarUI();
+userToast('✅ تم تغيير الصورة بنجاح', 'ok');
+} catch(err) {
+userToast('❌ فشل رفع الصورة: ' + (err.message || ''), 'err');
+}
+};
+reader.readAsDataURL(file);
+});
+
+// ============================================
+// PROFILE SAVE
+// ============================================
 document.getElementById('profileSaveBtn').addEventListener('click', async () => {
 if (!currentProfile) return;
 const msg = document.getElementById('profileMsg');
@@ -2934,8 +3352,12 @@ if (authErr) msg.innerText = '✅ تم الحفظ (قد تحتاج تأكيد ا
 else msg.innerText = '✅ تم الحفظ — راجع إيميلك لتأكيد التغيير';
 } else msg.innerText = '✅ تم حفظ التعديلات';
 await refreshUserUI();
+updateProfileAvatarUI();
 });
 
+// ============================================
+// PROFILE PASSWORD CHANGE
+// ============================================
 document.getElementById('profilePasswordBtn').addEventListener('click', async () => {
 const msg = document.getElementById('profilePasswordMsg');
 const curr = document.getElementById('profileCurrentPassword').value;
@@ -2954,6 +3376,18 @@ document.getElementById('profileNewPassword').value = '';
 });
 
 // ============================================
+// CURRENCY SWITCH IN PROFILE
+// ============================================
+document.querySelectorAll('.profile-currency-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+const c = btn.getAttribute('data-currency');
+if (c === currentCurrency) return;
+setCurrency(c);
+window.refreshCurrencyButtons();
+});
+});
+
+// ============================================
 // LOGOUT
 // ============================================
 async function doLogout() {
@@ -2961,22 +3395,19 @@ if (!confirm('هل تريد تسجيل الخروج؟')) return;
 await sb.auth.signOut();
 currentUser = null; currentProfile = null; window.currentProfile = null;
 document.getElementById('dropdownMenu').classList.remove('show-dropdown');
-hideOverlays();
 window.location.hash = '';
+if (window.__setPageVisibility) window.__setPageVisibility(null);
+window.__currentRoute = 'home';
+history.replaceState({ route: 'home' }, '', location.pathname + location.search);
+userToast('تم تسجيل الخروج', 'ok');
 }
 document.getElementById('profileLogoutBtn').addEventListener('click', doLogout);
-document.getElementById('logoutLink').addEventListener('click', (e) => {
-e.preventDefault();
-document.getElementById('dropdownMenu').classList.remove('show-dropdown');
-doLogout();
-});
 
 // ============================================
 // MY ORDERS PAGE
 // ============================================
-async function openMyOrdersPage() {
-if (!currentProfile) { showAuthModal(); return; }
-showOverlay('myOrdersPage', 'orders');
+async function loadMyOrders() {
+if (!currentProfile) return;
 const container = document.getElementById('myOrdersContainer');
 container.innerHTML = '<div style="text-align:center;padding:3rem;"><i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#F0B90B;"></i></div>';
 try {
@@ -3019,6 +3450,13 @@ container.appendChild(card);
 container.innerHTML = '<div class="empty-orders"><i class="fas fa-exclamation-triangle"></i><p>خطأ: ' + e.message + '</p></div>';
 }
 }
+window.loadMyOrders = loadMyOrders;
+
+async function openMyOrdersPage() {
+if (!currentProfile) { showAuthModal(); return; }
+window.__navigateTo('orders', document.getElementById('myOrdersPage'), true);
+await loadMyOrders();
+}
 window.openMyOrdersPage = openMyOrdersPage;
 document.getElementById('myOrdersLink').addEventListener('click', (e) => {
 e.preventDefault();
@@ -3034,9 +3472,10 @@ if (currentProfile) openProfilePage(); else showAuthModal();
 // ============================================
 // DEPOSIT PAGE
 // ============================================
-function openDepositPage() {
+async function openDepositPage() {
 if (!currentProfile) { showAuthModal(); return; }
-showOverlay('depositPage', 'deposit');
+window.__navigateTo('deposit', document.getElementById('depositPage'), true);
+await loadUserTransactions();
 }
 window.openDepositPage = openDepositPage;
 
@@ -3065,6 +3504,14 @@ document.getElementById('depositPanelVodafone').classList.remove('active');
 document.getElementById('depositPanelBinance').classList.remove('active');
 });
 
+// Copy buttons
+document.querySelectorAll('[data-copy]').forEach(btn => {
+btn.addEventListener('click', () => {
+const val = btn.getAttribute('data-copy');
+if (val) window.copyToClipboard(val);
+});
+});
+
 // Image upload handlers
 function attachImageUpload(inputId, zoneId, previewId) {
 const input = document.getElementById(inputId);
@@ -3075,7 +3522,7 @@ input.addEventListener('change', () => {
 const file = input.files && input.files[0];
 if (!file) return;
 if (file.size > 4 * 1024 * 1024) {
-alert('⚠️ حجم الصورة يجب أن يكون أقل من 4 ميجا');
+userToast('⚠️ حجم الصورة يجب أن يكون أقل من 4 ميجا', 'warn');
 input.value = '';
 return;
 }
@@ -3091,11 +3538,9 @@ attachImageUpload('vodafoneScreenshot', 'vodafoneUploadZone', 'vodafonePreview')
 attachImageUpload('binanceScreenshot', 'binanceUploadZone', 'binancePreview');
 attachImageUpload('usdtScreenshot', 'usdtUploadZone', 'usdtPreview');
 
-function getScreenshotBase64(inputId) {
-const input = document.getElementById(inputId);
-if (!input || !input.files || !input.files[0]) return null;
-const preview = input.previousElementSibling ? input.previousElementSibling.querySelector('.deposit-upload-preview') : null;
-return (preview && preview.src) ? preview.src : null;
+function getScreenshotBase64(inputId, previewId) {
+const preview = document.getElementById(previewId);
+return (preview && preview.src && preview.src.startsWith('data:')) ? preview.src : null;
 }
 
 // VODAFONE SUBMIT
@@ -3105,7 +3550,7 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('vodafoneMsg');
 const amount = parseFloat(document.getElementById('vodafoneAmount').value);
 const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
-const screenshot = getScreenshotBase64('vodafoneScreenshot');
+const screenshot = getScreenshotBase64('vodafoneScreenshot', 'vodafonePreview');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
 if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
@@ -3122,11 +3567,21 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+await sb.from('transactions').insert({
+user_id: currentProfile.id, type: 'deposit', method: 'vodafone',
+amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيداع محافظ كاش'
+});
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💳 *طلب إيداع محافظ كاش*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' جنيه\n📱 رقم المُحوِّل: ' + senderPhone + '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.\nيرجى مراجعة الطلب وإضافة الرصيد.';
+const waMsg = '💳 *طلب إيداع محافظ كاش*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' جنيه\n📱 رقم المُحوِّل: ' + senderPhone + '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
-setTimeout(() => { document.getElementById('vodafoneForm').reset(); document.getElementById('vodafoneUploadZone').classList.remove('has-file'); msg.innerText = ''; }, 3000);
+setTimeout(() => {
+document.getElementById('vodafoneForm').reset();
+document.getElementById('vodafoneUploadZone').classList.remove('has-file');
+const p = document.getElementById('vodafonePreview'); if (p) p.src = '';
+msg.innerText = '';
+loadUserTransactions();
+}, 2500);
 });
 
 // BINANCE SUBMIT
@@ -3136,7 +3591,7 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
 const tx = document.getElementById('binanceTransaction').value.trim();
-const screenshot = getScreenshotBase64('binanceScreenshot');
+const screenshot = getScreenshotBase64('binanceScreenshot', 'binancePreview');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return; }
@@ -3152,11 +3607,21 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+await sb.from('transactions').insert({
+user_id: currentProfile.id, type: 'deposit', method: 'binance',
+amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع باينانس باي'
+});
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💳 *طلب إيداع Binance Pay*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية: ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
+const waMsg = '💳 *طلب إيداع Binance Pay*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية: ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
-setTimeout(() => { document.getElementById('binanceForm').reset(); document.getElementById('binanceUploadZone').classList.remove('has-file'); msg.innerText = ''; }, 3000);
+setTimeout(() => {
+document.getElementById('binanceForm').reset();
+document.getElementById('binanceUploadZone').classList.remove('has-file');
+const p = document.getElementById('binancePreview'); if (p) p.src = '';
+msg.innerText = '';
+loadUserTransactions();
+}, 2500);
 });
 
 // USDT SUBMIT
@@ -3166,7 +3631,7 @@ if (!currentProfile) { showAuthModal(); return; }
 const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
 const tx = document.getElementById('usdtTransaction').value.trim();
-const screenshot = getScreenshotBase64('usdtScreenshot');
+const screenshot = getScreenshotBase64('usdtScreenshot', 'usdtPreview');
 msg.className = 'profile-msg'; msg.innerText = '';
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية (TXID) غير صحيح'; return; }
@@ -3182,12 +3647,71 @@ screenshot: screenshot,
 status: 'pending'
 });
 if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+await sb.from('transactions').insert({
+user_id: currentProfile.id, type: 'deposit', method: 'usdt',
+amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع عملات رقمية USDT (TRC20)'
+});
 msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري فتح واتساب...';
 const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-const waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 معرف العملية (TXID): ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة في لوحة التحكم.';
+const waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n👤 المستخدم: ' + currentProfile.username + '\n📝 الاسم: ' + currentProfile.name + '\n💰 المبلغ: ' + amount + ' دولار\n🔢 TXID: ' + tx + '\n\n📸 تم إرفاق لقطة الشاشة.';
 setTimeout(() => { window.open('https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg), '_blank'); }, 500);
-setTimeout(() => { document.getElementById('usdtForm').reset(); document.getElementById('usdtUploadZone').classList.remove('has-file'); msg.innerText = ''; }, 3000);
+setTimeout(() => {
+document.getElementById('usdtForm').reset();
+document.getElementById('usdtUploadZone').classList.remove('has-file');
+const p = document.getElementById('usdtPreview'); if (p) p.src = '';
+msg.innerText = '';
+loadUserTransactions();
+}, 2500);
 });
+
+// ============================================
+// USER TRANSACTIONS LOG (inside deposit page)
+// ============================================
+async function loadUserTransactions() {
+if (!currentProfile) return;
+const container = document.getElementById('txLogContainer');
+if (!container) return;
+container.innerHTML = '<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-spinner fa-spin"></i></div>';
+try {
+const { data, error } = await sb.from('transactions').select('*').eq('user_id', currentProfile.id).order('created_at', { ascending: false }).limit(50);
+if (error) throw error;
+if (!data || data.length === 0) {
+container.innerHTML = '<div style="text-align:center;padding:2rem;color:#848E9C;"><i class="fas fa-inbox" style="font-size:2rem;display:block;margin-bottom:10px;opacity:0.5;"></i>لا توجد معاملات بعد</div>';
+return;
+}
+container.innerHTML = '';
+data.forEach(t => {
+const typeMap = {
+deposit: ['إيداع', 'dep', 'fa-arrow-down'],
+admin_credit: ['إضافة من الإدارة', 'add', 'fa-plus'],
+admin_debit: ['خصم من الإدارة', 'wd', 'fa-minus'],
+order: ['طلب', 'ord', 'fa-shopping-cart']
+};
+const tp = typeMap[t.type] || [t.type, 'add', 'fa-circle'];
+const cur = t.currency === 'USD' ? '$' : 'جنيه';
+const sign = (t.type === 'deposit' || t.type === 'admin_credit') ? '+' : '-';
+const amountClass = sign === '+' ? 'pos' : 'neg';
+const dateStr = t.created_at ? new Date(t.created_at).toLocaleString('ar-EG', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '-';
+const stMap = { pending: 'pending', approved: 'approved', completed: 'completed', rejected: 'rejected', cancelled: 'cancelled' };
+const st = stMap[t.status] || 'completed';
+const stLabelMap = { pending: 'قيد المراجعة', approved: 'مؤكد', completed: 'مكتمل', rejected: 'مرفوض', cancelled: 'ملغي' };
+const item = document.createElement('div');
+item.className = 'tx-item';
+item.innerHTML =
+'<div class="tx-icon-wrap ' + tp[1] + '"><i class="fas ' + tp[2] + '"></i></div>' +
+'<div class="tx-info">' +
+'<div class="tx-title">' + tp[0] + (t.description ? ' — ' + t.description : '') + '</div>' +
+'<div class="tx-sub">' + dateStr + '</div>' +
+'</div>' +
+'<span class="tx-badge ' + st + '">' + (stLabelMap[st] || st) + '</span>' +
+'<span class="tx-amount ' + amountClass + '">' + sign + parseFloat(t.amount || 0).toFixed(2) + ' ' + cur + '</span>';
+container.appendChild(item);
+});
+} catch(e) {
+container.innerHTML = '<div style="text-align:center;padding:2rem;color:#e83e5c;">خطأ: ' + e.message + '</div>';
+}
+}
+window.loadUserTransactions = loadUserTransactions;
 
 // ============================================
 // INSUFFICIENT BALANCE MODAL
@@ -3221,8 +3745,16 @@ if (buyBtn.dataset.newflow === '1') return;
 e.stopImmediatePropagation();
 e.preventDefault();
 if (buyBtn.dataset.processing === '1') return;
-if (!currentProfile) { showAuthModal(); return; }
-if (currentProfile.is_banned) { alert('🚫 هذا الحساب محظور'); return; }
+if (!currentProfile) {
+// احفظ العمليه عشان تكمل بعد تسجيل الدخول
+const card = buyBtn.closest('.service-card');
+if (card) {
+pendingBuyAfterAuth = () => { buyBtn.click(); };
+}
+showAuthModal();
+return;
+}
+if (currentProfile.is_banned) { userToast('🚫 هذا الحساب محظور', 'err'); return; }
 const card = buyBtn.closest('.service-card');
 if (!card) return;
 const serviceNumber = card.getAttribute('data-service-number') || '?';
@@ -3235,9 +3767,9 @@ const minLimit = parseInt(card.getAttribute('data-min-limit')) || 1000;
 const pricePerBase = parseFloat(card.getAttribute('data-price-per-thousand'));
 const priceBase = parseInt(card.getAttribute('data-price-base')) || 1000;
 const unit = card.getAttribute('data-unit') || '';
-if (!link) { alert('⚠️ الرابط مطلوب!'); return; }
-if (isNaN(quantity) || quantity < minLimit) { alert('⚠️ الحد الأدنى ' + minLimit); return; }
-if (isNaN(pricePerBase)) { alert('خطأ في السعر'); return; }
+if (!link) { userToast('⚠️ الرابط مطلوب!', 'warn'); return; }
+if (isNaN(quantity) || quantity < minLimit) { userToast('⚠️ الحد الأدنى ' + minLimit, 'warn'); return; }
+if (isNaN(pricePerBase)) { userToast('خطأ في السعر', 'err'); return; }
 const totalInEGP = (quantity / priceBase) * pricePerBase;
 let totalToPay, currencyName, currencySymbol;
 if (currentCurrency === 'EGP') {
@@ -3249,7 +3781,6 @@ totalToPay = totalInEGP / exchangeRate;
 currencyName = 'دولار أمريكي';
 currencySymbol = 'USD';
 }
-// Unified balance check
 const balEGP = parseFloat(currentProfile.balance_egp || 0);
 const balUSD = parseFloat(currentProfile.balance_usd || 0);
 let totalAvailable = currentCurrency === 'EGP'
@@ -3265,28 +3796,27 @@ buyBtn.disabled = true;
 const oldHTML = buyBtn.innerHTML;
 buyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المعالجة...';
 try {
-// Calculate new balances (deduct from primary currency, then fallback)
 let newEGP = balEGP;
 let newUSD = balUSD;
 if (currentCurrency === 'EGP') {
 const needEGP = totalToPay;
-if (newEGP >= needEGP) {
-newEGP -= needEGP;
-} else {
+if (newEGP >= needEGP) newEGP -= needEGP;
+else {
 const remaining = needEGP - newEGP;
 newEGP = 0;
 newUSD -= remaining / exchangeRate;
 }
 } else {
 const needUSD = totalToPay;
-if (newUSD >= needUSD) {
-newUSD -= needUSD;
-} else {
+if (newUSD >= needUSD) newUSD -= needUSD;
+else {
 const remaining = needUSD - newUSD;
 newUSD = 0;
 newEGP -= remaining * exchangeRate;
 }
 }
+if (newEGP < 0) newEGP = 0;
+if (newUSD < 0) newUSD = 0;
 const { error: updErr } = await sb.from('users').update({ balance_egp: newEGP, balance_usd: newUSD }).eq('id', currentProfile.id);
 if (updErr) throw updErr;
 const { error: ordErr } = await sb.from('orders').insert({
@@ -3304,6 +3834,13 @@ link: link,
 status: 'pending'
 });
 if (ordErr) throw ordErr;
+try {
+await sb.from('transactions').insert({
+user_id: currentProfile.id, type: 'order', method: 'order',
+amount: totalToPay, currency: currencySymbol, status: 'pending',
+description: 'طلب: ' + serviceName + ' (' + quantity + ' ' + unit + ')'
+});
+} catch(err) {}
 const tgMsg = '📋 طلب شراء خدمة : ' + serviceName +
 '\n🔢 رقم الخدمة : ' + serviceNumber +
 '\n👤 العميل : ' + currentProfile.name + ' (@' + currentProfile.username + ')' +
@@ -3319,18 +3856,33 @@ body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: tgMsg })
 });
 } catch(err) {}
 await refreshUserUI();
-if (document.getElementById('profilePage').style.display === 'block') openProfilePage();
-alert('✅ تم إرسال طلبك بنجاح!\n\nسيتم مراجعته وتنفيذه قريباً.');
+userToast('✅ تم إرسال طلبك بنجاح! سيتم مراجعته قريباً', 'ok');
 buyBtn.innerHTML = oldHTML;
 buyBtn.disabled = false;
 buyBtn.dataset.processing = '0';
 } catch(err) {
-alert('❌ خطأ: ' + err.message);
+userToast('❌ خطأ: ' + err.message, 'err');
 buyBtn.innerHTML = oldHTML;
 buyBtn.disabled = false;
 buyBtn.dataset.processing = '0';
 }
 }, true);
+
+// ============================================
+// MENU LINKS (deposit button)
+// ============================================
+setTimeout(() => {
+const dLink = document.getElementById('depositMenuLink');
+const dBtn = document.getElementById('depositMethodBtn');
+if (dLink) dLink.addEventListener('click', (e) => {
+e.preventDefault();
+document.getElementById('dropdownMenu').classList.remove('show-dropdown');
+if (currentProfile) openDepositPage(); else showAuthModal();
+});
+if (dBtn) dBtn.addEventListener('click', () => {
+if (currentProfile) openDepositPage(); else showAuthModal();
+});
+}, 500);
 
 // ============================================
 // INIT
@@ -3344,25 +3896,13 @@ origOpenPanel(user);
 setTimeout(() => { if (window.loadAdminServices) window.loadAdminServices(); }, 400);
 };
 }
-setTimeout(() => {
-const dLink = document.getElementById('depositMenuLink');
-const dBtn = document.getElementById('depositMethodBtn');
-if (dLink) dLink.addEventListener('click', (e) => {
-e.preventDefault();
-document.getElementById('dropdownMenu').classList.remove('show-dropdown');
-if (currentProfile) openDepositPage(); else showAuthModal();
-});
-if (dBtn) dBtn.addEventListener('click', () => {
-if (currentProfile) openDepositPage(); else showAuthModal();
-});
-}, 500);
-// Try to restore profile/deposit/orders page from hash after session check
+// restore page
 setTimeout(() => {
 const hash = (window.location.hash || '').replace('#','');
 if (hash === 'profile' && currentProfile) openProfilePage();
 else if (hash === 'deposit' && currentProfile) openDepositPage();
 else if (hash === 'orders' && currentProfile) openMyOrdersPage();
-}, 1200);
+}, 1000);
 }
 initUserSystem();
 
