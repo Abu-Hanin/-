@@ -3766,27 +3766,21 @@ return null;
 // ============================================
 // OPEN WHATSAPP (موبايل + كمبيوتر)
 // ============================================
-function openWhatsAppUrl(url, preOpenedWindow) {
-if (preOpenedWindow && !preOpenedWindow.closed) {
-try { preOpenedWindow.location.href = url; return; } catch(e) {}
-}
+function openLoadingWindow() {
 try {
-const w = window.open(url, '_blank');
-if (w && !w.closed) return;
-} catch(e) {}
+const w = window.open('about:blank', '_blank', 'width=1,height=1,left=0,top=0,menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=no');
+if (w) {
 try {
-const a = document.createElement('a');
-a.href = url;
-a.target = '_blank';
-a.rel = 'noopener noreferrer';
-document.body.appendChild(a);
-a.click();
-setTimeout(() => { try { document.body.removeChild(a); } catch(e) {} }, 100);
-return;
+w.document.open();
+w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>.</title><style>html,body{margin:0;padding:0;background:#0B0E11;overflow:hidden;}</style></head><body></body></html>');
+w.document.close();
+try { w.blur(); } catch(e) {}
+setTimeout(() => { try { w.resizeTo(1,1); w.moveTo(0,0); } catch(e) {} }, 100);
 } catch(e) {}
-window.location.href = url;
 }
-
+return w;
+} catch(e) { return null; }
+}
 // ============================================
 // OPEN LOADING WINDOW (يمنع حجب المتصفح)
 // ============================================
