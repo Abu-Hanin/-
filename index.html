@@ -3792,13 +3792,14 @@ window.location.href = url;
 // ============================================
 function openLoadingWindow() {
 try {
-const w = window.open('about:blank', '_blank');
+const w = window.open('about:blank', '_blank', 'width=1,height=1,left=0,top=0,menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=no');
 if (w) {
 try {
-const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>جاري التجهيز</title></head><body style="font-family:Cairo,Arial,sans-serif;background:#0B0E11;color:#F0B90B;text-align:center;padding:60px 20px;margin:0;"><div style="max-width:400px;margin:0 auto;"><div style="font-size:60px;margin-bottom:20px;">&#9203;</div><h1 style="font-size:22px;margin-bottom:10px;color:#F0B90B;">جاري تجهيز طلبك</h1><p style="color:#B7BDC6;font-size:15px;line-height:1.6;">انتظر لحظة، هيتم تحويلك لواتساب تلقائياً...</p><div style="margin-top:30px;width:60px;height:60px;border:5px solid #1E2329;border-top-color:#F0B90B;border-radius:50%;animation:spin 1s linear infinite;margin-left:auto;margin-right:auto;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style></div></body></html>';
 w.document.open();
-w.document.write(html);
+w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>.</title><style>html,body{margin:0;padding:0;background:#0B0E11;overflow:hidden;}</style></head><body></body></html>');
 w.document.close();
+try { w.blur(); } catch(e) {}
+setTimeout(() => { try { w.resizeTo(1,1); w.moveTo(0,0); } catch(e) {} }, 100);
 } catch(e) {}
 }
 return w;
