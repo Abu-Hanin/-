@@ -3625,7 +3625,9 @@ if (val) window.copyToClipboard(val);
 });
 });
 
-// Image upload handlers
+// ============================================
+// IMAGE UPLOAD HELPERS
+// ============================================
 function attachImageUpload(inputId, zoneId, previewId) {
 const input = document.getElementById(inputId);
 const zone = document.getElementById(zoneId);
@@ -3662,14 +3664,16 @@ const res = await fetch(dataURL);
 return await res.blob();
 }
 
-// ==================== ⚡ ضغط الصورة (سرعة الرفع) ====================
-async function compressImage(dataURL, maxSize, quality) {
+// ============================================
+// SIMPLE IMAGE COMPRESS (سريع وآمن)
+// ============================================
+function compressImage(dataURL, maxSize, quality) {
 maxSize = maxSize || 1200;
 quality = quality || 0.75;
 return new Promise((resolve) => {
 try {
 const img = new Image();
-img.onload = () => {
+img.onload = function() {
 try {
 const canvas = document.createElement('canvas');
 let w = img.width, h = img.height;
@@ -3684,13 +3688,25 @@ ctx.drawImage(img, 0, 0, w, h);
 resolve(canvas.toDataURL('image/jpeg', quality));
 } catch(e) { resolve(dataURL); }
 };
-img.onerror = () => resolve(dataURL);
+img.onerror = function() { resolve(dataURL); };
 img.src = dataURL;
 } catch(e) { resolve(dataURL); }
 });
 }
 
-// ==================== 🚀 رفع سريع (3 خدمات + timeout 8 ثواني) ====================
+// ============================================
+// UPLOAD SCREENSHOT (3 services + timeout)
+// ============================================
+function withTimeout(promise, ms) {
+return new Promise((resolve, reject) => {
+const timer = setTimeout(() => reject(new Error('timeout')), ms);
+Promise.resolve(promise).then(
+(v) => { clearTimeout(timer); resolve(v); },
+(e) => { clearTimeout(timer); reject(e); }
+);
+});
+}
+
 async function uploadScreenshot(dataURL, method) {
 if (!dataURL) return null;
 let blob;
@@ -3702,31 +3718,28 @@ const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).sl
 
 // 1) Supabase Storage
 try {
-const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000));
 const uploadPromise = sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: true });
-const result = await Promise.race([uploadPromise, timeoutPromise]);
+const result = await withTimeout(uploadPromise, 8000);
 if (result && !result.error) {
-const { data: pub } = sb.storage.from('screenshots').getPublicUrl(fileName);
-if (pub && pub.publicUrl) {
-console.log('✅ Supabase:', pub.publicUrl);
-return pub.publicUrl;
+const pubResult = sb.storage.from('screenshots').getPublicUrl(fileName);
+if (pubResult && pubResult.data && pubResult.data.publicUrl) {
+console.log('✅ Supabase:', pubResult.data.publicUrl);
+return pubResult.data.publicUrl;
 }
 } else if (result && result.error) {
 console.warn('Supabase err:', result.error.message);
 }
-} catch(e) { console.warn('Supabase timeout/fail:', e.message); }
+} catch(e) { console.warn('Supabase fail:', e.message); }
 
 // 2) catbox.moe
 try {
 const fd = new FormData();
 fd.append('reqtype', 'fileupload');
 fd.append('fileToUpload', blob, fileName);
-const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000));
-const fetchPromise = fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd });
-const r = await Promise.race([fetchPromise, timeoutPromise]);
+const r = await withTimeout(fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd }), 8000);
 if (r && r.ok) {
 const url = (await r.text()).trim();
-if (url && url.startsWith('http')) {
+if (url && url.indexOf('http') === 0) {
 console.log('✅ catbox:', url);
 return url;
 }
@@ -3737,12 +3750,10 @@ return url;
 try {
 const fd = new FormData();
 fd.append('file', blob, fileName);
-const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 8000));
-const fetchPromise = fetch('https://0x0.st', { method: 'POST', body: fd });
-const r = await Promise.race([fetchPromise, timeoutPromise]);
+const r = await withTimeout(fetch('https://0x0.st', { method: 'POST', body: fd }), 8000);
 if (r && r.ok) {
 const url = (await r.text()).trim();
-if (url && url.startsWith('http')) {
+if (url && url.indexOf('http') === 0) {
 console.log('✅ 0x0:', url);
 return url;
 }
@@ -3752,18 +3763,17 @@ return url;
 return null;
 }
 
-// ==================== 🌐 فتح واتساب (موبايل + كمبيوتر) ====================
+// ============================================
+// OPEN WHATSAPP (موبايل + كمبيوتر)
+// ============================================
 function openWhatsAppUrl(url, preOpenedWindow) {
-// 1) لو عندنا نافذة مفتوحة مسبقاً نستخدمها
 if (preOpenedWindow && !preOpenedWindow.closed) {
 try { preOpenedWindow.location.href = url; return; } catch(e) {}
 }
-// 2) window.open
 try {
 const w = window.open(url, '_blank');
 if (w && !w.closed) return;
 } catch(e) {}
-// 3) anchor click
 try {
 const a = document.createElement('a');
 a.href = url;
@@ -3774,29 +3784,35 @@ a.click();
 setTimeout(() => { try { document.body.removeChild(a); } catch(e) {} }, 100);
 return;
 } catch(e) {}
-// 4) fallback
 window.location.href = url;
 }
 
-// ==================== ⚡ فتح نافذة مؤقتة (لمنع حجب المتصفح) ====================
+// ============================================
+// OPEN LOADING WINDOW (يمنع حجب المتصفح)
+// ============================================
 function openLoadingWindow() {
 try {
 const w = window.open('about:blank', '_blank');
 if (w) {
 try {
-w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>جاري التجهيز...</title></head><body style="font-family:Cairo,Arial,sans-serif;background:#0B0E11;color:#F0B90B;text-align:center;padding:60px 20px;margin:0;"><div style="max-width:400px;margin:0 auto;"><div style="font-size:60px;margin-bottom:20px;">⏳</div><h1 style="font-size:22px;margin-bottom:10px;">جاري تجهيز طلبك</h1><p style="color:#B7BDC6;font-size:15px;line-height:1.6;">انتظر لحظة، هيتم تحويلك لواتساب تلقائياً...</p><div style="margin-top:30px;width:60px;height:60px;border:5px solid #1E2329;border-top-color:#F0B90B;border-radius:50%;animation:spin 1s linear infinite;margin-left:auto;margin-right:auto;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style></div></body></html>');
+const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>جاري التجهيز</title></head><body style="font-family:Cairo,Arial,sans-serif;background:#0B0E11;color:#F0B90B;text-align:center;padding:60px 20px;margin:0;"><div style="max-width:400px;margin:0 auto;"><div style="font-size:60px;margin-bottom:20px;">&#9203;</div><h1 style="font-size:22px;margin-bottom:10px;color:#F0B90B;">جاري تجهيز طلبك</h1><p style="color:#B7BDC6;font-size:15px;line-height:1.6;">انتظر لحظة، هيتم تحويلك لواتساب تلقائياً...</p><div style="margin-top:30px;width:60px;height:60px;border:5px solid #1E2329;border-top-color:#F0B90B;border-radius:50%;animation:spin 1s linear infinite;margin-left:auto;margin-right:auto;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style></div></body></html>';
+w.document.open();
+w.document.write(html);
 w.document.close();
 } catch(e) {}
 }
 return w;
+} catch(e) { return null; }
 }
 
-// ==================== VODAFONE SUBMIT ====================
+// ============================================
+// VODAFONE SUBMIT
+// ============================================
 document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
 
-// ⚡ افتح نافذة الواتساب فوراً (قبل أي await) عشان المتصفح مايحجبهاش
+// افتح نافذة الواتساب فوراً قبل أي await
 const waWindow = openLoadingWindow();
 
 const msg = document.getElementById('vodafoneMsg');
@@ -3820,7 +3836,6 @@ msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارف�
 
 msg.innerText = '⏳ جاري ضغط الصورة...';
 const compressed = await compressImage(screenshot, 1200, 0.75);
-
 msg.innerText = '⏳ جاري رفع الصورة...';
 const publicUrl = await uploadScreenshot(compressed, 'vodafone');
 
@@ -3854,11 +3869,8 @@ let waMsg = '💳 *طلب إيداع محافظ كاش*\n\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' جنيه\n' +
 '📱 رقم المُحوِّل: ' + senderPhone;
-if (publicUrl) {
-waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-} else {
-waMsg += '\n\n⚠️ فشل رفع الصورة، يرجى مراجعة لوحة التحكم لرؤية الإثبات.';
-}
+if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
+else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
 openWhatsAppUrl(waUrl, waWindow);
@@ -3872,11 +3884,12 @@ loadUserTransactions();
 }, 2500);
 });
 
-// ==================== BINANCE SUBMIT ====================
+// ============================================
+// BINANCE SUBMIT
+// ============================================
 document.getElementById('binanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-
 const waWindow = openLoadingWindow();
 const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
@@ -3931,7 +3944,7 @@ let waMsg = '💳 *طلب إيداع Binance Pay*\n\n' +
 '💰 المبلغ: ' + amount + ' دولار\n' +
 '🔢 معرف العملية: ' + tx;
 if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-else waMsg += '\n\n⚠️ فشل رفع الصورة، يرجى مراجعة لوحة التحكم.';
+else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
 openWhatsAppUrl(waUrl, waWindow);
@@ -3945,11 +3958,12 @@ loadUserTransactions();
 }, 2500);
 });
 
-// ==================== USDT SUBMIT ====================
+// ============================================
+// USDT SUBMIT
+// ============================================
 document.getElementById('usdtForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-
 const waWindow = openLoadingWindow();
 const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
@@ -4004,7 +4018,7 @@ let waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n' +
 '💰 المبلغ: ' + amount + ' دولار\n' +
 '🔢 TXID: ' + tx;
 if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-else waMsg += '\n\n⚠️ فشل رفع الصورة، يرجى مراجعة لوحة التحكم.';
+else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
 const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
 openWhatsAppUrl(waUrl, waWindow);
@@ -4105,7 +4119,7 @@ if (buyBtn.dataset.processing === '1') return;
 if (!currentProfile) {
 const card = buyBtn.closest('.service-card');
 if (card) {
-pendingBuyAfterAuth = () => { buyBtn.click(); };
+pendingBuyAfterAuth = function() { buyBtn.click(); };
 }
 showAuthModal();
 return;
@@ -4114,7 +4128,7 @@ if (currentProfile.is_banned) { userToast('🚫 هذا الحساب محظور',
 const card = buyBtn.closest('.service-card');
 if (!card) return;
 const serviceNumber = card.getAttribute('data-service-number') || '?';
-const serviceName = card.querySelector('.service-name')?.innerText || 'غير معروف';
+const serviceName = card.querySelector('.service-name') ? card.querySelector('.service-name').innerText : 'غير معروف';
 const quantityInput = card.querySelector('.quantity-input');
 const urlInput = card.querySelector('.url-input');
 const link = urlInput ? urlInput.value.trim() : '';
