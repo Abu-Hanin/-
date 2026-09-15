@@ -300,15 +300,14 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .profile-save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,189,133,0.3); }
 .profile-msg { color:#2EBD85; font-size:0.85rem; margin-top:0.5rem; min-height:18px; }
 .profile-msg.err { color:#e83e5c; }
-.deposit-tabs { display:flex; gap:8px; margin-bottom:1.5rem; background:#1E2329; padding:8px; border-radius:16px; border:1px solid rgba(240,185,11,0.2); flex-wrap:wrap; }
-.deposit-tab { flex:1; min-width:110px; padding:14px 8px; text-align:center; border-radius:12px; cursor:pointer; color:#B7BDC6; font-weight:700; font-family:inherit; transition:0.25s; background:transparent; border:none; font-size:0.85rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; }
-.deposit-tab .tab-icon { font-size:1.5rem; }
-.deposit-tab.active { background:linear-gradient(135deg, #2EBD85, #22a06f); color:#0B0E11; box-shadow: 0 6px 18px rgba(46,189,133,0.3); }
-.deposit-tab.brand-vodafone.active { background:linear-gradient(135deg, #E60000, #b80000); color:#fff; box-shadow: 0 6px 18px rgba(230,0,0,0.35); }
-.deposit-tab.brand-binance.active { background:linear-gradient(135deg, #F0B90B, #d9a509); color:#0B0E11; box-shadow: 0 6px 18px rgba(240,185,11,0.35); }
-.deposit-tab.brand-usdt.active { background:linear-gradient(135deg, #26A17B, #1a8060); color:#fff; box-shadow: 0 6px 18px rgba(38,161,123,0.35); }
+/* Deposit page tabs (kept for backward compat but hidden) */
+.deposit-tabs { display:none !important; }
 .deposit-panel { display:none; }
 .deposit-panel.active { display:block; }
+/* Deposit Back Button */
+.deposit-back-btn { position: sticky; top: 0; z-index: 5; background: rgba(30,35,41,0.95); backdrop-filter: blur(10px); border:1px solid rgba(240,185,11,0.3); color:#F0B90B; padding:10px 20px; border-radius:40px; cursor:pointer; font-family:inherit; font-weight:700; display:inline-flex; align-items:center; gap:8px; font-size:0.9rem; transition:0.2s; margin-bottom: 1rem; }
+.deposit-back-btn:hover { background:#F0B90B; color:#0B0E11; }
+.deposit-page-subtitle { text-align:center; color:#B7BDC6; font-size:0.85rem; margin-bottom: 1.5rem; margin-top:-0.5rem; }
 .deposit-info { background:linear-gradient(160deg,#1E2329,#13171D); border-radius:20px; padding:1.4rem; margin-bottom:1rem; border:1px solid rgba(240,185,11,0.2); position:relative; overflow: hidden; }
 .deposit-info::before { content:''; position:absolute; top:-60px; left:-60px; width:180px; height:180px; background:radial-gradient(circle, rgba(240,185,11,0.08), transparent 70%); border-radius:50%; pointer-events:none; }
 .deposit-brand-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; position: relative; z-index: 2; }
@@ -470,7 +469,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .balance-modal input, .balance-modal select { width:100%; padding:12px 14px; border-radius:12px; background:#0B0E11; border:1px solid rgba(240,185,11,0.3); color:#fff; font-family:inherit; font-size:0.9rem; outline:none; margin-bottom:1rem; }
 .balance-modal label { display:block; font-size:0.8rem; color:#B7BDC6; margin-bottom:6px; font-weight:600; }
 
-/* ===== Mobile Auth Modal Fix ===== */
 @media (max-width: 500px) {
 .auth-modal { max-width: 94vw; padding: 1.1rem 0.9rem; max-height: 94vh; border-radius: 20px; }
 .auth-logo-wrap { margin-bottom: 0.5rem; }
@@ -489,7 +487,6 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .password-toggle { left: 8px; padding: 4px; font-size: 0.9rem; }
 }
 
-/* ===== Payment Selector Cards ===== */
 .payment-selector-grid { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
 .payment-selector-card { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #1E2329, #13171D); border: 1px solid rgba(240,185,11,0.25); border-radius: 20px; padding: 1.2rem; cursor: pointer; transition: 0.25s; }
 .payment-selector-card:hover { border-color: #F0B90B; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
@@ -556,7 +553,7 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ PAYMENT PAGE (NEW: Selector) ============ -->
+<!-- ============ PAYMENT PAGE (Selector) ============ -->
 <div id="paymentPage" class="overlay-page">
 <div class="overlay-container">
 <h1><i class="fas fa-wallet"></i> طرق الدفع المتاحة</h1>
@@ -783,27 +780,13 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </div>
 </div>
 
-<!-- ============ DEPOSIT PAGE ============ -->
+<!-- ============ DEPOSIT PAGE (Standalone) ============ -->
 <div id="depositPage" class="overlay-page" style="padding:1.5rem 1rem;">
 <div class="page-container">
-<h1 class="page-title"><i class="fas fa-wallet"></i> إيداع رصيد</h1>
-<div class="deposit-tabs">
-<button class="deposit-tab brand-vodafone active" id="depositTabVodafone" type="button">
-<span class="tab-icon"><i class="fas fa-mobile-alt"></i></span>
-محافظ الكاش
-</button>
-<button class="deposit-tab brand-binance" id="depositTabBinance" type="button">
-<span class="tab-icon"><i class="fab fa-bitcoin"></i></span>
-باينانس باي
-</button>
-<button class="deposit-tab brand-usdt" id="depositTabUsdt" type="button">
-<span class="tab-icon"><i class="fas fa-coins"></i></span>
-العملات الرقمية
-</button>
-</div>
+<button class="deposit-back-btn" id="depositBackBtn" type="button"><i class="fas fa-arrow-right"></i> رجوع</button>
 
-<!-- VODAFONE / WALLETS PANEL -->
-<div class="deposit-panel active" id="depositPanelVodafone">
+<!-- ===== VODAFONE PAGE ===== -->
+<div id="depositVodafoneView" style="display:none;">
 <div class="deposit-info">
 <div class="deposit-brand-header">
 <div class="deposit-brand-logo vodafone">V</div>
@@ -851,8 +834,8 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </form>
 </div>
 
-<!-- BINANCE PANEL -->
-<div class="deposit-panel" id="depositPanelBinance">
+<!-- ===== BINANCE PAGE ===== -->
+<div id="depositBinanceView" style="display:none;">
 <div class="deposit-info">
 <div class="deposit-brand-header">
 <div class="deposit-brand-logo binance">₿</div>
@@ -894,8 +877,8 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 </form>
 </div>
 
-<!-- USDT PANEL -->
-<div class="deposit-panel" id="depositPanelUsdt">
+<!-- ===== USDT PAGE ===== -->
+<div id="depositUsdtView" style="display:none;">
 <div class="deposit-info">
 <div class="deposit-brand-header">
 <div class="deposit-brand-logo usdt">₮</div>
@@ -1773,13 +1756,29 @@ else mainContent.style.display = 'block';
 }
 window.__setPageVisibility = setPageVisibility;
 
+// ============ DEPOSIT VIEWS CONTROL ============
+window.__showDepositView = function(method) {
+const vView = document.getElementById('depositVodafoneView');
+const bView = document.getElementById('depositBinanceView');
+const uView = document.getElementById('depositUsdtView');
+if (vView) vView.style.display = 'none';
+if (bView) bView.style.display = 'none';
+if (uView) uView.style.display = 'none';
+if (method === 'vodafone' && vView) vView.style.display = 'block';
+else if (method === 'binance' && bView) bView.style.display = 'block';
+else if (method === 'usdt' && uView) uView.style.display = 'block';
+window.__currentDepositMethod = method;
+};
+
 function routeToPage(routeName) {
 if (routeName === 'home') setPageVisibility(null);
 else if (routeName === 'terms') setPageVisibility(termsPage);
 else if (routeName === 'payment') setPageVisibility(paymentPage);
 else if (routeName === 'favorites') { setPageVisibility(favoritesPage); renderFavoritesPage(); }
 else if (routeName === 'profile' && window.currentProfile) setPageVisibility(profilePage);
-else if (routeName === 'deposit' && window.currentProfile) setPageVisibility(depositPage);
+else if (routeName === 'deposit-vodafone' && window.currentProfile) { setPageVisibility(depositPage); window.__showDepositView('vodafone'); if (window.loadUserTransactions) window.loadUserTransactions(); }
+else if (routeName === 'deposit-binance' && window.currentProfile) { setPageVisibility(depositPage); window.__showDepositView('binance'); if (window.loadUserTransactions) window.loadUserTransactions(); }
+else if (routeName === 'deposit-usdt' && window.currentProfile) { setPageVisibility(depositPage); window.__showDepositView('usdt'); if (window.loadUserTransactions) window.loadUserTransactions(); }
 else if (routeName === 'orders' && window.currentProfile) { setPageVisibility(myOrdersPage); if (window.loadMyOrders) window.loadMyOrders(); }
 else setPageVisibility(null);
 window.__currentRoute = routeName;
@@ -1838,7 +1837,9 @@ if (hash === 'terms') window.__navigateTo('terms', termsPage, true);
 else if (hash === 'payment') window.__navigateTo('payment', paymentPage, true);
 else if (hash === 'favorites') window.__navigateTo('favorites', favoritesPage, true);
 else if (hash === 'profile' && window.currentProfile) window.__navigateTo('profile', profilePage, true);
-else if (hash === 'deposit' && window.currentProfile) window.__navigateTo('deposit', depositPage, true);
+else if (hash === 'deposit-vodafone' && window.currentProfile) window.__navigateTo('deposit-vodafone', depositPage, true);
+else if (hash === 'deposit-binance' && window.currentProfile) window.__navigateTo('deposit-binance', depositPage, true);
+else if (hash === 'deposit-usdt' && window.currentProfile) window.__navigateTo('deposit-usdt', depositPage, true);
 else if (hash === 'orders' && window.currentProfile) window.__navigateTo('orders', myOrdersPage, true);
 else routeToPage('home');
 }, 800);
@@ -2283,38 +2284,21 @@ function setupPaymentSelectorCards() {
 const cards = document.querySelectorAll('.payment-selector-card');
 if (!cards || cards.length === 0) return;
 cards.forEach(card => {
-// avoid double-binding
 if (card.dataset.bound === '1') return;
 card.dataset.bound = '1';
 card.addEventListener('click', function() {
 const method = this.getAttribute('data-method');
 if (!method) return;
-if (typeof window.openDepositPage !== 'function') {
-// fallback: if user system not ready yet, just navigate to paymentPage
-return;
-}
-// make sure profile exists
 if (!window.currentProfile) {
 alert('⚠️ يرجى تسجيل الدخول أولاً');
-if (typeof showAuthModal === 'function') showAuthModal();
+if (typeof window.showAuthModal === 'function') window.showAuthModal();
 return;
 }
-// open deposit page then switch to the selected method
-Promise.resolve(window.openDepositPage()).then(() => {
-setTimeout(() => {
-if (method === 'vodafone' && typeof document.getElementById('depositTabVodafone') !== 'undefined') {
-document.getElementById('depositTabVodafone')?.click();
-} else if (method === 'binance') {
-document.getElementById('depositTabBinance')?.click();
-} else if (method === 'usdt') {
-document.getElementById('depositTabUsdt')?.click();
-}
-}, 200);
-});
+const route = 'deposit-' + method;
+window.__navigateTo(route, document.getElementById('depositPage'), true);
 });
 });
 }
-// run when DOM is ready and also after user system init
 document.addEventListener('DOMContentLoaded', function() {
 setTimeout(setupPaymentSelectorCards, 300);
 });
@@ -3244,6 +3228,12 @@ window.currentProfile = null;
 let pendingBuyAfterAuth = null;
 
 // ============================================
+// TELEGRAM BOT CONSTANTS
+// ============================================
+const TG_BOT_TOKEN = '8626746028:AAHEjuXzxVJmURmuWONLvMXIlstS6wJH_7Y';
+const TG_CHAT_ID = '6242313550';
+
+// ============================================
 // USER TOAST
 // ============================================
 function userToast(msg, type) {
@@ -3293,6 +3283,31 @@ document.body.removeChild(ta);
 function showAuthModal() { document.getElementById('authModalBg').classList.add('show'); }
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 window.showAuthModal = showAuthModal;
+
+// ============================================
+// TELEGRAM SENDER
+// ============================================
+async function sendToTelegram(text) {
+try {
+const url = 'https://api.telegram.org/bot' + TG_BOT_TOKEN + '/sendMessage';
+const res = await fetch(url, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ chat_id: TG_CHAT_ID, text: text })
+});
+const data = await res.json();
+if (data && data.ok) {
+console.log('✅ Telegram sent:', data.result?.message_id);
+return true;
+}
+console.warn('Telegram error:', data);
+return false;
+} catch(e) {
+console.warn('Telegram fetch fail:', e);
+return false;
+}
+}
+window.__sendToTelegram = sendToTelegram;
 
 // ============================================
 // UNIFIED BALANCE
@@ -3380,9 +3395,12 @@ document.getElementById('loginForm').style.display = 'none';
 function afterAuthSuccess() {
 hideAuthModal();
 const hash = (window.location.hash || '').replace('#','');
-if (hash === 'deposit') { setTimeout(() => openDepositPage(), 150); return; }
-if (hash === 'orders') { setTimeout(() => openMyOrdersPage(), 150); return; }
 if (hash === 'profile') { setTimeout(() => openProfilePage(), 150); return; }
+if (hash === 'orders') { setTimeout(() => openMyOrdersPage(), 150); return; }
+if (hash === 'deposit-vodafone' || hash === 'deposit-binance' || hash === 'deposit-usdt') {
+setTimeout(() => { window.__navigateTo(hash, document.getElementById('depositPage'), true); }, 150);
+return;
+}
 if (window.showHomePage) window.showHomePage();
 if (pendingBuyAfterAuth) {
 const cb = pendingBuyAfterAuth;
@@ -3671,47 +3689,15 @@ if (currentProfile) openProfilePage(); else showAuthModal();
 });
 
 // ============================================
-// DEPOSIT PAGE
+// DEPOSIT PAGE BACK BUTTON
 // ============================================
-async function openDepositPage(method) {
-if (!currentProfile) { showAuthModal(); return; }
-window.__navigateTo('deposit', document.getElementById('depositPage'), true);
-await loadUserTransactions();
-if (method === 'binance') {
-document.getElementById('depositTabBinance')?.click();
-} else if (method === 'usdt') {
-document.getElementById('depositTabUsdt')?.click();
-} else if (method === 'vodafone') {
-document.getElementById('depositTabVodafone')?.click();
-}
-}
-window.openDepositPage = openDepositPage;
-
-document.getElementById('depositTabVodafone').addEventListener('click', () => {
-document.getElementById('depositTabVodafone').classList.add('active');
-document.getElementById('depositTabBinance').classList.remove('active');
-document.getElementById('depositTabUsdt').classList.remove('active');
-document.getElementById('depositPanelVodafone').classList.add('active');
-document.getElementById('depositPanelBinance').classList.remove('active');
-document.getElementById('depositPanelUsdt').classList.remove('active');
-});
-document.getElementById('depositTabBinance').addEventListener('click', () => {
-document.getElementById('depositTabBinance').classList.add('active');
-document.getElementById('depositTabVodafone').classList.remove('active');
-document.getElementById('depositTabUsdt').classList.remove('active');
-document.getElementById('depositPanelBinance').classList.add('active');
-document.getElementById('depositPanelVodafone').classList.remove('active');
-document.getElementById('depositPanelUsdt').classList.remove('active');
-});
-document.getElementById('depositTabUsdt').addEventListener('click', () => {
-document.getElementById('depositTabUsdt').classList.add('active');
-document.getElementById('depositTabVodafone').classList.remove('active');
-document.getElementById('depositTabBinance').classList.remove('active');
-document.getElementById('depositPanelUsdt').classList.add('active');
-document.getElementById('depositPanelVodafone').classList.remove('active');
-document.getElementById('depositPanelBinance').classList.remove('active');
+document.getElementById('depositBackBtn').addEventListener('click', () => {
+window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 
+// ============================================
+// COPY BUTTONS
+// ============================================
 document.querySelectorAll('[data-copy]').forEach(btn => {
 btn.addEventListener('click', () => {
 const val = btn.getAttribute('data-copy');
@@ -3855,13 +3841,6 @@ return null;
 }
 
 // ============================================
-// OPEN WHATSAPP
-// ============================================
-function openWhatsAppUrl(url) {
-window.location.href = url;
-}
-
-// ============================================
 // VODAFONE SUBMIT
 // ============================================
 document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
@@ -3911,17 +3890,24 @@ amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيد�
 });
 } catch(e) {}
 
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري تحويلك لواتساب...';
-const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💳 *طلب إيداع محافظ كاش*\n\n' +
+msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
+
+let tgMsg = '💳 *طلب إيداع محافظ كاش*\n\n' +
 '👤 المستخدم: ' + currentProfile.username + '\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' جنيه\n' +
 '📱 رقم المُحوِّل: ' + senderPhone;
-if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
-const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
+if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
+else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
+tgMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
+
+const sent = await sendToTelegram(tgMsg);
+if (sent) {
+msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة على التليجرام';
+userToast('✅ تم إرسال طلبك للإدارة', 'ok');
+} else {
+msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
+}
 
 setTimeout(() => {
 document.getElementById('vodafoneForm').reset();
@@ -3929,9 +3915,7 @@ document.getElementById('vodafoneUploadZone').classList.remove('has-file');
 const p = document.getElementById('vodafonePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 1500);
-
-openWhatsAppUrl(waUrl);
+}, 2500);
 });
 
 // ============================================
@@ -3982,17 +3966,24 @@ amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيد�
 });
 } catch(e) {}
 
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري تحويلك لواتساب...';
-const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💳 *طلب إيداع Binance Pay*\n\n' +
+msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
+
+let tgMsg = '💳 *طلب إيداع Binance Pay*\n\n' +
 '👤 المستخدم: ' + currentProfile.username + '\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' دولار\n' +
 '🔢 معرف العملية: ' + tx;
-if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
-const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
+if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
+else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
+tgMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
+
+const sent = await sendToTelegram(tgMsg);
+if (sent) {
+msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة على التليجرام';
+userToast('✅ تم إرسال طلبك للإدارة', 'ok');
+} else {
+msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
+}
 
 setTimeout(() => {
 document.getElementById('binanceForm').reset();
@@ -4000,9 +3991,7 @@ document.getElementById('binanceUploadZone').classList.remove('has-file');
 const p = document.getElementById('binancePreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 1500);
-
-openWhatsAppUrl(waUrl);
+}, 2500);
 });
 
 // ============================================
@@ -4053,17 +4042,24 @@ amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيد�
 });
 } catch(e) {}
 
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك، جاري تحويلك لواتساب...';
-const adminWa = (window.siteSettings && window.siteSettings.support_phone) || '201154846407';
-let waMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n' +
+msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
+
+let tgMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n' +
 '👤 المستخدم: ' + currentProfile.username + '\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' دولار\n' +
 '🔢 TXID: ' + tx;
-if (publicUrl) waMsg += '\n\n📸 *صورة إثبات التحويل:*\n' + publicUrl;
-else waMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-waMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
-const waUrl = 'https://wa.me/' + adminWa + '?text=' + encodeURIComponent(waMsg);
+if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
+else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
+tgMsg += '\n\nيرجى مراجعة الطلب وإضافة الرصيد.';
+
+const sent = await sendToTelegram(tgMsg);
+if (sent) {
+msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة على التليجرام';
+userToast('✅ تم إرسال طلبك للإدارة', 'ok');
+} else {
+msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
+}
 
 setTimeout(() => {
 document.getElementById('usdtForm').reset();
@@ -4071,9 +4067,7 @@ document.getElementById('usdtUploadZone').classList.remove('has-file');
 const p = document.getElementById('usdtPreview'); if (p) p.src = '';
 msg.innerText = '';
 loadUserTransactions();
-}, 1500);
-
-openWhatsAppUrl(waUrl);
+}, 2500);
 });
 
 // ============================================
@@ -4255,13 +4249,7 @@ const tgMsg = '📋 طلب شراء خدمة : ' + serviceName +
 '\n💰 السعر الإجمالي : ' + totalToPay.toFixed(2) + ' ' + currencyName +
 '\n🔗 رابط الهدف : ' + link +
 '\n\n✅ يرجى تأكيد الطلب وإتمام التنفيذ.';
-try {
-fetch('https://api.telegram.org/bot' + TELEGRAM_ORDER_BOT + '/sendMessage', {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: tgMsg })
-});
-} catch(err) {}
+sendToTelegram(tgMsg);
 await refreshUserUI();
 userToast('✅ تم إرسال طلبك بنجاح! سيتم مراجعته قريباً', 'ok');
 buyBtn.innerHTML = oldHTML;
@@ -4306,8 +4294,10 @@ setTimeout(() => { if (window.loadAdminServices) window.loadAdminServices(); }, 
 setTimeout(() => {
 const hash = (window.location.hash || '').replace('#','');
 if (hash === 'profile' && currentProfile) openProfilePage();
-else if (hash === 'deposit' && currentProfile) openDepositPage();
 else if (hash === 'orders' && currentProfile) openMyOrdersPage();
+else if ((hash === 'deposit-vodafone' || hash === 'deposit-binance' || hash === 'deposit-usdt') && currentProfile) {
+window.__navigateTo(hash, document.getElementById('depositPage'), true);
+}
 }, 1000);
 }
 initUserSystem();
