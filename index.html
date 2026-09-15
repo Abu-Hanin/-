@@ -3790,20 +3790,9 @@ window.location.href = url;
 // ============================================
 // OPEN LOADING WINDOW (يمنع حجب المتصفح)
 // ============================================
-function openLoadingWindow() {
-try {
-const w = window.open('about:blank', '_blank', 'width=1,height=1,left=0,top=0,menubar=no,toolbar=no,location=no,status=no,scrollbars=no,resizable=no');
-if (w) {
-try {
-w.document.open();
-w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>.</title><style>html,body{margin:0;padding:0;background:#0B0E11;overflow:hidden;}</style></head><body></body></html>');
-w.document.close();
-try { w.blur(); } catch(e) {}
-setTimeout(() => { try { w.resizeTo(1,1); w.moveTo(0,0); } catch(e) {} }, 100);
-} catch(e) {}
-}
-return w;
-} catch(e) { return null; }
+function openWhatsAppUrl(url) {
+// التحويل المباشر في نفس التاب — يشتغل 100% على الموبايل والكمبيوتر
+window.location.href = url;
 }
 
 // ============================================
