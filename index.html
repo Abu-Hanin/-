@@ -1467,7 +1467,7 @@ window.SMCOLE_BOT = {
   admin_username: 'walidsalama'
 };
 
-const APP_VERSION = '2026.09.17.13';
+const APP_VERSION = '2026.09.17.14';
 
 const SUPABASE_URL = 'https://bqiryyoanqleobzlztbl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
@@ -1490,7 +1490,6 @@ document.getElementById('adminLoginPage').classList.remove('active');
 document.getElementById('adminPanelPage').classList.add('active');
 var ue = document.getElementById('adminUserEmail');
 if (ue) ue.innerText = user.email;
-// ✅ سريع: نحمّل التابات المعروضة بس
 if (window.loadAdminUsers) window.loadAdminUsers();
 };
 </script>
@@ -1757,9 +1756,6 @@ setTimeout(() => overlay.style.display = 'none', 600);
 }
 }, 1000);
 
-// ============================================================
-// COUNTERS
-// ============================================================
 (function() {
 try {
 const supabase = getSupabase();
@@ -1899,7 +1895,6 @@ mainContent.style.display = 'none';
 [termsPage, paymentPage, favoritesPage, profilePage, depositPage, myOrdersPage].forEach(p => { if (p) p.style.display = 'none'; });
 document.getElementById('adminLoginPage').classList.remove('active');
 document.getElementById('adminPanelPage').classList.add('active');
-// ✅ سريع: المستخدمين بس في البداية
 if (window.loadAdminUsers) window.loadAdminUsers();
 window.scrollTo(0, 0);
 window.__currentRoute = routeName;
@@ -2976,7 +2971,9 @@ else if (target === 'transactions') loadAdminTransactions();
 });
 });
 
-// ==================== USERS ====================
+// ============================================================
+// USERS — تحميل أولي 50 + بحث من السيرفر
+// ============================================================
 let allUsersData = [];
 let usersSearchTerm = '';
 async function loadAdminUsers() {
@@ -3129,7 +3126,7 @@ user_id: userId, type, method, amount, currency, status: status || 'completed', 
 }
 window.__logTransaction = logTransaction;
 
-// ✅ NEW: Helper لتحويل السجلات (تحديث بدل insert جديد)
+// ✅ تحديث سجل موجود بدل إنشاء جديد
 async function updateTransactionStatus(userId, method, amount, currency, newStatus, newDesc) {
 try {
 const { data: pending } = await supabase.from('transactions')
@@ -3190,7 +3187,7 @@ balanceModalUser.id,
 balanceModalAction === 'add' ? 'admin_credit' : 'admin_debit',
 'admin_manual',
 amount, currency, 'completed',
-(balanceModalAction === 'add' ? 'إضافة رصيد بواسطة الإدارة' : 'خصم رصيد بواسطة الإدارة')
+(balanceModalAction === 'add' ? 'إضافة رصيد' : 'خصم رصيد')
 );
 document.getElementById('adminBalanceModalBg').classList.remove('show');
 await loadAdminUsers();
@@ -3234,7 +3231,9 @@ btn.disabled = false;
 btn.innerHTML = '<i class="fas fa-save"></i> تغيير';
 });
 
-// ==================== ORDERS ====================
+// ============================================================
+// ORDERS
+// ============================================================
 let allOrdersData = [];
 let ordersSearchTerm = '';
 async function loadAdminOrders() {
@@ -3308,13 +3307,17 @@ renderOrdersTable();
 window.__adminSetOrder = async function(id, status) {
 const orderData = allOrdersData.find(o => o.id === id);
 if (!orderData) { toast('لم يتم العثور على الطلب', true); return; }
+
 if (orderData.status === 'cancelled' || orderData.status === 'completed') {
 toast('لا يمكن تعديل طلب ملغي أو مكتمل', true);
 return;
 }
+
 if (status === 'cancelled' && !confirm('إلغاء هذا الطلب؟ سيتم إرجاع ' + parseFloat(orderData.total || 0).toFixed(2) + ' للعميل تلقائياً.')) return;
+
 const { error } = await supabase.from('orders').update({ status: status }).eq('id', id);
 if (error) { toast('خطأ: ' + error.message, true); return; }
+
 if (status === 'cancelled') {
 try {
 const { data: userRec } = await supabase.from('users').select('*').eq('id', orderData.user_id).single();
@@ -3342,10 +3345,13 @@ toast('⚠️ تم إلغاء الطلب لكن حدث خطأ في الاستر�
 } else {
 toast('تم تحديث حالة الطلب');
 }
+
 await loadAdminOrders();
 };
 
-// ==================== DEPOSITS ====================
+// ============================================================
+// DEPOSITS — سريع
+// ============================================================
 let allDepositsData = [];
 let depositsSearchTerm = '';
 async function loadAdminDeposits() {
@@ -3455,7 +3461,7 @@ document.getElementById('screenshotModalBg').addEventListener('click', () => {
 document.getElementById('screenshotModalBg').classList.remove('show');
 });
 
-// ✅ Approve deposit — تحديث البطاقة بدل insert جديدة
+// ✅ Approve deposit — تحديث السجل بدل إضافة جديد + وصف نظيف
 window.__adminApproveDeposit = async function(id) {
 const d = allDepositsData.find(x => x.id === id);
 if (!d) return;
@@ -3472,17 +3478,17 @@ if (uErr) { toast('خطأ: ' + uErr.message, true); return; }
 const { error: dErr } = await supabase.from('deposit_requests').update({ status: 'approved' }).eq('id', id);
 if (dErr) { toast('خطأ: ' + dErr.message, true); return; }
 
-// ✅ تحديث السجل بدل إنشاء سجل جديد
+// ✅ تحديث السجل بدل إضافة جديد — وصف نظيف بدون "تليجرام"
 const updated = await updateTransactionStatus(d.user_id, d.method, depositAmt, d.currency, 'approved');
 if (!updated) {
-await logTransaction(d.user_id, 'deposit', d.method, depositAmt, d.currency, 'approved', 'إيداع');
+await logTransaction(d.user_id, 'deposit', d.method, depositAmt, d.currency, 'approved', '');
 }
 
 if (window.__cleanupOldDepositRequests) { window.__cleanupOldDepositRequests(); }
 await loadAdminDeposits();
 };
 
-// ✅ Reject deposit — تحديث البطاقة
+// ✅ Reject deposit — تحديث السجل + وصف نظيف
 window.__adminRejectDeposit = async function(id) {
 if (!confirm('رفض طلب الإيداع؟')) return;
 const d = allDepositsData.find(x => x.id === id);
@@ -3492,7 +3498,7 @@ if (error) { toast('خطأ: ' + error.message, true); return; }
 if (d) {
 const updated = await updateTransactionStatus(d.user_id, d.method, parseFloat(d.amount), d.currency, 'rejected');
 if (!updated) {
-await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', 'إيداع');
+await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', '');
 }
 }
 
@@ -3500,7 +3506,9 @@ if (window.__cleanupOldDepositRequests) { window.__cleanupOldDepositRequests(); 
 await loadAdminDeposits();
 };
 
-// ==================== TRANSACTIONS ====================
+// ============================================================
+// TRANSACTIONS LOG
+// ============================================================
 let allTxData = [];
 let txSearchTerm = '';
 async function loadAdminTransactions() {
@@ -3548,8 +3556,8 @@ list.forEach((t, i) => {
 const tr = document.createElement('tr');
 const typeMap = {
 deposit: ['✅ إيداع', '#2EBD85'],
-admin_credit: ['➕ إضافة من الإدارة', '#F0B90B'],
-admin_debit: ['➖ خصم من الإدارة', '#e83e5c'],
+admin_credit: ['➕ إضافة رصيد', '#F0B90B'],
+admin_debit: ['➖ خصم رصيد', '#e83e5c'],
 order: ['🛒 طلب', '#60a5fa']
 };
 const tp = typeMap[t.type] || [t.type, '#aaa'];
@@ -3586,7 +3594,7 @@ window.openAdminPanel(session.user);
 })();
 })();
 </script>
-  <script>
+<script>
 window.sendOrder = function() {};
 
 (function(){
@@ -3598,9 +3606,7 @@ let currentProfile = null;
 window.currentProfile = null;
 let pendingBuyAfterAuth = null;
 
-// ============================================================
-// ✅ أسماء طرق الدفع بالعربي (للـ transactions)
-// ============================================================
+// أسماء طرق الدفع بالعربي للسجلات
 const METHOD_AR = {
 vodafone: 'محافظ كاش',
 binance: 'باينانس باي',
@@ -3656,6 +3662,9 @@ function showAuthModal() { document.getElementById('authModalBg').classList.add(
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 window.showAuthModal = showAuthModal;
 
+// ============================================================
+// ✅ sendToTelegram — يستقبل photo_url لإرسال الصورة منفصلة
+// ============================================================
 async function sendToTelegram(text, meta) {
 try {
 const body = { text: text };
@@ -3663,10 +3672,11 @@ if (meta && typeof meta === 'object') {
 if (meta.order_id) body.order_id = meta.order_id;
 if (meta.deposit_id) body.deposit_id = meta.deposit_id;
 if (meta.type) body.type = meta.type;
+if (meta.photo_url) body.photo_url = meta.photo_url;
 }
 const { data, error } = await sb.functions.invoke('send-to-telegram', { body: body });
 if (error) { console.warn('Telegram function error:', error); return false; }
-if (data && data.ok) { console.log('✅ Sent to Telegram:', data.message_id); return true; }
+if (data && data.ok) { console.log('✅ Sent to Telegram:', data.message_id, 'photo:', data.photo_sent); return true; }
 console.warn('Telegram function failed:', data);
 return false;
 } catch(e) { console.warn('Telegram call failed:', e); return false; }
@@ -3789,7 +3799,6 @@ if (window.__updateProfileAvatarUI) window.__updateProfileAvatarUI();
 } catch(e) {}
 }
 })
-// ✅ NEW: realtime على transactions — لتحديث السجل عند موافقة الأدمن
 .on('postgres_changes', {
 event: 'UPDATE', schema: 'public', table: 'transactions',
 filter: 'user_id=eq.' + currentProfile.id
@@ -4189,7 +4198,7 @@ Promise.resolve(promise).then(
 }
 
 // ============================================================
-// ✅ رفع الصور بالتوازي (Supabase + Catbox مع بعض) — أول واحد ينجح
+// ✅ رفع الصورة: Supabase الأول (زي القديم اللي كان شغال) + Catbox كـ fallback
 // ============================================================
 async function uploadScreenshot(dataURL, method) {
 if (!dataURL) return null;
@@ -4200,50 +4209,38 @@ catch(e) { console.warn('blob convert failed:', e); return null; }
 const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg').replace('+xml','') : 'jpg';
 const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
 
-// ✅ دالة رفع على Catbox
-const uploadToCatbox = async () => {
-try {
-const fd = new FormData();
-fd.append('reqtype', 'fileupload');
-fd.append('fileToUpload', blob, fileName);
-const r = await withTimeout(fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd }), 8000);
-if (r && r.ok) {
-const url = (await r.text()).trim();
-if (url && url.indexOf('http') === 0) { console.log('✅ Catbox:', url); return url; }
-}
-} catch(e) { console.warn('catbox fail:', e.message); }
-return null;
-};
-
-// ✅ دالة رفع على Supabase Storage
-const uploadToSupabase = async () => {
+// ✅ 1) Supabase Storage الأول (زي القديم)
 try {
 const uploadPromise = sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: true });
-const result = await withTimeout(uploadPromise, 8000);
+const result = await withTimeout(uploadPromise, 10000);
 if (result && !result.error) {
 const pubResult = sb.storage.from('screenshots').getPublicUrl(fileName);
 if (pubResult && pubResult.data && pubResult.data.publicUrl) {
 console.log('✅ Supabase:', pubResult.data.publicUrl);
 return pubResult.data.publicUrl;
 }
-} else if (result && result.error) { console.warn('Supabase err:', result.error.message); }
-} catch(e) { console.warn('Supabase fail:', e.message); }
-return null;
-};
-
-// ✅ رفع بالتوازي
-try {
-const results = await Promise.allSettled([uploadToCatbox(), uploadToSupabase()]);
-for (const res of results) {
-if (res.status === 'fulfilled' && res.value) return res.value;
+} else if (result && result.error) {
+console.warn('Supabase err:', result.error.message);
 }
-} catch(e) { console.warn('parallel upload error:', e); }
+} catch(e) { console.warn('Supabase fail:', e.message); }
 
-// ✅ آخر حل: 0x0.st
+// ✅ 2) Catbox fallback
+try {
+const fd = new FormData();
+fd.append('reqtype', 'fileupload');
+fd.append('fileToUpload', blob, fileName);
+const r = await withTimeout(fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd }), 10000);
+if (r && r.ok) {
+const url = (await r.text()).trim();
+if (url && url.indexOf('http') === 0) { console.log('✅ Catbox:', url); return url; }
+}
+} catch(e) { console.warn('catbox fail:', e.message); }
+
+// ✅ 3) 0x0.st آخر حل
 try {
 const fd = new FormData();
 fd.append('file', blob, fileName);
-const r = await withTimeout(fetch('https://0x0.st', { method: 'POST', body: fd }), 6000);
+const r = await withTimeout(fetch('https://0x0.st', { method: 'POST', body: fd }), 10000);
 if (r && r.ok) {
 const url = (await r.text()).trim();
 if (url && url.indexOf('http') === 0) { console.log('✅ 0x0:', url); return url; }
@@ -4283,19 +4280,16 @@ if (senderPhone) insertPayload.sender_phone = senderPhone;
 const { error } = await sb.from('deposit_requests').insert(insertPayload);
 if (error) { setMsg('خطأ: ' + error.message, true); return; }
 
-// ✅ جيب الـ ID
+// جيب الـ ID
 let depositId = 0;
 try {
 const { data: latest } = await sb.from('deposit_requests')
-.select('id')
-.eq('user_id', currentProfile.id)
-.order('id', { ascending: false })
-.limit(1)
-.single();
+.select('id').eq('user_id', currentProfile.id)
+.order('id', { ascending: false }).limit(1).single();
 depositId = latest?.id || 0;
 } catch(e) {}
 
-// ✅ سجل معاملة pending (بدون كلمة تليجرام)
+// سجل معاملة pending
 try {
 await sb.from('transactions').insert({
 user_id: currentProfile.id,
@@ -4308,7 +4302,7 @@ description: METHOD_AR[method] || method
 });
 } catch(e) {}
 
-// ✅ Telegram
+// ✅ Telegram — الصورة منفصلة في photo_url (بدون رابط في النص)
 setMsg('⏳ جاري الإرسال للإدارة...');
 let tgMsg = tgTitle + '\n\n' +
 '🆔 رقم الطلب: #' + depositId + '\n' +
@@ -4316,10 +4310,14 @@ let tgMsg = tgTitle + '\n\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' ' + (currency === 'USD' ? 'دولار' : 'جنيه');
 if (tgExtra) tgMsg += '\n' + tgExtra;
-if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
-else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
+if (!publicUrl) tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 
-const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
+// ✅ نبعت الصورة منفصلة عن النص
+const sent = await sendToTelegram(tgMsg, {
+deposit_id: depositId,
+type: 'deposit',
+photo_url: publicUrl || null
+});
 
 if (sent) {
 setMsg('✅ تم إرسال طلبك بنجاح للإدارة');
@@ -4365,7 +4363,7 @@ currency: 'EGP',
 transactionId: senderPhone,
 senderPhone: senderPhone,
 screenshotDataURL: compressed,
-tgTitle: '💳 *طلب إيداع محافظ كاش*',
+tgTitle: '💳 طلب إيداع محافظ كاش',
 tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
 });
 });
@@ -4392,7 +4390,7 @@ amount: amount,
 currency: 'USD',
 transactionId: tx,
 screenshotDataURL: compressed,
-tgTitle: '💳 *طلب إيداع Binance Pay*',
+tgTitle: '💳 طلب إيداع Binance Pay',
 tgExtra: '🔢 معرف العملية: ' + tx
 });
 });
@@ -4419,7 +4417,7 @@ amount: amount,
 currency: 'USD',
 transactionId: tx,
 screenshotDataURL: compressed,
-tgTitle: '💎 *طلب إيداع USDT (TRC20)*',
+tgTitle: '💎 طلب إيداع USDT (TRC20)',
 tgExtra: '🔢 TXID: ' + tx
 });
 });
@@ -4447,7 +4445,7 @@ currency: 'EGP',
 transactionId: senderPhone,
 senderPhone: senderPhone,
 screenshotDataURL: compressed,
-tgTitle: '🏦 *طلب إيداع إنستا باي (InstaPay)*',
+tgTitle: '🏦 طلب إيداع إنستا باي (InstaPay)',
 tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
 });
 });
@@ -4474,13 +4472,13 @@ amount: amount,
 currency: 'USD',
 transactionId: tx,
 screenshotDataURL: compressed,
-tgTitle: '💳 *طلب إيداع Redot Pay*',
+tgTitle: '💳 طلب إيداع Redot Pay',
 tgExtra: '🔢 معرف العملية: ' + tx
 });
 });
 
 // ============================================================
-// ✅ TRANSACTIONS LOG — بطاقة واحدة لكل عملية (بدون تكرار)
+// Transactions Log — بطاقة واحدة بدون "تليجرام"
 // ============================================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
@@ -4507,20 +4505,19 @@ admin_debit: ['خصم رصيد', 'wd', 'fa-minus']
 };
 const tp = typeMap[t.type] || [t.type, 'add', 'fa-circle'];
 
-// ✅ تسمية الطريقة بالعربي بدون "تليجرام"
 let methodLabel = METHOD_AR[t.method] || t.method || '';
 if (t.type === 'admin_credit' && t.method === 'order_refund') methodLabel = 'استرجاع طلب';
 if (t.type === 'admin_credit' || t.type === 'admin_debit') methodLabel = 'الإدارة';
 
-// ✅ العنوان: "إيداع — محافظ كاش" (بدون أوصاف إضافية)
 let title = tp[0];
 if (methodLabel && methodLabel !== 'الإدارة') title += ' — ' + methodLabel;
 if (t.type === 'admin_credit' && t.method === 'order_refund') title = 'استرجاع رصيد — إلغاء طلب';
 
-// ✅ تنظيف الوصف من أي ذكر للتليجرام (احتياطي)
-let cleanDesc = (t.description || '').replace(/تليجرام|Telegram|بواسطة الأدمن|بواسطة الإدارة/g, '').trim();
+let cleanDesc = (t.description || '').replace(/تليجرام|Telegram|بواسطة الأدمن|بواسطة الإدارة|\(تليجرام\)/g, '').trim();
 if (cleanDesc.startsWith('—')) cleanDesc = cleanDesc.slice(1).trim();
 if (cleanDesc === '—' || cleanDesc === '-') cleanDesc = '';
+// لو الوصف كله عن الإيداع الأساسي، نخليه فاضي
+if (cleanDesc && cleanDesc.match(/^(إيداع|محافظ كاش|باينانس باي|USDT|إنستا باي|Redot Pay)$/)) cleanDesc = '';
 
 const cur = t.currency === 'USD' ? '$' : 'جنيه';
 const sign = (t.type === 'deposit' || t.type === 'admin_credit') ? '+' : '-';
@@ -4669,11 +4666,11 @@ let orderId = 0;
 try {
 const { data: latestOrder } = await sb.from('orders').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
 orderId = latestOrder?.id || 0;
-} catch(e) { console.warn('fetch order id:', e); }
+} catch(e) {}
 
 if (window.registerNewOrder) { try { await window.registerNewOrder(); } catch(e) {} }
 
-const tgMsg = '📋 *طلب شراء خدمة*\n\n' +
+const tgMsg = '📋 طلب شراء خدمة\n\n' +
 '🆔 رقم الطلب: #' + orderId + '\n' +
 '🔢 رقم الخدمة: ' + serviceNumber + '\n' +
 '📦 الخدمة: ' + serviceName + '\n' +
