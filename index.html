@@ -1467,7 +1467,7 @@ window.SMCOLE_BOT = {
   admin_username: 'walidsalama'
 };
 
-const APP_VERSION = '2026.09.17.14';
+const APP_VERSION = '2026.09.17.15';
 
 const SUPABASE_URL = 'https://bqiryyoanqleobzlztbl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
@@ -3665,23 +3665,27 @@ window.showAuthModal = showAuthModal;
 // ============================================================
 // ✅ sendToTelegram — يستقبل photo_url لإرسال الصورة منفصلة
 // ============================================================
-async function sendToTelegram(text, meta) {
+
+ async function sendToTelegram(text, meta) {
 try {
 const body = { text: text };
 if (meta && typeof meta === 'object') {
 if (meta.order_id) body.order_id = meta.order_id;
 if (meta.deposit_id) body.deposit_id = meta.deposit_id;
 if (meta.type) body.type = meta.type;
-if (meta.photo_url) body.photo_url = meta.photo_url;
+if (meta.photo_base64) body.photo_base64 = meta.photo_base64;
 }
 const { data, error } = await sb.functions.invoke('send-to-telegram', { body: body });
 if (error) { console.warn('Telegram function error:', error); return false; }
-if (data && data.ok) { console.log('✅ Sent to Telegram:', data.message_id, 'photo:', data.photo_sent); return true; }
+if (data && data.ok) {
+console.log('✅ Sent to Telegram:', data.message_id, 'photo:', data.photo_sent);
+return true;
+}
 console.warn('Telegram function failed:', data);
 return false;
 } catch(e) { console.warn('Telegram call failed:', e); return false; }
 }
-window.__sendToTelegram = sendToTelegram;
+window.__sendToTelegram = sendToTelegram; 
 
 function round2(n) {
 return Math.round((Number(n) + Number.EPSILON) * 100) / 100;
@@ -4254,7 +4258,8 @@ return null;
 // ============================================================
 // ✅ Helper: إرسال طلب إيداع (مشترك بين كل الطرق)
 // ============================================================
-async function submitDepositRequest({ method, amount, currency, transactionId, senderPhone, screenshotDataURL, tgTitle, tgExtra }) {
+
+ async function submitDepositRequest({ method, amount, currency, transactionId, senderPhone, screenshotDataURL, tgTitle, tgExtra }) {
 const msgEl = document.getElementById(method + 'Msg');
 const setMsg = (text, isErr) => {
 if (!msgEl) return;
@@ -4262,10 +4267,24 @@ msgEl.className = 'profile-msg' + (isErr ? ' err' : '');
 msgEl.innerText = text;
 };
 
-setMsg('⏳ جاري رفع الصورة...');
-const publicUrl = await uploadScreenshot(screenshotDataURL, method);
+// ✅ نبعت الصورة base64 مباشرة للـ Edge Function (بدون رفع خارجي)
+// ونرفعها كمان على Storage كنسخة احتياطية للوحة الأدمن
 
 setMsg('جاري حفظ الطلب...');
+
+// ✅ رفع نسخة على Storage للأدمن (بالتوازي)
+let publicUrl = null;
+try {
+const blob = await dataURLtoBlob(screenshotDataURL);
+const ext = 'jpg';
+const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
+const uploadResult = await sb.storage.from('screenshots').upload(fileName, blob, { contentType: 'image/jpeg', upsert: true });
+if (uploadResult && !uploadResult.error) {
+const pubResult = sb.storage.from('screenshots').getPublicUrl(fileName);
+if (pubResult?.data?.publicUrl) publicUrl = pubResult.data.publicUrl;
+}
+} catch(e) { console.warn('storage upload skip:', e.message); }
+
 const insertPayload = {
 user_id: currentProfile.id,
 method: method,
@@ -4302,7 +4321,7 @@ description: METHOD_AR[method] || method
 });
 } catch(e) {}
 
-// ✅ Telegram — الصورة منفصلة في photo_url (بدون رابط في النص)
+// ✅ إرسال للـ Edge Function مع الصورة base64
 setMsg('⏳ جاري الإرسال للإدارة...');
 let tgMsg = tgTitle + '\n\n' +
 '🆔 رقم الطلب: #' + depositId + '\n' +
@@ -4310,13 +4329,12 @@ let tgMsg = tgTitle + '\n\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
 '💰 المبلغ: ' + amount + ' ' + (currency === 'USD' ? 'دولار' : 'جنيه');
 if (tgExtra) tgMsg += '\n' + tgExtra;
-if (!publicUrl) tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 
-// ✅ نبعت الصورة منفصلة عن النص
+// ✅ نبعت الصورة base64 مباشرة
 const sent = await sendToTelegram(tgMsg, {
 deposit_id: depositId,
 type: 'deposit',
-photo_url: publicUrl || null
+photo_base64: screenshotDataURL
 });
 
 if (sent) {
@@ -4338,7 +4356,7 @@ if (previewEl) previewEl.src = '';
 if (msgEl) msgEl.innerText = '';
 loadUserTransactions();
 }, 2500);
-}
+} 
 
 // ============================================================
 // VODAFONE SUBMIT
