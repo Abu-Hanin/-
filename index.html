@@ -1467,7 +1467,7 @@ window.SMCOLE_BOT = {
   admin_username: 'walidsalama'
 };
 
-const APP_VERSION = '2026.09.17.12';
+const APP_VERSION = '2026.09.17.13';
 
 const SUPABASE_URL = 'https://bqiryyoanqleobzlztbl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
@@ -2874,11 +2874,8 @@ document.getElementById('settingsExchangeRate').value = (data.exchange_rate !== 
 document.getElementById('settingsActiveUsers').value = (data.active_users_override !== null && data.active_users_override !== undefined) ? data.active_users_override : '';
 document.getElementById('settingsCompletedOrders').value = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? data.completed_orders_override : '';
 pendingLogos = {
-vodafone: data.logo_vodafone || '',
-binance: data.logo_binance || '',
-usdt: data.logo_usdt || '',
-instapay: data.logo_instapay || '',
-redot: data.logo_redot || ''
+vodafone: data.logo_vodafone || '', binance: data.logo_binance || '',
+usdt: data.logo_usdt || '', instapay: data.logo_instapay || '', redot: data.logo_redot || ''
 };
 updateLogoPreview('vodafone', pendingLogos.vodafone);
 updateLogoPreview('binance', pendingLogos.binance);
@@ -2979,9 +2976,7 @@ else if (target === 'transactions') loadAdminTransactions();
 });
 });
 
-// ============================================================
-// ✅ USERS — سريع: تحميل أولي + بحث من السيرفر
-// ============================================================
+// ==================== USERS ====================
 let allUsersData = [];
 let usersSearchTerm = '';
 async function loadAdminUsers() {
@@ -2990,7 +2985,6 @@ const table = document.getElementById('adminUsersTable');
 const empty = document.getElementById('adminUsersEmpty');
 loader.style.display = 'block'; table.style.display = 'none'; empty.style.display = 'none';
 try {
-// ✅ تحميل سريع: 50 مستخدم بس + بدون count (أسرع بكتير)
 const { data, error } = await supabase.from('users')
 .select('id,username,name,email,phone,balance_egp,balance_usd,is_banned,created_at')
 .order('created_at', { ascending: false })
@@ -3135,6 +3129,28 @@ user_id: userId, type, method, amount, currency, status: status || 'completed', 
 }
 window.__logTransaction = logTransaction;
 
+// ✅ NEW: Helper لتحويل السجلات (تحديث بدل insert جديد)
+async function updateTransactionStatus(userId, method, amount, currency, newStatus, newDesc) {
+try {
+const { data: pending } = await supabase.from('transactions')
+.select('id')
+.eq('user_id', userId)
+.eq('method', method)
+.eq('amount', amount)
+.eq('currency', currency)
+.eq('status', 'pending')
+.order('created_at', { ascending: false })
+.limit(1)
+.maybeSingle();
+if (pending && pending.id) {
+await supabase.from('transactions').update({ status: newStatus, description: newDesc || undefined }).eq('id', pending.id);
+return true;
+}
+return false;
+} catch(e) { console.warn('update tx failed:', e); return false; }
+}
+window.__updateTransactionStatus = updateTransactionStatus;
+
 function round2(n) {
 return Math.round((Number(n) + Number.EPSILON) * 100) / 100;
 }
@@ -3143,14 +3159,10 @@ window.__round2 = round2;
 async function cleanupOldDepositRequests() {
 try {
 const { data: hundredth } = await supabase.from('deposit_requests')
-.select('created_at')
-.order('created_at', { ascending: false })
-.range(99, 99);
+.select('created_at').order('created_at', { ascending: false }).range(99, 99);
 if (!hundredth || !hundredth[0]) return;
 const cutoffDate = hundredth[0].created_at;
-const { error } = await supabase.from('deposit_requests')
-.delete()
-.lt('created_at', cutoffDate);
+const { error } = await supabase.from('deposit_requests').delete().lt('created_at', cutoffDate);
 if (!error) console.log('🧹 تم حذف الطلبات القديمة تلقائياً');
 } catch(e) { console.warn('cleanup error:', e); }
 }
@@ -3177,10 +3189,8 @@ await logTransaction(
 balanceModalUser.id,
 balanceModalAction === 'add' ? 'admin_credit' : 'admin_debit',
 'admin_manual',
-amount,
-currency,
-'completed',
-(balanceModalAction === 'add' ? 'إضافة رصيد بواسطة الأدمن' : 'خصم رصيد بواسطة الأدمن')
+amount, currency, 'completed',
+(balanceModalAction === 'add' ? 'إضافة رصيد بواسطة الإدارة' : 'خصم رصيد بواسطة الإدارة')
 );
 document.getElementById('adminBalanceModalBg').classList.remove('show');
 await loadAdminUsers();
@@ -3212,8 +3222,7 @@ btn.disabled = true;
 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التغيير...';
 try {
 const { error } = await supabase.rpc('admin_change_user_password', {
-target_user_id: userPasswordTarget.id,
-new_password: newPass
+target_user_id: userPasswordTarget.id, new_password: newPass
 });
 if (error) throw error;
 toast('✅ تم تغيير كلمة المرور بنجاح');
@@ -3225,9 +3234,7 @@ btn.disabled = false;
 btn.innerHTML = '<i class="fas fa-save"></i> تغيير';
 });
 
-// ============================================================
-// ✅ ORDERS — سريع بدون count
-// ============================================================
+// ==================== ORDERS ====================
 let allOrdersData = [];
 let ordersSearchTerm = '';
 async function loadAdminOrders() {
@@ -3301,17 +3308,13 @@ renderOrdersTable();
 window.__adminSetOrder = async function(id, status) {
 const orderData = allOrdersData.find(o => o.id === id);
 if (!orderData) { toast('لم يتم العثور على الطلب', true); return; }
-
 if (orderData.status === 'cancelled' || orderData.status === 'completed') {
 toast('لا يمكن تعديل طلب ملغي أو مكتمل', true);
 return;
 }
-
 if (status === 'cancelled' && !confirm('إلغاء هذا الطلب؟ سيتم إرجاع ' + parseFloat(orderData.total || 0).toFixed(2) + ' للعميل تلقائياً.')) return;
-
 const { error } = await supabase.from('orders').update({ status: status }).eq('id', id);
 if (error) { toast('خطأ: ' + error.message, true); return; }
-
 if (status === 'cancelled') {
 try {
 const { data: userRec } = await supabase.from('users').select('*').eq('id', orderData.user_id).single();
@@ -3327,7 +3330,7 @@ toast('⚠️ تم إلغاء الطلب لكن فشل استرجاع الرصي
 } else {
 toast('✅ تم إلغاء الطلب وإرجاع ' + refundAmount.toFixed(2) + ' للعميل');
 try {
-await logTransaction(orderData.user_id, 'admin_credit', 'order_refund', refundAmount, orderData.currency, 'completed', 'استرجاع رصيد - إلغاء طلب #' + id);
+await logTransaction(orderData.user_id, 'admin_credit', 'order_refund', refundAmount, orderData.currency, 'completed', 'استرجاع رصيد — إلغاء طلب #' + id);
 } catch(e) {}
 }
 } else {
@@ -3339,13 +3342,10 @@ toast('⚠️ تم إلغاء الطلب لكن حدث خطأ في الاستر�
 } else {
 toast('تم تحديث حالة الطلب');
 }
-
 await loadAdminOrders();
 };
 
-// ============================================================
-// ✅ DEPOSITS — سريع: 50 طلب بس
-// ============================================================
+// ==================== DEPOSITS ====================
 let allDepositsData = [];
 let depositsSearchTerm = '';
 async function loadAdminDeposits() {
@@ -3454,6 +3454,8 @@ bg.classList.add('show');
 document.getElementById('screenshotModalBg').addEventListener('click', () => {
 document.getElementById('screenshotModalBg').classList.remove('show');
 });
+
+// ✅ Approve deposit — تحديث البطاقة بدل insert جديدة
 window.__adminApproveDeposit = async function(id) {
 const d = allDepositsData.find(x => x.id === id);
 if (!d) return;
@@ -3469,21 +3471,36 @@ const { error: uErr } = await supabase.from('users').update(upd).eq('id', d.user
 if (uErr) { toast('خطأ: ' + uErr.message, true); return; }
 const { error: dErr } = await supabase.from('deposit_requests').update({ status: 'approved' }).eq('id', id);
 if (dErr) { toast('خطأ: ' + dErr.message, true); return; }
-await logTransaction(d.user_id, 'deposit', d.method, depositAmt, d.currency, 'approved', 'تم تأكيد الإيداع بواسطة الأدمن');
+
+// ✅ تحديث السجل بدل إنشاء سجل جديد
+const updated = await updateTransactionStatus(d.user_id, d.method, depositAmt, d.currency, 'approved');
+if (!updated) {
+await logTransaction(d.user_id, 'deposit', d.method, depositAmt, d.currency, 'approved', 'إيداع');
+}
+
 if (window.__cleanupOldDepositRequests) { window.__cleanupOldDepositRequests(); }
 await loadAdminDeposits();
 };
 
+// ✅ Reject deposit — تحديث البطاقة
 window.__adminRejectDeposit = async function(id) {
 if (!confirm('رفض طلب الإيداع؟')) return;
 const d = allDepositsData.find(x => x.id === id);
 const { error } = await supabase.from('deposit_requests').update({ status: 'rejected' }).eq('id', id);
 if (error) { toast('خطأ: ' + error.message, true); return; }
-if (d) await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', 'تم رفض الإيداع بواسطة الأدمن');
+
+if (d) {
+const updated = await updateTransactionStatus(d.user_id, d.method, parseFloat(d.amount), d.currency, 'rejected');
+if (!updated) {
+await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', 'إيداع');
+}
+}
+
 if (window.__cleanupOldDepositRequests) { window.__cleanupOldDepositRequests(); }
 await loadAdminDeposits();
 };
 
+// ==================== TRANSACTIONS ====================
 let allTxData = [];
 let txSearchTerm = '';
 async function loadAdminTransactions() {
@@ -3531,8 +3548,8 @@ list.forEach((t, i) => {
 const tr = document.createElement('tr');
 const typeMap = {
 deposit: ['✅ إيداع', '#2EBD85'],
-admin_credit: ['➕ إضافة من الأدمن', '#F0B90B'],
-admin_debit: ['➖ خصم من الأدمن', '#e83e5c'],
+admin_credit: ['➕ إضافة من الإدارة', '#F0B90B'],
+admin_debit: ['➖ خصم من الإدارة', '#e83e5c'],
 order: ['🛒 طلب', '#60a5fa']
 };
 const tp = typeMap[t.type] || [t.type, '#aaa'];
@@ -3569,7 +3586,7 @@ window.openAdminPanel(session.user);
 })();
 })();
 </script>
-<script>
+  <script>
 window.sendOrder = function() {};
 
 (function(){
@@ -3580,6 +3597,19 @@ let currentUser = null;
 let currentProfile = null;
 window.currentProfile = null;
 let pendingBuyAfterAuth = null;
+
+// ============================================================
+// ✅ أسماء طرق الدفع بالعربي (للـ transactions)
+// ============================================================
+const METHOD_AR = {
+vodafone: 'محافظ كاش',
+binance: 'باينانس باي',
+usdt: 'USDT',
+instapay: 'إنستا باي',
+redot: 'Redot Pay',
+admin_manual: 'الإدارة',
+order_refund: 'استرجاع طلب'
+};
 
 function userToast(msg, type) {
 let t = document.getElementById('userToast');
@@ -3626,9 +3656,6 @@ function showAuthModal() { document.getElementById('authModalBg').classList.add(
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 window.showAuthModal = showAuthModal;
 
-// ============================================================
-// ✅ Telegram sender with metadata (order_id / deposit_id / type)
-// ============================================================
 async function sendToTelegram(text, meta) {
 try {
 const body = { text: text };
@@ -3742,9 +3769,7 @@ window.__userRealtimeChannel = null;
 }
 window.__userRealtimeChannel = sb.channel('user-profile-' + currentProfile.id + '-' + Date.now())
 .on('postgres_changes', {
-event: 'UPDATE',
-schema: 'public',
-table: 'users',
+event: 'UPDATE', schema: 'public', table: 'users',
 filter: 'id=eq.' + currentProfile.id
 }, (payload) => {
 if (!payload || !payload.new) return;
@@ -3763,6 +3788,21 @@ if (phoneEl && document.activeElement !== phoneEl) phoneEl.value = currentProfil
 if (window.__updateProfileAvatarUI) window.__updateProfileAvatarUI();
 } catch(e) {}
 }
+})
+// ✅ NEW: realtime على transactions — لتحديث السجل عند موافقة الأدمن
+.on('postgres_changes', {
+event: 'UPDATE', schema: 'public', table: 'transactions',
+filter: 'user_id=eq.' + currentProfile.id
+}, (payload) => {
+if (!payload || !payload.new) return;
+if (window.loadUserTransactions) window.loadUserTransactions();
+})
+.on('postgres_changes', {
+event: 'INSERT', schema: 'public', table: 'transactions',
+filter: 'user_id=eq.' + currentProfile.id
+}, (payload) => {
+if (!payload || !payload.new) return;
+if (window.loadUserTransactions) window.loadUserTransactions();
 })
 .subscribe();
 } catch(e) { console.warn('realtime sub failed', e); }
@@ -3812,24 +3852,17 @@ const password = document.getElementById('regPassword').value;
 const msg = document.getElementById('registerMsg');
 msg.className = 'auth-msg'; msg.innerText = 'جاري إنشاء الحساب...';
 if (!/^[a-z0-9_]{3,20}$/.test(username)) {
-msg.className = 'auth-msg err';
-msg.innerText = 'اسم المستخدم لازم 3-20 حرف إنجليزي/رقم/_';
-return;
+msg.className = 'auth-msg err'; msg.innerText = 'اسم المستخدم لازم 3-20 حرف إنجليزي/رقم/_'; return;
 }
 try {
 const { data: existing } = await sb.from('users').select('id').eq('username', username).maybeSingle();
-if (existing) {
-msg.className = 'auth-msg err';
-msg.innerText = 'اسم المستخدم مستخدم بالفعل';
-return;
-}
+if (existing) { msg.className = 'auth-msg err'; msg.innerText = 'اسم المستخدم مستخدم بالفعل'; return; }
 } catch(e) {}
 const { data: signData, error: signErr } = await sb.auth.signUp({ email, password });
 if (signErr) { msg.className = 'auth-msg err'; msg.innerText = signErr.message; return; }
 if (!signData.user) { msg.className = 'auth-msg err'; msg.innerText = 'فشل إنشاء الحساب'; return; }
 const { error: insertErr } = await sb.from('users').insert({
-auth_id: signData.user.id,
-name, username, email, phone: phone || null
+auth_id: signData.user.id, name, username, email, phone: phone || null
 });
 if (insertErr) { msg.className = 'auth-msg err'; msg.innerText = 'خطأ: ' + insertErr.message; return; }
 await sb.auth.signInWithPassword({ email, password });
@@ -3850,8 +3883,7 @@ if (error) { msg.className = 'auth-msg err'; msg.innerText = '❌ ' + error.mess
 const { data: profile, error: profErr } = await sb.from('users').select('*').eq('auth_id', data.user.id).single();
 if (profErr || !profile) {
 await sb.auth.signOut();
-msg.className = 'auth-msg err';
-msg.innerText = '🚫 لا يوجد حساب مسجل بهذا البريد';
+msg.className = 'auth-msg err'; msg.innerText = '🚫 لا يوجد حساب مسجل بهذا البريد';
 userToast('🚫 هذا الحساب غير موجود أو تم حذفه', 'err');
 return;
 }
@@ -4157,7 +4189,7 @@ Promise.resolve(promise).then(
 }
 
 // ============================================================
-// ✅ FIX: Upload screenshot — Catbox FIRST (مضمون يفتح)
+// ✅ رفع الصور بالتوازي (Supabase + Catbox مع بعض) — أول واحد ينجح
 // ============================================================
 async function uploadScreenshot(dataURL, method) {
 if (!dataURL) return null;
@@ -4168,45 +4200,53 @@ catch(e) { console.warn('blob convert failed:', e); return null; }
 const ext = (blob.type && blob.type.split('/')[1]) ? blob.type.split('/')[1].replace('jpeg','jpg').replace('+xml','') : 'jpg';
 const fileName = method + '_' + Date.now() + '_' + Math.random().toString(36).slice(2,8) + '.' + ext;
 
-// ✅ 1) Catbox first — أسرع + يفتح على أي متصفح
+// ✅ دالة رفع على Catbox
+const uploadToCatbox = async () => {
 try {
 const fd = new FormData();
 fd.append('reqtype', 'fileupload');
 fd.append('fileToUpload', blob, fileName);
-const r = await withTimeout(fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd }), 12000);
+const r = await withTimeout(fetch('https://catbox.moe/user/api.php', { method: 'POST', body: fd }), 8000);
 if (r && r.ok) {
 const url = (await r.text()).trim();
-if (url && url.indexOf('http') === 0) {
-console.log('✅ Catbox upload success:', url);
-return url;
-}
+if (url && url.indexOf('http') === 0) { console.log('✅ Catbox:', url); return url; }
 }
 } catch(e) { console.warn('catbox fail:', e.message); }
+return null;
+};
 
-// ✅ 2) Supabase Storage fallback
+// ✅ دالة رفع على Supabase Storage
+const uploadToSupabase = async () => {
 try {
 const uploadPromise = sb.storage.from('screenshots').upload(fileName, blob, { contentType: blob.type || 'image/jpeg', upsert: true });
-const result = await withTimeout(uploadPromise, 12000);
+const result = await withTimeout(uploadPromise, 8000);
 if (result && !result.error) {
 const pubResult = sb.storage.from('screenshots').getPublicUrl(fileName);
 if (pubResult && pubResult.data && pubResult.data.publicUrl) {
-console.log('✅ Supabase upload success:', pubResult.data.publicUrl);
+console.log('✅ Supabase:', pubResult.data.publicUrl);
 return pubResult.data.publicUrl;
 }
 } else if (result && result.error) { console.warn('Supabase err:', result.error.message); }
 } catch(e) { console.warn('Supabase fail:', e.message); }
+return null;
+};
 
-// ✅ 3) 0x0.st as last resort
+// ✅ رفع بالتوازي
+try {
+const results = await Promise.allSettled([uploadToCatbox(), uploadToSupabase()]);
+for (const res of results) {
+if (res.status === 'fulfilled' && res.value) return res.value;
+}
+} catch(e) { console.warn('parallel upload error:', e); }
+
+// ✅ آخر حل: 0x0.st
 try {
 const fd = new FormData();
 fd.append('file', blob, fileName);
-const r = await withTimeout(fetch('https://0x0.st', { method: 'POST', body: fd }), 12000);
+const r = await withTimeout(fetch('https://0x0.st', { method: 'POST', body: fd }), 6000);
 if (r && r.ok) {
 const url = (await r.text()).trim();
-if (url && url.indexOf('http') === 0) {
-console.log('✅ 0x0 upload success:', url);
-return url;
-}
+if (url && url.indexOf('http') === 0) { console.log('✅ 0x0:', url); return url; }
 }
 } catch(e) { console.warn('0x0 fail:', e.message); }
 
@@ -4215,76 +4255,119 @@ return null;
 }
 
 // ============================================================
-// VODAFONE SUBMIT
+// ✅ Helper: إرسال طلب إيداع (مشترك بين كل الطرق)
 // ============================================================
-document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
-e.preventDefault();
-if (!currentProfile) { showAuthModal(); return; }
-const msg = document.getElementById('vodafoneMsg');
-const amount = parseFloat(document.getElementById('vodafoneAmount').value);
-const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
-const screenshot = getScreenshotPreviewSrc('vodafoneUploadZone');
-msg.className = 'profile-msg'; msg.innerText = '';
+async function submitDepositRequest({ method, amount, currency, transactionId, senderPhone, screenshotDataURL, tgTitle, tgExtra }) {
+const msgEl = document.getElementById(method + 'Msg');
+const setMsg = (text, isErr) => {
+if (!msgEl) return;
+msgEl.className = 'profile-msg' + (isErr ? ' err' : '');
+msgEl.innerText = text;
+};
 
-if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
-if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
-if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
+setMsg('⏳ جاري رفع الصورة...');
+const publicUrl = await uploadScreenshot(screenshotDataURL, method);
 
-msg.innerText = '⏳ جاري ضغط الصورة...';
-const compressed = await compressImage(screenshot, 1200, 0.75);
-msg.innerText = '⏳ جاري رفع الصورة...';
-const publicUrl = await uploadScreenshot(compressed, 'vodafone');
+setMsg('جاري حفظ الطلب...');
+const insertPayload = {
+user_id: currentProfile.id,
+method: method,
+amount: amount,
+currency: currency,
+transaction_id: transactionId || senderPhone || '-',
+screenshot: publicUrl || screenshotDataURL,
+status: 'pending'
+};
+if (senderPhone) insertPayload.sender_phone = senderPhone;
 
-msg.innerText = 'جاري حفظ الطلب...';
-// ✅ FIX: insert without select
-const { error } = await sb.from('deposit_requests').insert({
-user_id: currentProfile.id, method: 'vodafone', amount: amount, currency: 'EGP',
-transaction_id: senderPhone, sender_phone: senderPhone, screenshot: publicUrl || compressed, status: 'pending'
-});
-if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
+const { error } = await sb.from('deposit_requests').insert(insertPayload);
+if (error) { setMsg('خطأ: ' + error.message, true); return; }
 
-// ✅ Fetch latest ID separately
+// ✅ جيب الـ ID
 let depositId = 0;
 try {
-const { data: latest } = await sb.from('deposit_requests').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
+const { data: latest } = await sb.from('deposit_requests')
+.select('id')
+.eq('user_id', currentProfile.id)
+.order('id', { ascending: false })
+.limit(1)
+.single();
 depositId = latest?.id || 0;
 } catch(e) {}
 
+// ✅ سجل معاملة pending (بدون كلمة تليجرام)
 try {
 await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'deposit', method: 'vodafone',
-amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيداع محافظ كاش'
+user_id: currentProfile.id,
+type: 'deposit',
+method: method,
+amount: amount,
+currency: currency,
+status: 'pending',
+description: METHOD_AR[method] || method
 });
 } catch(e) {}
 
-msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
-
-let tgMsg = '💳 *طلب إيداع محافظ كاش*\n\n' +
+// ✅ Telegram
+setMsg('⏳ جاري الإرسال للإدارة...');
+let tgMsg = tgTitle + '\n\n' +
 '🆔 رقم الطلب: #' + depositId + '\n' +
 '👤 المستخدم: ' + currentProfile.username + '\n' +
 '📝 الاسم: ' + currentProfile.name + '\n' +
-'💰 المبلغ: ' + amount + ' جنيه\n' +
-'📱 رقم المُحوِّل: ' + senderPhone;
+'💰 المبلغ: ' + amount + ' ' + (currency === 'USD' ? 'دولار' : 'جنيه');
+if (tgExtra) tgMsg += '\n' + tgExtra;
 if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
 else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
 
 const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
+
 if (sent) {
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة';
+setMsg('✅ تم إرسال طلبك بنجاح للإدارة');
 userToast('✅ تم إرسال طلبك للإدارة', 'ok');
 } else {
-msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
+setMsg('⚠️ تم حفظ الطلب لكن فشل الإرسال للإدارة', true);
 }
 
 if (window.__cleanupOldDepositRequests) { setTimeout(() => window.__cleanupOldDepositRequests(), 2000); }
 
 setTimeout(() => {
-document.getElementById('vodafoneForm').reset();
-document.getElementById('vodafoneUploadZone').classList.remove('has-file');
-const p = document.getElementById('vodafonePreview'); if (p) p.src = '';
-msg.innerText = '';
+const formEl = document.getElementById(method + 'Form');
+const zoneEl = document.getElementById(method + 'UploadZone');
+const previewEl = document.getElementById(method + 'Preview');
+if (formEl) formEl.reset();
+if (zoneEl) zoneEl.classList.remove('has-file');
+if (previewEl) previewEl.src = '';
+if (msgEl) msgEl.innerText = '';
 loadUserTransactions();
 }, 2500);
+}
+
+// ============================================================
+// VODAFONE SUBMIT
+// ============================================================
+document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+if (!currentProfile) { showAuthModal(); return; }
+const amount = parseFloat(document.getElementById('vodafoneAmount').value);
+const senderPhone = document.getElementById('vodafoneSenderPhone').value.trim();
+const screenshot = getScreenshotPreviewSrc('vodafoneUploadZone');
+const msg = document.getElementById('vodafoneMsg');
+msg.className = 'profile-msg'; msg.innerText = '';
+if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
+if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
+if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
+msg.innerText = '⏳ جاري ضغط الصورة...';
+const compressed = await compressImage(screenshot, 1200, 0.75);
+await submitDepositRequest({
+method: 'vodafone',
+amount: amount,
+currency: 'EGP',
+transactionId: senderPhone,
+senderPhone: senderPhone,
+screenshotDataURL: compressed,
+tgTitle: '💳 *طلب إيداع محافظ كاش*',
+tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
+});
 });
 
 // ============================================================
@@ -4293,69 +4376,25 @@ loadUserTransactions();
 document.getElementById('binanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const msg = document.getElementById('binanceMsg');
 const amount = parseFloat(document.getElementById('binanceAmount').value);
 const tx = document.getElementById('binanceTransaction').value.trim();
 const screenshot = getScreenshotPreviewSrc('binanceUploadZone');
+const msg = document.getElementById('binanceMsg');
 msg.className = 'profile-msg'; msg.innerText = '';
-
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-
 msg.innerText = '⏳ جاري ضغط الصورة...';
 const compressed = await compressImage(screenshot, 1200, 0.75);
-msg.innerText = '⏳ جاري رفع الصورة...';
-const publicUrl = await uploadScreenshot(compressed, 'binance');
-
-msg.innerText = 'جاري حفظ الطلب...';
-const { error } = await sb.from('deposit_requests').insert({
-user_id: currentProfile.id, method: 'binance', amount: amount, currency: 'USD',
-transaction_id: tx, screenshot: publicUrl || compressed, status: 'pending'
+await submitDepositRequest({
+method: 'binance',
+amount: amount,
+currency: 'USD',
+transactionId: tx,
+screenshotDataURL: compressed,
+tgTitle: '💳 *طلب إيداع Binance Pay*',
+tgExtra: '🔢 معرف العملية: ' + tx
 });
-if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
-
-let depositId = 0;
-try {
-const { data: latest } = await sb.from('deposit_requests').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
-depositId = latest?.id || 0;
-} catch(e) {}
-
-try {
-await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'deposit', method: 'binance',
-amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع باينانس باي'
-});
-} catch(e) {}
-
-msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
-
-let tgMsg = '💳 *طلب إيداع Binance Pay*\n\n' +
-'🆔 رقم الطلب: #' + depositId + '\n' +
-'👤 المستخدم: ' + currentProfile.username + '\n' +
-'📝 الاسم: ' + currentProfile.name + '\n' +
-'💰 المبلغ: ' + amount + ' دولار\n' +
-'🔢 معرف العملية: ' + tx;
-if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
-else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-
-const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
-if (sent) {
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة';
-userToast('✅ تم إرسال طلبك للإدارة', 'ok');
-} else {
-msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
-}
-
-if (window.__cleanupOldDepositRequests) { setTimeout(() => window.__cleanupOldDepositRequests(), 2000); }
-
-setTimeout(() => {
-document.getElementById('binanceForm').reset();
-document.getElementById('binanceUploadZone').classList.remove('has-file');
-const p = document.getElementById('binancePreview'); if (p) p.src = '';
-msg.innerText = '';
-loadUserTransactions();
-}, 2500);
 });
 
 // ============================================================
@@ -4364,69 +4403,25 @@ loadUserTransactions();
 document.getElementById('usdtForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const msg = document.getElementById('usdtMsg');
 const amount = parseFloat(document.getElementById('usdtAmount').value);
 const tx = document.getElementById('usdtTransaction').value.trim();
 const screenshot = getScreenshotPreviewSrc('usdtUploadZone');
+const msg = document.getElementById('usdtMsg');
 msg.className = 'profile-msg'; msg.innerText = '';
-
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية (TXID) غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-
 msg.innerText = '⏳ جاري ضغط الصورة...';
 const compressed = await compressImage(screenshot, 1200, 0.75);
-msg.innerText = '⏳ جاري رفع الصورة...';
-const publicUrl = await uploadScreenshot(compressed, 'usdt');
-
-msg.innerText = 'جاري حفظ الطلب...';
-const { error } = await sb.from('deposit_requests').insert({
-user_id: currentProfile.id, method: 'usdt', amount: amount, currency: 'USD',
-transaction_id: tx, screenshot: publicUrl || compressed, status: 'pending'
+await submitDepositRequest({
+method: 'usdt',
+amount: amount,
+currency: 'USD',
+transactionId: tx,
+screenshotDataURL: compressed,
+tgTitle: '💎 *طلب إيداع USDT (TRC20)*',
+tgExtra: '🔢 TXID: ' + tx
 });
-if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
-
-let depositId = 0;
-try {
-const { data: latest } = await sb.from('deposit_requests').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
-depositId = latest?.id || 0;
-} catch(e) {}
-
-try {
-await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'deposit', method: 'usdt',
-amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع عملات رقمية USDT (TRC20)'
-});
-} catch(e) {}
-
-msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
-
-let tgMsg = '💎 *طلب إيداع USDT (TRC20)*\n\n' +
-'🆔 رقم الطلب: #' + depositId + '\n' +
-'👤 المستخدم: ' + currentProfile.username + '\n' +
-'📝 الاسم: ' + currentProfile.name + '\n' +
-'💰 المبلغ: ' + amount + ' دولار\n' +
-'🔢 TXID: ' + tx;
-if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
-else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-
-const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
-if (sent) {
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة';
-userToast('✅ تم إرسال طلبك للإدارة', 'ok');
-} else {
-msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
-}
-
-if (window.__cleanupOldDepositRequests) { setTimeout(() => window.__cleanupOldDepositRequests(), 2000); }
-
-setTimeout(() => {
-document.getElementById('usdtForm').reset();
-document.getElementById('usdtUploadZone').classList.remove('has-file');
-const p = document.getElementById('usdtPreview'); if (p) p.src = '';
-msg.innerText = '';
-loadUserTransactions();
-}, 2500);
 });
 
 // ============================================================
@@ -4435,69 +4430,26 @@ loadUserTransactions();
 document.getElementById('instapayForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const msg = document.getElementById('instapayMsg');
 const amount = parseFloat(document.getElementById('instapayAmount').value);
 const senderPhone = document.getElementById('instapaySenderPhone').value.trim();
 const screenshot = getScreenshotPreviewSrc('instapayUploadZone');
+const msg = document.getElementById('instapayMsg');
 msg.className = 'profile-msg'; msg.innerText = '';
-
 if (!amount || amount < 50) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 50 جنيه'; return; }
 if (!senderPhone || senderPhone.length < 8) { msg.className = 'profile-msg err'; msg.innerText = 'رقم الهاتف غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-
 msg.innerText = '⏳ جاري ضغط الصورة...';
 const compressed = await compressImage(screenshot, 1200, 0.75);
-msg.innerText = '⏳ جاري رفع الصورة...';
-const publicUrl = await uploadScreenshot(compressed, 'instapay');
-
-msg.innerText = 'جاري حفظ الطلب...';
-const { error } = await sb.from('deposit_requests').insert({
-user_id: currentProfile.id, method: 'instapay', amount: amount, currency: 'EGP',
-transaction_id: senderPhone, sender_phone: senderPhone, screenshot: publicUrl || compressed, status: 'pending'
+await submitDepositRequest({
+method: 'instapay',
+amount: amount,
+currency: 'EGP',
+transactionId: senderPhone,
+senderPhone: senderPhone,
+screenshotDataURL: compressed,
+tgTitle: '🏦 *طلب إيداع إنستا باي (InstaPay)*',
+tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
 });
-if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
-
-let depositId = 0;
-try {
-const { data: latest } = await sb.from('deposit_requests').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
-depositId = latest?.id || 0;
-} catch(e) {}
-
-try {
-await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'deposit', method: 'instapay',
-amount: amount, currency: 'EGP', status: 'pending', description: 'طلب إيداع إنستا باي'
-});
-} catch(e) {}
-
-msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
-
-let tgMsg = '🏦 *طلب إيداع إنستا باي (InstaPay)*\n\n' +
-'🆔 رقم الطلب: #' + depositId + '\n' +
-'👤 المستخدم: ' + currentProfile.username + '\n' +
-'📝 الاسم: ' + currentProfile.name + '\n' +
-'💰 المبلغ: ' + amount + ' جنيه\n' +
-'📱 رقم المُحوِّل: ' + senderPhone;
-if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
-else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-
-const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
-if (sent) {
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة';
-userToast('✅ تم إرسال طلبك للإدارة', 'ok');
-} else {
-msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
-}
-
-if (window.__cleanupOldDepositRequests) { setTimeout(() => window.__cleanupOldDepositRequests(), 2000); }
-
-setTimeout(() => {
-document.getElementById('instapayForm').reset();
-document.getElementById('instapayUploadZone').classList.remove('has-file');
-const p = document.getElementById('instapayPreview'); if (p) p.src = '';
-msg.innerText = '';
-loadUserTransactions();
-}, 2500);
 });
 
 // ============================================================
@@ -4506,71 +4458,30 @@ loadUserTransactions();
 document.getElementById('redotForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
-const msg = document.getElementById('redotMsg');
 const amount = parseFloat(document.getElementById('redotAmount').value);
 const tx = document.getElementById('redotTransaction').value.trim();
 const screenshot = getScreenshotPreviewSrc('redotUploadZone');
+const msg = document.getElementById('redotMsg');
 msg.className = 'profile-msg'; msg.innerText = '';
-
 if (!amount || amount < 2) { msg.className = 'profile-msg err'; msg.innerText = 'الحد الأدنى 2 دولار'; return; }
 if (!tx || tx.length < 5) { msg.className = 'profile-msg err'; msg.innerText = 'معرف العملية غير صحيح'; return; }
 if (!screenshot) { msg.className = 'profile-msg err'; msg.innerText = '⚠️ من فضلك ارفق لقطة شاشة للتحويل'; return; }
-
 msg.innerText = '⏳ جاري ضغط الصورة...';
 const compressed = await compressImage(screenshot, 1200, 0.75);
-msg.innerText = '⏳ جاري رفع الصورة...';
-const publicUrl = await uploadScreenshot(compressed, 'redot');
-
-msg.innerText = 'جاري حفظ الطلب...';
-const { error } = await sb.from('deposit_requests').insert({
-user_id: currentProfile.id, method: 'redot', amount: amount, currency: 'USD',
-transaction_id: tx, screenshot: publicUrl || compressed, status: 'pending'
+await submitDepositRequest({
+method: 'redot',
+amount: amount,
+currency: 'USD',
+transactionId: tx,
+screenshotDataURL: compressed,
+tgTitle: '💳 *طلب إيداع Redot Pay*',
+tgExtra: '🔢 معرف العملية: ' + tx
 });
-if (error) { msg.className = 'profile-msg err'; msg.innerText = 'خطأ: ' + error.message; return; }
-
-let depositId = 0;
-try {
-const { data: latest } = await sb.from('deposit_requests').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
-depositId = latest?.id || 0;
-} catch(e) {}
-
-try {
-await sb.from('transactions').insert({
-user_id: currentProfile.id, type: 'deposit', method: 'redot',
-amount: amount, currency: 'USD', status: 'pending', description: 'طلب إيداع Redot Pay'
-});
-} catch(e) {}
-
-msg.className = 'profile-msg'; msg.innerText = '⏳ جاري الإرسال على التليجرام...';
-
-let tgMsg = '💳 *طلب إيداع Redot Pay*\n\n' +
-'🆔 رقم الطلب: #' + depositId + '\n' +
-'👤 المستخدم: ' + currentProfile.username + '\n' +
-'📝 الاسم: ' + currentProfile.name + '\n' +
-'💰 المبلغ: ' + amount + ' دولار\n' +
-'🔢 معرف العملية: ' + tx;
-if (publicUrl) tgMsg += '\n\n📸 صورة إثبات التحويل:\n' + publicUrl;
-else tgMsg += '\n\n⚠️ فشل رفع الصورة، راجع لوحة التحكم.';
-
-const sent = await sendToTelegram(tgMsg, { deposit_id: depositId, type: 'deposit' });
-if (sent) {
-msg.className = 'profile-msg'; msg.innerText = '✅ تم إرسال طلبك بنجاح للإدارة';
-userToast('✅ تم إرسال طلبك للإدارة', 'ok');
-} else {
-msg.className = 'profile-msg err'; msg.innerText = '⚠️ تم حفظ الطلب لكن فشل الإرسال على تليجرام';
-}
-
-if (window.__cleanupOldDepositRequests) { setTimeout(() => window.__cleanupOldDepositRequests(), 2000); }
-
-setTimeout(() => {
-document.getElementById('redotForm').reset();
-document.getElementById('redotUploadZone').classList.remove('has-file');
-const p = document.getElementById('redotPreview'); if (p) p.src = '';
-msg.innerText = '';
-loadUserTransactions();
-}, 2500);
 });
 
+// ============================================================
+// ✅ TRANSACTIONS LOG — بطاقة واحدة لكل عملية (بدون تكرار)
+// ============================================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
 const container = document.getElementById('txLogContainer');
@@ -4591,10 +4502,26 @@ container.innerHTML = '';
 data.forEach(t => {
 const typeMap = {
 deposit: ['إيداع', 'dep', 'fa-arrow-down'],
-admin_credit: ['إضافة من الإدارة', 'add', 'fa-plus'],
-admin_debit: ['خصم من الإدارة', 'wd', 'fa-minus']
+admin_credit: ['إضافة رصيد', 'add', 'fa-plus'],
+admin_debit: ['خصم رصيد', 'wd', 'fa-minus']
 };
 const tp = typeMap[t.type] || [t.type, 'add', 'fa-circle'];
+
+// ✅ تسمية الطريقة بالعربي بدون "تليجرام"
+let methodLabel = METHOD_AR[t.method] || t.method || '';
+if (t.type === 'admin_credit' && t.method === 'order_refund') methodLabel = 'استرجاع طلب';
+if (t.type === 'admin_credit' || t.type === 'admin_debit') methodLabel = 'الإدارة';
+
+// ✅ العنوان: "إيداع — محافظ كاش" (بدون أوصاف إضافية)
+let title = tp[0];
+if (methodLabel && methodLabel !== 'الإدارة') title += ' — ' + methodLabel;
+if (t.type === 'admin_credit' && t.method === 'order_refund') title = 'استرجاع رصيد — إلغاء طلب';
+
+// ✅ تنظيف الوصف من أي ذكر للتليجرام (احتياطي)
+let cleanDesc = (t.description || '').replace(/تليجرام|Telegram|بواسطة الأدمن|بواسطة الإدارة/g, '').trim();
+if (cleanDesc.startsWith('—')) cleanDesc = cleanDesc.slice(1).trim();
+if (cleanDesc === '—' || cleanDesc === '-') cleanDesc = '';
+
 const cur = t.currency === 'USD' ? '$' : 'جنيه';
 const sign = (t.type === 'deposit' || t.type === 'admin_credit') ? '+' : '-';
 const amountClass = sign === '+' ? 'pos' : 'neg';
@@ -4602,12 +4529,13 @@ const dateStr = t.created_at ? new Date(t.created_at).toLocaleString('ar-EG', { 
 const stMap = { pending: 'pending', approved: 'approved', completed: 'completed', rejected: 'rejected', cancelled: 'cancelled' };
 const st = stMap[t.status] || 'completed';
 const stLabelMap = { pending: 'قيد المراجعة', approved: 'مؤكد', completed: 'مكتمل', rejected: 'مرفوض', cancelled: 'ملغي' };
+
 const item = document.createElement('div');
 item.className = 'tx-item';
 item.innerHTML =
 '<div class="tx-icon-wrap ' + tp[1] + '"><i class="fas ' + tp[2] + '"></i></div>' +
 '<div class="tx-info">' +
-'<div class="tx-title">' + tp[0] + (t.description ? ' — ' + t.description : '') + '</div>' +
+'<div class="tx-title">' + title + (cleanDesc ? ' — ' + cleanDesc : '') + '</div>' +
 '<div class="tx-sub">' + dateStr + '</div>' +
 '</div>' +
 '<span class="tx-badge ' + st + '">' + (stLabelMap[st] || st) + '</span>' +
@@ -4640,7 +4568,7 @@ window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 
 // ============================================================
-// ✅ BUY BUTTON — FIXED: order_id + no select().single()
+// BUY BUTTON
 // ============================================================
 document.addEventListener('click', async function(e) {
 const buyBtn = e.target.closest && e.target.closest('.buy-btn');
@@ -4651,9 +4579,7 @@ e.preventDefault();
 if (buyBtn.dataset.processing === '1') return;
 if (!currentProfile) {
 const card = buyBtn.closest('.service-card');
-if (card) {
-pendingBuyAfterAuth = function() { buyBtn.click(); };
-}
+if (card) { pendingBuyAfterAuth = function() { buyBtn.click(); }; }
 showAuthModal();
 return;
 }
@@ -4678,13 +4604,9 @@ if (isNaN(pricePerBase)) { userToast('خطأ في السعر', 'err'); return; }
 const totalInEGP = (quantity / priceBase) * pricePerBase;
 let totalToPay, currencyName, currencySymbol;
 if (currentCurrency === 'EGP') {
-totalToPay = totalInEGP;
-currencyName = 'جنيه مصري';
-currencySymbol = 'EGP';
+totalToPay = totalInEGP; currencyName = 'جنيه مصري'; currencySymbol = 'EGP';
 } else {
-totalToPay = totalInEGP / exchangeRate;
-currencyName = 'دولار أمريكي';
-currencySymbol = 'USD';
+totalToPay = totalInEGP / exchangeRate; currencyName = 'دولار أمريكي'; currencySymbol = 'USD';
 }
 totalToPay = round2(totalToPay);
 
@@ -4704,8 +4626,7 @@ buyBtn.disabled = true;
 const oldHTML = buyBtn.innerHTML;
 buyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المعالجة...';
 try {
-let newEGP = balEGP;
-let newUSD = balUSD;
+let newEGP = balEGP, newUSD = balUSD;
 if (currentCurrency === 'EGP') {
 const needEGP = totalToPay;
 if (newEGP >= needEGP) newEGP = round2(newEGP - needEGP);
@@ -4728,7 +4649,6 @@ if (newUSD < 0) newUSD = 0;
 const { error: updErr } = await sb.from('users').update({ balance_egp: newEGP, balance_usd: newUSD }).eq('id', currentProfile.id);
 if (updErr) throw updErr;
 
-// ✅ FIX: insert WITHOUT .select().single()
 const { error: ordErr } = await sb.from('orders').insert({
 user_id: currentProfile.id,
 user_username: currentProfile.username,
@@ -4745,7 +4665,6 @@ status: 'pending'
 });
 if (ordErr) throw ordErr;
 
-// ✅ Fetch latest order ID separately
 let orderId = 0;
 try {
 const { data: latestOrder } = await sb.from('orders').select('id').eq('user_id', currentProfile.id).order('id', { ascending: false }).limit(1).single();
@@ -4763,7 +4682,6 @@ const tgMsg = '📋 *طلب شراء خدمة*\n\n' +
 '💰 الإجمالي: ' + totalToPay.toFixed(2) + ' ' + currencyName + '\n' +
 '🔗 الرابط: ' + link;
 
-// ✅ Send to Telegram with metadata (fire and forget + catch)
 sendToTelegram(tgMsg, { order_id: orderId, type: 'order' }).catch(err => console.warn('tg error:', err));
 
 await refreshUserUI();
