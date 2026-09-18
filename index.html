@@ -519,6 +519,511 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 .logo-upload-btn:hover { background: #2EBD85; color: #0B0E11; }
 .logo-remove-btn { background: rgba(232,62,92,0.15); color: #e83e5c; border: none; padding: 7px 10px; border-radius: 10px; cursor: pointer; font-family: inherit; font-size: 0.75rem; display: inline-flex; align-items: center; transition: 0.2s; }
 .logo-remove-btn:hover { background: #e83e5c; color: #fff; }
+
+/* ============================================================
+   🎨 NEW THEME: Modern Glass
+   بيشتغل فقط لما body يحمل data-theme="modern"
+   لوحة الأدمن مش متأثرة لأنها معزولة بـ #adminPanelPage
+   ============================================================ */
+body[data-theme="modern"] {
+background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #24243e 100%);
+background-attachment: fixed;
+color: #e2e8f0;
+}
+body[data-theme="modern"]::-webkit-scrollbar-track { background: #1a1a3e; }
+body[data-theme="modern"]::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #a855f7, #06b6d4); }
+
+body[data-theme="modern"] .welcome-overlay { background: rgba(15, 12, 41, 0.96); }
+body[data-theme="modern"] .welcome-card { background: linear-gradient(135deg, #1a1a3e, #0f0c29); border-color: #a855f7; box-shadow: 0 0 40px rgba(168, 85, 247, 0.5); }
+body[data-theme="modern"] .welcome-card h2 { color: #a855f7; }
+body[data-theme="modern"] .welcome-card p { color: #06b6d4; }
+
+body[data-theme="modern"] .menu-button,
+body[data-theme="modern"] .currency-circle {
+background: rgba(168, 85, 247, 0.15);
+border: 1px solid rgba(168, 85, 247, 0.45);
+color: #a855f7;
+backdrop-filter: blur(12px);
+}
+body[data-theme="modern"] .menu-button:hover,
+body[data-theme="modern"] .currency-circle:hover {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+box-shadow: 0 8px 28px rgba(168, 85, 247, 0.55);
+}
+
+body[data-theme="modern"] .dropdown-menu,
+body[data-theme="modern"] .currency-dropdown {
+background: rgba(26, 26, 62, 0.96);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(168, 85, 247, 0.35);
+box-shadow: 0 10px 40px rgba(0, 0, 0, 0.65);
+}
+body[data-theme="modern"] .dropdown-menu a,
+body[data-theme="modern"] .currency-dropdown a { color: #e2e8f0; }
+body[data-theme="modern"] .dropdown-menu a i,
+body[data-theme="modern"] .currency-dropdown a i { color: #06b6d4; }
+body[data-theme="modern"] .dropdown-menu a:hover,
+body[data-theme="modern"] .currency-dropdown a:hover {
+background: linear-gradient(90deg, rgba(168,85,247,0.25), rgba(6,182,212,0.2));
+color: #a855f7;
+}
+body[data-theme="modern"] .user-balance-chip {
+background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(6,182,212,0.08));
+border-color: rgba(168, 85, 247, 0.35);
+}
+body[data-theme="modern"] .user-balance-chip .b-icon {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .user-balance-chip .b-val { color: #06b6d4; }
+
+body[data-theme="modern"] .header { border-bottom: 1px solid rgba(168, 85, 247, 0.25); }
+body[data-theme="modern"] .logo-text {
+background: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #ec4899 100%);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+filter: drop-shadow(0 4px 20px rgba(168, 85, 247, 0.5));
+}
+body[data-theme="modern"] .main-title {
+color: #a855f7;
+text-shadow: 0 0 24px rgba(168, 85, 247, 0.4);
+}
+
+body[data-theme="modern"] .stat-card {
+background: rgba(168, 85, 247, 0.08);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(168, 85, 247, 0.32);
+box-shadow: 0 8px 32px rgba(168, 85, 247, 0.15);
+}
+body[data-theme="modern"] .stat-icon { color: #a855f7; }
+body[data-theme="modern"] .stat-number { color: #06b6d4; }
+body[data-theme="modern"] .stat-label { color: #94a3b8; }
+
+body[data-theme="modern"] .promo-section {
+background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(6,182,212,0.08));
+border: 1px solid rgba(168, 85, 247, 0.3);
+backdrop-filter: blur(20px);
+border-radius: 32px;
+}
+body[data-theme="modern"] .promo-text span { color: #06b6d4; font-weight: 800; }
+
+body[data-theme="modern"] .icon-circle {
+background: rgba(168, 85, 247, 0.1);
+border: 1px solid rgba(168, 85, 247, 0.35);
+color: #a855f7;
+backdrop-filter: blur(10px);
+}
+body[data-theme="modern"] .icon-circle:hover {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+border-color: transparent;
+box-shadow: 0 12px 32px rgba(168, 85, 247, 0.55);
+transform: translateY(-5px) scale(1.05);
+}
+
+body[data-theme="modern"] .payment-method-btn {
+background: linear-gradient(135deg, #a855f7, #7c3aed);
+color: #fff;
+box-shadow: 0 8px 25px rgba(168, 85, 247, 0.45);
+}
+body[data-theme="modern"] .payment-method-btn:hover {
+background: linear-gradient(135deg, #7c3aed, #06b6d4);
+box-shadow: 0 12px 35px rgba(168, 85, 247, 0.55);
+}
+
+body[data-theme="modern"] .platform-title {
+background: linear-gradient(90deg, rgba(168,85,247,0.18), transparent);
+border-right-color: #a855f7;
+color: #e2e8f0;
+}
+body[data-theme="modern"] .platform-title i { color: #a855f7; }
+body[data-theme="modern"] .slider-btn {
+background: rgba(168, 85, 247, 0.1);
+border: 1px solid #a855f7;
+color: #a855f7;
+backdrop-filter: blur(10px);
+}
+body[data-theme="modern"] .slider-btn:hover {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+border-color: transparent;
+}
+
+body[data-theme="modern"] .service-card {
+background: linear-gradient(145deg, rgba(168,85,247,0.09) 0%, rgba(6,182,212,0.04) 100%);
+backdrop-filter: blur(24px);
+border: 1px solid rgba(168, 85, 247, 0.28);
+border-radius: 28px;
+box-shadow: 0 10px 40px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.04);
+position: relative;
+overflow: hidden;
+}
+body[data-theme="modern"] .service-card::before {
+content: '';
+position: absolute; top: 0; left: 0; right: 0; height: 3px;
+background: linear-gradient(90deg, #a855f7, #06b6d4, #ec4899);
+opacity: 0.85;
+}
+body[data-theme="modern"] .service-card:hover {
+transform: translateY(-8px);
+border-color: rgba(168, 85, 247, 0.65);
+box-shadow: 0 24px 60px rgba(168, 85, 247, 0.4), inset 0 0 0 1px rgba(255,255,255,0.07);
+}
+body[data-theme="modern"] .card-icon {
+color: #a855f7;
+filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+}
+body[data-theme="modern"] .service-name { color: #f1f5f9; }
+body[data-theme="modern"] .badge-guarantee {
+background: rgba(16, 185, 129, 0.15);
+color: #10b981;
+border: 1px solid rgba(16, 185, 129, 0.35);
+}
+body[data-theme="modern"] .badge-max {
+background: rgba(6, 182, 212, 0.15);
+color: #06b6d4;
+border: 1px solid rgba(6, 182, 212, 0.35);
+}
+body[data-theme="modern"] .service-detail { color: #94a3b8; }
+body[data-theme="modern"] .price-value {
+color: #06b6d4;
+text-shadow: 0 0 24px rgba(6, 182, 212, 0.5);
+}
+body[data-theme="modern"] .price-currency { color: #06b6d4; }
+body[data-theme="modern"] .small-unit { color: #94a3b8; }
+body[data-theme="modern"] .quantity-calc {
+background: rgba(15, 12, 41, 0.65);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(168, 85, 247, 0.18);
+border-radius: 16px;
+}
+body[data-theme="modern"] .quantity-label { color: #94a3b8; }
+body[data-theme="modern"] .quantity-input {
+background: rgba(168, 85, 247, 0.1);
+border: 1px solid rgba(168, 85, 247, 0.45);
+color: #fff;
+border-radius: 30px;
+}
+body[data-theme="modern"] .quantity-input:focus {
+border-color: #06b6d4;
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.22);
+}
+body[data-theme="modern"] .url-input {
+background: rgba(6, 182, 212, 0.06);
+border: 1px solid rgba(6, 182, 212, 0.35);
+color: #fff;
+border-radius: 30px;
+}
+body[data-theme="modern"] .url-input:focus {
+border-color: #06b6d4;
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.22);
+}
+body[data-theme="modern"] .total-price-row {
+background: rgba(15, 12, 41, 0.75);
+border: 1px solid rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .total-amount {
+color: #06b6d4;
+text-shadow: 0 0 18px rgba(6, 182, 212, 0.55);
+}
+body[data-theme="modern"] .buy-btn {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+border-radius: 30px;
+box-shadow: 0 10px 28px rgba(168, 85, 247, 0.45);
+transition: 0.3s;
+}
+body[data-theme="modern"] .buy-btn:hover {
+background: linear-gradient(135deg, #ec4899, #a855f7);
+box-shadow: 0 14px 38px rgba(236, 72, 153, 0.55);
+transform: scale(1.02);
+}
+body[data-theme="modern"] .service-number {
+background: rgba(6, 182, 212, 0.15);
+color: #06b6d4;
+border: 1px solid rgba(6, 182, 212, 0.35);
+}
+body[data-theme="modern"] .favorite-btn { color: #64748b; }
+body[data-theme="modern"] .favorite-btn.active { color: #ec4899; }
+
+body[data-theme="modern"] .search-container input {
+background: rgba(26, 26, 62, 0.75);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(168, 85, 247, 0.42);
+color: #e2e8f0;
+}
+body[data-theme="modern"] .search-container input:focus {
+border-color: #a855f7;
+box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .search-container input::placeholder { color: #64748b; }
+
+body[data-theme="modern"] .support-btn {
+background: linear-gradient(135deg, #25D366, #128C7E);
+color: #fff;
+box-shadow: 0 10px 28px rgba(37, 211, 102, 0.4);
+}
+body[data-theme="modern"] .footer {
+border-top: 1px solid rgba(168, 85, 247, 0.18);
+color: #94a3b8;
+}
+body[data-theme="modern"] .footer span { color: #a855f7; }
+body[data-theme="modern"] .back-to-top {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+box-shadow: 0 10px 28px rgba(168, 85, 247, 0.55);
+}
+body[data-theme="modern"] .no-results { color: #a855f7; }
+
+body[data-theme="modern"] .auth-modal {
+background: linear-gradient(160deg, #1a1a3e 0%, #0f0c29 100%);
+border: 1px solid rgba(168, 85, 247, 0.45);
+}
+body[data-theme="modern"] .auth-logo-icon {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+box-shadow: 0 10px 32px rgba(168, 85, 247, 0.55);
+}
+body[data-theme="modern"] .auth-modal h2 { color: #a855f7; }
+body[data-theme="modern"] .auth-tab.active {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .auth-form input {
+background: rgba(15, 12, 41, 0.75);
+border: 1px solid rgba(168, 85, 247, 0.25);
+color: #fff;
+}
+body[data-theme="modern"] .auth-form input:focus {
+border-color: #06b6d4;
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+}
+body[data-theme="modern"] .auth-btn {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+}
+
+body[data-theme="modern"] .overlay-container {
+background: rgba(26, 26, 62, 0.88);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .overlay-container h1 { color: #a855f7; }
+body[data-theme="modern"] .overlay-container h2 { color: #06b6d4; border-right-color: #a855f7; }
+body[data-theme="modern"] .overlay-container ul li::before { color: #a855f7; }
+
+body[data-theme="modern"] .payment-category {
+background: rgba(26, 26, 62, 0.82);
+border: 1px solid rgba(168, 85, 247, 0.28);
+}
+body[data-theme="modern"] .payment-category h3 { color: #a855f7; border-bottom-color: rgba(168, 85, 247, 0.28); }
+body[data-theme="modern"] .payment-card {
+background: rgba(168, 85, 247, 0.08);
+border: 1px solid rgba(6, 182, 212, 0.35);
+color: #e2e8f0;
+}
+body[data-theme="modern"] .payment-card i { color: #06b6d4; }
+body[data-theme="modern"] .payment-card:hover {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+border-color: transparent;
+}
+body[data-theme="modern"] .payment-selector-card {
+background: linear-gradient(135deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .payment-selector-card:hover {
+border-color: #a855f7;
+box-shadow: 0 18px 45px rgba(168, 85, 247, 0.35);
+}
+body[data-theme="modern"] .step-card {
+background: rgba(26, 26, 62, 0.82);
+border: 1px solid rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .step-number {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .note-box {
+background: rgba(6, 182, 212, 0.08);
+border-right-color: #06b6d4;
+}
+
+body[data-theme="modern"] .profile-hero {
+background: linear-gradient(135deg, rgba(168,85,247,0.16) 0%, rgba(6,182,212,0.06) 50%, rgba(168,85,247,0.1) 100%);
+border: 1px solid rgba(168, 85, 247, 0.32);
+backdrop-filter: blur(20px);
+}
+body[data-theme="modern"] .profile-avatar {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+box-shadow: 0 0 0 3px #a855f7, 0 12px 32px rgba(168, 85, 247, 0.45);
+border-color: #0f0c29;
+}
+body[data-theme="modern"] .avatar-upload-btn {
+background: linear-gradient(135deg, #06b6d4, #a855f7);
+color: #fff;
+border-color: #0f0c29;
+}
+body[data-theme="modern"] .profile-name { color: #f1f5f9; }
+body[data-theme="modern"] .profile-username { color: #06b6d4; }
+body[data-theme="modern"] .profile-balance-box {
+background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(168,85,247,0.08));
+border: 1px solid rgba(6, 182, 212, 0.42);
+}
+body[data-theme="modern"] .profile-balance-box .pb-val,
+body[data-theme="modern"] .profile-balance-box .pb-cur { color: #06b6d4; }
+body[data-theme="modern"] .profile-currency-btn {
+background: rgba(15, 12, 41, 0.7);
+border: 1px solid rgba(168, 85, 247, 0.32);
+color: #94a3b8;
+}
+body[data-theme="modern"] .profile-currency-btn.active {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+border-color: transparent;
+}
+body[data-theme="modern"] .profile-stat-mini {
+background: rgba(15, 12, 41, 0.62);
+border: 1px solid rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .profile-stat-mini .ps-icon { color: #a855f7; }
+body[data-theme="modern"] .profile-section {
+background: linear-gradient(135deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.28);
+backdrop-filter: blur(10px);
+}
+body[data-theme="modern"] .profile-section h3 {
+color: #a855f7;
+border-bottom-color: rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .profile-field input {
+background: rgba(15, 12, 41, 0.75);
+border: 1px solid rgba(168, 85, 247, 0.32);
+color: #fff;
+}
+body[data-theme="modern"] .profile-field input:focus {
+border-color: #06b6d4;
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+}
+body[data-theme="modern"] .profile-save-btn {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+}
+body[data-theme="modern"] .profile-logout-btn {
+background: rgba(236, 72, 153, 0.15);
+border-color: rgba(236, 72, 153, 0.55);
+color: #ec4899;
+}
+body[data-theme="modern"] .profile-logout-btn:hover {
+background: #ec4899;
+color: #fff;
+}
+
+body[data-theme="modern"] .deposit-info {
+background: linear-gradient(160deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.32);
+backdrop-filter: blur(20px);
+}
+body[data-theme="modern"] .deposit-number-row {
+background: rgba(15, 12, 41, 0.82);
+border: 1px solid rgba(6, 182, 212, 0.42);
+}
+body[data-theme="modern"] .deposit-number { color: #a855f7; }
+body[data-theme="modern"] .deposit-copy-btn {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .step-item { background: rgba(15, 12, 41, 0.55); }
+body[data-theme="modern"] .step-num { background: linear-gradient(135deg, #a855f7, #06b6d4); }
+body[data-theme="modern"] .step-text b { color: #a855f7; }
+body[data-theme="modern"] .deposit-form {
+background: linear-gradient(160deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .deposit-form h3 { color: #a855f7; }
+body[data-theme="modern"] .deposit-form input,
+body[data-theme="modern"] .deposit-form select {
+background: rgba(15, 12, 41, 0.82);
+border: 1px solid rgba(168, 85, 247, 0.32);
+color: #fff;
+}
+body[data-theme="modern"] .deposit-form input:focus,
+body[data-theme="modern"] .deposit-form select:focus {
+border-color: #06b6d4;
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.18);
+}
+body[data-theme="modern"] .deposit-submit-btn {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .deposit-upload-zone {
+border: 2px dashed rgba(168, 85, 247, 0.55);
+background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(6,182,212,0.05));
+}
+body[data-theme="modern"] .deposit-upload-zone .u-icon { color: #a855f7; }
+body[data-theme="modern"] .deposit-back-btn {
+background: rgba(168, 85, 247, 0.15);
+border: 1px solid rgba(168, 85, 247, 0.42);
+color: #a855f7;
+}
+body[data-theme="modern"] .deposit-back-btn:hover {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
+body[data-theme="modern"] .wallet-logo-chip {
+background: rgba(15, 12, 41, 0.72);
+border: 1px solid rgba(6, 182, 212, 0.35);
+color: #06b6d4;
+}
+body[data-theme="modern"] .usdt-address-box {
+background: linear-gradient(135deg, rgba(38,161,123,0.16), rgba(38,161,123,0.05));
+border: 1px solid rgba(38, 161, 123, 0.5);
+}
+body[data-theme="modern"] .tx-log-section {
+background: linear-gradient(135deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.28);
+}
+body[data-theme="modern"] .tx-log-section h3 { color: #a855f7; border-bottom-color: rgba(168, 85, 247, 0.22); }
+body[data-theme="modern"] .tx-item { background: rgba(15, 12, 41, 0.65); }
+body[data-theme="modern"] .tx-item:hover { border-color: rgba(168, 85, 247, 0.45); }
+
+body[data-theme="modern"] .order-card {
+background: linear-gradient(160deg, rgba(26,26,62,0.92), rgba(15,12,41,0.92));
+border: 1px solid rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .order-card:hover {
+border-color: rgba(168, 85, 247, 0.55);
+box-shadow: 0 18px 45px rgba(168, 85, 247, 0.22);
+}
+body[data-theme="modern"] .order-id {
+color: #a855f7;
+background: rgba(168, 85, 247, 0.15);
+border-color: rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .order-icon-box {
+background: rgba(168, 85, 247, 0.15);
+color: #a855f7;
+}
+body[data-theme="modern"] .order-name { color: #f1f5f9; }
+body[data-theme="modern"] .order-meta span i { color: #06b6d4; }
+body[data-theme="modern"] .order-total { color: #06b6d4; }
+body[data-theme="modern"] .order-link-btn {
+color: #a855f7;
+background: rgba(168, 85, 247, 0.1);
+border-color: rgba(168, 85, 247, 0.32);
+}
+body[data-theme="modern"] .page-title { color: #a855f7; border-bottom-color: rgba(168, 85, 247, 0.22); }
+
+body[data-theme="modern"] .insufficient-modal {
+background: linear-gradient(160deg, #1a1a3e 0%, #0f0c29 100%);
+border: 1px solid rgba(236, 72, 153, 0.4);
+}
+body[data-theme="modern"] .insufficient-row { background: rgba(15, 12, 41, 0.65); }
+body[data-theme="modern"] .insufficient-btn-deposit {
+background: linear-gradient(135deg, #a855f7, #06b6d4);
+color: #fff;
+}
 </style>
 </head>
 <body>
@@ -1307,6 +1812,20 @@ button { background: none; border: none; font-family: inherit; cursor: pointer; 
 <h2><i class="fas fa-cog"></i> إعدادات الموقع</h2>
 <form id="adminSettingsForm">
 
+<div class="settings-section" style="border:2px solid #F0B90B; background:rgba(240,185,11,0.05);">
+<h3><i class="fas fa-palette"></i> 🎨 مظهر الموقع (السيم)</h3>
+<div class="admin-field">
+<label>اختر السيم / الهيكل المستخدم في الموقع</label>
+<select id="settingsTheme">
+<option value="default">🎨 السيم الافتراضي (الحالي - أسود وذهبي)</option>
+<option value="modern">✨ السيم الجديد (Modern Glass - بنفسجي وسايان)</option>
+</select>
+<div class="admin-hint">
+💡 لما تحفظ، السيم هيتغير <b>فوراً عند كل المستخدمين</b>. تقدر ترجع للسيم القديم في أي وقت بنفس الطريقة.
+</div>
+</div>
+</div>
+
 <div class="settings-section">
 <h3><i class="fas fa-globe"></i> معلومات الموقع الأساسية</h3>
 <div class="admin-field">
@@ -1467,7 +1986,7 @@ window.SMCOLE_BOT = {
   admin_username: 'walidsalama'
 };
 
-const APP_VERSION = '2026.09.17.16';
+const APP_VERSION = '2026.09.17.17';
 
 const SUPABASE_URL = 'https://bqiryyoanqleobzlztbl.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_448IML0Iapk-ujEb9N0Vyg_QZrt8PGA';
@@ -1529,7 +2048,8 @@ logo_instapay: null,
 logo_redot: null,
 active_users_override: null,
 completed_orders_override: null,
-exchange_rate: null
+exchange_rate: null,
+theme: 'default'
 };
 let siteSettings = window.siteSettings;
 
@@ -1646,6 +2166,7 @@ if (textSpan) textSpan.style.display = '';
 window.applyPaymentLogos = applyPaymentLogos;
 
 window.applySiteSettings = function() {
+document.body.setAttribute('data-theme', siteSettings.theme || 'default');
 const nameEl = document.getElementById('siteNameDisplay');
 const descEl = document.getElementById('siteDescriptionDisplay');
 const promoEl = document.getElementById('promoTextDisplay');
@@ -1739,6 +2260,7 @@ siteSettings.logo_redot = data.logo_redot || null;
 siteSettings.active_users_override = (data.active_users_override !== null && data.active_users_override !== undefined) ? parseInt(data.active_users_override) : null;
 siteSettings.completed_orders_override = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? parseInt(data.completed_orders_override) : null;
 siteSettings.exchange_rate = (data.exchange_rate !== null && data.exchange_rate !== undefined) ? parseFloat(data.exchange_rate) : null;
+siteSettings.theme = data.theme || 'default';
 return true;
 } catch(e) { console.warn('Settings load failed:', e); return false; }
 };
@@ -2460,11 +2982,11 @@ document.getElementById('paymentBackBtn').addEventListener('click', () => {
 window.showHomePage();
 });
 </script>
+
 <script>
 (function(){
 const supabase = getSupabase();
 
-// ✅ أسماء طرق الدفع بالعربي (للاستخدام في updateTransactionStatus)
 const METHOD_AR = {
 vodafone: 'محافظ كاش', binance: 'باينانس باي', usdt: 'USDT',
 instapay: 'إنستا باي', redot: 'ريدوت باي'
@@ -2871,6 +3393,8 @@ document.getElementById('settingsBinanceId').value = data.binance_id || '';
 document.getElementById('settingsUsdtAddress').value = data.usdt_address || '';
 document.getElementById('settingsInstapayNumber').value = data.instapay_number || '';
 document.getElementById('settingsRedotNumber').value = data.redot_number || '';
+const themeEl = document.getElementById('settingsTheme');
+if (themeEl) themeEl.value = data.theme || 'default';
 document.getElementById('settingsExchangeRate').value = (data.exchange_rate !== null && data.exchange_rate !== undefined) ? data.exchange_rate : '';
 document.getElementById('settingsActiveUsers').value = (data.active_users_override !== null && data.active_users_override !== undefined) ? data.active_users_override : '';
 document.getElementById('settingsCompletedOrders').value = (data.completed_orders_override !== null && data.completed_orders_override !== undefined) ? data.completed_orders_override : '';
@@ -2921,6 +3445,7 @@ binance_id: document.getElementById('settingsBinanceId').value.trim() || '746211
 usdt_address: document.getElementById('settingsUsdtAddress').value.trim() || 'TKBAMK8gPsZnVnW8PU8XSteExbidVFPU4D',
 instapay_number: document.getElementById('settingsInstapayNumber').value.trim() || '01001606298',
 redot_number: document.getElementById('settingsRedotNumber').value.trim() || '1770425974',
+theme: (document.getElementById('settingsTheme')?.value) || 'default',
 exchange_rate: exchangeRateVal === '' ? null : parseFloat(exchangeRateVal),
 active_users_override: activeUsersVal === '' ? null : parseInt(activeUsersVal),
 completed_orders_override: completedOrdersVal === '' ? null : parseInt(completedOrdersVal),
@@ -2956,6 +3481,7 @@ Object.assign(window.siteSettings, payload);
 window.siteSettings.active_users_override = payload.active_users_override;
 window.siteSettings.completed_orders_override = payload.completed_orders_override;
 window.siteSettings.exchange_rate = payload.exchange_rate;
+window.siteSettings.theme = payload.theme;
 if (window.applySiteSettings) { window.applySiteSettings(); }
 if (window.fetchExchangeRate) { window.fetchExchangeRate(); }
 }
@@ -3130,10 +3656,8 @@ user_id: userId, type, method, amount, currency, status: status || 'completed', 
 }
 window.__logTransaction = logTransaction;
 
-// ✅ تحديث سجل موجود بدل إنشاء جديد (باستخدام tx_log_id لو موجود)
 async function updateTransactionStatus(userId, method, amount, currency, newStatus, newDesc, txLogId) {
 try {
-// ✅ أولوية 1: تحديث مباشر بـ tx_log_id
 if (txLogId) {
 const { error } = await supabase.from('transactions')
 .update({ status: newStatus, description: newDesc !== undefined ? newDesc : undefined })
@@ -3141,7 +3665,6 @@ const { error } = await supabase.from('transactions')
 if (!error) return true;
 console.warn('update by tx_log_id failed, trying fallback');
 }
-// ✅ Fallback: ندوّر على آخر سجل pending بنفس اليوزر والطريقة والعملة
 const { data: pending } = await supabase.from('transactions')
 .select('id')
 .eq('user_id', userId)
@@ -3368,7 +3891,6 @@ const table = document.getElementById('adminDepositsTable');
 const empty = document.getElementById('adminDepositsEmpty');
 loader.style.display = 'block'; table.style.display = 'none'; empty.style.display = 'none';
 try {
-// ✅ ضفنا tx_log_id في الـ select
 const { data, error } = await supabase.from('deposit_requests')
 .select('id,user_id,method,amount,currency,transaction_id,sender_phone,screenshot,status,created_at,tx_log_id')
 .order('created_at', { ascending: false })
@@ -3470,7 +3992,6 @@ document.getElementById('screenshotModalBg').addEventListener('click', () => {
 document.getElementById('screenshotModalBg').classList.remove('show');
 });
 
-// ✅ Approve deposit — بيستخدم tx_log_id
 window.__adminApproveDeposit = async function(id) {
 const d = allDepositsData.find(x => x.id === id);
 if (!d) return;
@@ -3487,7 +4008,6 @@ if (uErr) { toast('خطأ: ' + uErr.message, true); return; }
 const { error: dErr } = await supabase.from('deposit_requests').update({ status: 'approved' }).eq('id', id);
 if (dErr) { toast('خطأ: ' + dErr.message, true); return; }
 
-// ✅ بنمرر tx_log_id عشان يحدّث نفس السجل
 const updated = await updateTransactionStatus(d.user_id, d.method, depositAmt, d.currency, 'approved', '', d.tx_log_id);
 if (!updated) {
 await logTransaction(d.user_id, 'deposit', d.method, depositAmt, d.currency, 'approved', METHOD_AR[d.method] || d.method);
@@ -3497,7 +4017,6 @@ if (window.__cleanupOldDepositRequests) { window.__cleanupOldDepositRequests(); 
 await loadAdminDeposits();
 };
 
-// ✅ Reject deposit — بيستخدم tx_log_id
 window.__adminRejectDeposit = async function(id) {
 if (!confirm('رفض طلب الإيداع؟')) return;
 const d = allDepositsData.find(x => x.id === id);
@@ -3505,7 +4024,6 @@ const { error } = await supabase.from('deposit_requests').update({ status: 'reje
 if (error) { toast('خطأ: ' + error.message, true); return; }
 
 if (d) {
-// ✅ بنمرر tx_log_id
 const updated = await updateTransactionStatus(d.user_id, d.method, parseFloat(d.amount), d.currency, 'rejected', '', d.tx_log_id);
 if (!updated) {
 await logTransaction(d.user_id, 'deposit', d.method, parseFloat(d.amount), d.currency, 'rejected', METHOD_AR[d.method] || d.method);
@@ -3602,6 +4120,7 @@ window.openAdminPanel(session.user);
 })();
 })();
 </script>
+
 <script>
 window.sendOrder = function() {};
 
@@ -3614,7 +4133,6 @@ let currentProfile = null;
 window.currentProfile = null;
 let pendingBuyAfterAuth = null;
 
-// أسماء طرق الدفع بالعربي للسجلات
 const METHOD_AR = {
 vodafone: 'محافظ كاش',
 binance: 'باينانس باي',
@@ -3670,9 +4188,6 @@ function showAuthModal() { document.getElementById('authModalBg').classList.add(
 function hideAuthModal() { document.getElementById('authModalBg').classList.remove('show'); }
 window.showAuthModal = showAuthModal;
 
-// ============================================================
-// sendToTelegram — يستقبل photo_base64 لإرسال الصورة منفصلة
-// ============================================================
 async function sendToTelegram(text, meta) {
 try {
 const body = { text: text };
@@ -4208,7 +4723,6 @@ Promise.resolve(promise).then(
 });
 }
 
-// رفع الصورة (نسخة احتياطية للوحة الأدمن)
 async function uploadScreenshot(dataURL, method) {
 if (!dataURL) return null;
 let blob;
@@ -4246,9 +4760,6 @@ if (url && url.indexOf('http') === 0) { console.log('✅ Catbox:', url); return 
 return null;
 }
 
-// ============================================================
-// ✅ Helper: إرسال طلب إيداع (مع tx_log_id)
-// ============================================================
 async function submitDepositRequest({ method, amount, currency, transactionId, senderPhone, screenshotDataURL, tgTitle, tgExtra }) {
 const msgEl = document.getElementById(method + 'Msg');
 const setMsg = (text, isErr) => {
@@ -4257,7 +4768,6 @@ msgEl.className = 'profile-msg' + (isErr ? ' err' : '');
 msgEl.innerText = text;
 };
 
-// ✅ الخطوة 1: نضيف سجل المعاملة أولاً وناخد الـ ID
 setMsg('جاري حفظ الطلب...');
 let txLogId = null;
 try {
@@ -4274,7 +4784,6 @@ if (!txErr && txInserted) txLogId = txInserted.id;
 console.log('tx_log_id:', txLogId);
 } catch(e) { console.warn('tx log insert failed:', e); }
 
-// ✅ الخطوة 2: نرفع الصورة نسخة على Storage للأدمن
 let publicUrl = null;
 try {
 const blob = await dataURLtoBlob(screenshotDataURL);
@@ -4286,7 +4795,6 @@ if (pubResult?.data?.publicUrl) publicUrl = pubResult.data.publicUrl;
 }
 } catch(e) { console.warn('storage upload skip:', e.message); }
 
-// ✅ الخطوة 3: نضيف deposit_requests مع tx_log_id
 const insertPayload = {
 user_id: currentProfile.id,
 method: method,
@@ -4302,7 +4810,6 @@ if (senderPhone) insertPayload.sender_phone = senderPhone;
 const { error } = await sb.from('deposit_requests').insert(insertPayload);
 if (error) { setMsg('خطأ: ' + error.message, true); return; }
 
-// جيب الـ ID بتاع deposit_requests
 let depositId = 0;
 try {
 const { data: latest } = await sb.from('deposit_requests')
@@ -4311,7 +4818,6 @@ const { data: latest } = await sb.from('deposit_requests')
 depositId = latest?.id || 0;
 } catch(e) {}
 
-// ✅ الخطوة 4: إرسال للـ Edge Function مع الصورة base64
 setMsg('⏳ جاري الإرسال للإدارة...');
 let tgMsg = tgTitle + '\n\n' +
 '🆔 رقم الطلب: #' + depositId + '\n' +
@@ -4347,9 +4853,6 @@ loadUserTransactions();
 }, 2500);
 }
 
-// ============================================================
-// VODAFONE SUBMIT
-// ============================================================
 document.getElementById('vodafoneForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
@@ -4375,9 +4878,6 @@ tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
 });
 });
 
-// ============================================================
-// BINANCE SUBMIT
-// ============================================================
 document.getElementById('binanceForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
@@ -4402,9 +4902,6 @@ tgExtra: '🔢 معرف العملية: ' + tx
 });
 });
 
-// ============================================================
-// USDT SUBMIT
-// ============================================================
 document.getElementById('usdtForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
@@ -4429,9 +4926,6 @@ tgExtra: '🔢 TXID: ' + tx
 });
 });
 
-// ============================================================
-// INSTAPAY SUBMIT
-// ============================================================
 document.getElementById('instapayForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
@@ -4457,9 +4951,6 @@ tgExtra: '📱 رقم المُحوِّل: ' + senderPhone
 });
 });
 
-// ============================================================
-// ريدوت باي SUBMIT
-// ============================================================
 document.getElementById('redotForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 if (!currentProfile) { showAuthModal(); return; }
@@ -4484,9 +4975,6 @@ tgExtra: '🔢 معرف العملية: ' + tx
 });
 });
 
-// ============================================================
-// Transactions Log — بطاقة واحدة بدون "تليجرام"
-// ============================================================
 async function loadUserTransactions() {
 if (!currentProfile) return;
 const container = document.getElementById('txLogContainer');
@@ -4570,9 +5058,6 @@ document.getElementById('insufficientModalBg').classList.remove('show');
 window.__navigateTo('payment', document.getElementById('paymentPage'), true);
 });
 
-// ============================================================
-// BUY BUTTON
-// ============================================================
 document.addEventListener('click', async function(e) {
 const buyBtn = e.target.closest && e.target.closest('.buy-btn');
 if (!buyBtn) return;
